@@ -21,7 +21,7 @@ height:100%;
 object-fit:cover;
 }
 
-/* затемнення як в news */
+/* затемнення */
 .fadeTop{
 position:absolute;
 top:0;
@@ -92,20 +92,20 @@ letter-spacing:1px;
 /* права частина */
 .right{
 width:45%;
+position:relative;
 display:flex;
 align-items:center;
 justify-content:center;
-position:relative;
 }
 
-/* фото */
+/* 🔥 ЧИСТЕ ФОТО БЕЗ РАМКИ */
 .right img{
-width:320px;
-height:500px;
+width:100%;
+height:100%;
 object-fit:cover;
 }
 
-/* 🔥 фіолетовий glow (правий нижній кут) */
+/* 🔥 glow */
 .purpleGlow{
 position:absolute;
 bottom:0;
@@ -151,7 +151,7 @@ filter:brightness(0) invert(1);
 <div class="wrapper">
 
   <div class="left">
-    <div class="quoteMark">“”</div>
+    <div class="quoteMark">“</div>
     <div class="text">{{TEXT}}</div>
     <div class="author">— {{AUTHOR}}</div>
   </div>
