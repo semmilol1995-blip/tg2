@@ -13,6 +13,7 @@ overflow:hidden;
 background:black;
 }
 
+/* фон */
 .bg{
 position:absolute;
 width:100%;
@@ -44,6 +45,7 @@ opacity:0.15;
 background-image:url('https://grainy-gradients.vercel.app/noise.svg');
 }
 
+/* центр */
 .centerWrap{
 position:absolute;
 bottom:80px;
@@ -52,6 +54,25 @@ display:flex;
 justify-content:center;
 }
 
+/* 🔥 новий контейнер */
+.content{
+display:flex;
+flex-direction:column;
+align-items:center;
+}
+
+/* label */
+.label{
+background:#a855f7;
+color:black;
+font-weight:900;
+padding:10px 28px;
+font-size:22px;
+margin-bottom:12px; /* 🔥 відступ до тексту */
+z-index:2;
+}
+
+/* блок тексту */
 .box{
 width:720px;
 padding:45px 35px;
@@ -59,6 +80,7 @@ background:rgba(0,0,0,0.92);
 border:2px solid #a855f7;
 }
 
+/* текст */
 .text{
 font-size:{{FONTSIZE}};
 font-weight:900;
@@ -69,21 +91,7 @@ letter-spacing:1px;
 color:#a855f7;
 }
 
-.labelWrap{
-position:absolute;
-width:100%;
-display:flex;
-justify-content:center;
-}
-
-.label{
-background:#a855f7;
-color:black;
-font-weight:900;
-padding:10px 28px;
-font-size:22px;
-}
-
+/* tg */
 .bottomBar{
 position:absolute;
 bottom:20px;
@@ -111,13 +119,15 @@ filter:brightness(0) invert(1);
 <div class="fadeBottom"></div>
 <div class="grain"></div>
 
-<div class="labelWrap">
-  <div class="label">{{LABEL}}</div>
-</div>
-
 <div class="centerWrap">
-  <div class="box">
-    <div class="text">{{TEXT}}</div>
+  <div class="content">
+
+    <div class="label">{{LABEL}}</div>
+
+    <div class="box">
+      <div class="text">{{TEXT}}</div>
+    </div>
+
   </div>
 </div>
 
@@ -125,17 +135,6 @@ filter:brightness(0) invert(1);
   <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/telegram.svg">
   t.me/zbr4_cast
 </div>
-
-<script>
-window.onload = () => {
-  const textEl = document.querySelector(".text");
-  const label = document.querySelector(".labelWrap");
-
-  const rect = textEl.getBoundingClientRect();
-
-  label.style.top = (rect.top - 15 - 40) + "px";
-};
-</script>
 
 </body>
 </html>
