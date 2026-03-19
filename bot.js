@@ -7,6 +7,9 @@ const axios = require("axios");
 const token = process.env.TOKEN;
 const bot = new TelegramBot(token, { polling: true });
 
+/* ============================= */
+/* 🧠 TEMPLATE MAP               */
+/* ============================= */
 const NEWS_TEMPLATES = {};
 
 NEWS_TEMPLATES["news"] = "news-template.html";
@@ -15,6 +18,9 @@ for (let i = 1; i <= 15; i++) {
   NEWS_TEMPLATES[`news${i}`] = `news${i}-template.html`;
 }
 
+/* ============================= */
+/* 🔤 FONT SIZE                  */
+/* ============================= */
 function getFontSize(text){
   if(text.length > 180) return 28;
   if(text.length > 120) return 34;
@@ -22,6 +28,41 @@ function getFontSize(text){
   return 52;
 }
 
+/* ============================= */
+/* 📘 INFO COMMAND               */
+/* ============================= */
+bot.onText(/\/info/, (msg) => {
+
+const text = `
+📘 ПРИКЛАДИ:
+
+/news
+RESULT
+FURIA WIN 2-0
+
+/news1
+WE ARE READY
+S1MPLE
+
+/news3
+FAZE QUALIFIED
+
+/news4
+XKASPERKY НА ANCIENT
+2.24
++12.24
+2.07
+
+📸 + фото обов’язково
+`;
+
+bot.sendMessage(msg.chat.id, text);
+
+});
+
+/* ============================= */
+/* 🚀 MAIN HANDLER               */
+/* ============================= */
 bot.on("message", async (msg)=>{
   try{
     if(!msg.caption) return;
@@ -43,7 +84,7 @@ bot.on("message", async (msg)=>{
     let stat3 = "";
 
     /* ============================= */
-    /* LOGIC */
+    /* 🧠 LOGIC                     */
     /* ============================= */
 
     if(commandKey === "news1" || commandKey === "news2"){
@@ -69,6 +110,9 @@ bot.on("message", async (msg)=>{
       text = lines.slice(1).join(" ");
     }
 
+    /* ============================= */
+    /* 📸 PHOTO CHECK               */
+    /* ============================= */
     if(!msg.photo){
       return bot.sendMessage(msg.chat.id, "Додай фото 📸");
     }
@@ -80,11 +124,17 @@ bot.on("message", async (msg)=>{
     const imgBuffer = (await axios.get(fileUrl, { responseType: "arraybuffer" })).data;
     const imageBase64 = `data:image/jpeg;base64,${Buffer.from(imgBuffer).toString("base64")}`;
 
+    /* ============================= */
+    /* 📄 LOAD HTML                 */
+    /* ============================= */
     let html = await fs.readFile(
       path.join(__dirname, templateFile),
       "utf8"
     );
 
+    /* ============================= */
+    /* 🔄 REPLACE                   */
+    /* ============================= */
     html = html
       .replace(/{{IMAGE}}/g, imageBase64)
       .replace(/{{PLAYER_IMAGE}}/g, imageBase64)
@@ -96,6 +146,9 @@ bot.on("message", async (msg)=>{
       .replace(/{{STAT2}}/g, stat2)
       .replace(/{{STAT3}}/g, stat3);
 
+    /* ============================= */
+    /* 🖥️ PUPPETEER                */
+    /* ============================= */
     const browser = await puppeteer.launch({
       args: ["--no-sandbox", "--disable-setuid-sandbox"]
     });
@@ -111,6 +164,9 @@ bot.on("message", async (msg)=>{
 
     await browser.close();
 
+    /* ============================= */
+    /* 📤 SEND                     */
+    /* ============================= */
     await bot.sendPhoto(msg.chat.id, filePath);
 
   }catch(e){
