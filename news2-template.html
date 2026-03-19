@@ -13,7 +13,7 @@ overflow:hidden;
 background:black;
 }
 
-/* 🔥 тільки один фон */
+/* фон */
 .bg{
 position:absolute;
 width:100%;
@@ -54,7 +54,7 @@ height:100%;
 display:flex;
 }
 
-/* ліва частина */
+/* ліва */
 .left{
 width:55%;
 display:flex;
@@ -63,11 +63,22 @@ justify-content:center;
 padding:80px 60px;
 }
 
-/* лапки */
+/* 🔥 лапки як label */
 .quoteMark{
-font-size:70px;
-color:#a855f7;
+display:inline-flex;
+align-items:center;
+justify-content:center;
+
+background:#a855f7;
+color:white;
+
+font-size:28px;
+font-weight:900;
+
+padding:6px 16px;
 margin-bottom:20px;
+
+letter-spacing:2px;
 }
 
 /* текст */
@@ -89,13 +100,13 @@ color:#a855f7;
 letter-spacing:1px;
 }
 
-/* 🔥 права частина просто зона */
+/* права зона */
 .right{
 width:45%;
 position:relative;
 }
 
-/* 🔥 glow без рамки */
+/* glow */
 .purpleGlow{
 position:absolute;
 bottom:0;
