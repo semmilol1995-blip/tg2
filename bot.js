@@ -8,6 +8,35 @@ const token = process.env.TOKEN;
 const bot = new TelegramBot(token, { polling: true });
 
 /* ============================= */
+/* 📱 MAIN MENU                  */
+/* ============================= */
+const MAIN_MENU = {
+  reply_markup: {
+    keyboard: [
+      ["🟣 Новина", "💬 Цитата"],
+      ["🎤 Side Quote", "📊 Факт"],
+      ["🔥 MVP (гор)", "📈 MVP (верт)"],
+      ["ℹ️ Інфо"]
+    ],
+    resize_keyboard: true
+  }
+};
+
+/* ============================= */
+/* 🔘 BUTTON → COMMAND           */
+/* ============================= */
+function mapTextToCommand(text){
+  if(text === "🟣 Новина") return "/news";
+  if(text === "💬 Цитата") return "/news1";
+  if(text === "🎤 Side Quote") return "/news2";
+  if(text === "📊 Факт") return "/news3";
+  if(text === "🔥 MVP (гор)") return "/news4";
+  if(text === "📈 MVP (верт)") return "/news5";
+  if(text === "ℹ️ Інфо") return "/info";
+  return text;
+}
+
+/* ============================= */
 /* 🧠 TEMPLATE MAP               */
 /* ============================= */
 const NEWS_TEMPLATES = {};
@@ -64,17 +93,19 @@ XKASPERKY НА ANCIENT
 📸 + фото обов’язково
 `;
 
-bot.sendMessage(msg.chat.id, text);
+bot.sendMessage(msg.chat.id, text, MAIN_MENU);
 
 });
 
 /* ============================= */
-/* 🚀 START + КНОПКИ             */
+/* 🚀 START + INLINE + MENU      */
 /* ============================= */
 bot.onText(/\/start/, (msg) => {
 
 bot.sendMessage(msg.chat.id, "Обери тип поста 👇", {
   reply_markup: {
+    keyboard: MAIN_MENU.reply_markup.keyboard,
+    resize_keyboard: true,
     inline_keyboard: [
       [
         { text: "🟣 Новина", callback_data: "news" },
@@ -92,7 +123,7 @@ bot.sendMessage(msg.chat.id, "Обери тип поста 👇", {
 });
 
 /* ============================= */
-/* 🔘 CALLBACK HANDLER           */
+/* 🔘 INLINE CALLBACK            */
 /* ============================= */
 bot.on("callback_query", (query) => {
 
@@ -141,13 +172,23 @@ bot.on("message", async (msg)=>{
   try{
     if(!msg.caption) return;
 
-    const command = msg.caption.split("\n")[0].trim().toLowerCase();
+    let caption = msg.caption;
+
+    /* 🔥 BUTTON SUPPORT */
+    const firstLine = caption.split("\n")[0];
+    const mapped = mapTextToCommand(firstLine);
+
+    if(mapped !== firstLine){
+      caption = caption.replace(firstLine, mapped);
+    }
+
+    const command = caption.split("\n")[0].trim().toLowerCase();
     if(!command.startsWith("/news")) return;
 
     const commandKey = command.replace("/", "");
     const templateFile = NEWS_TEMPLATES[commandKey] || "news-template.html";
 
-    const lines = msg.caption.split("\n").slice(1);
+    const lines = caption.split("\n").slice(1);
 
     let label = "NEWS";
     let text = "";
