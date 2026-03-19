@@ -29,7 +29,7 @@ background:linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.85));
 z-index:1;
 }
 
-/* 🔥 GRAIN (шум) */
+/* grain */
 .grain{
 position:absolute;
 inset:0;
@@ -39,14 +39,14 @@ z-index:2;
 pointer-events:none;
 }
 
-/* 🔥 STAT */
+/* stats */
 .stats{
 position:absolute;
-bottom:300px; /* ⬇️ трохи нижче */
+bottom:300px;
 width:100%;
 display:flex;
 justify-content:center;
-gap:50px; /* трохи менше */
+gap:50px;
 z-index:3;
 }
 
@@ -56,11 +56,11 @@ flex-direction:column;
 align-items:center;
 }
 
-/* блок числа */
+/* значення */
 .box{
 background:linear-gradient(90deg, rgba(168,85,247,0.7), rgba(168,85,247,0.2));
 padding:16px 26px;
-font-size:60px; /* трохи компактніше */
+font-size:60px;
 font-weight:900;
 color:white;
 min-width:170px;
@@ -79,7 +79,7 @@ letter-spacing:1px;
 /* TEXT */
 .subtitle{
 position:absolute;
-bottom:230px; /* ⬇️ ближче до stats */
+bottom:230px;
 width:100%;
 text-align:center;
 font-size:32px;
@@ -92,30 +92,36 @@ z-index:4;
 /* TITLE */
 .title{
 position:absolute;
-bottom:90px; /* ⬆️ ближче до TEXT */
+bottom:90px;
 width:100%;
 text-align:center;
-font-size:110px; /* трохи менше */
+font-size:110px;
 font-weight:900;
 color:#A855F7;
 z-index:4;
 }
 
-/* footer */
+/* footer (🔥 виправлений) */
 .footer{
 position:absolute;
 bottom:20px;
-width:100%;
-text-align:center;
+left:50%;
+transform:translateX(-50%);
+
+display:flex;
+align-items:center;
+justify-content:center;
+gap:8px;
+
 color:white;
 font-weight:800;
 font-size:18px;
-z-index:5;
+
+z-index:10;
 }
 
 .footer img{
 width:20px;
-margin-right:8px;
 filter:brightness(0) invert(1);
 }
 </style>
@@ -152,7 +158,7 @@ filter:brightness(0) invert(1);
 
 <div class="footer">
   <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/telegram.svg">
-  t.me/zbr4_cast
+  <span>t.me/zbr4_cast</span>
 </div>
 
 </body>
