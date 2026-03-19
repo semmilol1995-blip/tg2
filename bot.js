@@ -86,14 +86,15 @@ bot.on("message", async (msg)=>{
     );
 
     html = html
-      .replace("{{IMAGE}}", imageBase64)
-      .replace("{{TEXT}}", text.toUpperCase())
-      .replace("{{AUTHOR}}", author.toUpperCase())
-      .replace("{{FONTSIZE}}", getFontSize(text) + "px")
-      .replace("{{STAT1}}", stat1)
-      .replace("{{STAT2}}", stat2)
-      .replace("{{STAT3}}", stat3)
-      .replace("{{PLAYER_IMAGE}}", imageBase64);
+      .replace(/{{IMAGE}}/g, imageBase64)
+      .replace(/{{PLAYER_IMAGE}}/g, imageBase64)
+      .replace(/{{LABEL}}/g, label.toUpperCase())
+      .replace(/{{TEXT}}/g, text.toUpperCase())
+      .replace(/{{AUTHOR}}/g, author.toUpperCase())
+      .replace(/{{FONTSIZE}}/g, getFontSize(text) + "px")
+      .replace(/{{STAT1}}/g, stat1)
+      .replace(/{{STAT2}}/g, stat2)
+      .replace(/{{STAT3}}/g, stat3);
 
     const browser = await puppeteer.launch({
       args: ["--no-sandbox", "--disable-setuid-sandbox"]
