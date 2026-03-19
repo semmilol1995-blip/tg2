@@ -8,9 +8,9 @@ body{
 margin:0;
 width:900px;
 height:900px;
-background:#0a0a0a;
 font-family:'Inter', sans-serif;
 overflow:hidden;
+background:black;
 }
 
 /* фон */
@@ -19,29 +19,24 @@ position:absolute;
 width:100%;
 height:100%;
 object-fit:cover;
-filter:blur(20px) brightness(0.4);
 }
 
-/* player */
-.player{
+/* затемнення як у рефі */
+.overlay{
 position:absolute;
-bottom:0;
-left:50%;
-transform:translateX(-50%);
-height:90%;
-z-index:1;
-opacity:0.9;
+inset:0;
+background:linear-gradient(180deg, rgba(0,0,0,0.3), rgba(0,0,0,0.85));
 }
 
 /* stats */
 .stats{
 position:absolute;
-top:100px;
+top:120px;
 left:60px;
 width:70%;
 display:flex;
 flex-direction:column;
-gap:25px;
+gap:20px;
 z-index:2;
 }
 
@@ -50,15 +45,17 @@ display:flex;
 align-items:center;
 }
 
+/* фіолет блок */
 .box{
-background:linear-gradient(90deg, rgba(168,85,247,0.6), rgba(168,85,247,0.2));
-padding:18px 24px;
-font-size:54px;
+background:linear-gradient(90deg, rgba(168,85,247,0.7), rgba(168,85,247,0.2));
+padding:20px 28px;
+font-size:64px;
 font-weight:900;
 color:white;
-min-width:260px;
+min-width:240px;
 }
 
+/* текст справа */
 .statLabel{
 margin-left:20px;
 font-size:28px;
@@ -66,50 +63,41 @@ font-weight:800;
 color:#A855F7;
 }
 
-/* label */
-.label{
-position:absolute;
-bottom:340px;
-left:60px;
-font-size:28px;
-font-weight:900;
-letter-spacing:2px;
-color:#A855F7;
-z-index:4;
-}
-
-/* subtitle */
+/* центр текст */
 .subtitle{
 position:absolute;
-bottom:260px;
-left:60px;
-font-size:32px;
+top:470px;
+width:100%;
+text-align:center;
+font-size:36px;
 font-weight:800;
 color:white;
-z-index:4;
+letter-spacing:2px;
+z-index:3;
 }
 
-/* title */
+/* великий заголовок */
 .title{
 position:absolute;
-bottom:80px;
-left:60px;
-font-size:110px;
+bottom:100px;
+width:100%;
+text-align:center;
+font-size:120px;
 font-weight:900;
 color:#A855F7;
-z-index:4;
+z-index:3;
 }
 
 /* footer */
 .footer{
 position:absolute;
-bottom:20px;
+bottom:25px;
 width:100%;
 text-align:center;
 color:white;
 font-weight:800;
 font-size:18px;
-z-index:5;
+z-index:4;
 }
 
 .footer img{
@@ -123,7 +111,7 @@ filter:brightness(0) invert(1);
 <body>
 
 <img src="{{IMAGE}}" class="bg">
-<img src="{{PLAYER_IMAGE}}" class="player">
+<div class="overlay"></div>
 
 <div class="stats">
 
@@ -144,7 +132,6 @@ filter:brightness(0) invert(1);
 
 </div>
 
-<div class="label">{{LABEL}}</div>
 <div class="subtitle">{{TEXT}}</div>
 <div class="title">СТАТИСТИКА</div>
 
