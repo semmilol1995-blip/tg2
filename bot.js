@@ -12,10 +12,8 @@ const bot = new TelegramBot(token, { polling: true });
 /* ============================= */
 const NEWS_TEMPLATES = {};
 
-// базовий
 NEWS_TEMPLATES["news"] = "news-template.html";
 
-// /news1 → /news15
 for (let i = 1; i <= 15; i++) {
   NEWS_TEMPLATES[`news${i}`] = `news${i}-template.html`;
 }
@@ -37,29 +35,35 @@ bot.on("message", async (msg)=>{
   try{
     if(!msg.caption) return;
 
-    /* ============================= */
-    /* 🎯 DETECT COMMAND             */
-    /* ============================= */
     const command = msg.caption.split("\n")[0].trim().toLowerCase();
-
     if(!command.startsWith("/news")) return;
 
     const commandKey = command.replace("/", "");
 
     console.log("NEWS TRIGGER:", commandKey);
 
-    /* ============================= */
-    /* 📄 TEMPLATE SELECT (SAFE)     */
-    /* ============================= */
     const templateFile = NEWS_TEMPLATES[commandKey] || "news-template.html";
 
-    /* ============================= */
-    /* 🧾 PARSE TEXT                 */
-    /* ============================= */
     const lines = msg.caption.split("\n").slice(1);
 
-    const label = lines[0] || "NEWS";
-    const text = lines.slice(1).join(" ");
+    let label = "NEWS";
+    let text = "";
+    let author = "";
+
+    /* ============================= */
+    /* 🧠 РІЗНІ ФОРМАТИ              */
+    /* ============================= */
+
+    if(commandKey === "news1"){
+      // формат цитати
+      label = lines[0] || "QUOTE";
+      text = lines[1] || "";
+      author = lines[2] || "";
+    } else {
+      // стандартний формат (старий)
+      label = lines[0] || "NEWS";
+      text = lines.slice(1).join(" ");
+    }
 
     /* ============================= */
     /* 📸 CHECK PHOTO                */
@@ -77,7 +81,7 @@ bot.on("message", async (msg)=>{
     const imageBase64 = `data:image/jpeg;base64,${Buffer.from(imgBuffer).toString("base64")}`;
 
     /* ============================= */
-    /* 🧱 LOAD HTML TEMPLATE         */
+    /* 📄 LOAD TEMPLATE              */
     /* ============================= */
     let html = await fs.readFile(
       path.join(__dirname, templateFile),
@@ -85,16 +89,17 @@ bot.on("message", async (msg)=>{
     );
 
     /* ============================= */
-    /* 🔄 REPLACE DATA               */
+    /* 🔄 REPLACE                    */
     /* ============================= */
     html = html
       .replace("{{IMAGE}}", imageBase64)
       .replace("{{LABEL}}", label.toUpperCase())
       .replace("{{TEXT}}", text.toUpperCase())
-      .replace("{{FONTSIZE}}", getFontSize(text) + "px");
+      .replace("{{FONTSIZE}}", getFontSize(text) + "px")
+      .replace("{{AUTHOR}}", author.toUpperCase());
 
     /* ============================= */
-    /* 🖥️ PUPPETEER RENDER           */
+    /* 🖥️ PUPPETEER                 */
     /* ============================= */
     const browser = await puppeteer.launch({
       args: ["--no-sandbox", "--disable-setuid-sandbox"]
@@ -112,7 +117,7 @@ bot.on("message", async (msg)=>{
     await browser.close();
 
     /* ============================= */
-    /* 📤 SEND RESULT                */
+    /* 📤 SEND                       */
     /* ============================= */
     await bot.sendPhoto(msg.chat.id, filePath);
 
