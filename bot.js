@@ -37,21 +37,21 @@ const text = `
 📘 ПРИКЛАДИ:
 
 /news
-RESULT
+НОВИНА, ФАКТ, АПДЕЙТ, ЗАГОЛОВОК
 FURIA WIN 2-0
 
 /news1
-WE ARE READY
+ЦИТАТА WE ARE READY
 S1MPLE
 
 /news3
-FAZE QUALIFIED
+ФАКТ FAZE QUALIFIED
 
 /news4
 XKASPERKY НА ANCIENT
-2.24
-+12.24
-2.07
+2.24 rating 3.0
++12.24 round swing
+2.07 k/d
 
 📸 + фото обов’язково
 `;
