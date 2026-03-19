@@ -19,7 +19,15 @@ position:absolute;
 width:100%;
 height:100%;
 object-fit:cover;
-filter:brightness(0.7);
+}
+
+/* стандартні затемнення як news */
+.fadeTop{
+position:absolute;
+top:0;
+width:100%;
+height:30%;
+background:linear-gradient(to bottom, rgba(0,0,0,0.7), transparent);
 }
 
 .fadeBottom{
@@ -34,64 +42,86 @@ background:linear-gradient(to top, rgba(0,0,0,0.98), transparent);
 position:absolute;
 width:100%;
 height:100%;
-opacity:0.12;
+opacity:0.15;
 background-image:url('https://grainy-gradients.vercel.app/noise.svg');
 }
 
-/* центр */
-.centerWrap{
+/* layout */
+.wrapper{
 position:absolute;
-bottom:100px;
 width:100%;
+height:100%;
 display:flex;
-justify-content:center;
 }
 
-/* контейнер */
-.content{
-width:760px;
+/* ліва */
+.left{
+width:55%;
 display:flex;
 flex-direction:column;
-align-items:center;
-text-align:center;
-}
-
-/* label */
-.label{
-background:#a855f7;
-color:black;
-font-weight:900;
-padding:10px 28px;
-font-size:20px;
-margin-bottom:25px;
+justify-content:center;
+padding:80px 60px;
 }
 
 /* лапки */
 .quoteMark{
-font-size:60px;
+font-size:70px;
 color:#a855f7;
-margin-bottom:10px;
-line-height:1;
+margin-bottom:20px;
 }
 
 /* текст */
 .text{
 font-size:{{FONTSIZE}};
 font-weight:900;
-line-height:1.2;
+line-height:1.25;
 text-transform:uppercase;
-letter-spacing:1px;
 color:white;
 font-style:italic;
 }
 
 /* автор */
 .author{
-margin-top:25px;
+margin-top:30px;
 font-size:22px;
 font-weight:800;
 color:#a855f7;
 letter-spacing:1px;
+}
+
+/* права */
+.right{
+width:45%;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+/* 🔥 рамка */
+.imageFrame{
+width:320px;
+height:500px;
+border:2px solid rgba(255,255,255,0.6);
+position:relative;
+overflow:hidden;
+}
+
+/* фото */
+.imageFrame img{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+/* 🔥 фіолетовий градієнт */
+.purpleGlow{
+position:absolute;
+bottom:-60px;
+right:-60px;
+width:200px;
+height:200px;
+background:radial-gradient(circle, rgba(168,85,247,0.8) 0%, transparent 70%);
+filter:blur(40px);
 }
 
 /* tg */
@@ -118,21 +148,25 @@ filter:brightness(0) invert(1);
 
 <img src="{{IMAGE}}" class="bg">
 
+<div class="fadeTop"></div>
 <div class="fadeBottom"></div>
 <div class="grain"></div>
 
-<div class="centerWrap">
-  <div class="content">
+<div class="wrapper">
 
-    <div class="label">{{LABEL}}</div>
-
+  <div class="left">
     <div class="quoteMark">“</div>
-
     <div class="text">{{TEXT}}</div>
-
-    <div class="author">{{AUTHOR}}</div>
-
+    <div class="author">— {{AUTHOR}}</div>
   </div>
+
+  <div class="right">
+    <div class="imageFrame">
+      <img src="{{IMAGE}}">
+      <div class="purpleGlow"></div>
+    </div>
+  </div>
+
 </div>
 
 <div class="bottomBar">
