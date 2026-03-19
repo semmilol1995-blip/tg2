@@ -1,7 +1,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@700;800;900&display=swap" rel="stylesheet">
 
 <style>
 body{
@@ -19,96 +19,103 @@ position:absolute;
 width:100%;
 height:100%;
 object-fit:cover;
-filter:brightness(0.7);
 }
 
-.fadeBottom{
+/* затемнення */
+.overlay{
 position:absolute;
-bottom:0;
-width:100%;
-height:75%;
-background:linear-gradient(to top, rgba(0,0,0,0.98), transparent);
+inset:0;
+background:linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.85));
+z-index:1;
 }
 
+/* grain */
 .grain{
 position:absolute;
-width:100%;
-height:100%;
+inset:0;
+background-image:url("https://grainy-gradients.vercel.app/noise.svg");
 opacity:0.12;
-background-image:url('https://grainy-gradients.vercel.app/noise.svg');
+z-index:2;
+pointer-events:none;
 }
 
-/* центр */
-.centerWrap{
+/* 🔥 STAT В СТОВПЧИК ЗЛІВА */
+.stats{
 position:absolute;
-bottom:100px;
-width:100%;
-display:flex;
-justify-content:center;
-}
-
-/* контейнер */
-.content{
-width:760px;
+left:60px;
+bottom:260px;
 display:flex;
 flex-direction:column;
-align-items:center;
-text-align:center;
+gap:20px;
+z-index:3;
 }
 
-/* label */
-.label{
-background:#a855f7;
-color:black;
-font-weight:900;
-padding:10px 28px;
-font-size:20px;
-margin-bottom:25px;
+.stat{
+display:flex;
+flex-direction:column;
 }
 
-/* лапки */
-.quoteMark{
+/* блок числа */
+.box{
+background:linear-gradient(90deg, rgba(168,85,247,0.7), rgba(168,85,247,0.2));
+padding:16px 26px;
 font-size:60px;
-color:#a855f7;
-margin-bottom:10px;
-line-height:1;
-}
-
-/* текст */
-.text{
-font-size:{{FONTSIZE}};
 font-weight:900;
-line-height:1.2;
-text-transform:uppercase;
-letter-spacing:1px;
 color:white;
-font-style:italic;
+min-width:180px;
 }
 
-/* автор */
-.author{
-margin-top:25px;
-font-size:22px;
+/* підпис */
+.statLabel{
+margin-top:6px;
+font-size:20px;
 font-weight:800;
-color:#a855f7;
+color:white;
 letter-spacing:1px;
 }
 
-/* tg */
-.bottomBar{
+/* TEXT (центр) */
+.subtitle{
+position:absolute;
+bottom:230px;
+width:100%;
+text-align:center;
+font-size:32px;
+font-weight:800;
+color:white;
+letter-spacing:2px;
+z-index:4;
+}
+
+/* TITLE */
+.title{
+position:absolute;
+bottom:90px;
+width:100%;
+text-align:center;
+font-size:110px;
+font-weight:900;
+color:#A855F7;
+z-index:4;
+}
+
+/* footer */
+.footer{
 position:absolute;
 bottom:20px;
-width:100%;
+left:50%;
+transform:translateX(-50%);
 display:flex;
-justify-content:center;
-font-size:18px;
-font-weight:800;
+align-items:center;
+gap:8px;
 color:white;
+font-weight:800;
+font-size:18px;
+z-index:10;
 }
 
-.bottomBar img{
+.footer img{
 width:20px;
-margin-right:8px;
 filter:brightness(0) invert(1);
 }
 </style>
@@ -117,27 +124,39 @@ filter:brightness(0) invert(1);
 <body>
 
 <img src="{{IMAGE}}" class="bg">
-
-<div class="fadeBottom"></div>
+<div class="overlay"></div>
 <div class="grain"></div>
 
-<div class="centerWrap">
-  <div class="content">
+<!-- 🔥 STAT -->
+<div class="stats">
 
-    <div class="label">{{LABEL}}</div>
-
-    <div class="quoteMark">“</div>
-
-    <div class="text">{{TEXT}}</div>
-
-    <div class="author">{{AUTHOR}}</div>
-
+  <div class="stat">
+    <div class="box">{{STAT1}}</div>
+    <div class="statLabel">RATING 3.0</div>
   </div>
+
+  <div class="stat">
+    <div class="box">{{STAT2}}</div>
+    <div class="statLabel">ROUND SWING</div>
+  </div>
+
+  <div class="stat">
+    <div class="box">{{STAT3}}</div>
+    <div class="statLabel">K/D</div>
+  </div>
+
 </div>
 
-<div class="bottomBar">
+<!-- TEXT -->
+<div class="subtitle">{{TEXT}}</div>
+
+<!-- TITLE -->
+<div class="title">СТАТИСТИКА</div>
+
+<!-- footer -->
+<div class="footer">
   <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/telegram.svg">
-  t.me/zbr4_cast
+  <span>t.me/zbr4_cast</span>
 </div>
 
 </body>
