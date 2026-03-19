@@ -69,6 +69,72 @@ bot.sendMessage(msg.chat.id, text);
 });
 
 /* ============================= */
+/* 🚀 START + КНОПКИ             */
+/* ============================= */
+bot.onText(/\/start/, (msg) => {
+
+bot.sendMessage(msg.chat.id, "Обери тип поста 👇", {
+  reply_markup: {
+    inline_keyboard: [
+      [
+        { text: "🟣 Новина", callback_data: "news" },
+        { text: "💬 Цитата", callback_data: "news1" },
+        { text: "📊 Факт", callback_data: "news3" }
+      ],
+      [
+        { text: "🔥 MVP (гор)", callback_data: "news4" },
+        { text: "📈 MVP (верт)", callback_data: "news5" }
+      ]
+    ]
+  }
+});
+
+});
+
+/* ============================= */
+/* 🔘 CALLBACK HANDLER           */
+/* ============================= */
+bot.on("callback_query", (query) => {
+
+const cmd = query.data;
+
+let example = "";
+
+if(cmd === "news"){
+example = `/news
+RESULT
+FURIA WIN 2-0`;
+}
+else if(cmd === "news1"){
+example = `/news1
+WE ARE READY
+S1MPLE`;
+}
+else if(cmd === "news3"){
+example = `/news3
+FAZE QUALIFIED`;
+}
+else if(cmd === "news4"){
+example = `/news4
+XKASPERKY НА ANCIENT
+2.24
++12.24
+2.07`;
+}
+else if(cmd === "news5"){
+example = `/news5
+XKASPERKY НА ANCIENT
+2.24
++12.24
+2.07`;
+}
+
+bot.sendMessage(query.message.chat.id, example);
+bot.answerCallbackQuery(query.id);
+
+});
+
+/* ============================= */
 /* 🚀 MAIN HANDLER               */
 /* ============================= */
 bot.on("message", async (msg)=>{
