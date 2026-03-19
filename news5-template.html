@@ -39,11 +39,11 @@ z-index:2;
 pointer-events:none;
 }
 
-/* 🔥 STAT В СТОВПЧИК ЗЛІВА */
+/* 🔥 STAT В СТОВПЧИК */
 .stats{
 position:absolute;
 left:60px;
-bottom:260px;
+bottom:320px; /* ⬆️ підняли */
 display:flex;
 flex-direction:column;
 gap:20px;
@@ -74,10 +74,10 @@ color:white;
 letter-spacing:1px;
 }
 
-/* TEXT (центр) */
+/* TEXT */
 .subtitle{
 position:absolute;
-bottom:230px;
+bottom:200px; /* ⬇️ опустили */
 width:100%;
 text-align:center;
 font-size:32px;
@@ -127,7 +127,6 @@ filter:brightness(0) invert(1);
 <div class="overlay"></div>
 <div class="grain"></div>
 
-<!-- 🔥 STAT -->
 <div class="stats">
 
   <div class="stat">
@@ -147,13 +146,10 @@ filter:brightness(0) invert(1);
 
 </div>
 
-<!-- TEXT -->
 <div class="subtitle">{{TEXT}}</div>
 
-<!-- TITLE -->
 <div class="title">СТАТИСТИКА</div>
 
-<!-- footer -->
 <div class="footer">
   <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/telegram.svg">
   <span>t.me/zbr4_cast</span>
