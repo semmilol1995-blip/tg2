@@ -21,52 +21,54 @@ height:100%;
 object-fit:cover;
 }
 
-/* затемнення як у рефі */
+/* затемнення */
 .overlay{
 position:absolute;
 inset:0;
 background:linear-gradient(180deg, rgba(0,0,0,0.3), rgba(0,0,0,0.85));
 }
 
-/* stats */
+/* 🔥 STAT В РЯД І ПРИВ’ЯЗКА ДО НИЗУ */
 .stats{
 position:absolute;
-top:120px;
-left:60px;
-width:70%;
+bottom:340px; /* 🔥 ключ — над TEXT */
+width:100%;
 display:flex;
-flex-direction:column;
-gap:20px;
+justify-content:center;
+gap:60px;
 z-index:2;
 }
 
 .stat{
 display:flex;
+flex-direction:column;
 align-items:center;
 }
 
-/* фіолет блок */
+/* блок числа */
 .box{
 background:linear-gradient(90deg, rgba(168,85,247,0.7), rgba(168,85,247,0.2));
-padding:20px 28px;
+padding:18px 28px;
 font-size:64px;
 font-weight:900;
 color:white;
-min-width:240px;
+min-width:180px;
+text-align:center;
 }
 
-/* текст справа */
+/* підпис під stat */
 .statLabel{
-margin-left:20px;
-font-size:28px;
+margin-top:10px;
+font-size:22px;
 font-weight:800;
-color:#A855F7;
+color:white;
+letter-spacing:1px;
 }
 
-/* центр текст */
+/* TEXT */
 .subtitle{
 position:absolute;
-top:470px;
+bottom:260px;
 width:100%;
 text-align:center;
 font-size:36px;
@@ -76,7 +78,7 @@ letter-spacing:2px;
 z-index:3;
 }
 
-/* великий заголовок */
+/* TITLE */
 .title{
 position:absolute;
 bottom:100px;
@@ -113,31 +115,36 @@ filter:brightness(0) invert(1);
 <img src="{{IMAGE}}" class="bg">
 <div class="overlay"></div>
 
+<!-- 🔥 STAT -->
 <div class="stats">
 
-<div class="stat">
-<div class="box">{{STAT1}}</div>
-<div class="statLabel">RATING 3.0</div>
+  <div class="stat">
+    <div class="box">{{STAT1}}</div>
+    <div class="statLabel">RATING 3.0</div>
+  </div>
+
+  <div class="stat">
+    <div class="box">{{STAT2}}</div>
+    <div class="statLabel">ROUND SWING</div>
+  </div>
+
+  <div class="stat">
+    <div class="box">{{STAT3}}</div>
+    <div class="statLabel">K/D</div>
+  </div>
+
 </div>
 
-<div class="stat">
-<div class="box">{{STAT2}}</div>
-<div class="statLabel">ROUND SWING</div>
-</div>
-
-<div class="stat">
-<div class="box">{{STAT3}}</div>
-<div class="statLabel">K/D</div>
-</div>
-
-</div>
-
+<!-- 🔥 TEXT -->
 <div class="subtitle">{{TEXT}}</div>
+
+<!-- 🔥 TITLE -->
 <div class="title">СТАТИСТИКА</div>
 
+<!-- footer -->
 <div class="footer">
-<img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/telegram.svg">
-t.me/zbr4_cast
+  <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/telegram.svg">
+  t.me/zbr4_cast
 </div>
 
 </body>
