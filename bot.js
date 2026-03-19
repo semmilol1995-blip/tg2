@@ -7,9 +7,6 @@ const axios = require("axios");
 const token = process.env.TOKEN;
 const bot = new TelegramBot(token, { polling: true });
 
-/* ============================= */
-/* 🧠 TEMPLATE MAP               */
-/* ============================= */
 const NEWS_TEMPLATES = {};
 
 NEWS_TEMPLATES["news"] = "news-template.html";
@@ -18,9 +15,6 @@ for (let i = 1; i <= 15; i++) {
   NEWS_TEMPLATES[`news${i}`] = `news${i}-template.html`;
 }
 
-/* ============================= */
-/* 🔤 FONT SIZE                  */
-/* ============================= */
 function getFontSize(text){
   if(text.length > 180) return 28;
   if(text.length > 120) return 34;
@@ -28,9 +22,6 @@ function getFontSize(text){
   return 52;
 }
 
-/* ============================= */
-/* 🚀 MAIN HANDLER               */
-/* ============================= */
 bot.on("message", async (msg)=>{
   try{
     if(!msg.caption) return;
@@ -39,8 +30,6 @@ bot.on("message", async (msg)=>{
     if(!command.startsWith("/news")) return;
 
     const commandKey = command.replace("/", "");
-    console.log("NEWS TRIGGER:", commandKey);
-
     const templateFile = NEWS_TEMPLATES[commandKey] || "news-template.html";
 
     const lines = msg.caption.split("\n").slice(1);
@@ -49,63 +38,63 @@ bot.on("message", async (msg)=>{
     let text = "";
     let author = "";
 
+    let stat1 = "";
+    let stat2 = "";
+    let stat3 = "";
+
     /* ============================= */
-    /* 🧠 COMMAND LOGIC              */
+    /* LOGIC */
     /* ============================= */
 
     if(commandKey === "news1" || commandKey === "news2"){
-      // 💬 цитати
       text = lines[0] || "";
       author = lines[1] || "";
       label = "";
     } 
     else if(commandKey === "news3"){
-      // 📊 факт
       text = lines.join(" ");
       label = "";
     } 
+    else if(commandKey === "news4"){
+      text = lines[0] || "";
+
+      stat1 = lines[1] || "";
+      stat2 = lines[2] || "";
+      stat3 = lines[3] || "";
+
+      label = "СТАТИСТИКА";
+    }
     else {
-      // 🟣 стандарт
       label = lines[0] || "NEWS";
       text = lines.slice(1).join(" ");
     }
 
-    /* ============================= */
-    /* 📸 PHOTO CHECK               */
-    /* ============================= */
     if(!msg.photo){
       return bot.sendMessage(msg.chat.id, "Додай фото 📸");
     }
 
     const fileId = msg.photo[msg.photo.length - 1].file_id;
-
     const file = await bot.getFile(fileId);
     const fileUrl = `https://api.telegram.org/file/bot${token}/${file.file_path}`;
 
     const imgBuffer = (await axios.get(fileUrl, { responseType: "arraybuffer" })).data;
     const imageBase64 = `data:image/jpeg;base64,${Buffer.from(imgBuffer).toString("base64")}`;
 
-    /* ============================= */
-    /* 📄 LOAD HTML                 */
-    /* ============================= */
     let html = await fs.readFile(
       path.join(__dirname, templateFile),
       "utf8"
     );
 
-    /* ============================= */
-    /* 🔄 REPLACE                   */
-    /* ============================= */
     html = html
       .replace("{{IMAGE}}", imageBase64)
-      .replace("{{LABEL}}", label.toUpperCase())
       .replace("{{TEXT}}", text.toUpperCase())
+      .replace("{{AUTHOR}}", author.toUpperCase())
       .replace("{{FONTSIZE}}", getFontSize(text) + "px")
-      .replace("{{AUTHOR}}", author.toUpperCase());
+      .replace("{{STAT1}}", stat1)
+      .replace("{{STAT2}}", stat2)
+      .replace("{{STAT3}}", stat3)
+      .replace("{{PLAYER_IMAGE}}", imageBase64);
 
-    /* ============================= */
-    /* 🖥️ PUPPETEER                */
-    /* ============================= */
     const browser = await puppeteer.launch({
       args: ["--no-sandbox", "--disable-setuid-sandbox"]
     });
@@ -121,9 +110,6 @@ bot.on("message", async (msg)=>{
 
     await browser.close();
 
-    /* ============================= */
-    /* 📤 SEND                     */
-    /* ============================= */
     await bot.sendPhoto(msg.chat.id, filePath);
 
   }catch(e){
