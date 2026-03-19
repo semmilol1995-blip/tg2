@@ -65,20 +65,26 @@ padding:80px 60px;
 
 /* 🔥 лапки як label */
 .quoteMark{
-display:inline-flex;
+display:inline-flex; /* ключ */
 align-items:center;
 justify-content:center;
 
-background:#a855f7;
+background:linear-gradient(90deg,#A855F7,#9333EA);
 color:white;
 
-font-size:28px;
+font-size:22px; /* трохи менше = акуратніше */
 font-weight:900;
 
-padding:6px 16px;
-margin-bottom:20px;
+padding:4px 12px; /* компактніше */
+border-radius:6px;
 
 letter-spacing:2px;
+
+width:auto;
+max-width:max-content; /* 🔥 щоб не тягнувся */
+margin-bottom:16px;
+
+align-self:flex-start; /* щоб не центрився у flex */
 }
 
 /* текст */
