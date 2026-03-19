@@ -7,13 +7,13 @@ const token = process.env.TOKEN;
 const bot = new TelegramBot(token, { polling: true });
 
 /* =========================
-   FIX CONFLICT
+   ANTI WEBHOOK
 ========================= */
 (async () => {
   try {
     await bot.deleteWebHook({ drop_pending_updates: true });
     console.log("Webhook removed");
-  } catch {}
+  } catch (e) {}
 })();
 
 /* =========================
@@ -33,52 +33,64 @@ async function launchBrowser(){
 /* =========================
    /news
 ========================= */
-bot.on("message", async (msg)=>{
-  if(!msg.text) return;
-  if(!msg.text.startsWith("/news")) return;
+bot.on("message", async (msg) => {
+  if (!msg.text) return;
+  if (!msg.text.startsWith("/news")) return;
 
-  try{
+  try {
     console.log("NEWS TRIGGER");
 
-    const rawText = msg.text.replace("/news","").trim();
+    /* 🔥 ПРАВИЛЬНИЙ ПАРСИНГ */
+    const rawText = msg.text
+      .replace(/^\/news(@\w+)?\s*/, "")
+      .trim();
 
-    if(!rawText){
-      return bot.sendMessage(msg.chat.id,"Напиши текст новини");
+    console.log("TEXT:", rawText);
+
+    if (!rawText) {
+      return bot.sendMessage(msg.chat.id, "Нема тексту 💀");
     }
 
+    /* 🔥 ПІДСВІТКА ЧЕРЕЗ _text_ */
     const formattedText = rawText
       .split("_")
-      .map((part,i)=> i%2 ? `<span class="purple">${part}</span>` : part)
+      .map((part, i) =>
+        i % 2 ? `<span class="purple">${part}</span>` : part
+      )
       .join("");
 
     let html = await fs.readFile(
-      path.join(__dirname,"news-template.html"),
+      path.join(__dirname, "news-template.html"),
       "utf8"
     );
 
-    html = html.replace("{{TEXT}}", formattedText);
+    /* 🔥 ВАЖЛИВО: replace ALL */
+    html = html.replace(/{{TEXT}}/g, formattedText);
 
     const browser = await launchBrowser();
     const page = await browser.newPage();
 
-    await page.setViewport({ width:900, height:900 });
+    await page.setViewport({ width: 900, height: 900 });
 
+    /* 🔥 ФІКС ШРИФТІВ */
     await page.setContent(html, {
       waitUntil: "networkidle0"
     });
 
     await page.evaluateHandle("document.fonts.ready");
+    await new Promise(r => setTimeout(r, 200));
 
-    const filePath = path.join(__dirname,"news.png");
+    const filePath = path.join(__dirname, "news.png");
 
-    await page.screenshot({ path:filePath });
+    await page.screenshot({ path: filePath });
+
     await browser.close();
 
-    await bot.sendPhoto(msg.chat.id,filePath);
+    await bot.sendPhoto(msg.chat.id, filePath);
 
-  }catch(e){
+  } catch (e) {
     console.log("NEWS ERROR:", e);
-    bot.sendMessage(msg.chat.id,"Помилка news 💀");
+    bot.sendMessage(msg.chat.id, "Помилка news 💀");
   }
 });
 
