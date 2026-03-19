@@ -1,3 +1,4 @@
+```html
 <html>
 <head>
 <meta charset="UTF-8">
@@ -21,23 +22,28 @@ height:100%;
 object-fit:cover;
 }
 
-/* затемнення */
+/* верхній fade (трохи легший) */
 .fadeTop{
 position:absolute;
 top:0;
 width:100%;
-height:30%;
-background:linear-gradient(to bottom, rgba(0,0,0,0.7), transparent);
+height:20%;
+background:linear-gradient(to bottom, rgba(0,0,0,0.6), transparent);
 }
 
+/* 🔥 ГРАДІЄНТ ЗЛІВА → НАПРАВО */
 .fadeBottom{
 position:absolute;
-bottom:0;
-width:100%;
-height:75%;
-background:linear-gradient(to top, rgba(0,0,0,0.98), transparent);
+left:0;
+top:0;
+
+width:75%;
+height:100%;
+
+background:linear-gradient(to right, rgba(0,0,0,0.98), transparent);
 }
 
+/* grain */
 .grain{
 position:absolute;
 width:100%;
@@ -63,28 +69,28 @@ justify-content:center;
 padding:80px 60px;
 }
 
-/* 🔥 лапки як label */
+/* 🔥 ЛАПКИ (як news1) */
 .quoteMark{
-display:inline-flex; /* ключ */
+display:inline-flex;
 align-items:center;
 justify-content:center;
 
-background:linear-gradient(90deg,#A855F7,#9333EA);
+background:#a855f7;
 color:white;
 
-font-size:22px; /* трохи менше = акуратніше */
+font-size:28px;
 font-weight:900;
 
-padding:4px 12px; /* компактніше */
-border-radius:6px;
+padding:6px 16px;
+border-radius:8px;
 
 letter-spacing:2px;
 
 width:auto;
-max-width:max-content; /* 🔥 щоб не тягнувся */
-margin-bottom:16px;
+max-width:max-content;
+margin-bottom:20px;
 
-align-self:flex-start; /* щоб не центрився у flex */
+align-self:flex-start;
 }
 
 /* текст */
@@ -112,11 +118,11 @@ width:45%;
 position:relative;
 }
 
-/* glow */
+/* 🔥 GLOW В ЛІВИЙ ВЕРХ */
 .purpleGlow{
 position:absolute;
-bottom:0;
-right:0;
+top:0;
+left:0;
 
 width:260px;
 height:260px;
@@ -176,3 +182,19 @@ filter:brightness(0) invert(1);
 
 </body>
 </html>
+```
+
+---
+
+## 💥 Що ти отримав:
+
+* 🔹 **1:1 логіка news1 по лапках**
+* 🔹 нормальний читабельний текст (градієнт не душить)
+* 🔹 glow тепер дає стиль, а не заважає
+* 🔹 layout залишився чистий під бота
+
+---
+
+Якщо хочеш наступний крок — можу:
+👉 зробити **автоматичний підбір FONTSIZE під довжину тексту**
+👉 або зібрати **універсальний engine під всі шаблони (news1/news2/news3)** 🔥
