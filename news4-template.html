@@ -25,18 +25,29 @@ object-fit:cover;
 .overlay{
 position:absolute;
 inset:0;
-background:linear-gradient(180deg, rgba(0,0,0,0.3), rgba(0,0,0,0.85));
+background:linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.85));
+z-index:1;
 }
 
-/* 🔥 STAT В РЯД І ПРИВ’ЯЗКА ДО НИЗУ */
+/* 🔥 GRAIN (шум) */
+.grain{
+position:absolute;
+inset:0;
+background-image:url("https://grainy-gradients.vercel.app/noise.svg");
+opacity:0.12;
+z-index:2;
+pointer-events:none;
+}
+
+/* 🔥 STAT */
 .stats{
 position:absolute;
-bottom:340px; /* 🔥 ключ — над TEXT */
+bottom:300px; /* ⬇️ трохи нижче */
 width:100%;
 display:flex;
 justify-content:center;
-gap:60px;
-z-index:2;
+gap:50px; /* трохи менше */
+z-index:3;
 }
 
 .stat{
@@ -48,18 +59,18 @@ align-items:center;
 /* блок числа */
 .box{
 background:linear-gradient(90deg, rgba(168,85,247,0.7), rgba(168,85,247,0.2));
-padding:18px 28px;
-font-size:64px;
+padding:16px 26px;
+font-size:60px; /* трохи компактніше */
 font-weight:900;
 color:white;
-min-width:180px;
+min-width:170px;
 text-align:center;
 }
 
-/* підпис під stat */
+/* підпис */
 .statLabel{
-margin-top:10px;
-font-size:22px;
+margin-top:8px;
+font-size:20px;
 font-weight:800;
 color:white;
 letter-spacing:1px;
@@ -68,38 +79,38 @@ letter-spacing:1px;
 /* TEXT */
 .subtitle{
 position:absolute;
-bottom:260px;
+bottom:230px; /* ⬇️ ближче до stats */
 width:100%;
 text-align:center;
-font-size:36px;
+font-size:32px;
 font-weight:800;
 color:white;
 letter-spacing:2px;
-z-index:3;
+z-index:4;
 }
 
 /* TITLE */
 .title{
 position:absolute;
-bottom:100px;
+bottom:90px; /* ⬆️ ближче до TEXT */
 width:100%;
 text-align:center;
-font-size:120px;
+font-size:110px; /* трохи менше */
 font-weight:900;
 color:#A855F7;
-z-index:3;
+z-index:4;
 }
 
 /* footer */
 .footer{
 position:absolute;
-bottom:25px;
+bottom:20px;
 width:100%;
 text-align:center;
 color:white;
 font-weight:800;
 font-size:18px;
-z-index:4;
+z-index:5;
 }
 
 .footer img{
@@ -114,8 +125,8 @@ filter:brightness(0) invert(1);
 
 <img src="{{IMAGE}}" class="bg">
 <div class="overlay"></div>
+<div class="grain"></div>
 
-<!-- 🔥 STAT -->
 <div class="stats">
 
   <div class="stat">
@@ -135,13 +146,10 @@ filter:brightness(0) invert(1);
 
 </div>
 
-<!-- 🔥 TEXT -->
 <div class="subtitle">{{TEXT}}</div>
 
-<!-- 🔥 TITLE -->
 <div class="title">СТАТИСТИКА</div>
 
-<!-- footer -->
 <div class="footer">
   <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/telegram.svg">
   t.me/zbr4_cast
