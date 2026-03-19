@@ -20,7 +20,6 @@ bot.on("message", async (msg)=>{
 
     console.log("NEWS TRIGGER");
 
-    // 📌 беремо текст
     const lines = msg.caption.split("\n").slice(1);
 
     const label = lines[0] || "NEWS";
@@ -30,17 +29,14 @@ bot.on("message", async (msg)=>{
       return bot.sendMessage(msg.chat.id, "Додай фото 📸");
     }
 
-    // 📸 беремо найкращу якість фото
     const fileId = msg.photo[msg.photo.length - 1].file_id;
 
     const file = await bot.getFile(fileId);
     const fileUrl = `https://api.telegram.org/file/bot${token}/${file.file_path}`;
 
     const imgBuffer = (await axios.get(fileUrl, { responseType: "arraybuffer" })).data;
-
     const imageBase64 = `data:image/jpeg;base64,${Buffer.from(imgBuffer).toString("base64")}`;
 
-    // 🧠 HTML
     let html = await fs.readFile(path.join(__dirname, "news-template.html"), "utf8");
 
     html = html
