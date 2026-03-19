@@ -8,8 +8,6 @@ const token = process.env.TOKEN;
 const bot = new TelegramBot(token, { polling: true });
 
 /* ============================= */
-/* 🧠 TEMPLATE MAP               */
-/* ============================= */
 const NEWS_TEMPLATES = {};
 
 NEWS_TEMPLATES["news"] = "news-template.html";
@@ -46,20 +44,17 @@ bot.on("message", async (msg)=>{
     let author = "";
 
     /* ============================= */
-    /* 💬 NEWS1 = QUOTE MODE         */
+    /* 💬 QUOTE MODE (/news1 /news2) */
     /* ============================= */
-    if(commandKey === "news1"){
+    if(commandKey === "news1" || commandKey === "news2"){
       text = lines[0] || "";
       author = lines[1] || "";
-
-      // label не використовується, але щоб не ламати replace
       label = "";
     } else {
       label = lines[0] || "NEWS";
       text = lines.slice(1).join(" ");
     }
 
-    /* ============================= */
     if(!msg.photo){
       return bot.sendMessage(msg.chat.id, "Додай фото 📸");
     }
