@@ -37,7 +37,7 @@ const text = `
 📘 ПРИКЛАДИ:
 
 /news
-НОВИНА, ФАКТ, АПДЕЙТ, ЗАГОЛОВОК
+НОВИНА, ЗАГОЛОВОК
 FURIA WIN 2-0
 
 /news1
@@ -48,10 +48,18 @@ S1MPLE
 ФАКТ FAZE QUALIFIED
 
 /news4
+ГОРИЗОНТАЛЬНА СТАТА
 XKASPERKY НА ANCIENT
-2.24 rating 3.0
-+12.24 round swing
-2.07 k/d
+2.24
++12.24
+2.07
+
+/news5
+ВЕРТИКАЛЬНА СТАТА
+XKASPERKY НА ANCIENT
+2.24
++12.24
+2.07
 
 📸 + фото обов’язково
 `;
@@ -96,7 +104,7 @@ bot.on("message", async (msg)=>{
       text = lines.join(" ");
       label = "";
     } 
-    else if(commandKey === "news4"){
+    else if(commandKey === "news4" || commandKey === "news5"){
       text = lines[0] || "";
 
       stat1 = lines[1] || "";
