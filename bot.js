@@ -23,20 +23,6 @@ const MAIN_MENU = {
 };
 
 /* ============================= */
-/* 🔘 BUTTON → COMMAND           */
-/* ============================= */
-function mapTextToCommand(text){
-  if(text === "🟣 Новина") return "/news";
-  if(text === "💬 Цитата") return "/news1";
-  if(text === "🎤 Side Quote") return "/news2";
-  if(text === "📊 Факт") return "/news3";
-  if(text === "🔥 MVP (гор)") return "/news4";
-  if(text === "📈 MVP (верт)") return "/news5";
-  if(text === "ℹ️ Інфо") return "/info";
-  return text;
-}
-
-/* ============================= */
 /* 🧠 TEMPLATE MAP               */
 /* ============================= */
 const NEWS_TEMPLATES = {};
@@ -47,8 +33,6 @@ for (let i = 1; i <= 15; i++) {
   NEWS_TEMPLATES[`news${i}`] = `news${i}-template.html`;
 }
 
-/* ============================= */
-/* 🔤 FONT SIZE                  */
 /* ============================= */
 function getFontSize(text){
   if(text.length > 180) return 28;
@@ -72,6 +56,10 @@ FURIA WIN 2-0
 /news1
 ЦИТАТА WE ARE READY
 S1MPLE
+
+/news2
+SIDE QUOTE
+CAIRNE
 
 /news3
 ФАКТ FAZE QUALIFIED
@@ -98,7 +86,7 @@ bot.sendMessage(msg.chat.id, text, MAIN_MENU);
 });
 
 /* ============================= */
-/* 🚀 START + INLINE + MENU      */
+/* 🚀 START                      */
 /* ============================= */
 bot.onText(/\/start/, (msg) => {
 
@@ -166,29 +154,74 @@ bot.answerCallbackQuery(query.id);
 });
 
 /* ============================= */
-/* 🚀 MAIN HANDLER               */
+/* 📩 MENU → TEMPLATE            */
+/* ============================= */
+bot.on("message", (msg) => {
+
+  if(!msg.text) return;
+
+  const text = msg.text;
+
+  let example = "";
+
+  if(text === "🟣 Новина"){
+    example = `/news
+RESULT
+FURIA WIN 2-0`;
+  }
+  else if(text === "💬 Цитата"){
+    example = `/news1
+WE ARE READY
+S1MPLE`;
+  }
+  else if(text === "🎤 Side Quote"){
+    example = `/news2
+WE DESTROYED THEM
+CAIRNE`;
+  }
+  else if(text === "📊 Факт"){
+    example = `/news3
+FAZE QUALIFIED`;
+  }
+  else if(text === "🔥 MVP (гор)"){
+    example = `/news4
+XKASPERKY НА ANCIENT
+2.24
++12.24
+2.07`;
+  }
+  else if(text === "📈 MVP (верт)"){
+    example = `/news5
+XKASPERKY НА ANCIENT
+2.24
++12.24
+2.07`;
+  }
+  else if(text === "ℹ️ Інфо"){
+    return bot.sendMessage(msg.chat.id, "/info", MAIN_MENU);
+  }
+  else{
+    return;
+  }
+
+  bot.sendMessage(msg.chat.id, example, MAIN_MENU);
+
+});
+
+/* ============================= */
+/* 🚀 MAIN GENERATOR             */
 /* ============================= */
 bot.on("message", async (msg)=>{
   try{
     if(!msg.caption) return;
 
-    let caption = msg.caption;
-
-    /* 🔥 BUTTON SUPPORT */
-    const firstLine = caption.split("\n")[0];
-    const mapped = mapTextToCommand(firstLine);
-
-    if(mapped !== firstLine){
-      caption = caption.replace(firstLine, mapped);
-    }
-
-    const command = caption.split("\n")[0].trim().toLowerCase();
+    const command = msg.caption.split("\n")[0].trim().toLowerCase();
     if(!command.startsWith("/news")) return;
 
     const commandKey = command.replace("/", "");
     const templateFile = NEWS_TEMPLATES[commandKey] || "news-template.html";
 
-    const lines = caption.split("\n").slice(1);
+    const lines = msg.caption.split("\n").slice(1);
 
     let label = "NEWS";
     let text = "";
@@ -197,10 +230,6 @@ bot.on("message", async (msg)=>{
     let stat1 = "";
     let stat2 = "";
     let stat3 = "";
-
-    /* ============================= */
-    /* 🧠 LOGIC                     */
-    /* ============================= */
 
     if(commandKey === "news1" || commandKey === "news2"){
       text = lines[0] || "";
@@ -213,11 +242,9 @@ bot.on("message", async (msg)=>{
     } 
     else if(commandKey === "news4" || commandKey === "news5"){
       text = lines[0] || "";
-
       stat1 = lines[1] || "";
       stat2 = lines[2] || "";
       stat3 = lines[3] || "";
-
       label = "СТАТИСТИКА";
     }
     else {
@@ -225,11 +252,8 @@ bot.on("message", async (msg)=>{
       text = lines.slice(1).join(" ");
     }
 
-    /* ============================= */
-    /* 📸 PHOTO CHECK               */
-    /* ============================= */
     if(!msg.photo){
-      return bot.sendMessage(msg.chat.id, "Додай фото 📸");
+      return bot.sendMessage(msg.chat.id, "Додай фото 📸", MAIN_MENU);
     }
 
     const fileId = msg.photo[msg.photo.length - 1].file_id;
@@ -239,17 +263,11 @@ bot.on("message", async (msg)=>{
     const imgBuffer = (await axios.get(fileUrl, { responseType: "arraybuffer" })).data;
     const imageBase64 = `data:image/jpeg;base64,${Buffer.from(imgBuffer).toString("base64")}`;
 
-    /* ============================= */
-    /* 📄 LOAD HTML                 */
-    /* ============================= */
     let html = await fs.readFile(
       path.join(__dirname, templateFile),
       "utf8"
     );
 
-    /* ============================= */
-    /* 🔄 REPLACE                   */
-    /* ============================= */
     html = html
       .replace(/{{IMAGE}}/g, imageBase64)
       .replace(/{{PLAYER_IMAGE}}/g, imageBase64)
@@ -261,9 +279,6 @@ bot.on("message", async (msg)=>{
       .replace(/{{STAT2}}/g, stat2)
       .replace(/{{STAT3}}/g, stat3);
 
-    /* ============================= */
-    /* 🖥️ PUPPETEER                */
-    /* ============================= */
     const browser = await puppeteer.launch({
       args: ["--no-sandbox", "--disable-setuid-sandbox"]
     });
@@ -279,13 +294,10 @@ bot.on("message", async (msg)=>{
 
     await browser.close();
 
-    /* ============================= */
-    /* 📤 SEND                     */
-    /* ============================= */
-    await bot.sendPhoto(msg.chat.id, filePath);
+    await bot.sendPhoto(msg.chat.id, filePath, MAIN_MENU);
 
   }catch(e){
     console.log(e);
-    bot.sendMessage(msg.chat.id, "Помилка news 💀");
+    bot.sendMessage(msg.chat.id, "Помилка news 💀", MAIN_MENU);
   }
 });
