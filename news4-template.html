@@ -22,54 +22,60 @@ object-fit:cover;
 filter:blur(20px) brightness(0.4);
 }
 
-/* wrapper */
-.wrapper{
-position:relative;
-width:100%;
-height:100%;
+/* player */
+.player{
+position:absolute;
+bottom:0;
+left:50%;
+transform:translateX(-50%);
+height:90%;
+z-index:1;
+opacity:0.9;
 }
 
 /* stats */
 .stats{
 position:absolute;
-top:80px;
+top:100px;
 left:60px;
-width:65%;
+width:70%;
 display:flex;
 flex-direction:column;
 gap:25px;
-z-index:1;
+z-index:2;
 }
 
 .stat{
-background:linear-gradient(90deg, rgba(168,85,247,0.25), transparent);
-padding:25px 30px;
 display:flex;
 align-items:center;
-gap:30px;
 }
 
-.value{
-font-size:64px;
+.box{
+background:linear-gradient(90deg, rgba(168,85,247,0.6), rgba(168,85,247,0.2));
+padding:18px 24px;
+font-size:54px;
 font-weight:900;
 color:white;
-min-width:160px;
+min-width:260px;
 }
 
-.labelSmall{
+.statLabel{
+margin-left:20px;
 font-size:28px;
 font-weight:800;
 color:#A855F7;
 }
 
-/* player */
-.player{
+/* label */
+.label{
 position:absolute;
-right:0;
-bottom:0;
-height:95%;
-z-index:2;
-pointer-events:none;
+bottom:340px;
+left:60px;
+font-size:28px;
+font-weight:900;
+letter-spacing:2px;
+color:#A855F7;
+z-index:4;
 }
 
 /* subtitle */
@@ -77,38 +83,37 @@ pointer-events:none;
 position:absolute;
 bottom:260px;
 left:60px;
-font-size:36px;
+font-size:32px;
 font-weight:800;
 color:white;
-z-index:3;
+z-index:4;
 }
 
 /* title */
 .title{
 position:absolute;
-bottom:120px;
+bottom:80px;
 left:60px;
 font-size:110px;
 font-weight:900;
 color:#A855F7;
-z-index:3;
+z-index:4;
 }
 
 /* footer */
 .footer{
 position:absolute;
-bottom:30px;
+bottom:20px;
 width:100%;
 text-align:center;
 color:white;
 font-weight:800;
 font-size:18px;
-z-index:4;
+z-index:5;
 }
 
 .footer img{
 width:20px;
-vertical-align:middle;
 margin-right:8px;
 filter:brightness(0) invert(1);
 }
@@ -118,37 +123,30 @@ filter:brightness(0) invert(1);
 <body>
 
 <img src="{{IMAGE}}" class="bg">
+<img src="{{PLAYER_IMAGE}}" class="player">
 
-<div class="wrapper">
-
-<!-- stats -->
 <div class="stats">
 
 <div class="stat">
-<div class="value">{{STAT1}}</div>
-<div class="labelSmall">RATING 3.0</div>
+<div class="box">{{STAT1}}</div>
+<div class="statLabel">RATING 3.0</div>
 </div>
 
 <div class="stat">
-<div class="value">{{STAT2}}</div>
-<div class="labelSmall">ROUND SWING</div>
+<div class="box">{{STAT2}}</div>
+<div class="statLabel">ROUND SWING</div>
 </div>
 
 <div class="stat">
-<div class="value">{{STAT3}}</div>
-<div class="labelSmall">K/D</div>
+<div class="box">{{STAT3}}</div>
+<div class="statLabel">K/D</div>
 </div>
 
 </div>
 
-<!-- player -->
-<img src="{{PLAYER_IMAGE}}" class="player">
-
-<!-- text -->
+<div class="label">{{LABEL}}</div>
 <div class="subtitle">{{TEXT}}</div>
 <div class="title">СТАТИСТИКА</div>
-
-</div>
 
 <div class="footer">
 <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/telegram.svg">
