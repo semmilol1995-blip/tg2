@@ -146,21 +146,21 @@ position:absolute;
 bottom:95px;
 left:50%;
 transform:translateX(-50%);
-
-height:160px;
-display:flex;
-align-items:flex-end;
-justify-content:center;
 }
 
 .mapName{
-transform:rotate(-90deg);
+writing-mode: vertical-rl;
+text-orientation: mixed;
+
+/* щоб читалось як у тебе (знизу вверх) */
+transform: rotate(180deg);
 
 font-weight:900;
 letter-spacing:2px;
 white-space:nowrap;
 text-align:center;
 
+/* читабельність */
 text-shadow:0 2px 8px rgba(0,0,0,0.7);
 }
 
