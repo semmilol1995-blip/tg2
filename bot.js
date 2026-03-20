@@ -96,14 +96,7 @@ bot.sendMessage(msg.chat.id, text, MAIN_MENU);
 /* 🚀 START                      */
 /* ============================= */
 bot.onText(/\/start/, (msg) => {
-
-bot.sendMessage(msg.chat.id, "Обери тип поста 👇", {
-  reply_markup: {
-    keyboard: MAIN_MENU.reply_markup.keyboard,
-    resize_keyboard: true
-  }
-});
-
+  bot.sendMessage(msg.chat.id, "Обери тип поста 👇", MAIN_MENU);
 });
 
 /* ============================= */
@@ -147,7 +140,7 @@ function generateMapsHTML(maps){
 
     return `
     <div class="map ${isDecider ? "decider" : ""}">
-      <img class="bg" src="file://${process.cwd()}/maps/${m.map}.jpg"/>
+      <img class="bg" src="file://${process.cwd()}/maps/${m.map}.png"/>
       <div class="blur"></div>
       <div class="overlay"></div>
 
