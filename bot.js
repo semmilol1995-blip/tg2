@@ -48,7 +48,6 @@ bot.on("message", (msg) => {
   if(!msg.text) return;
 
   const text = msg.text;
-
   let example = "";
 
   if(text === "🟣 Новина"){
@@ -111,6 +110,8 @@ ancient decider`;
 navi vs falcons
 blast
 bo5
+inferno ban navi
+overpass ban falcons
 anubis pick navi
 mirage pick falcons
 nuke pick navi
@@ -159,6 +160,7 @@ bot.on("message", async (msg)=>{
     let stat2 = "";
     let stat3 = "";
 
+    /* ===== стандартні команди ===== */
     if(commandKey === "news1" || commandKey === "news2"){
       text = lines[0] || "";
       author = lines[1] || "";
@@ -228,7 +230,7 @@ bot.on("message", async (msg)=>{
       let maxMaps = 5;
       if(format === "bo1") maxMaps = 7;
       if(format === "bo3") maxMaps = 3;
-      if(format === "bo5") maxMaps = 5;
+      if(format === "bo5") maxMaps = 7;
 
       while(maps.length < maxMaps){
         maps.push({});
@@ -253,7 +255,6 @@ bot.on("message", async (msg)=>{
         .replace(/{{TEAM2}}/g, team2.toUpperCase())
         .replace(/{{TOURNAMENT}}/g, tournament.toUpperCase());
 
-      /* 🔥 ФІКС 7 КАРТ */
       for(let i=0;i<7;i++){
         const m = maps[i] || {};
 
@@ -265,9 +266,7 @@ bot.on("message", async (msg)=>{
           .replace(`{{MAP${i+1}_LOGO}}`, logo(m))
           .replace(
             `{{MAP${i+1}_CLASS}}`,
-            (format==="bo3" && i>2) ? "hidden" :
-            (format==="bo5" && i>4) ? "hidden" :
-            ""
+            (format==="bo3" && i>2) ? "hidden" : ""
           );
       }
     }
