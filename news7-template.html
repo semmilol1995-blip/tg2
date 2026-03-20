@@ -1,115 +1,217 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@700;800;900&display=swap" rel="stylesheet">
 
 <style>
 body{
 margin:0;
 width:900px;
 height:900px;
-font-family:'Inter', sans-serif;
+font-family:'Inter',sans-serif;
+color:#fff;
 overflow:hidden;
-background:black;
+position:relative;
 }
 
-/* фон */
+/* BACKGROUND */
 .bg{
 position:absolute;
 width:100%;
 height:100%;
 object-fit:cover;
-filter:brightness(0.7);
+filter:blur(2px) brightness(0.6);
 }
 
-.fadeBottom{
-position:absolute;
-bottom:0;
-width:100%;
-height:75%;
-background:linear-gradient(to top, rgba(0,0,0,0.98), transparent);
-}
-
-.grain{
+/* OVERLAY */
+.overlay{
 position:absolute;
 width:100%;
 height:100%;
-opacity:0.12;
-background-image:url('https://grainy-gradients.vercel.app/noise.svg');
+background:
+linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.9)),
+linear-gradient(135deg,#0b0b0f,#1a1030);
 }
 
-/* центр */
-.centerWrap{
+/* NOISE */
+.noise{
 position:absolute;
-bottom:100px;
 width:100%;
-display:flex;
-justify-content:center;
+height:100%;
+background:url('https://grainy-gradients.vercel.app/noise.svg');
+opacity:0.06;
 }
 
-/* контейнер */
-.content{
-width:760px;
-display:flex;
-flex-direction:column;
-align-items:center;
+/* HEADER */
+.header{
+position:absolute;
+top:40px;
+width:100%;
+text-align:center;
+font-weight:800;
+letter-spacing:2px;
+font-size:26px;
+opacity:0.9;
+}
+
+/* CENTER */
+.center{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
 text-align:center;
 }
 
-/* label */
-.label{
-background:#a855f7;
-color:black;
-font-weight:900;
-padding:10px 28px;
-font-size:20px;
-margin-bottom:25px;
-}
-
-/* лапки */
-.quoteMark{
-font-size:60px;
-color:#a855f7;
+/* ROUND */
+.round{
+font-size:22px;
+opacity:0.7;
 margin-bottom:10px;
-line-height:1;
 }
 
-/* текст */
-.text{
-font-size:{{FONTSIZE}};
+/* SCORE */
+.score{
+font-size:120px;
 font-weight:900;
-line-height:1.2;
-text-transform:uppercase;
-letter-spacing:1px;
-color:white;
-font-style:italic;
+letter-spacing:10px;
 }
 
-/* автор */
-.author{
-margin-top:25px;
+/* FORMAT */
+.format{
+display:inline-block;
+margin-top:10px;
+padding:6px 18px;
+background:#7c3aed;
+font-weight:800;
+font-size:18px;
+}
+
+/* TEAMS */
+.team{
+position:absolute;
+top:50%;
+transform:translateY(-50%);
+text-align:center;
+}
+
+.team.left{left:80px;}
+.team.right{right:80px;}
+
+.logo{
+width:90px;
+height:90px;
+border:2px solid #fff;
+display:flex;
+align-items:center;
+justify-content:center;
+margin-bottom:10px;
+}
+
+.logo img{
+width:70%;
+}
+
+.teamName{
 font-size:22px;
 font-weight:800;
-color:#a855f7;
-letter-spacing:1px;
+opacity:0.9;
 }
 
-/* tg */
-.bottomBar{
+/* MAP ROW */
+.maps{
+position:absolute;
+bottom:80px;
+width:100%;
+display:flex;
+justify-content:center;
+gap:20px;
+}
+
+/* MAP CARD */
+.map{
+width:220px;
+height:90px;
+background:rgba(255,255,255,0.05);
+border:1px solid rgba(255,255,255,0.1);
+display:flex;
+position:relative;
+overflow:hidden;
+}
+
+.map.disabled{
+opacity:0.4;
+}
+
+/* SCORE */
+.mapScore{
+width:80px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:28px;
+font-weight:900;
+}
+
+/* IMAGE */
+.mapImg{
+position:absolute;
+right:0;
+top:0;
+width:120px;
+height:100%;
+object-fit:cover;
+opacity:0.6;
+}
+
+/* NAME */
+.mapName{
+position:absolute;
+bottom:5px;
+left:10px;
+font-size:14px;
+font-weight:800;
+opacity:0.9;
+}
+
+/* WIN ICON */
+.win{
+position:absolute;
+right:8px;
+bottom:8px;
+width:18px;
+height:18px;
+opacity:0.9;
+}
+
+/* HIGHLIGHT */
+.map.win1{
+border:1px solid #22c55e;
+box-shadow:0 0 10px rgba(34,197,94,0.6);
+}
+
+.map.win2{
+border:1px solid #3b82f6;
+box-shadow:0 0 10px rgba(59,130,246,0.6);
+}
+
+/* FOOTER */
+.footer{
 position:absolute;
 bottom:20px;
 width:100%;
 display:flex;
 justify-content:center;
-font-size:18px;
+align-items:center;
 font-weight:800;
-color:white;
+font-size:16px;
+opacity:0.9;
 }
 
-.bottomBar img{
-width:20px;
-margin-right:8px;
-filter:brightness(0) invert(1);
+.footer img{
+width:18px;
+margin-right:6px;
+filter:invert(1);
 }
 </style>
 </head>
@@ -117,27 +219,69 @@ filter:brightness(0) invert(1);
 <body>
 
 <img src="{{IMAGE}}" class="bg">
+<div class="overlay"></div>
+<div class="noise"></div>
 
-<div class="fadeBottom"></div>
-<div class="grain"></div>
+<div class="header">{{TOURNAMENT}}</div>
 
-<div class="centerWrap">
-  <div class="content">
-
-    <div class="label">{{LABEL}}</div>
-
-    <div class="quoteMark">“</div>
-
-    <div class="text">{{TEXT}}</div>
-
-    <div class="author">{{AUTHOR}}</div>
-
-  </div>
+<div class="center">
+<div class="round">{{ROUND}}</div>
+<div class="score">{{SCORE1}} - {{SCORE2}}</div>
+<div class="format">{{FORMAT}}</div>
 </div>
 
-<div class="bottomBar">
-  <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/telegram.svg">
-  t.me/zbr4_cast
+<div class="team left">
+<div class="logo"><img src="{{TEAM1_LOGO}}"></div>
+<div class="teamName">{{TEAM1}}</div>
+</div>
+
+<div class="team right">
+<div class="logo"><img src="{{TEAM2_LOGO}}"></div>
+<div class="teamName">{{TEAM2}}</div>
+</div>
+
+<div class="maps">
+
+<div class="map {{MAP1_CLASS}}">
+<div class="mapScore">{{MAP1_SCORE}}</div>
+<img src="{{MAP1_IMAGE}}" class="mapImg">
+<div class="mapName">{{MAP1_NAME}}</div>
+<img src="{{MAP1_WINNER}}" class="win">
+</div>
+
+<div class="map {{MAP2_CLASS}}">
+<div class="mapScore">{{MAP2_SCORE}}</div>
+<img src="{{MAP2_IMAGE}}" class="mapImg">
+<div class="mapName">{{MAP2_NAME}}</div>
+<img src="{{MAP2_WINNER}}" class="win">
+</div>
+
+<div class="map {{MAP3_CLASS}}">
+<div class="mapScore">{{MAP3_SCORE}}</div>
+<img src="{{MAP3_IMAGE}}" class="mapImg">
+<div class="mapName">{{MAP3_NAME}}</div>
+<img src="{{MAP3_WINNER}}" class="win">
+</div>
+
+<div class="map {{MAP4_CLASS}}">
+<div class="mapScore">{{MAP4_SCORE}}</div>
+<img src="{{MAP4_IMAGE}}" class="mapImg">
+<div class="mapName">{{MAP4_NAME}}</div>
+<img src="{{MAP4_WINNER}}" class="win">
+</div>
+
+<div class="map {{MAP5_CLASS}}">
+<div class="mapScore">{{MAP5_SCORE}}</div>
+<img src="{{MAP5_IMAGE}}" class="mapImg">
+<div class="mapName">{{MAP5_NAME}}</div>
+<img src="{{MAP5_WINNER}}" class="win">
+</div>
+
+</div>
+
+<div class="footer">
+<img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/telegram.svg">
+t.me/zbr4_cast
 </div>
 
 </body>
