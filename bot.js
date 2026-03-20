@@ -51,12 +51,33 @@ const text = `
 📘 ПРИКЛАДИ:
 
 /news
-RESULT
+НОВИНА, ЗАГОЛОВОК
 FURIA WIN 2-0
 
 /news1
-WE ARE READY
+ЦИТАТА WE ARE READY
 S1MPLE
+
+/news2
+SIDE QUOTE
+CAIRNE
+
+/news3
+ФАКТ FAZE QUALIFIED
+
+/news4
+ГОРИЗОНТАЛЬНА СТАТА
+XKASPERKY НА ANCIENT
+2.24
++12.24
+2.07
+
+/news5
+ВЕРТИКАЛЬНА СТАТА
+XKASPERKY НА ANCIENT
+2.24
++12.24
+2.07
 
 /news6
 blast open
@@ -175,7 +196,7 @@ function parseNews6(text){
 }
 
 /* ============================= */
-/* 🎨 MAP HTML (FIX PATHS)       */
+/* 🎨 MAP HTML                   */
 /* ============================= */
 function generateMapsHTML(maps){
   return maps.map(m=>{
@@ -219,8 +240,6 @@ async function handleNews6(bot, chatId, text){
   })
 
   const page = await browser.newPage()
-
-  // 🔥 КВАДРАТ
   await page.setViewport({ width:900, height:900 })
 
   await page.setContent(html, { waitUntil:"networkidle0" })
@@ -324,7 +343,6 @@ decider ancient`;
 bot.on("message", async (msg)=>{
   try{
 
-    // 🔥 NEWS6
     if(msg.text && msg.text.startsWith("/news6")){
       return handleNews6(bot, msg.chat.id, msg.text)
     }
