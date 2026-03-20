@@ -161,7 +161,18 @@ let textValue = "";
 let author = "";
 let stat1 = "", stat2 = "", stat3 = "";
 
-if(commandKey === "news1" || commandKey === "news2"){
+/* 🔥 FIX ДЛЯ /news */
+if(commandKey === "news"){
+  label = (lines[0] || "NEWS").trim();
+  textValue = (lines[1] || "").trim();
+
+  if(!textValue){
+    textValue = label;
+    label = "NEWS";
+  }
+}
+
+else if(commandKey === "news1" || commandKey === "news2"){
   textValue = lines[0] || "";
   author = lines[1] || "";
   label = "";
