@@ -44,7 +44,7 @@ margin-top:10px;
 opacity:0.85;
 }
 
-/* MAPS CENTER */
+/* MAPS */
 .mapsWrap{
 flex:1;
 display:flex;
@@ -54,12 +54,12 @@ justify-content:center;
 
 .maps{
 display:flex;
-gap:10px;
+gap:12px; /* трохи більше повітря */
 }
 
 /* CARD */
 .mapCard{
-width:95px;
+width:110px; /* 🔥 було 95 → ширше */
 height:500px;
 position:relative;
 overflow:hidden;
@@ -73,6 +73,7 @@ height:100%;
 object-fit:cover;
 }
 
+/* FADE */
 .fade{
 position:absolute;
 bottom:0;
@@ -103,16 +104,14 @@ background:linear-gradient(to top, rgba(234,179,8,0.95), transparent);
 position:absolute;
 bottom:0;
 width:100%;
-text-align:center;
-font-weight:900;
-padding:6px 0;
-letter-spacing:1px;
 display:flex;
 justify-content:center;
 align-items:center;
+font-weight:900;
+padding:6px 0;
+letter-spacing:1px;
 }
 
-/* TYPE COLORS */
 .mapType.ban{background:#dc2626;color:white;}
 .mapType.pick1{background:#22c55e;color:black;}
 .mapType.pick2{background:#3b82f6;color:white;}
@@ -140,15 +139,28 @@ justify-content:center;
 
 .logo img{width:60%;}
 
-/* NAME */
+/* 🔥 MAP NAME FIX */
 .mapName{
 position:absolute;
-bottom:90px;
+bottom:95px;
+
+/* ключова зміна */
 left:50%;
 transform:translateX(-50%) rotate(-90deg);
+
+/* ВАЖЛИВО: baseline */
+transform-origin:center;
+
 font-weight:900;
 letter-spacing:2px;
 white-space:nowrap;
+
+/* 🔥 фікс вирівнювання */
+display:flex;
+align-items:flex-end;
+justify-content:center;
+
+height:200px; /* стабільна база */
 }
 
 /* FOOTER */
