@@ -181,7 +181,7 @@ function parseNews6(text){
   const maps = rawMaps.map(line=>{
     const parts = line.split(" ")
 
-    if(parts[0] === "decider"){
+    if(parts[0].toLowerCase() === "decider"){
       return { team:"decider", map:parts[1], type:"DECIDER" }
     }
 
@@ -221,8 +221,8 @@ function generateMapsHTML(maps){
 /* ============================= */
 /* 🚀 HANDLE NEWS6               */
 /* ============================= */
-async function handleNews6(bot, chatId, text){
-  const data = parseNews6(text)
+async function handleNews6(msg){
+  const data = parseNews6(msg.text)
 
   let html = await fs.readFile(
     path.join(__dirname, "news6-template.html"),
@@ -240,8 +240,8 @@ async function handleNews6(bot, chatId, text){
   })
 
   const page = await browser.newPage()
-  await page.setViewport({ width:900, height:900 })
 
+  await page.setViewport({ width:900, height:900 })
   await page.setContent(html, { waitUntil:"networkidle0" })
   await page.waitForTimeout(300)
 
@@ -251,7 +251,7 @@ async function handleNews6(bot, chatId, text){
 
   await browser.close()
 
-  await bot.sendPhoto(chatId, filePath, MAIN_MENU)
+  await bot.sendPhoto(msg.chat.id, filePath, MAIN_MENU)
 }
 
 /* ============================= */
@@ -333,7 +333,7 @@ decider ancient`;
     return;
   }
 
-  bot.sendMessage(msg.chat.id, example, MAIN_MENU);
+  return bot.sendMessage(msg.chat.id, example, MAIN_MENU);
 
 });
 
@@ -343,8 +343,9 @@ decider ancient`;
 bot.on("message", async (msg)=>{
   try{
 
+    // 🔥 NEWS6
     if(msg.text && msg.text.startsWith("/news6")){
-      return handleNews6(bot, msg.chat.id, msg.text)
+      return handleNews6(msg)
     }
 
     if(!msg.caption) return;
