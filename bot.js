@@ -8,7 +8,7 @@ const token = process.env.TOKEN;
 const bot = new TelegramBot(token, { polling: true });
 
 /* ============================= */
-/* 📱 MENU */
+/* MENU */
 /* ============================= */
 const MAIN_MENU = {
   reply_markup: {
@@ -26,18 +26,14 @@ const MAIN_MENU = {
 /* ============================= */
 /* TEMPLATE MAP */
 /* ============================= */
-const NEWS_TEMPLATES = {
-  news: "news-template.html",
-  news1: "news1-template.html",
-  news2: "news2-template.html",
-  news3: "news3-template.html",
-  news4: "news4-template.html",
-  news5: "news5-template.html",
-  news6: "news6-template.html"
-};
+const NEWS_TEMPLATES = {};
 
-/* ============================= */
-/* FONT SIZE */
+NEWS_TEMPLATES["news"] = "news-template.html";
+
+for (let i = 1; i <= 15; i++) {
+  NEWS_TEMPLATES[`news${i}`] = `news${i}-template.html`;
+}
+
 /* ============================= */
 function getFontSize(text){
   if(text.length > 180) return 28;
@@ -49,30 +45,48 @@ function getFontSize(text){
 /* ============================= */
 /* MENU BUTTONS */
 /* ============================= */
-bot.on("message", (msg)=>{
+bot.on("message", (msg) => {
+
   if(!msg.text) return;
+
+  const text = msg.text;
 
   let example = "";
 
-  if(msg.text === "🟣 Новина"){
-    example = `/news\nRESULT\nFURIA WIN 2-0`;
+  if(text === "🟣 Новина"){
+    example = `/news
+RESULT
+FURIA WIN 2-0`;
   }
-  else if(msg.text === "💬 Цитата"){
-    example = `/news1\nWE ARE READY\nS1MPLE`;
+  else if(text === "💬 Цитата"){
+    example = `/news1
+WE ARE READY
+S1MPLE`;
   }
-  else if(msg.text === "🎤 Side Quote"){
-    example = `/news2\nWE DESTROYED THEM\nCAIRNE`;
+  else if(text === "🎤 Side Quote"){
+    example = `/news2
+WE DESTROYED THEM
+CAIRNE`;
   }
-  else if(msg.text === "📊 Факт"){
-    example = `/news3\nFAZE QUALIFIED`;
+  else if(text === "📊 Факт"){
+    example = `/news3
+FAZE QUALIFIED`;
   }
-  else if(msg.text === "🔥 MVP (гор)"){
-    example = `/news4\nXKASPERKY\n2.24\n+12.24\n2.07`;
+  else if(text === "🔥 MVP (гор)"){
+    example = `/news4
+XKASPERKY
+2.24
++12.24
+2.07`;
   }
-  else if(msg.text === "📈 MVP (верт)"){
-    example = `/news5\nXKASPERKY\n2.24\n+12.24\n2.07`;
+  else if(text === "📈 MVP (верт)"){
+    example = `/news5
+XKASPERKY
+2.24
++12.24
+2.07`;
   }
-  else if(msg.text === "🧠 VETO"){
+  else if(text === "🧠 VETO"){
     example = `/news6
 navi vs falcons
 blast
@@ -81,33 +95,75 @@ inferno pick navi
 overpass pick falcons
 ancient decider`;
   }
-  else return;
+  else if(text === "ℹ️ Інфо"){
+    return bot.sendMessage(msg.chat.id, "/info", MAIN_MENU);
+  }
+  else{
+    return;
+  }
 
   bot.sendMessage(msg.chat.id, example, MAIN_MENU);
+
 });
 
 /* ============================= */
 /* GENERATOR */
 /* ============================= */
 bot.on("message", async (msg)=>{
+
   try{
 
     if(!msg.caption) return;
 
-    const command = msg.caption.split("\n")[0].toLowerCase();
+    const command = msg.caption.split("\n")[0].trim().toLowerCase();
     if(!command.startsWith("/news")) return;
 
     const commandKey = command.replace("/", "");
-    const templateFile = NEWS_TEMPLATES[commandKey];
+    const templateFile = NEWS_TEMPLATES[commandKey] || "news-template.html";
 
     const lines = msg.caption.split("\n").slice(1);
 
-    let html = await fs.readFile(path.join(__dirname, templateFile),"utf8");
+    let html = await fs.readFile(
+      path.join(__dirname, templateFile),
+      "utf8"
+    );
 
     /* ============================= */
-    /* NEWS6 (VETO) */
+    /* DEFAULT VARIABLES */
+/* ============================= */
+    let label = "NEWS";
+    let text = "";
+    let author = "";
+
+    let stat1 = "";
+    let stat2 = "";
+    let stat3 = "";
+
     /* ============================= */
-    if(commandKey === "news6"){
+    /* COMMAND LOGIC */
+/* ============================= */
+
+    if(commandKey === "news1" || commandKey === "news2"){
+      text = lines[0] || "";
+      author = lines[1] || "";
+      label = "";
+    } 
+    else if(commandKey === "news3"){
+      text = lines.join(" ");
+      label = "";
+    } 
+    else if(commandKey === "news4" || commandKey === "news5"){
+      text = lines[0] || "";
+      stat1 = lines[1] || "";
+      stat2 = lines[2] || "";
+      stat3 = lines[3] || "";
+      label = "СТАТИСТИКА";
+    }
+
+    /* ============================= */
+    /* 🔥 NEWS6 VETO */
+/* ============================= */
+    else if(commandKey === "news6"){
 
       let vsLine = lines[0] || "";
       let lineIndex = 1;
@@ -115,78 +171,84 @@ bot.on("message", async (msg)=>{
       let tournament = "";
       let format = "";
 
-      if(lines[1]?.toLowerCase().startsWith("bo")){
+      if(lines[1] && lines[1].toLowerCase().startsWith("bo")){
         format = lines[1].toLowerCase();
         lineIndex = 2;
       } else {
         tournament = lines[1] || "";
-        format = lines[2]?.toLowerCase() || "bo3";
+        format = (lines[2] || "bo3").toLowerCase();
         lineIndex = 3;
       }
 
-      const [team1, team2] = vsLine.toLowerCase().split("vs").map(s=>s.trim());
+      vsLine = vsLine.toLowerCase().replace(/\s+/g," ");
+      const parts = vsLine.split("vs");
+
+      const team1 = (parts[0] || "").trim();
+      const team2 = (parts[1] || "").trim();
 
       const mapLines = lines.slice(lineIndex);
 
       function parse(line){
-        line = line.toLowerCase();
+        line = line.toLowerCase().trim();
 
         if(line.includes(",")){
           const [name,type,team] = line.split(",");
-          return { name:name.trim(), type:type.trim(), team:team?.trim() };
+          return { name, type, team };
         }
 
-        const parts = line.split(" ");
+        const p = line.split(" ");
 
-        if(parts.includes("decider")){
-          return { name:parts[0], type:"decider" };
+        if(p.includes("decider")){
+          return { name:p[0], type:"decider" };
         }
 
-        return { name:parts[0], type:parts[1], team:parts[2] };
+        return { name:p[0], type:p[1], team:p[2] };
       }
 
       let maps = mapLines.map(parse);
 
-      function norm(m){
+      maps = maps.map(m=>{
         if(!m.team) return m;
         if(m.team === team1 || m.team === "team1") m.team = "team1";
         else if(m.team === team2 || m.team === "team2") m.team = "team2";
         return m;
-      }
-
-      maps = maps.map(norm);
+      });
 
       if(format === "bo1") maps = maps.slice(0,7);
       if(format === "bo3") maps = maps.slice(0,3);
       if(format === "bo5") maps = maps.slice(0,5);
 
-      while(maps.length < 5) maps.push({});
-
-      function imgToBase64(file){
-        const filePath = path.join(__dirname,file);
-        if(!fs.existsSync(filePath)) return "";
-        const buffer = fs.readFileSync(filePath);
-        return `data:image/png;base64,${buffer.toString("base64")}`;
+      while(maps.length < 5){
+        maps.push({ name:"", type:"", team:"" });
       }
 
-      function logo(map){
-        if(map.type === "ban" || map.type === "decider") return "";
-        if(!map.team) return "";
+      function img(file){
+        const p = path.join(__dirname,file);
+        if(!fs.existsSync(p)) return "";
+        return `data:image/png;base64,${fs.readFileSync(p).toString("base64")}`;
+      }
 
-        const team = map.team === "team1" ? team1 : team2;
-        return `<div class="logo"><img src="${imgToBase64(`/logos/${team}.png`)}"></div>`;
+      function logo(m){
+        if(m.type === "ban" || m.type === "decider") return "";
+        if(!m.team) return "";
+
+        const t = m.team === "team1" ? team1 : team2;
+
+        return `<div class="logo">
+        <img src="${img(`/logos/${t}.png`)}">
+        </div>`;
       }
 
       html = html
-        .replace("{{TEAM1}}", team1.toUpperCase())
-        .replace("{{TEAM2}}", team2.toUpperCase())
-        .replace("{{TOURNAMENT}}", tournament.toUpperCase());
+        .replace(/{{TEAM1}}/g, team1.toUpperCase())
+        .replace(/{{TEAM2}}/g, team2.toUpperCase())
+        .replace(/{{TOURNAMENT}}/g, (tournament || "").toUpperCase());
 
       for(let i=0;i<5;i++){
-        const m = maps[i] || {};
+        const m = maps[i];
 
         html = html
-          .replace(`{{MAP${i+1}_IMAGE}}`, m.name ? imgToBase64(`/maps/${m.name}.png`) : "")
+          .replace(`{{MAP${i+1}_IMAGE}}`, m.name ? img(`/maps/${m.name}.png`) : "")
           .replace(`{{MAP${i+1}_NAME}}`, (m.name||"").toUpperCase())
           .replace(`{{MAP${i+1}_TYPE}}`, (m.type||"").toUpperCase())
           .replace(`{{MAP${i+1}_LOGO}}`, logo(m))
@@ -196,35 +258,57 @@ bot.on("message", async (msg)=>{
     }
 
     /* ============================= */
-    /* IMAGE */
+    /* DEFAULT NEWS */
+/* ============================= */
+    else {
+      label = lines[0] || "NEWS";
+      text = lines.slice(1).join(" ");
+    }
+
     /* ============================= */
+    /* IMAGE CHECK */
+/* ============================= */
+    if(!msg.photo){
+      return bot.sendMessage(msg.chat.id, "Додай фото 📸", MAIN_MENU);
+    }
+
     const fileId = msg.photo[msg.photo.length - 1].file_id;
     const file = await bot.getFile(fileId);
     const fileUrl = `https://api.telegram.org/file/bot${token}/${file.file_path}`;
 
-    const imgBuffer = (await axios.get(fileUrl,{responseType:"arraybuffer"})).data;
+    const imgBuffer = (await axios.get(fileUrl, { responseType: "arraybuffer" })).data;
     const imageBase64 = `data:image/jpeg;base64,${Buffer.from(imgBuffer).toString("base64")}`;
 
-    html = html.replace(/{{IMAGE}}/g, imageBase64);
+    html = html
+      .replace(/{{IMAGE}}/g, imageBase64)
+      .replace(/{{PLAYER_IMAGE}}/g, imageBase64)
+      .replace(/{{LABEL}}/g, label.toUpperCase())
+      .replace(/{{TEXT}}/g, text.toUpperCase())
+      .replace(/{{AUTHOR}}/g, author.toUpperCase())
+      .replace(/{{FONTSIZE}}/g, getFontSize(text) + "px")
+      .replace(/{{STAT1}}/g, stat1)
+      .replace(/{{STAT2}}/g, stat2)
+      .replace(/{{STAT3}}/g, stat3);
 
     const browser = await puppeteer.launch({
-      args:["--no-sandbox","--disable-setuid-sandbox"]
+      args: ["--no-sandbox", "--disable-setuid-sandbox"]
     });
 
     const page = await browser.newPage();
 
-    await page.setViewport({ width:900, height:900 });
-    await page.setContent(html,{waitUntil:"networkidle0"});
+    await page.setViewport({ width: 900, height: 900 });
+    await page.setContent(html, { waitUntil: "networkidle0" });
 
-    const filePath = path.join(__dirname,"news.png");
+    const filePath = path.join(__dirname, "news.png");
 
-    await page.screenshot({ path:filePath });
+    await page.screenshot({ path: filePath });
+
     await browser.close();
 
-    await bot.sendPhoto(msg.chat.id,filePath,MAIN_MENU);
+    await bot.sendPhoto(msg.chat.id, filePath, MAIN_MENU);
 
   }catch(e){
     console.log(e);
-    bot.sendMessage(msg.chat.id,"Помилка 💀",MAIN_MENU);
+    bot.sendMessage(msg.chat.id, "Помилка news 💀", MAIN_MENU);
   }
 });
