@@ -130,15 +130,16 @@ bot.on("message", async (msg)=>{
 
   try{
 
-    if(!msg.caption) return;
+    const input = msg.caption || msg.text;
+    if(!input) return;
 
-    const command = msg.caption.split("\n")[0].trim().toLowerCase();
+    const command = input.split("\n")[0].trim().toLowerCase();
     if(!command.startsWith("/news")) return;
 
     const commandKey = command.replace("/", "");
     const templateFile = NEWS_TEMPLATES[commandKey] || "news-template.html";
 
-    const lines = msg.caption.split("\n").slice(1);
+    const lines = input.split("\n").slice(1);
 
     let html = await fs.readFile(path.join(__dirname, templateFile),"utf8");
 
@@ -257,7 +258,7 @@ bot.on("message", async (msg)=>{
       text = lines.slice(1).join(" ");
     }
 
-    /* ===== IMAGE тільки НЕ для news6 ===== */
+    /* ===== IMAGE тільки для не news6 ===== */
     let imageBase64 = "";
 
     if(commandKey !== "news6"){
