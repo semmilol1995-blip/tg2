@@ -54,12 +54,12 @@ justify-content:center;
 
 .maps{
 display:flex;
-gap:12px; /* трохи більше повітря */
+gap:12px;
 }
 
 /* CARD */
 .mapCard{
-width:110px; /* 🔥 було 95 → ширше */
+width:110px;
 height:500px;
 position:relative;
 overflow:hidden;
@@ -139,28 +139,22 @@ justify-content:center;
 
 .logo img{width:60%;}
 
-/* 🔥 MAP NAME FIX */
+/* 🔥 FIXED MAP NAME */
 .mapName{
 position:absolute;
 bottom:95px;
-
-/* ключова зміна */
 left:50%;
-transform:translateX(-50%) rotate(-90deg);
 
-/* ВАЖЛИВО: baseline */
+transform:translateX(-50%) rotate(-90deg);
 transform-origin:center;
 
 font-weight:900;
 letter-spacing:2px;
 white-space:nowrap;
+text-align:center;
 
-/* 🔥 фікс вирівнювання */
-display:flex;
-align-items:flex-end;
-justify-content:center;
-
-height:200px; /* стабільна база */
+/* 🔥 читабельність */
+text-shadow:0 2px 8px rgba(0,0,0,0.7);
 }
 
 /* FOOTER */
@@ -192,7 +186,6 @@ filter:invert(1);
 <div class="mapsWrap">
 <div class="maps">
 
-<!-- 7 MAPS -->
 <div class="mapCard {{MAP1_TYPE_CLASS}}">
 <img src="{{MAP1_IMAGE}}" class="mapBg"><div class="fade"></div>{{MAP1_LOGO}}
 <div class="mapName">{{MAP1_NAME}}</div>
