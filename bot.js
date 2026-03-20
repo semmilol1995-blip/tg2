@@ -51,33 +51,12 @@ const text = `
 📘 ПРИКЛАДИ:
 
 /news
-НОВИНА, ЗАГОЛОВОК
+RESULT
 FURIA WIN 2-0
 
 /news1
-ЦИТАТА WE ARE READY
+WE ARE READY
 S1MPLE
-
-/news2
-SIDE QUOTE
-CAIRNE
-
-/news3
-ФАКТ FAZE QUALIFIED
-
-/news4
-ГОРИЗОНТАЛЬНА СТАТА
-XKASPERKY НА ANCIENT
-2.24
-+12.24
-2.07
-
-/news5
-ВЕРТИКАЛЬНА СТАТА
-XKASPERKY НА ANCIENT
-2.24
-+12.24
-2.07
 
 /news6
 blast open
@@ -196,18 +175,18 @@ function parseNews6(text){
 }
 
 /* ============================= */
-/* 🎨 MAP HTML                   */
+/* 🎨 MAP HTML (FIX PATHS)       */
 /* ============================= */
 function generateMapsHTML(maps){
   return maps.map(m=>{
     return `
     <div class="map ${m.type}">
-      <img class="bg" src="file://${process.cwd()}/maps/${m.map}.png"/>
+      <img class="bg" src="file://${path.join(__dirname,"maps",m.map+".png")}"/>
       <div class="blur"></div>
       <div class="overlay"></div>
 
       ${m.team !== "decider"
-        ? `<img class="logo" src="file://${process.cwd()}/logos/${m.team}.png"/>`
+        ? `<img class="logo" src="file://${path.join(__dirname,"logos",m.team+".png")}"/>`
         : ""
       }
 
@@ -240,9 +219,12 @@ async function handleNews6(bot, chatId, text){
   })
 
   const page = await browser.newPage()
-  await page.setViewport({ width:1200, height:630 })
+
+  // 🔥 КВАДРАТ
+  await page.setViewport({ width:900, height:900 })
 
   await page.setContent(html, { waitUntil:"networkidle0" })
+  await page.waitForTimeout(300)
 
   const filePath = path.join(__dirname, "news6.png")
 
