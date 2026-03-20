@@ -146,17 +146,16 @@ justify-content:center;
 .mapName{
 position:absolute;
 
-/* 🔥 центр по ширині карти */
-left:50%;
+/* 🔥 baseline */
 bottom:95px;
+left:50%;
 
 /* 🔥 головний фікс */
-transform:translate(-50%, 0) rotate(-90deg);
+transform:translate(-50%, 100%) rotate(-90deg);
 
-/* 🔥 ключ — НЕ bottom center */
-transform-origin:center;
+/* 🔥 ключ */
+transform-origin:bottom center;
 
-/* стиль */
 font-weight:900;
 letter-spacing:2px;
 white-space:nowrap;
