@@ -2,16 +2,20 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@700;800;900&display=swap" rel="stylesheet">
+
 <style>
 body{
   margin:0;
   width:1200px;
   height:630px;
-  font-family:Arial, sans-serif;
+  font-family:'Inter', sans-serif;
+
   background:
     radial-gradient(circle at 20% 20%, rgba(139,92,246,0.25), transparent 40%),
     radial-gradient(circle at 80% 80%, rgba(59,130,246,0.2), transparent 40%),
     linear-gradient(135deg,#050510,#14002a);
+
   color:white;
   display:flex;
   flex-direction:column;
@@ -19,6 +23,7 @@ body{
   justify-content:center;
 }
 
+/* TITLE */
 .title{
   font-size:64px;
   font-weight:900;
@@ -30,6 +35,7 @@ body{
   margin-bottom:40px;
 }
 
+/* MAPS */
 .maps{
   display:flex;
   gap:25px;
@@ -37,7 +43,7 @@ body{
   align-items:center;
 }
 
-/* MAP CARD */
+/* MAP */
 .map{
   position:relative;
   width:220px;
@@ -76,10 +82,6 @@ body{
   left:50%;
   transform:translateX(-50%);
   width:70px;
-
-  filter:
-    drop-shadow(0 0 10px rgba(255,255,255,0.4))
-    drop-shadow(0 0 25px rgba(139,92,246,0.6));
 }
 
 .map-name{
@@ -95,15 +97,52 @@ body{
   bottom:22px;
   left:18px;
   font-size:20px;
-  color:#cbd5f5;
+  font-weight:700;
+}
+
+/* PICK */
+.map.PICK .map-type{ color:#22c55e; }
+
+/* BAN */
+.map.BAN .map-type{ color:#ef4444; }
+
+.map.BAN::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(45deg, transparent 48%, rgba(255,0,0,0.8) 50%, transparent 52%);
+}
+
+.map.BAN{
+  filter:grayscale(1) brightness(0.6);
 }
 
 /* DECIDER */
-.decider{
-  box-shadow:
-    0 0 40px rgba(250,204,21,0.7),
-    0 0 100px rgba(250,204,21,0.3);
+.map.DECIDER .map-type{ color:#facc15; }
+
+/* ============================= */
+/* 🔻 ТВОЇЙ FOOTER 1 В 1         */
+/* ============================= */
+
+.footer{
+  position:absolute;
+  bottom:20px;
+  left:50%;
+  transform:translateX(-50%);
+  display:flex;
+  align-items:center;
+  gap:8px;
+  color:white;
+  font-weight:800;
+  font-size:18px;
+  z-index:10;
 }
+
+.footer img{
+  width:20px;
+  filter:brightness(0) invert(1);
+}
+
 </style>
 </head>
 
@@ -114,6 +153,12 @@ body{
 
 <div class="maps">
   {{MAPS}}
+</div>
+
+<!-- 🔥 ВСТАВЛЕНИЙ FOOTER -->
+<div class="footer">
+  <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/telegram.svg">
+  <span>t.me/zbr4_cast</span>
 </div>
 
 </body>
