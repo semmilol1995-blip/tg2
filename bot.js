@@ -27,6 +27,7 @@ const MAIN_MENU = {
 /* 🧠 TEMPLATE MAP               */
 /* ============================= */
 const NEWS_TEMPLATES = {};
+
 NEWS_TEMPLATES["news"] = "news-template.html";
 
 for (let i = 1; i <= 15; i++) {
@@ -42,67 +43,156 @@ function getFontSize(text){
 }
 
 /* ============================= */
-/* 📘 INFO                       */
+/* 📘 INFO COMMAND               */
 /* ============================= */
 bot.onText(/\/info/, (msg) => {
+
 const text = `
-📘 VETO:
+📘 ПРИКЛАДИ:
 
-BO1:
+/news
+НОВИНА, ЗАГОЛОВОК
+FURIA WIN 2-0
+
+/news1
+ЦИТАТА WE ARE READY
+S1MPLE
+
+/news2
+SIDE QUOTE
+CAIRNE
+
+/news3
+ФАКТ FAZE QUALIFIED
+
+/news4
+ГОРИЗОНТАЛЬНА СТАТА
+XKASPERKY НА ANCIENT
+2.24
++12.24
+2.07
+
+/news5
+ВЕРТИКАЛЬНА СТАТА
+XKASPERKY НА ANCIENT
+2.24
++12.24
+2.07
+
 /news6
 blast open
 navi vs b8
-navi inferno BAN
-b8 mirage BAN
-navi nuke BAN
-b8 overpass BAN
-decider ancient
-
-BO3:
-/news6
-blast open
-navi vs b8
-navi inferno PICK
-b8 mirage PICK
+navi inferno
+b8 mirage
 decider nuke
 
-📸 фото НЕ потрібно
+📸 + фото обов’язково (крім news6)
 `;
+
 bot.sendMessage(msg.chat.id, text, MAIN_MENU);
+
 });
 
 /* ============================= */
 /* 🚀 START                      */
 /* ============================= */
 bot.onText(/\/start/, (msg) => {
-  bot.sendMessage(msg.chat.id, "Обери тип поста 👇", MAIN_MENU);
+
+bot.sendMessage(msg.chat.id, "Обери тип поста 👇", {
+  reply_markup: {
+    keyboard: MAIN_MENU.reply_markup.keyboard,
+    resize_keyboard: true,
+    inline_keyboard: [
+      [
+        { text: "🟣 Новина", callback_data: "news" },
+        { text: "💬 Цитата", callback_data: "news1" },
+        { text: "📊 Факт", callback_data: "news3" }
+      ],
+      [
+        { text: "🔥 MVP (гор)", callback_data: "news4" },
+        { text: "📈 MVP (верт)", callback_data: "news5" }
+      ]
+    ]
+  }
+});
+
 });
 
 /* ============================= */
-/* 🔥 NEWS6 PARSER (NEW)         */
+/* 🔘 INLINE CALLBACK            */
+/* ============================= */
+bot.on("callback_query", (query) => {
+
+const cmd = query.data;
+
+let example = "";
+
+if(cmd === "news"){
+example = `/news
+RESULT
+FURIA WIN 2-0`;
+}
+else if(cmd === "news1"){
+example = `/news1
+WE ARE READY
+S1MPLE`;
+}
+else if(cmd === "news3"){
+example = `/news3
+FAZE QUALIFIED`;
+}
+else if(cmd === "news4"){
+example = `/news4
+XKASPERKY НА ANCIENT
+2.24
++12.24
+2.07`;
+}
+else if(cmd === "news5"){
+example = `/news5
+XKASPERKY НА ANCIENT
+2.24
++12.24
+2.07`;
+}
+
+bot.sendMessage(query.message.chat.id, example);
+bot.answerCallbackQuery(query.id);
+
+});
+
+/* ============================= */
+/* 🔥 NEWS6 PARSER               */
 /* ============================= */
 function parseNews6(text){
   const lines = text.split("\n").map(l=>l.trim()).filter(Boolean)
 
   const tournament = lines[1]
   const match = lines[2]
-  const [team1, team2] = match.split(" vs ").map(t=>t.toLowerCase())
 
-  const maps = lines.slice(3).map(line=>{
+  const [team1, team2] = match.split(" vs ").map(t=>t.trim().toLowerCase())
+
+  const rawMaps = lines.slice(3)
+
+  let mode = "BO3"
+  if(rawMaps.length >= 5) mode = "BO1"
+  if(rawMaps.length >= 6) mode = "BO5"
+
+  const maps = rawMaps.map(line=>{
     const parts = line.split(" ")
 
-    if(parts[0].toLowerCase() === "decider"){
+    if(parts[0] === "decider"){
       return { team:"decider", map:parts[1], type:"DECIDER" }
     }
 
     return {
       team: parts[0],
       map: parts[1],
-      type: (parts[2] || "PICK").toUpperCase()
+      type: mode === "BO1" ? "BAN" : "PICK"
     }
   })
 
-  return { tournament, team1, team2, maps }
+  return {tournament, team1, team2, maps}
 }
 
 /* ============================= */
@@ -110,13 +200,8 @@ function parseNews6(text){
 /* ============================= */
 function generateMapsHTML(maps){
   return maps.map(m=>{
-
-    let extraClass = ""
-    if(m.type === "BAN") extraClass = "ban"
-    if(m.type === "DECIDER") extraClass = "decider"
-
     return `
-    <div class="map ${extraClass}">
+    <div class="map ${m.type}">
       <img class="bg" src="file://${process.cwd()}/maps/${m.map}.png"/>
       <div class="blur"></div>
       <div class="overlay"></div>
@@ -136,7 +221,7 @@ function generateMapsHTML(maps){
 /* ============================= */
 /* 🚀 HANDLE NEWS6               */
 /* ============================= */
-async function handleNews6(chatId, text){
+async function handleNews6(bot, chatId, text){
   const data = parseNews6(text)
 
   let html = await fs.readFile(
@@ -156,9 +241,11 @@ async function handleNews6(chatId, text){
 
   const page = await browser.newPage()
   await page.setViewport({ width:1200, height:630 })
+
   await page.setContent(html, { waitUntil:"networkidle0" })
 
   const filePath = path.join(__dirname, "news6.png")
+
   await page.screenshot({ path:filePath })
 
   await browser.close()
@@ -167,49 +254,85 @@ async function handleNews6(chatId, text){
 }
 
 /* ============================= */
-/* 📩 MENU                       */
+/* 📩 MENU → TEMPLATE            */
 /* ============================= */
 bot.on("message", (msg) => {
 
   if(!msg.text) return;
 
   const text = msg.text;
+
   let example = "";
 
-  if(text === "🗺️ VETO BO1"){
+  if(text === "🟣 Новина"){
+    example = `/news
+RESULT
+FURIA WIN 2-0`;
+  }
+  else if(text === "💬 Цитата"){
+    example = `/news1
+WE ARE READY
+S1MPLE`;
+  }
+  else if(text === "🎤 Side Quote"){
+    example = `/news2
+WE DESTROYED THEM
+CAIRNE`;
+  }
+  else if(text === "📊 Факт"){
+    example = `/news3
+FAZE QUALIFIED`;
+  }
+  else if(text === "🔥 MVP (гор)"){
+    example = `/news4
+XKASPERKY НА ANCIENT
+2.24
++12.24
+2.07`;
+  }
+  else if(text === "📈 MVP (верт)"){
+    example = `/news5
+XKASPERKY НА ANCIENT
+2.24
++12.24
+2.07`;
+  }
+  else if(text === "🗺️ VETO BO1"){
     example = `/news6
 blast open
 navi vs b8
-navi inferno BAN
-b8 mirage BAN
-navi nuke BAN
-b8 overpass BAN
+navi inferno
+b8 mirage
+navi nuke
+b8 overpass
 decider ancient`;
   }
-
   else if(text === "🗺️ VETO BO3"){
     example = `/news6
 blast open
 navi vs b8
-navi inferno PICK
-b8 mirage PICK
+navi inferno
+b8 mirage
 decider nuke`;
   }
-
   else if(text === "🗺️ VETO BO5"){
     example = `/news6
 blast open
 navi vs b8
-navi inferno PICK
-b8 mirage PICK
-navi nuke PICK
-b8 overpass PICK
+navi inferno
+b8 mirage
+navi nuke
+b8 overpass
 decider ancient`;
   }
-
-  if(example){
-    bot.sendMessage(msg.chat.id, example, MAIN_MENU);
+  else if(text === "ℹ️ Інфо"){
+    return bot.sendMessage(msg.chat.id, "/info", MAIN_MENU);
   }
+  else{
+    return;
+  }
+
+  bot.sendMessage(msg.chat.id, example, MAIN_MENU);
 
 });
 
@@ -219,8 +342,9 @@ decider ancient`;
 bot.on("message", async (msg)=>{
   try{
 
+    // 🔥 NEWS6
     if(msg.text && msg.text.startsWith("/news6")){
-      return handleNews6(msg.chat.id, msg.text)
+      return handleNews6(bot, msg.chat.id, msg.text)
     }
 
     if(!msg.caption) return;
