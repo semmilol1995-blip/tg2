@@ -8,8 +8,6 @@ const token = process.env.TOKEN;
 const bot = new TelegramBot(token, { polling: true });
 
 /* ============================= */
-/* MENU */
-/* ============================= */
 const MAIN_MENU = {
   reply_markup: {
     keyboard: [
@@ -25,8 +23,8 @@ const MAIN_MENU = {
 
 /* ============================= */
 const NEWS_TEMPLATES = {};
-
 NEWS_TEMPLATES["news"] = "news-template.html";
+
 for (let i = 1; i <= 15; i++) {
   NEWS_TEMPLATES[`news${i}`] = `news${i}-template.html`;
 }
@@ -40,50 +38,16 @@ function getFontSize(text){
 }
 
 /* ============================= */
-/* MENU BUTTONS */
+/* MENU */
 /* ============================= */
 bot.on("message", (msg) => {
 
   if(!msg.text) return;
 
-  const text = msg.text;
   let example = "";
 
-  if(text === "🟣 Новина"){
-    example = `/news
-RESULT
-FURIA WIN 2-0`;
-  }
-  else if(text === "💬 Цитата"){
-    example = `/news1
-WE ARE READY
-S1MPLE`;
-  }
-  else if(text === "🎤 Side Quote"){
-    example = `/news2
-WE DESTROYED THEM
-CAIRNE`;
-  }
-  else if(text === "📊 Факт"){
-    example = `/news3
-FAZE QUALIFIED`;
-  }
-  else if(text === "🔥 MVP (гор)"){
-    example = `/news4
-XKASPERKY
-2.24
-+12.24
-2.07`;
-  }
-  else if(text === "📈 MVP (верт)"){
-    example = `/news5
-XKASPERKY
-2.24
-+12.24
-2.07`;
-  }
-  else if(text === "🧠 VETO BO1"){
-    example = `/news6
+  if(msg.text === "🧠 VETO BO1"){
+example = `/news6
 navi vs falcons
 blast
 bo1
@@ -95,8 +59,8 @@ nuke ban navi
 dust2 ban falcons
 ancient decider`;
   }
-  else if(text === "🧠 VETO BO3"){
-    example = `/news6
+  else if(msg.text === "🧠 VETO BO3"){
+example = `/news6
 navi vs falcons
 blast
 bo3
@@ -104,8 +68,8 @@ inferno pick navi
 overpass pick falcons
 ancient decider`;
   }
-  else if(text === "🧠 VETO BO5"){
-    example = `/news6
+  else if(msg.text === "🧠 VETO BO5"){
+example = `/news6
 navi vs falcons
 blast
 bo5
@@ -114,9 +78,6 @@ mirage pick falcons
 nuke pick navi
 dust2 pick falcons
 ancient decider`;
-  }
-  else if(text === "ℹ️ Інфо"){
-    return bot.sendMessage(msg.chat.id, "/info", MAIN_MENU);
   }
   else return;
 
@@ -128,181 +89,148 @@ ancient decider`;
 /* ============================= */
 bot.on("message", async (msg)=>{
 
-  try{
+try{
 
-    const input = msg.caption || msg.text;
-    if(!input) return;
+const input = msg.caption || msg.text;
+if(!input) return;
 
-    const command = input.split("\n")[0].trim().toLowerCase();
-    if(!command.startsWith("/news")) return;
+const command = input.split("\n")[0].trim().toLowerCase();
+if(!command.startsWith("/news")) return;
 
-    const commandKey = command.replace("/", "");
-    const templateFile = NEWS_TEMPLATES[commandKey] || "news-template.html";
+const commandKey = command.replace("/", "");
+const templateFile = NEWS_TEMPLATES[commandKey] || "news-template.html";
 
-    const lines = input.split("\n").slice(1);
+const lines = input.split("\n").slice(1);
 
-    let html = await fs.readFile(path.join(__dirname, templateFile),"utf8");
+let html = await fs.readFile(path.join(__dirname, templateFile),"utf8");
 
-    let label = "NEWS";
-    let text = "";
-    let author = "";
-    let stat1 = "", stat2 = "", stat3 = "";
+/* ============================= */
+/* NEWS6 */
+/* ============================= */
+if(commandKey === "news6"){
 
-    /* ===== стандартні команди ===== */
-    if(commandKey === "news1" || commandKey === "news2"){
-      text = lines[0] || "";
-      author = lines[1] || "";
-      label = "";
-    } 
-    else if(commandKey === "news3"){
-      text = lines.join(" ");
-      label = "";
-    } 
-    else if(commandKey === "news4" || commandKey === "news5"){
-      text = lines[0] || "";
-      stat1 = lines[1] || "";
-      stat2 = lines[2] || "";
-      stat3 = lines[3] || "";
-      label = "СТАТИСТИКА";
-    }
+let vsLine = lines[0] || "";
+let lineIndex = 1;
 
-    /* ===== VETO ===== */
-    else if(commandKey === "news6"){
+let tournament = "";
+let format = "";
 
-      let vsLine = lines[0] || "";
-      let lineIndex = 1;
+if(lines[1]?.toLowerCase().startsWith("bo")){
+format = lines[1].toLowerCase();
+lineIndex = 2;
+} else {
+tournament = lines[1] || "";
+format = (lines[2] || "bo3").toLowerCase();
+lineIndex = 3;
+}
 
-      let tournament = "";
-      let format = "";
+const [team1, team2] = vsLine.toLowerCase().split("vs").map(s=>s.trim());
 
-      if(lines[1]?.toLowerCase().startsWith("bo")){
-        format = lines[1].toLowerCase();
-        lineIndex = 2;
-      } else {
-        tournament = lines[1] || "";
-        format = (lines[2] || "bo3").toLowerCase();
-        lineIndex = 3;
-      }
+const mapLines = lines.slice(lineIndex);
 
-      const [team1, team2] = vsLine.toLowerCase().split("vs").map(s=>s.trim());
+function parse(line){
+line = line.toLowerCase().trim();
 
-      const mapLines = lines.slice(lineIndex);
+if(line.includes(",")){
+const [name,type,team] = line.split(",");
+return { name, type, team };
+}
 
-      function parse(line){
-        line = line.toLowerCase().trim();
+const p = line.split(" ");
 
-        if(line.includes(",")){
-          const [name,type,team] = line.split(",");
-          return { name, type, team };
-        }
+if(p.includes("decider")){
+return { name:p[0], type:"decider" };
+}
 
-        const p = line.split(" ");
+return { name:p[0], type:p[1], team:p[2] };
+}
 
-        if(p.includes("decider")){
-          return { name:p[0], type:"decider" };
-        }
+let maps = mapLines.map(parse);
 
-        return { name:p[0], type:p[1], team:p[2] };
-      }
+/* normalize */
+maps = maps.map(m=>{
+if(!m.team) return m;
+if(m.team === team1 || m.team === "team1") m.team = "team1";
+else if(m.team === team2 || m.team === "team2") m.team = "team2";
+return m;
+});
 
-      let maps = mapLines.map(parse);
+/* 🔥 ГОЛОВНЕ — FORMAT */
+let maxMaps = 5;
 
-      maps = maps.map(m=>{
-        if(!m.team) return m;
-        if(m.team === team1 || m.team === "team1") m.team = "team1";
-        else if(m.team === team2 || m.team === "team2") m.team = "team2";
-        return m;
-      });
+if(format === "bo1") maxMaps = 7;
+if(format === "bo3") maxMaps = 3;
+if(format === "bo5") maxMaps = 5;
 
-      if(format === "bo1") maps = maps.slice(0,7);
-      if(format === "bo3") maps = maps.slice(0,3);
-      if(format === "bo5") maps = maps.slice(0,5);
+/* padding */
+while(maps.length < maxMaps){
+maps.push({});
+}
 
-      while(maps.length < 5){
-        maps.push({});
-      }
+/* utils */
+function img(file){
+const p = path.join(__dirname,file);
+if(!fs.existsSync(p)) return "";
+return `data:image/png;base64,${fs.readFileSync(p).toString("base64")}`;
+}
 
-      function img(file){
-        const p = path.join(__dirname,file);
-        if(!fs.existsSync(p)) return "";
-        return `data:image/png;base64,${fs.readFileSync(p).toString("base64")}`;
-      }
+function logo(m){
+if(m.type === "ban" || m.type === "decider") return "";
+if(!m.team) return "";
 
-      function logo(m){
-        if(m.type === "ban" || m.type === "decider") return "";
-        if(!m.team) return "";
-        const t = m.team === "team1" ? team1 : team2;
+const t = m.team === "team1" ? team1 : team2;
 
-        return `<div class="logo"><img src="${img(`/logos/${t}.png`)}"></div>`;
-      }
+return `<div class="logo"><img src="${img(`/logos/${t}.png`)}"></div>`;
+}
 
-      html = html
-        .replace(/{{TEAM1}}/g, team1.toUpperCase())
-        .replace(/{{TEAM2}}/g, team2.toUpperCase())
-        .replace(/{{TOURNAMENT}}/g, tournament.toUpperCase());
+/* render */
+html = html
+.replace(/{{TEAM1}}/g, team1.toUpperCase())
+.replace(/{{TEAM2}}/g, team2.toUpperCase())
+.replace(/{{TOURNAMENT}}/g, tournament.toUpperCase());
 
-      for(let i=0;i<5;i++){
-        const m = maps[i] || {};
+for(let i=0;i<7;i++){
 
-        html = html
-          .replace(`{{MAP${i+1}_IMAGE}}`, m.name ? img(`/maps/${m.name}.png`) : "")
-          .replace(`{{MAP${i+1}_NAME}}`, (m.name||"").toUpperCase())
-          .replace(`{{MAP${i+1}_TYPE}}`, (m.type||"").toUpperCase())
-          .replace(`{{MAP${i+1}_LOGO}}`, logo(m))
-          .replace(`{{MAP${i+1}_CLASS}}`, (format==="bo3" && i>2) ? "hidden" : "");
-      }
-    }
+const m = maps[i] || {};
 
-    else {
-      label = lines[0] || "NEWS";
-      text = lines.slice(1).join(" ");
-    }
+html = html
+.replace(`{{MAP${i+1}_IMAGE}}`, m.name ? img(`/maps/${m.name}.png`) : "")
+.replace(`{{MAP${i+1}_NAME}}`, (m.name||"").toUpperCase())
+.replace(`{{MAP${i+1}_TYPE}}`, (m.type||"").toUpperCase())
+.replace(`{{MAP${i+1}_TYPE_CLASS}}`, m.type === "ban" ? "ban" : "")
+.replace(`{{MAP${i+1}_LOGO}}`, logo(m))
+.replace(
+`{{MAP${i+1}_CLASS}}`,
+(format==="bo3" && i>2) ? "hidden" :
+(format==="bo5" && i>4) ? "hidden" :
+""
+);
+}
 
-    /* ===== IMAGE тільки для не news6 ===== */
-    let imageBase64 = "";
+}
 
-    if(commandKey !== "news6"){
-      if(!msg.photo){
-        return bot.sendMessage(msg.chat.id, "Додай фото 📸", MAIN_MENU);
-      }
+/* ============================= */
+/* SCREENSHOT */
+/* ============================= */
 
-      const fileId = msg.photo[msg.photo.length - 1].file_id;
-      const file = await bot.getFile(fileId);
-      const fileUrl = `https://api.telegram.org/file/bot${token}/${file.file_path}`;
+const browser = await puppeteer.launch({
+args:["--no-sandbox","--disable-setuid-sandbox"]
+});
 
-      const imgBuffer = (await axios.get(fileUrl, { responseType: "arraybuffer" })).data;
-      imageBase64 = `data:image/jpeg;base64,${Buffer.from(imgBuffer).toString("base64")}`;
-    }
+const page = await browser.newPage();
 
-    html = html
-      .replace(/{{IMAGE}}/g, imageBase64)
-      .replace(/{{PLAYER_IMAGE}}/g, imageBase64)
-      .replace(/{{LABEL}}/g, label.toUpperCase())
-      .replace(/{{TEXT}}/g, text.toUpperCase())
-      .replace(/{{AUTHOR}}/g, author.toUpperCase())
-      .replace(/{{FONTSIZE}}/g, getFontSize(text) + "px")
-      .replace(/{{STAT1}}/g, stat1)
-      .replace(/{{STAT2}}/g, stat2)
-      .replace(/{{STAT3}}/g, stat3);
+await page.setViewport({ width:900, height:900 });
+await page.setContent(html,{waitUntil:"networkidle0"});
 
-    const browser = await puppeteer.launch({
-      args: ["--no-sandbox","--disable-setuid-sandbox"]
-    });
+const filePath = path.join(__dirname,"news.png");
 
-    const page = await browser.newPage();
+await page.screenshot({ path:filePath });
+await browser.close();
 
-    await page.setViewport({ width:900, height:900 });
-    await page.setContent(html, { waitUntil:"networkidle0" });
+await bot.sendPhoto(msg.chat.id,filePath,MAIN_MENU);
 
-    const filePath = path.join(__dirname,"news.png");
-
-    await page.screenshot({ path:filePath });
-    await browser.close();
-
-    await bot.sendPhoto(msg.chat.id,filePath,MAIN_MENU);
-
-  }catch(e){
-    console.log(e);
-    bot.sendMessage(msg.chat.id,"Помилка 💀",MAIN_MENU);
-  }
+}catch(e){
+console.log(e);
+bot.sendMessage(msg.chat.id,"Помилка 💀",MAIN_MENU);
+}
 });
