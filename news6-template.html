@@ -99,7 +99,7 @@ background:linear-gradient(to top, rgba(59,130,246,0.95), transparent);
 background:linear-gradient(to top, rgba(234,179,8,0.95), transparent);
 }
 
-/* TYPE */
+/* 🔥 TYPE (ФІНАЛ) */
 .mapType{
 position:absolute;
 bottom:0;
@@ -108,15 +108,16 @@ display:flex;
 justify-content:center;
 align-items:center;
 font-weight:900;
-padding:6px 0;
+padding:8px 0;
 letter-spacing:1px;
-text-shadow:0 2px 6px rgba(0,0,0,0.6);
-}
 
-.mapType.ban{background:#dc2626;color:white;}
-.mapType.pick1{background:#22c55e;color:black;}
-.mapType.pick2{background:#3b82f6;color:white;}
-.mapType.decider{background:#eab308;color:black;}
+/* біла плашка */
+background:#ffffff;
+color:#000;
+
+/* без тіні */
+text-shadow:none;
+}
 
 /* LOGO */
 .logo{
@@ -140,14 +141,10 @@ justify-content:center;
 
 .logo img{width:60%;}
 
-/* 🔥 BASELINE FIX */
-
+/* MAP NAME */
 .mapNameWrap{
 position:absolute;
-
-/* 🔥 було 95 → піднімаємо */
-bottom:80px;
-
+bottom:80px; /* 🔥 твій відступ */
 left:50%;
 transform:translateX(-50%);
 }
@@ -155,8 +152,6 @@ transform:translateX(-50%);
 .mapName{
 writing-mode: vertical-rl;
 text-orientation: mixed;
-
-/* щоб читалось як у тебе (знизу вверх) */
 transform: rotate(180deg);
 
 font-weight:900;
@@ -164,7 +159,6 @@ letter-spacing:2px;
 white-space:nowrap;
 text-align:center;
 
-/* читабельність */
 text-shadow:0 2px 8px rgba(0,0,0,0.7);
 }
 
@@ -197,53 +191,46 @@ filter:invert(1);
 <div class="mapsWrap">
 <div class="maps">
 
-<!-- MAP 1 -->
 <div class="mapCard {{MAP1_TYPE_CLASS}}">
 <img src="{{MAP1_IMAGE}}" class="mapBg"><div class="fade"></div>{{MAP1_LOGO}}
 <div class="mapNameWrap"><div class="mapName">{{MAP1_NAME}}</div></div>
-<div class="mapType {{MAP1_TYPE_CLASS}}">{{MAP1_TYPE}}</div>
+<div class="mapType">{{MAP1_TYPE}}</div>
 </div>
 
-<!-- MAP 2 -->
 <div class="mapCard {{MAP2_TYPE_CLASS}}">
 <img src="{{MAP2_IMAGE}}" class="mapBg"><div class="fade"></div>{{MAP2_LOGO}}
 <div class="mapNameWrap"><div class="mapName">{{MAP2_NAME}}</div></div>
-<div class="mapType {{MAP2_TYPE_CLASS}}">{{MAP2_TYPE}}</div>
+<div class="mapType">{{MAP2_TYPE}}</div>
 </div>
 
-<!-- MAP 3 -->
 <div class="mapCard {{MAP3_TYPE_CLASS}}">
 <img src="{{MAP3_IMAGE}}" class="mapBg"><div class="fade"></div>{{MAP3_LOGO}}
 <div class="mapNameWrap"><div class="mapName">{{MAP3_NAME}}</div></div>
-<div class="mapType {{MAP3_TYPE_CLASS}}">{{MAP3_TYPE}}</div>
+<div class="mapType">{{MAP3_TYPE}}</div>
 </div>
 
-<!-- MAP 4 -->
 <div class="mapCard {{MAP4_TYPE_CLASS}}">
 <img src="{{MAP4_IMAGE}}" class="mapBg"><div class="fade"></div>{{MAP4_LOGO}}
 <div class="mapNameWrap"><div class="mapName">{{MAP4_NAME}}</div></div>
-<div class="mapType {{MAP4_TYPE_CLASS}}">{{MAP4_TYPE}}</div>
+<div class="mapType">{{MAP4_TYPE}}</div>
 </div>
 
-<!-- MAP 5 -->
 <div class="mapCard {{MAP5_TYPE_CLASS}}">
 <img src="{{MAP5_IMAGE}}" class="mapBg"><div class="fade"></div>{{MAP5_LOGO}}
 <div class="mapNameWrap"><div class="mapName">{{MAP5_NAME}}</div></div>
-<div class="mapType {{MAP5_TYPE_CLASS}}">{{MAP5_TYPE}}</div>
+<div class="mapType">{{MAP5_TYPE}}</div>
 </div>
 
-<!-- MAP 6 -->
 <div class="mapCard {{MAP6_TYPE_CLASS}}">
 <img src="{{MAP6_IMAGE}}" class="mapBg"><div class="fade"></div>{{MAP6_LOGO}}
 <div class="mapNameWrap"><div class="mapName">{{MAP6_NAME}}</div></div>
-<div class="mapType {{MAP6_TYPE_CLASS}}">{{MAP6_TYPE}}</div>
+<div class="mapType">{{MAP6_TYPE}}</div>
 </div>
 
-<!-- MAP 7 -->
 <div class="mapCard {{MAP7_TYPE_CLASS}}">
 <img src="{{MAP7_IMAGE}}" class="mapBg"><div class="fade"></div>{{MAP7_LOGO}}
 <div class="mapNameWrap"><div class="mapName">{{MAP7_NAME}}</div></div>
-<div class="mapType {{MAP7_TYPE_CLASS}}">{{MAP7_TYPE}}</div>
+<div class="mapType">{{MAP7_TYPE}}</div>
 </div>
 
 </div>
