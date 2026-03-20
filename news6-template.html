@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -6,155 +5,245 @@
 
 <style>
 body{
-  margin:0;
-  width:900px;
-  height:900px;
-  font-family:'Inter', sans-serif;
+margin:0;
+width:900px;
+height:900px;
+font-family:'Inter',sans-serif;
+color:white;
+overflow:hidden;
 
-  background:
-    radial-gradient(circle at 20% 20%, rgba(139,92,246,0.25), transparent 40%),
-    radial-gradient(circle at 80% 80%, rgba(59,130,246,0.2), transparent 40%),
-    linear-gradient(135deg,#050510,#14002a);
-
-  color:white;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
+/* 🔥 gradient */
+background:linear-gradient(135deg,#0b0b0f 0%, #140f1f 40%, #1a1030 100%);
 }
 
-/* TITLE */
+/* 🔥 noise */
+.noise{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background-image:url('https://grainy-gradients.vercel.app/noise.svg');
+opacity:0.06;
+pointer-events:none;
+z-index:1;
+}
+
+/* 🔥 subtle glow */
+.glow{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:radial-gradient(circle at 50% 30%, rgba(168,85,247,0.10), transparent 60%);
+pointer-events:none;
+z-index:1;
+}
+
+/* HEADER */
+.header{
+position:absolute;
+top:80px;
+width:100%;
+text-align:center;
+z-index:2;
+}
+
 .title{
-  font-size:72px;
-  font-weight:900;
+font-size:64px;
+font-weight:900;
+letter-spacing:2px;
+text-shadow:0 0 15px rgba(168,85,247,0.25);
+}
+
+.vs{
+color:#a855f7;
+text-shadow:0 0 20px rgba(168,85,247,0.5);
 }
 
 .subtitle{
-  font-size:28px;
-  color:#7dd3fc;
-  margin-bottom:30px;
+margin-top:12px;
+font-size:22px;
+opacity:0.85;
+letter-spacing:1px;
 }
 
 /* MAPS */
 .maps{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:18px;
-  width:100%;
-  max-width:750px;
+position:absolute;
+top:240px;
+width:100%;
+display:flex;
+justify-content:center;
+gap:26px;
+z-index:2;
 }
 
-/* AUTO WIDTH */
-.maps:has(.map:nth-child(3)){
-  max-width:420px;
-}
-.maps:has(.map:nth-child(5)){
-  max-width:750px;
-}
-
-/* MAP */
-.map{
-  position:relative;
-  width:130px;
-  height:300px;
-  border-radius:18px;
-  overflow:hidden;
+/* MAP CARD */
+.mapCard{
+width:160px;
+height:420px;
+position:relative;
+overflow:hidden;
+background:#111;
+border:1px solid rgba(255,255,255,0.06);
+box-shadow:
+0 15px 50px rgba(0,0,0,0.7),
+0 0 15px rgba(168,85,247,0.06);
 }
 
-.bg{
-  position:absolute;
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  filter:brightness(0.75);
+.hidden{
+display:none;
 }
 
-.blur{
-  position:absolute;
-  inset:0;
-  backdrop-filter:blur(5px);
+/* IMAGE */
+.mapBg{
+position:absolute;
+width:100%;
+height:100%;
+object-fit:cover;
 }
 
-.overlay{
-  position:absolute;
-  inset:0;
-  background:linear-gradient(to top, rgba(0,0,0,0.95), transparent 60%);
+/* gradient on map */
+.fade{
+position:absolute;
+bottom:0;
+width:100%;
+height:55%;
+background:linear-gradient(to top, rgba(0,0,0,0.95), transparent);
 }
 
+/* LOGO */
 .logo{
-  position:absolute;
-  top:12px;
-  left:50%;
-  transform:translateX(-50%);
-  width:55px;
+position:absolute;
+top:18px;
+left:50%;
+transform:translateX(-50%);
+width:70px;
+height:70px;
+background:#0b0b0f;
+border:2px solid #a855f7;
+display:flex;
+align-items:center;
+justify-content:center;
+z-index:3;
+box-shadow:0 0 12px rgba(168,85,247,0.25);
 }
 
-.map-name{
-  position:absolute;
-  bottom:65px;
-  left:12px;
-  font-size:20px;
-  font-weight:900;
+.logo img{
+width:65%;
 }
 
-.map-type{
-  position:absolute;
-  bottom:18px;
-  left:12px;
-  font-size:16px;
-  font-weight:800;
+/* MAP NAME */
+.mapName{
+position:absolute;
+bottom:70px;
+width:100%;
+text-align:center;
+font-size:22px;
+font-weight:900;
+letter-spacing:2px;
+z-index:3;
 }
 
-/* TYPES */
-.map.PICK .map-type{ color:#22c55e; }
-.map.BAN .map-type{ color:#ef4444; }
-.map.DECIDER .map-type{ color:#facc15; }
-
-.map.BAN{
-  filter:grayscale(1) brightness(0.6);
-}
-
-.map.BAN::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(45deg, transparent 48%, rgba(255,0,0,0.9) 50%, transparent 52%);
+/* TYPE */
+.mapType{
+position:absolute;
+bottom:0;
+width:100%;
+background:#d1d5db;
+color:black;
+text-align:center;
+font-size:18px;
+font-weight:900;
+padding:8px 0;
+letter-spacing:2px;
+z-index:3;
 }
 
 /* FOOTER */
 .footer{
-  position:absolute;
-  bottom:20px;
-  left:50%;
-  transform:translateX(-50%);
-  display:flex;
-  align-items:center;
-  gap:8px;
-  font-weight:800;
-  font-size:18px;
+position:absolute;
+bottom:20px;
+width:100%;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:16px;
+font-weight:800;
+letter-spacing:1px;
+opacity:0.9;
+z-index:2;
 }
 
 .footer img{
-  width:20px;
-  filter:brightness(0) invert(1);
+width:20px;
+margin-right:8px;
+filter:brightness(0) invert(1);
 }
-
 </style>
 </head>
 
 <body>
 
-<div class="title">{{TEAM1}} VS {{TEAM2}}</div>
-<div class="subtitle">{{TOURNAMENT}}</div>
+<div class="noise"></div>
+<div class="glow"></div>
+
+<div class="header">
+  <div class="title">
+    {{TEAM1}} <span class="vs">VS</span> {{TEAM2}}
+  </div>
+  <div class="subtitle">{{TOURNAMENT}}</div>
+</div>
 
 <div class="maps">
-  {{MAPS}}
+
+  <div class="mapCard {{MAP1_CLASS}}">
+    <img src="{{MAP1_IMAGE}}" class="mapBg">
+    <div class="fade"></div>
+    {{MAP1_LOGO}}
+    <div class="mapName">{{MAP1_NAME}}</div>
+    <div class="mapType">{{MAP1_TYPE}}</div>
+  </div>
+
+  <div class="mapCard {{MAP2_CLASS}}">
+    <img src="{{MAP2_IMAGE}}" class="mapBg">
+    <div class="fade"></div>
+    {{MAP2_LOGO}}
+    <div class="mapName">{{MAP2_NAME}}</div>
+    <div class="mapType">{{MAP2_TYPE}}</div>
+  </div>
+
+  <div class="mapCard {{MAP3_CLASS}}">
+    <img src="{{MAP3_IMAGE}}" class="mapBg">
+    <div class="fade"></div>
+    {{MAP3_LOGO}}
+    <div class="mapName">{{MAP3_NAME}}</div>
+    <div class="mapType">{{MAP3_TYPE}}</div>
+  </div>
+
+  <div class="mapCard {{MAP4_CLASS}}">
+    <img src="{{MAP4_IMAGE}}" class="mapBg">
+    <div class="fade"></div>
+    {{MAP4_LOGO}}
+    <div class="mapName">{{MAP4_NAME}}</div>
+    <div class="mapType">{{MAP4_TYPE}}</div>
+  </div>
+
+  <div class="mapCard {{MAP5_CLASS}}">
+    <img src="{{MAP5_IMAGE}}" class="mapBg">
+    <div class="fade"></div>
+    {{MAP5_LOGO}}
+    <div class="mapName">{{MAP5_NAME}}</div>
+    <div class="mapType">{{MAP5_TYPE}}</div>
+  </div>
+
 </div>
 
 <div class="footer">
   <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/telegram.svg">
-  <span>t.me/zbr4_cast</span>
+  t.me/zbr4_cast
 </div>
 
 </body>
