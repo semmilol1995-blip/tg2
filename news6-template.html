@@ -145,16 +145,22 @@ justify-content:center;
 /* 🔥 FIXED BASELINE MAP NAME */
 .mapName{
 position:absolute;
-bottom:95px;
+
+/* 🔥 центр по ширині карти */
 left:50%;
+bottom:95px;
 
-/* 🔥 ключ */
-transform:translateX(-50%) rotate(-90deg);
-transform-origin:bottom center;
+/* 🔥 головний фікс */
+transform:translate(-50%, 0) rotate(-90deg);
 
+/* 🔥 ключ — НЕ bottom center */
+transform-origin:center;
+
+/* стиль */
 font-weight:900;
 letter-spacing:2px;
 white-space:nowrap;
+text-align:center;
 
 /* читабельність */
 text-shadow:0 2px 8px rgba(0,0,0,0.7);
