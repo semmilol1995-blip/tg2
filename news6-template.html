@@ -7,8 +7,8 @@
 <style>
 body{
   margin:0;
-  width:1200px;
-  height:630px;
+  width:900px;
+  height:900px;
   font-family:'Inter', sans-serif;
 
   background:
@@ -25,35 +25,41 @@ body{
 
 /* TITLE */
 .title{
-  font-size:64px;
+  font-size:72px;
   font-weight:900;
 }
 
 .subtitle{
-  font-size:26px;
+  font-size:28px;
   color:#7dd3fc;
-  margin-bottom:40px;
+  margin-bottom:30px;
 }
 
 /* MAPS */
 .maps{
   display:flex;
-  gap:25px;
   justify-content:center;
   align-items:center;
+  gap:18px;
+  width:100%;
+  max-width:750px;
+}
+
+/* AUTO WIDTH */
+.maps:has(.map:nth-child(3)){
+  max-width:420px;
+}
+.maps:has(.map:nth-child(5)){
+  max-width:750px;
 }
 
 /* MAP */
 .map{
   position:relative;
-  width:220px;
-  height:420px;
+  width:130px;
+  height:300px;
   border-radius:18px;
   overflow:hidden;
-
-  box-shadow:
-    0 0 30px rgba(139,92,246,0.4),
-    0 0 80px rgba(59,130,246,0.2);
 }
 
 .bg{
@@ -67,7 +73,7 @@ body{
 .blur{
   position:absolute;
   inset:0;
-  backdrop-filter:blur(6px);
+  backdrop-filter:blur(5px);
 }
 
 .overlay{
@@ -78,52 +84,45 @@ body{
 
 .logo{
   position:absolute;
-  top:18px;
+  top:12px;
   left:50%;
   transform:translateX(-50%);
-  width:70px;
+  width:55px;
 }
 
 .map-name{
   position:absolute;
-  bottom:75px;
-  left:18px;
-  font-size:28px;
+  bottom:65px;
+  left:12px;
+  font-size:20px;
   font-weight:900;
 }
 
 .map-type{
   position:absolute;
-  bottom:22px;
-  left:18px;
-  font-size:20px;
-  font-weight:700;
+  bottom:18px;
+  left:12px;
+  font-size:16px;
+  font-weight:800;
 }
 
-/* PICK */
+/* TYPES */
 .map.PICK .map-type{ color:#22c55e; }
-
-/* BAN */
 .map.BAN .map-type{ color:#ef4444; }
-
-.map.BAN::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(45deg, transparent 48%, rgba(255,0,0,0.8) 50%, transparent 52%);
-}
+.map.DECIDER .map-type{ color:#facc15; }
 
 .map.BAN{
   filter:grayscale(1) brightness(0.6);
 }
 
-/* DECIDER */
-.map.DECIDER .map-type{ color:#facc15; }
+.map.BAN::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(45deg, transparent 48%, rgba(255,0,0,0.9) 50%, transparent 52%);
+}
 
-/* ============================= */
-/* 🔻 ТВОЇЙ FOOTER 1 В 1         */
-/* ============================= */
-
+/* FOOTER */
 .footer{
   position:absolute;
   bottom:20px;
@@ -132,10 +131,8 @@ body{
   display:flex;
   align-items:center;
   gap:8px;
-  color:white;
   font-weight:800;
   font-size:18px;
-  z-index:10;
 }
 
 .footer img{
@@ -155,7 +152,6 @@ body{
   {{MAPS}}
 </div>
 
-<!-- 🔥 ВСТАВЛЕНИЙ FOOTER -->
 <div class="footer">
   <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/telegram.svg">
   <span>t.me/zbr4_cast</span>
