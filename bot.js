@@ -16,6 +16,7 @@ const MAIN_MENU = {
       ["🟣 Новина", "💬 Цитата"],
       ["🎤 Side Quote", "📊 Факт"],
       ["🔥 MVP (гор)", "📈 MVP (верт)"],
+      ["📊 RESULT"],
       ["🧠 VETO BO1", "🧠 VETO BO3", "🧠 VETO BO5"],
       ["ℹ️ Інфо"]
     ],
@@ -84,6 +85,17 @@ XKASPERKY
 2.24
 +12.24
 2.07`;
+  }
+  else if(text === "📊 RESULT"){
+example = `/news7
+aurora vs furia
+blast
+bo3
+round 2
+2-0
+dust2 16:14 team1
+inferno 13:6 team1
+overpass -`;
   }
   else if(text === "🧠 VETO BO1"){
 example = `/news6
@@ -194,6 +206,7 @@ else if(commandKey === "news4" || commandKey === "news5"){
 /* ============================= */
 else if(commandKey === "news6"){
 
+// (твій оригінальний код БЕЗ ЗМІН)
 let vsLine = lines[0] || "";
 let lineIndex = 1;
 
@@ -226,7 +239,6 @@ function parse(line){
 
 let maps = mapLines.map(parse);
 
-/* normalize */
 maps = maps.map(m=>{
   if(!m.team) return m;
 
@@ -236,11 +248,9 @@ maps = maps.map(m=>{
   return m;
 });
 
-/* 🔥 ВСІ ФОРМАТИ = 7 */
 let maxMaps = 7;
 while(maps.length < maxMaps) maps.push({});
 
-/* helpers */
 const img = (file)=>{
   const p = path.join(__dirname,file);
   if(!fs.existsSync(p)) return "";
@@ -254,16 +264,13 @@ const logo = (m)=>{
   return `<div class="logo"><img src="${img(`/logos/${t}.png`)}"></div>`;
 };
 
-/* render */
 html = html
 .replace(/{{TEAM1}}/g, team1.toUpperCase())
 .replace(/{{TEAM2}}/g, team2.toUpperCase())
 .replace(/{{TOURNAMENT}}/g, tournament.toUpperCase());
 
 for(let i=0;i<7;i++){
-
 const m = maps[i] || {};
-
 let typeClass = "";
 
 if(m.type === "ban") typeClass = "ban";
@@ -279,11 +286,77 @@ html = html
 .replace(`{{MAP${i+1}_LOGO}}`, logo(m))
 .replace(`{{MAP${i+1}_CLASS}}`, "");
 }
-
 }
 
 /* ============================= */
-/* IMAGE (НЕ для news6) */
+/* NEWS7 (RESULT) */
+/* ============================= */
+else if(commandKey === "news7"){
+
+let vsLine = lines[0] || "";
+let tournament = lines[1] || "";
+let format = (lines[2] || "bo3").toUpperCase();
+let round = (lines[3] || "").toUpperCase();
+let scoreLine = lines[4] || "0-0";
+
+const [team1, team2] = vsLine.toLowerCase().split("vs").map(s=>s.trim());
+const [score1, score2] = scoreLine.split("-").map(s=>s.trim());
+
+const mapLines = lines.slice(5);
+
+const img = (file)=>{
+  const p = path.join(__dirname,file);
+  if(!fs.existsSync(p)) return "";
+  return `data:image/png;base64,${fs.readFileSync(p).toString("base64")}`;
+};
+
+html = html
+.replace(/{{TEAM1}}/g, team1.toUpperCase())
+.replace(/{{TEAM2}}/g, team2.toUpperCase())
+.replace(/{{TEAM1_LOGO}}/g, img(`/logos/${team1}.png`))
+.replace(/{{TEAM2_LOGO}}/g, img(`/logos/${team2}.png`))
+.replace(/{{TOURNAMENT}}/g, tournament.toUpperCase())
+.replace(/{{FORMAT}}/g, format)
+.replace(/{{ROUND}}/g, round)
+.replace(/{{SCORE1}}/g, score1)
+.replace(/{{SCORE2}}/g, score2);
+
+for(let i=0;i<5;i++){
+
+  const line = mapLines[i] || "";
+  const p = line.toLowerCase().split(" ");
+
+  let name = p[0] || "";
+  let score = p[1] || "";
+  let winner = p[2] || null;
+
+  let cls = "";
+  let winIcon = "";
+
+  if(score === "-" || !name){
+    cls = "disabled";
+  }
+
+  if(winner === "team1"){
+    cls += " win1";
+    winIcon = img(`/logos/${team1}.png`);
+  }
+  else if(winner === "team2"){
+    cls += " win2";
+    winIcon = img(`/logos/${team2}.png`);
+  }
+
+  html = html
+  .replace(`{{MAP${i+1}_NAME}}`, name.toUpperCase())
+  .replace(`{{MAP${i+1}_SCORE}}`, score)
+  .replace(`{{MAP${i+1}_IMAGE}}`, name ? img(`/maps/${name}.png`) : "")
+  .replace(`{{MAP${i+1}_CLASS}}`, cls)
+  .replace(`{{MAP${i+1}_WINNER}}`, winIcon);
+}
+}
+
+/* ============================= */
+/* IMAGE */
 /* ============================= */
 let imageBase64 = "";
 
@@ -300,8 +373,6 @@ if(commandKey !== "news6"){
   imageBase64 = `data:image/jpeg;base64,${Buffer.from(imgBuffer).toString("base64")}`;
 }
 
-/* ============================= */
-/* FINAL RENDER */
 /* ============================= */
 html = html
 .replace(/{{IMAGE}}/g, imageBase64)
