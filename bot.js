@@ -16,7 +16,7 @@ const MAIN_MENU = {
       ["🟣 Новина", "💬 Цитата"],
       ["🎤 Side Quote", "📊 Факт"],
       ["🔥 MVP (гор)", "📈 MVP (верт)"],
-      ["🗺️ VETO BO1", "🗺️ VETO BO3", "🗺️ VETO BO5"],
+      ["🗺️ VETO BO1", "🗺️ VETO BO3", "🗺️ VETO BO5"], // 🔥 ДОДАНО
       ["ℹ️ Інфо"]
     ],
     resize_keyboard: true
@@ -86,7 +86,7 @@ navi inferno
 b8 mirage
 decider nuke
 
-📸 + фото обов’язково (крім news6)
+📸 + фото обов’язково
 `;
 
 bot.sendMessage(msg.chat.id, text, MAIN_MENU);
@@ -162,15 +162,16 @@ bot.answerCallbackQuery(query.id);
 });
 
 /* ============================= */
-/* 🔥 NEWS6 PARSER               */
+/* 🔥 NEWS6 ЛОГІКА (ДОДАНО)      */
 /* ============================= */
+
 function parseNews6(text){
   const lines = text.split("\n").map(l=>l.trim()).filter(Boolean)
 
   const tournament = lines[1]
   const match = lines[2]
 
-  const [team1, team2] = match.split(" vs ").map(t=>t.trim().toLowerCase())
+  const [team1, team2] = match.toLowerCase().split(" vs ").map(t=>t.trim())
 
   const rawMaps = lines.slice(3)
 
@@ -179,9 +180,9 @@ function parseNews6(text){
   if(rawMaps.length >= 6) mode = "BO5"
 
   const maps = rawMaps.map(line=>{
-    const parts = line.split(" ")
+    const parts = line.toLowerCase().split(" ")
 
-    if(parts[0].toLowerCase() === "decider"){
+    if(parts[0] === "decider"){
       return { team:"decider", map:parts[1], type:"DECIDER" }
     }
 
@@ -195,12 +196,8 @@ function parseNews6(text){
   return {tournament, team1, team2, maps}
 }
 
-/* ============================= */
-/* 🎨 MAP HTML                   */
-/* ============================= */
 function generateMapsHTML(maps){
-  return maps.map(m=>{
-    return `
+  return maps.map(m=>`
     <div class="map ${m.type}">
       <img class="bg" src="file://${path.join(__dirname,"maps",m.map+".png")}"/>
       <div class="blur"></div>
@@ -214,44 +211,45 @@ function generateMapsHTML(maps){
       <div class="map-name">${m.map.toUpperCase()}</div>
       <div class="map-type">${m.type}</div>
     </div>
-    `
-  }).join("")
+  `).join("")
 }
 
-/* ============================= */
-/* 🚀 HANDLE NEWS6               */
-/* ============================= */
 async function handleNews6(msg){
-  const data = parseNews6(msg.text)
+  try{
+    const data = parseNews6(msg.text)
 
-  let html = await fs.readFile(
-    path.join(__dirname, "news6-template.html"),
-    "utf8"
-  )
+    let html = await fs.readFile(
+      path.join(__dirname, "news6-template.html"),
+      "utf8"
+    )
 
-  html = html
-    .replace("{{TEAM1}}", data.team1.toUpperCase())
-    .replace("{{TEAM2}}", data.team2.toUpperCase())
-    .replace("{{TOURNAMENT}}", data.tournament.toUpperCase())
-    .replace("{{MAPS}}", generateMapsHTML(data.maps))
+    html = html
+      .replace("{{TEAM1}}", data.team1.toUpperCase())
+      .replace("{{TEAM2}}", data.team2.toUpperCase())
+      .replace("{{TOURNAMENT}}", data.tournament.toUpperCase())
+      .replace("{{MAPS}}", generateMapsHTML(data.maps))
 
-  const browser = await puppeteer.launch({
-    args:["--no-sandbox","--disable-setuid-sandbox"]
-  })
+    const browser = await puppeteer.launch({
+      args:["--no-sandbox","--disable-setuid-sandbox"]
+    })
 
-  const page = await browser.newPage()
+    const page = await browser.newPage()
 
-  await page.setViewport({ width:900, height:900 })
-  await page.setContent(html, { waitUntil:"networkidle0" })
-  await page.waitForTimeout(300)
+    await page.setViewport({ width:900, height:900 })
+    await page.setContent(html, { waitUntil:"networkidle0" })
+    await page.waitForTimeout(300)
 
-  const filePath = path.join(__dirname, "news6.png")
+    const filePath = path.join(__dirname, "news6.png")
 
-  await page.screenshot({ path:filePath })
+    await page.screenshot({ path:filePath })
 
-  await browser.close()
+    await browser.close()
 
-  await bot.sendPhoto(msg.chat.id, filePath, MAIN_MENU)
+    await bot.sendPhoto(msg.chat.id, filePath, MAIN_MENU)
+
+  }catch(e){
+    console.log("NEWS6 ERROR:", e)
+  }
 }
 
 /* ============================= */
@@ -265,40 +263,7 @@ bot.on("message", (msg) => {
 
   let example = "";
 
-  if(text === "🟣 Новина"){
-    example = `/news
-RESULT
-FURIA WIN 2-0`;
-  }
-  else if(text === "💬 Цитата"){
-    example = `/news1
-WE ARE READY
-S1MPLE`;
-  }
-  else if(text === "🎤 Side Quote"){
-    example = `/news2
-WE DESTROYED THEM
-CAIRNE`;
-  }
-  else if(text === "📊 Факт"){
-    example = `/news3
-FAZE QUALIFIED`;
-  }
-  else if(text === "🔥 MVP (гор)"){
-    example = `/news4
-XKASPERKY НА ANCIENT
-2.24
-+12.24
-2.07`;
-  }
-  else if(text === "📈 MVP (верт)"){
-    example = `/news5
-XKASPERKY НА ANCIENT
-2.24
-+12.24
-2.07`;
-  }
-  else if(text === "🗺️ VETO BO1"){
+  if(text === "🗺️ VETO BO1"){
     example = `/news6
 blast open
 navi vs b8
@@ -343,8 +308,8 @@ decider ancient`;
 bot.on("message", async (msg)=>{
   try{
 
-    // 🔥 NEWS6
-    if(msg.text && msg.text.startsWith("/news6")){
+    // 🔥 ДОБАВЛЕНО
+    if(msg.text && msg.text.trim().toLowerCase().startsWith("/news6")){
       return handleNews6(msg)
     }
 
