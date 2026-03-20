@@ -16,7 +16,7 @@ const MAIN_MENU = {
       ["🟣 Новина", "💬 Цитата"],
       ["🎤 Side Quote", "📊 Факт"],
       ["🔥 MVP (гор)", "📈 MVP (верт)"],
-      ["🧠 VETO"],
+      ["🧠 VETO BO1", "🧠 VETO BO3", "🧠 VETO BO5"],
       ["ℹ️ Інфо"]
     ],
     resize_keyboard: true
@@ -24,12 +24,9 @@ const MAIN_MENU = {
 };
 
 /* ============================= */
-/* TEMPLATE MAP */
-/* ============================= */
 const NEWS_TEMPLATES = {};
 
 NEWS_TEMPLATES["news"] = "news-template.html";
-
 for (let i = 1; i <= 15; i++) {
   NEWS_TEMPLATES[`news${i}`] = `news${i}-template.html`;
 }
@@ -50,7 +47,6 @@ bot.on("message", (msg) => {
   if(!msg.text) return;
 
   const text = msg.text;
-
   let example = "";
 
   if(text === "🟣 Новина"){
@@ -86,7 +82,20 @@ XKASPERKY
 +12.24
 2.07`;
   }
-  else if(text === "🧠 VETO"){
+  else if(text === "🧠 VETO BO1"){
+    example = `/news6
+navi vs falcons
+blast
+bo1
+inferno ban navi
+overpass ban falcons
+anubis ban navi
+mirage ban falcons
+nuke ban navi
+dust2 ban falcons
+ancient decider`;
+  }
+  else if(text === "🧠 VETO BO3"){
     example = `/news6
 navi vs falcons
 blast
@@ -95,15 +104,23 @@ inferno pick navi
 overpass pick falcons
 ancient decider`;
   }
+  else if(text === "🧠 VETO BO5"){
+    example = `/news6
+navi vs falcons
+blast
+bo5
+anubis pick navi
+mirage pick falcons
+nuke pick navi
+dust2 pick falcons
+ancient decider`;
+  }
   else if(text === "ℹ️ Інфо"){
     return bot.sendMessage(msg.chat.id, "/info", MAIN_MENU);
   }
-  else{
-    return;
-  }
+  else return;
 
   bot.sendMessage(msg.chat.id, example, MAIN_MENU);
-
 });
 
 /* ============================= */
@@ -123,26 +140,14 @@ bot.on("message", async (msg)=>{
 
     const lines = msg.caption.split("\n").slice(1);
 
-    let html = await fs.readFile(
-      path.join(__dirname, templateFile),
-      "utf8"
-    );
+    let html = await fs.readFile(path.join(__dirname, templateFile),"utf8");
 
-    /* ============================= */
-    /* DEFAULT VARIABLES */
-/* ============================= */
     let label = "NEWS";
     let text = "";
     let author = "";
+    let stat1 = "", stat2 = "", stat3 = "";
 
-    let stat1 = "";
-    let stat2 = "";
-    let stat3 = "";
-
-    /* ============================= */
-    /* COMMAND LOGIC */
-/* ============================= */
-
+    /* ===== стандартні команди ===== */
     if(commandKey === "news1" || commandKey === "news2"){
       text = lines[0] || "";
       author = lines[1] || "";
@@ -160,9 +165,7 @@ bot.on("message", async (msg)=>{
       label = "СТАТИСТИКА";
     }
 
-    /* ============================= */
-    /* 🔥 NEWS6 VETO */
-/* ============================= */
+    /* ===== VETO ===== */
     else if(commandKey === "news6"){
 
       let vsLine = lines[0] || "";
@@ -171,7 +174,7 @@ bot.on("message", async (msg)=>{
       let tournament = "";
       let format = "";
 
-      if(lines[1] && lines[1].toLowerCase().startsWith("bo")){
+      if(lines[1]?.toLowerCase().startsWith("bo")){
         format = lines[1].toLowerCase();
         lineIndex = 2;
       } else {
@@ -180,11 +183,7 @@ bot.on("message", async (msg)=>{
         lineIndex = 3;
       }
 
-      vsLine = vsLine.toLowerCase().replace(/\s+/g," ");
-      const parts = vsLine.split("vs");
-
-      const team1 = (parts[0] || "").trim();
-      const team2 = (parts[1] || "").trim();
+      const [team1, team2] = vsLine.toLowerCase().split("vs").map(s=>s.trim());
 
       const mapLines = lines.slice(lineIndex);
 
@@ -219,7 +218,7 @@ bot.on("message", async (msg)=>{
       if(format === "bo5") maps = maps.slice(0,5);
 
       while(maps.length < 5){
-        maps.push({ name:"", type:"", team:"" });
+        maps.push({});
       }
 
       function img(file){
@@ -231,21 +230,18 @@ bot.on("message", async (msg)=>{
       function logo(m){
         if(m.type === "ban" || m.type === "decider") return "";
         if(!m.team) return "";
-
         const t = m.team === "team1" ? team1 : team2;
 
-        return `<div class="logo">
-        <img src="${img(`/logos/${t}.png`)}">
-        </div>`;
+        return `<div class="logo"><img src="${img(`/logos/${t}.png`)}"></div>`;
       }
 
       html = html
         .replace(/{{TEAM1}}/g, team1.toUpperCase())
         .replace(/{{TEAM2}}/g, team2.toUpperCase())
-        .replace(/{{TOURNAMENT}}/g, (tournament || "").toUpperCase());
+        .replace(/{{TOURNAMENT}}/g, tournament.toUpperCase());
 
       for(let i=0;i<5;i++){
-        const m = maps[i];
+        const m = maps[i] || {};
 
         html = html
           .replace(`{{MAP${i+1}_IMAGE}}`, m.name ? img(`/maps/${m.name}.png`) : "")
@@ -254,30 +250,28 @@ bot.on("message", async (msg)=>{
           .replace(`{{MAP${i+1}_LOGO}}`, logo(m))
           .replace(`{{MAP${i+1}_CLASS}}`, (format==="bo3" && i>2) ? "hidden" : "");
       }
-
     }
 
-    /* ============================= */
-    /* DEFAULT NEWS */
-/* ============================= */
     else {
       label = lines[0] || "NEWS";
       text = lines.slice(1).join(" ");
     }
 
-    /* ============================= */
-    /* IMAGE CHECK */
-/* ============================= */
-    if(!msg.photo){
-      return bot.sendMessage(msg.chat.id, "Додай фото 📸", MAIN_MENU);
+    /* ===== IMAGE тільки НЕ для news6 ===== */
+    let imageBase64 = "";
+
+    if(commandKey !== "news6"){
+      if(!msg.photo){
+        return bot.sendMessage(msg.chat.id, "Додай фото 📸", MAIN_MENU);
+      }
+
+      const fileId = msg.photo[msg.photo.length - 1].file_id;
+      const file = await bot.getFile(fileId);
+      const fileUrl = `https://api.telegram.org/file/bot${token}/${file.file_path}`;
+
+      const imgBuffer = (await axios.get(fileUrl, { responseType: "arraybuffer" })).data;
+      imageBase64 = `data:image/jpeg;base64,${Buffer.from(imgBuffer).toString("base64")}`;
     }
-
-    const fileId = msg.photo[msg.photo.length - 1].file_id;
-    const file = await bot.getFile(fileId);
-    const fileUrl = `https://api.telegram.org/file/bot${token}/${file.file_path}`;
-
-    const imgBuffer = (await axios.get(fileUrl, { responseType: "arraybuffer" })).data;
-    const imageBase64 = `data:image/jpeg;base64,${Buffer.from(imgBuffer).toString("base64")}`;
 
     html = html
       .replace(/{{IMAGE}}/g, imageBase64)
@@ -291,24 +285,23 @@ bot.on("message", async (msg)=>{
       .replace(/{{STAT3}}/g, stat3);
 
     const browser = await puppeteer.launch({
-      args: ["--no-sandbox", "--disable-setuid-sandbox"]
+      args: ["--no-sandbox","--disable-setuid-sandbox"]
     });
 
     const page = await browser.newPage();
 
-    await page.setViewport({ width: 900, height: 900 });
-    await page.setContent(html, { waitUntil: "networkidle0" });
+    await page.setViewport({ width:900, height:900 });
+    await page.setContent(html, { waitUntil:"networkidle0" });
 
-    const filePath = path.join(__dirname, "news.png");
+    const filePath = path.join(__dirname,"news.png");
 
-    await page.screenshot({ path: filePath });
-
+    await page.screenshot({ path:filePath });
     await browser.close();
 
-    await bot.sendPhoto(msg.chat.id, filePath, MAIN_MENU);
+    await bot.sendPhoto(msg.chat.id,filePath,MAIN_MENU);
 
   }catch(e){
     console.log(e);
-    bot.sendMessage(msg.chat.id, "Помилка news 💀", MAIN_MENU);
+    bot.sendMessage(msg.chat.id,"Помилка 💀",MAIN_MENU);
   }
 });
