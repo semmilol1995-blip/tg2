@@ -1,103 +1,78 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@800;900&display=swap" rel="stylesheet">
 
 <style>
 body{
 margin:0;
 width:900px;
 height:900px;
-font-family:'Inter',sans-serif;
+font-family:'Inter', sans-serif;
+background:linear-gradient(135deg,#0b0b0f,#1a1030);
 color:white;
 overflow:hidden;
-
-/* 🔥 gradient */
-background:linear-gradient(135deg,#0b0b0f 0%, #140f1f 40%, #1a1030 100%);
 }
 
-/* 🔥 noise */
+/* NOISE */
 .noise{
 position:absolute;
-top:0;
-left:0;
 width:100%;
 height:100%;
-background-image:url('https://grainy-gradients.vercel.app/noise.svg');
+background:url('https://grainy-gradients.vercel.app/noise.svg');
 opacity:0.06;
-pointer-events:none;
-z-index:1;
-}
-
-/* 🔥 subtle glow */
-.glow{
-position:absolute;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:radial-gradient(circle at 50% 30%, rgba(168,85,247,0.10), transparent 60%);
-pointer-events:none;
-z-index:1;
 }
 
 /* HEADER */
 .header{
 position:absolute;
-top:80px;
+top:70px;
 width:100%;
 text-align:center;
-z-index:2;
 }
 
 .title{
-font-size:64px;
+font-size:60px;
 font-weight:900;
 letter-spacing:2px;
-text-shadow:0 0 15px rgba(168,85,247,0.25);
 }
 
 .vs{
 color:#a855f7;
-text-shadow:0 0 20px rgba(168,85,247,0.5);
 }
 
 .subtitle{
-margin-top:12px;
-font-size:22px;
+margin-top:10px;
+font-size:20px;
 opacity:0.85;
-letter-spacing:1px;
 }
 
 /* MAPS */
 .maps{
 position:absolute;
-top:240px;
+top:220px;
 width:100%;
 display:flex;
 justify-content:center;
-gap:26px;
-z-index:2;
+gap:10px;
 }
 
-/* MAP CARD */
+/* CARD */
 .mapCard{
-width:160px;
-height:420px;
+width:100px;
+height:360px;
 position:relative;
 overflow:hidden;
 background:#111;
-border:1px solid rgba(255,255,255,0.06);
-box-shadow:
-0 15px 50px rgba(0,0,0,0.7),
-0 0 15px rgba(168,85,247,0.06);
+border:1px solid rgba(255,255,255,0.05);
 }
 
+/* hidden */
 .hidden{
 display:none;
 }
 
-/* IMAGE */
+/* BG */
 .mapBg{
 position:absolute;
 width:100%;
@@ -105,45 +80,57 @@ height:100%;
 object-fit:cover;
 }
 
-/* gradient on map */
+/* DEFAULT FADE */
 .fade{
 position:absolute;
 bottom:0;
 width:100%;
-height:55%;
-background:linear-gradient(to top, rgba(0,0,0,0.95), transparent);
+height:60%;
+background:linear-gradient(to top,#000,transparent);
+}
+
+/* 🔴 BAN STYLE */
+.mapCard.ban .fade{
+background:linear-gradient(to top, rgba(220,38,38,0.95), transparent);
+}
+
+.mapType.ban{
+background:#dc2626;
+color:white;
 }
 
 /* LOGO */
 .logo{
 position:absolute;
-top:18px;
+top:12px;
 left:50%;
 transform:translateX(-50%);
-width:70px;
-height:70px;
+width:50px;
+height:50px;
 background:#0b0b0f;
 border:2px solid #a855f7;
 display:flex;
 align-items:center;
 justify-content:center;
 z-index:3;
-box-shadow:0 0 12px rgba(168,85,247,0.25);
 }
 
 .logo img{
-width:65%;
+width:60%;
 }
 
-/* MAP NAME */
+/* VERTICAL NAME */
 .mapName{
 position:absolute;
-bottom:70px;
-width:100%;
-text-align:center;
-font-size:22px;
+bottom:85px;
+left:50%;
+transform:translateX(-50%) rotate(-90deg);
+transform-origin:center;
+
+font-size:16px;
 font-weight:900;
 letter-spacing:2px;
+white-space:nowrap;
 z-index:3;
 }
 
@@ -155,10 +142,10 @@ width:100%;
 background:#d1d5db;
 color:black;
 text-align:center;
-font-size:18px;
+font-size:14px;
 font-weight:900;
-padding:8px 0;
-letter-spacing:2px;
+padding:6px 0;
+letter-spacing:1px;
 z-index:3;
 }
 
@@ -173,13 +160,11 @@ align-items:center;
 font-size:16px;
 font-weight:800;
 letter-spacing:1px;
-opacity:0.9;
-z-index:2;
 }
 
 .footer img{
-width:20px;
-margin-right:8px;
+width:18px;
+margin-right:6px;
 filter:brightness(0) invert(1);
 }
 </style>
@@ -188,7 +173,6 @@ filter:brightness(0) invert(1);
 <body>
 
 <div class="noise"></div>
-<div class="glow"></div>
 
 <div class="header">
   <div class="title">
@@ -199,45 +183,68 @@ filter:brightness(0) invert(1);
 
 <div class="maps">
 
-  <div class="mapCard {{MAP1_CLASS}}">
-    <img src="{{MAP1_IMAGE}}" class="mapBg">
-    <div class="fade"></div>
-    {{MAP1_LOGO}}
-    <div class="mapName">{{MAP1_NAME}}</div>
-    <div class="mapType">{{MAP1_TYPE}}</div>
-  </div>
+<!-- 1 -->
+<div class="mapCard {{MAP1_CLASS}} {{MAP1_TYPE_CLASS}}">
+<img src="{{MAP1_IMAGE}}" class="mapBg">
+<div class="fade"></div>
+{{MAP1_LOGO}}
+<div class="mapName">{{MAP1_NAME}}</div>
+<div class="mapType {{MAP1_TYPE_CLASS}}">{{MAP1_TYPE}}</div>
+</div>
 
-  <div class="mapCard {{MAP2_CLASS}}">
-    <img src="{{MAP2_IMAGE}}" class="mapBg">
-    <div class="fade"></div>
-    {{MAP2_LOGO}}
-    <div class="mapName">{{MAP2_NAME}}</div>
-    <div class="mapType">{{MAP2_TYPE}}</div>
-  </div>
+<!-- 2 -->
+<div class="mapCard {{MAP2_CLASS}} {{MAP2_TYPE_CLASS}}">
+<img src="{{MAP2_IMAGE}}" class="mapBg">
+<div class="fade"></div>
+{{MAP2_LOGO}}
+<div class="mapName">{{MAP2_NAME}}</div>
+<div class="mapType {{MAP2_TYPE_CLASS}}">{{MAP2_TYPE}}</div>
+</div>
 
-  <div class="mapCard {{MAP3_CLASS}}">
-    <img src="{{MAP3_IMAGE}}" class="mapBg">
-    <div class="fade"></div>
-    {{MAP3_LOGO}}
-    <div class="mapName">{{MAP3_NAME}}</div>
-    <div class="mapType">{{MAP3_TYPE}}</div>
-  </div>
+<!-- 3 -->
+<div class="mapCard {{MAP3_CLASS}} {{MAP3_TYPE_CLASS}}">
+<img src="{{MAP3_IMAGE}}" class="mapBg">
+<div class="fade"></div>
+{{MAP3_LOGO}}
+<div class="mapName">{{MAP3_NAME}}</div>
+<div class="mapType {{MAP3_TYPE_CLASS}}">{{MAP3_TYPE}}</div>
+</div>
 
-  <div class="mapCard {{MAP4_CLASS}}">
-    <img src="{{MAP4_IMAGE}}" class="mapBg">
-    <div class="fade"></div>
-    {{MAP4_LOGO}}
-    <div class="mapName">{{MAP4_NAME}}</div>
-    <div class="mapType">{{MAP4_TYPE}}</div>
-  </div>
+<!-- 4 -->
+<div class="mapCard {{MAP4_CLASS}} {{MAP4_TYPE_CLASS}}">
+<img src="{{MAP4_IMAGE}}" class="mapBg">
+<div class="fade"></div>
+{{MAP4_LOGO}}
+<div class="mapName">{{MAP4_NAME}}</div>
+<div class="mapType {{MAP4_TYPE_CLASS}}">{{MAP4_TYPE}}</div>
+</div>
 
-  <div class="mapCard {{MAP5_CLASS}}">
-    <img src="{{MAP5_IMAGE}}" class="mapBg">
-    <div class="fade"></div>
-    {{MAP5_LOGO}}
-    <div class="mapName">{{MAP5_NAME}}</div>
-    <div class="mapType">{{MAP5_TYPE}}</div>
-  </div>
+<!-- 5 -->
+<div class="mapCard {{MAP5_CLASS}} {{MAP5_TYPE_CLASS}}">
+<img src="{{MAP5_IMAGE}}" class="mapBg">
+<div class="fade"></div>
+{{MAP5_LOGO}}
+<div class="mapName">{{MAP5_NAME}}</div>
+<div class="mapType {{MAP5_TYPE_CLASS}}">{{MAP5_TYPE}}</div>
+</div>
+
+<!-- 6 -->
+<div class="mapCard {{MAP6_CLASS}} {{MAP6_TYPE_CLASS}}">
+<img src="{{MAP6_IMAGE}}" class="mapBg">
+<div class="fade"></div>
+{{MAP6_LOGO}}
+<div class="mapName">{{MAP6_NAME}}</div>
+<div class="mapType {{MAP6_TYPE_CLASS}}">{{MAP6_TYPE}}</div>
+</div>
+
+<!-- 7 -->
+<div class="mapCard {{MAP7_CLASS}} {{MAP7_TYPE_CLASS}}">
+<img src="{{MAP7_IMAGE}}" class="mapBg">
+<div class="fade"></div>
+{{MAP7_LOGO}}
+<div class="mapName">{{MAP7_NAME}}</div>
+<div class="mapType {{MAP7_TYPE_CLASS}}">{{MAP7_TYPE}}</div>
+</div>
 
 </div>
 
