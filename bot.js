@@ -1,4 +1,4 @@
-cconst TelegramBot = require("node-telegram-bot-api");
+const TelegramBot = require("node-telegram-bot-api");
 const puppeteer = require("puppeteer");
 const fs = require("fs-extra");
 const path = require("path");
@@ -197,6 +197,7 @@ ancient decider`;
   bot.sendMessage(msg.chat.id, example, MAIN_MENU);
 
 });
+
 /* ============================= */
 /* MAIN GENERATOR */
 /* ============================= */
@@ -225,7 +226,7 @@ let textValue = "";
 let author = "";
 let stat1 = "", stat2 = "", stat3 = "";
 
-/* 🔥 ОЦЕ ЄДИНА ЗМІНА */
+/* 🔥 ЄДИНА ЗМІНА */
 if(commandKey === "news" || commandKey === "news9"){
   label = (lines[0] || "NEWS").trim();
   textValue = (lines[1] || "").trim();
@@ -253,7 +254,9 @@ else if(commandKey === "news4" || commandKey === "news5"){
   label = "СТАТИСТИКА";
 }
 
-/* ДАЛІ ЙДЕ ТВОЯ ОРИГІНАЛЬНА ЛОГІКА news6/news7/news8 БЕЗ ЗМІН */
+/* ============================= */
+/* NEWS6 */
+/* ============================= */
 else if(commandKey === "news6"){
 
 let vsLine = lines[0] || "";
@@ -337,6 +340,7 @@ html = html
 }
 
 }
+
 /* ============================= */
 /* NEWS7 */
 /* ============================= */
