@@ -52,79 +52,121 @@ opacity:0.8;
 
 /* GRID */
 .matches{
-margin-top:70px;
-padding:0 70px;
+margin-top:60px;
+padding:0 80px;
 display:grid;
-gap:28px;
+gap:26px;
 }
 
+/* 1 COLUMN */
 .grid-1{
 grid-template-columns:1fr;
+max-width:640px;
+margin:0 auto;
 }
 
+/* 2 COLUMNS */
 .grid-2{
 grid-template-columns:1fr 1fr;
+max-width:760px;
+margin:0 auto;
 }
 
 /* CARD */
 .card{
-display:flex;
+display:grid;
+grid-template-columns: 1fr 120px 1fr;
 align-items:center;
-justify-content:space-between;
 
-padding:18px 22px;
-border-radius:22px;
+height:78px;
+padding:0 20px;
 
-background:rgba(25,10,45,0.65);
-backdrop-filter:blur(14px);
+border-radius:20px;
+
+background:rgba(25,10,45,0.6);
+backdrop-filter:blur(16px);
 
 border:1px solid rgba(168,85,247,0.35);
 
 box-shadow:
 0 0 30px rgba(168,85,247,0.25),
-inset 0 0 25px rgba(168,85,247,0.12);
+inset 0 0 25px rgba(168,85,247,0.1);
 }
 
 /* TEAM */
 .team{
 display:flex;
 align-items:center;
-gap:14px;
+gap:12px;
+
 font-weight:800;
-font-size:18px;
+font-size:17px;
+letter-spacing:0.5px;
+
+white-space:nowrap;
+overflow:hidden;
+text-overflow:ellipsis;
 }
 
-/* LOGO BOX */
+/* LEFT */
+.team:first-child{
+justify-content:flex-start;
+}
+
+/* RIGHT */
+.team:last-child{
+justify-content:flex-end;
+}
+
+/* LOGO */
 .logoBox{
-width:46px;
-height:46px;
-border-radius:14px;
+width:44px;
+height:44px;
+border-radius:12px;
 
 background:#0b0b0f;
+
 display:flex;
 align-items:center;
 justify-content:center;
 
 border:2px solid rgba(168,85,247,0.7);
-box-shadow:0 0 15px rgba(168,85,247,0.6);
+
+box-shadow:
+0 0 14px rgba(168,85,247,0.6),
+inset 0 0 8px rgba(168,85,247,0.2);
 }
 
 .logoBox img{
 width:70%;
+height:70%;
+object-fit:contain;
 }
 
 /* CENTER */
 .center{
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+
 text-align:center;
+
 font-weight:900;
+font-size:24px;
+line-height:1;
+}
+
+.center > div:first-child{
 font-size:26px;
-min-width:90px;
+letter-spacing:1px;
 }
 
 .format{
-font-size:12px;
+margin-top:4px;
+font-size:11px;
 opacity:0.6;
-margin-top:3px;
+letter-spacing:1px;
 }
 
 /* FOOTER */
