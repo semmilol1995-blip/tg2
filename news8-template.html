@@ -51,7 +51,7 @@ font-size:20px;
 opacity:0.8;
 }
 
-/* WRAPPER — ВЕРТИКАЛЬНИЙ ЦЕНТР */
+/* CONTENT CENTER */
 .content{
 flex:1;
 display:flex;
@@ -111,11 +111,22 @@ font-weight:800;
 font-size:18px;
 
 white-space:nowrap;
-overflow:hidden;
-text-overflow:ellipsis;
+
+/* 🔥 ФІКС ОБРІЗАННЯ */
+min-width:0;
 }
 
-/* НЕ ДАЄМО ЛОГО СТИСКАТИСЬ */
+/* LEFT */
+.team:first-child{
+justify-content:flex-start;
+}
+
+/* RIGHT */
+.team:last-child{
+justify-content:flex-end;
+}
+
+/* LOGO */
 .logoBox{
 width:46px;
 height:46px;
@@ -141,10 +152,6 @@ height:70%;
 object-fit:contain;
 }
 
-/* LEFT / RIGHT */
-.team:first-child{justify-content:flex-start;}
-.team:last-child{justify-content:flex-end;}
-
 /* CENTER */
 .center{
 display:flex;
@@ -156,14 +163,14 @@ text-align:center;
 line-height:1;
 }
 
-/* VS / TIME */
+/* MAIN (VS / TIME / SCORE) */
 .center .main{
 font-size:28px;
 font-weight:900;
 letter-spacing:1px;
 }
 
-/* FORMAT — МЕНШИЙ */
+/* FORMAT */
 .format{
 margin-top:3px;
 font-size:10px;
