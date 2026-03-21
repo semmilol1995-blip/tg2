@@ -173,7 +173,6 @@ let textValue = "";
 let author = "";
 let stat1 = "", stat2 = "", stat3 = "";
 
-/* FIX /news */
 if(commandKey === "news"){
   label = (lines[0] || "NEWS").trim();
   textValue = (lines[1] || "").trim();
@@ -205,7 +204,7 @@ else if(commandKey === "news4" || commandKey === "news5"){
 /* NEWS6 */
 /* ============================= */
 else if(commandKey === "news6"){
-// твій код без змін (залишив як є)
+// залишено без змін
 }
 
 /* ============================= */
@@ -241,7 +240,6 @@ html = html
 .replace(/{{SCORE1}}/g, score1)
 .replace(/{{SCORE2}}/g, score2);
 
-/* map count */
 let mapCount = 3;
 if(format === "BO1") mapCount = 1;
 if(format === "BO3") mapCount = 3;
@@ -261,16 +259,23 @@ for(let i=0;i<5;i++){
   let cls = "";
   let winIcon = "";
 
-  if(!isActive || score === "-" || !name){
+  if(!isActive){
     cls = "disabled";
+    name = "";
+    score = "";
+  }
+
+  if(score === "-" || !name){
+    cls = "disabled";
+    winIcon = img(`/logos/default.png`);
   }
 
   if(winner === "team1"){
-    cls += " win1";
+    cls = "win1";
     winIcon = img(`/logos/${team1}.png`);
   }
   else if(winner === "team2"){
-    cls += " win2";
+    cls = "win2";
     winIcon = img(`/logos/${team2}.png`);
   }
 
@@ -288,18 +293,16 @@ for(let i=0;i<5;i++){
 /* ============================= */
 let imageBase64 = "";
 
-/* news7 окремо */
 if(commandKey === "news7"){
   if(msg.photo){
     const fileId = msg.photo[msg.photo.length - 1].file_id;
     const file = await bot.getFile(fileId);
     const fileUrl = `https://api.telegram.org/file/bot${token}/${file.file_path}`;
+
     const imgBuffer = (await axios.get(fileUrl, { responseType: "arraybuffer" })).data;
     imageBase64 = `data:image/jpeg;base64,${Buffer.from(imgBuffer).toString("base64")}`;
   }
 }
-
-/* інші */
 else if(commandKey !== "news6"){
   if(!msg.photo){
     return bot.sendMessage(msg.chat.id, "Додай фото 📸", MAIN_MENU);
@@ -308,6 +311,7 @@ else if(commandKey !== "news6"){
   const fileId = msg.photo[msg.photo.length - 1].file_id;
   const file = await bot.getFile(fileId);
   const fileUrl = `https://api.telegram.org/file/bot${token}/${file.file_path}`;
+
   const imgBuffer = (await axios.get(fileUrl, { responseType: "arraybuffer" })).data;
   imageBase64 = `data:image/jpeg;base64,${Buffer.from(imgBuffer).toString("base64")}`;
 }
