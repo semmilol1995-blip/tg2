@@ -53,7 +53,18 @@ bot.on("message", (msg) => {
   const text = msg.text;
   let example = "";
 
-  if(text === "🟣 Новина"){
+  if(text === "📊 RESULT"){
+example = `/news7
+aurora vs furia
+blast
+bo3
+round 2
+2-0
+dust2 16:14 team1
+inferno 13:6 team1
+overpass -`;
+  }
+  else if(text === "🟣 Новина"){
 example = `/news
 RESULT
 FURIA WIN 2-0`;
@@ -85,17 +96,6 @@ XKASPERKY
 2.24
 +12.24
 2.07`;
-  }
-  else if(text === "📊 RESULT"){
-example = `/news7
-aurora vs furia
-blast
-bo3
-round 2
-2-0
-dust2 16:14 team1
-inferno 13:6 team1
-overpass -`;
   }
   else if(text === "🧠 VETO BO1"){
 example = `/news6
@@ -201,14 +201,14 @@ else if(commandKey === "news4" || commandKey === "news5"){
 }
 
 /* ============================= */
-/* NEWS6 — НЕ ЧІПАЄМО */
+/* NEWS6 — ТВОЯ ВЕРСІЯ (НЕ ЧІПАЄМО) */
 /* ============================= */
 else if(commandKey === "news6"){
-// твій код тут без змін
+// 👉 встав тут свою 100% робочу версію 2.0
 }
 
 /* ============================= */
-/* NEWS7 */
+/* NEWS7 (НОВИЙ) */
 /* ============================= */
 else if(commandKey === "news7"){
 
@@ -240,6 +240,7 @@ html = html
 .replace(/{{SCORE1}}/g, score1)
 .replace(/{{SCORE2}}/g, score2);
 
+/* 🔥 КІЛЬКІСТЬ МАП */
 let mapCount = 3;
 if(format === "BO1") mapCount = 1;
 if(format === "BO3") mapCount = 3;
@@ -258,8 +259,6 @@ for(let i=0;i<5;i++){
 
   if(i >= mapCount){
     cls = "hidden";
-    name = "";
-    score = "";
   }
 
   if(score === "-" || !name){
@@ -278,7 +277,10 @@ for(let i=0;i<5;i++){
   .replace(`{{MAP${i+1}_SCORE}}`, score)
   .replace(`{{MAP${i+1}_IMAGE}}`, name ? img(`/maps/${name}.png`) : "")
   .replace(`{{MAP${i+1}_CLASS}}`, cls)
-  .replace(`{{MAP${i+1}_WINNER}}`, winner ? img(`/logos/${winner === "team1" ? team1 : team2}.png`) : img(`/logos/default.png`));
+  .replace(`{{MAP${i+1}_WINNER}}`, winner
+    ? img(`/logos/${winner === "team1" ? team1 : team2}.png`)
+    : img(`/logos/default.png`)
+  );
 }
 }
 
@@ -287,9 +289,12 @@ for(let i=0;i<5;i++){
 /* ============================= */
 let imageBase64 = "";
 
+/* news6 — без фото */
 if(commandKey === "news6"){
   imageBase64 = "";
 }
+
+/* news7 — опціонально */
 else if(commandKey === "news7"){
   if(msg.photo){
     const fileId = msg.photo[msg.photo.length - 1].file_id;
@@ -299,6 +304,8 @@ else if(commandKey === "news7"){
     imageBase64 = `data:image/jpeg;base64,${Buffer.from(imgBuffer).toString("base64")}`;
   }
 }
+
+/* інші — обов'язково фото */
 else{
   if(!msg.photo){
     return bot.sendMessage(msg.chat.id, "Додай фото 📸", MAIN_MENU);
