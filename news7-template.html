@@ -143,7 +143,8 @@ overflow:hidden;
 border-radius:6px;
 background:#111;
 }
-/* BG IMAGE */
+
+/* MAP IMAGE */
 .map img.bgMap{
 position:absolute;
 width:100%;
@@ -162,7 +163,7 @@ background:linear-gradient(to top,rgba(0,0,0,0.7),transparent);
 z-index:1;
 }
 
-/* TEXT ABOVE */
+/* TEXT (ЗАВЖДИ НАД ГРАДІЄНТОМ) */
 .mapScore{
 position:absolute;
 top:8px;
@@ -191,15 +192,30 @@ z-index:2;
 }
 
 /* STATES */
+
+/* 🔥 НЕ ПОКАЗУЄМО */
 .map.hidden{
 display:none;
 }
 
+/* 🔥 НЕ ЗІГРАНА МАПА (ФІКС) */
 .map.disabled{
-opacity:0.25;
-filter:grayscale(1);
+opacity:0.75;
+filter:grayscale(0.4);
 }
 
+/* легкий overlay щоб не зливалася */
+.map.disabled::after{
+background:linear-gradient(to top,rgba(0,0,0,0.5),transparent);
+}
+
+/* текст норм видно */
+.map.disabled .mapScore,
+.map.disabled .mapName{
+opacity:0.9;
+}
+
+/* 🔥 WIN EFFECT */
 .map.win1{
 box-shadow:0 0 15px rgba(34,197,94,0.9);
 }
