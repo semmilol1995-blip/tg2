@@ -13,6 +13,7 @@ font-family:'Inter', sans-serif;
 background:radial-gradient(circle at top,#2a1b4a,#0b0b0f 70%);
 color:white;
 overflow:hidden;
+
 display:flex;
 flex-direction:column;
 }
@@ -50,10 +51,17 @@ font-size:20px;
 opacity:0.8;
 }
 
+/* WRAPPER — ВЕРТИКАЛЬНИЙ ЦЕНТР */
+.content{
+flex:1;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
 /* GRID */
 .matches{
-margin-top:60px;
-padding:0 80px;
+width:100%;
 display:grid;
 gap:26px;
 }
@@ -61,14 +69,14 @@ gap:26px;
 /* 1 COLUMN */
 .grid-1{
 grid-template-columns:1fr;
-max-width:640px;
+max-width:650px;
 margin:0 auto;
 }
 
 /* 2 COLUMNS */
 .grid-2{
 grid-template-columns:1fr 1fr;
-max-width:760px;
+max-width:850px;
 margin:0 auto;
 }
 
@@ -78,10 +86,10 @@ display:grid;
 grid-template-columns: 1fr 120px 1fr;
 align-items:center;
 
-height:78px;
-padding:0 20px;
+height:82px;
+padding:0 22px;
 
-border-radius:20px;
+border-radius:22px;
 
 background:rgba(25,10,45,0.6);
 backdrop-filter:blur(16px);
@@ -89,7 +97,7 @@ backdrop-filter:blur(16px);
 border:1px solid rgba(168,85,247,0.35);
 
 box-shadow:
-0 0 30px rgba(168,85,247,0.25),
+0 0 35px rgba(168,85,247,0.25),
 inset 0 0 25px rgba(168,85,247,0.1);
 }
 
@@ -97,33 +105,23 @@ inset 0 0 25px rgba(168,85,247,0.1);
 .team{
 display:flex;
 align-items:center;
-gap:12px;
+gap:14px;
 
 font-weight:800;
-font-size:17px;
-letter-spacing:0.5px;
+font-size:18px;
 
 white-space:nowrap;
 overflow:hidden;
 text-overflow:ellipsis;
 }
 
-/* LEFT */
-.team:first-child{
-justify-content:flex-start;
-}
-
-/* RIGHT */
-.team:last-child{
-justify-content:flex-end;
-}
-
-/* LOGO */
+/* НЕ ДАЄМО ЛОГО СТИСКАТИСЬ */
 .logoBox{
-width:44px;
-height:44px;
-border-radius:12px;
+width:46px;
+height:46px;
+flex-shrink:0;
 
+border-radius:14px;
 background:#0b0b0f;
 
 display:flex;
@@ -133,7 +131,7 @@ justify-content:center;
 border:2px solid rgba(168,85,247,0.7);
 
 box-shadow:
-0 0 14px rgba(168,85,247,0.6),
+0 0 15px rgba(168,85,247,0.6),
 inset 0 0 8px rgba(168,85,247,0.2);
 }
 
@@ -143,6 +141,10 @@ height:70%;
 object-fit:contain;
 }
 
+/* LEFT / RIGHT */
+.team:first-child{justify-content:flex-start;}
+.team:last-child{justify-content:flex-end;}
+
 /* CENTER */
 .center{
 display:flex;
@@ -151,27 +153,26 @@ align-items:center;
 justify-content:center;
 
 text-align:center;
-
-font-weight:900;
-font-size:24px;
 line-height:1;
 }
 
-.center > div:first-child{
-font-size:26px;
+/* VS / TIME */
+.center .main{
+font-size:28px;
+font-weight:900;
 letter-spacing:1px;
 }
 
+/* FORMAT — МЕНШИЙ */
 .format{
-margin-top:4px;
-font-size:11px;
-opacity:0.6;
-letter-spacing:1px;
+margin-top:3px;
+font-size:10px;
+opacity:0.55;
+letter-spacing:1.5px;
 }
 
 /* FOOTER */
 .footer{
-margin-top:auto;
 margin-bottom:26px;
 display:flex;
 justify-content:center;
@@ -185,7 +186,6 @@ opacity:0.9;
 width:20px;
 margin-right:8px;
 filter:invert(1);
-opacity:0.9;
 }
 </style>
 </head>
@@ -199,8 +199,10 @@ opacity:0.9;
 <div class="subtitle">{{TOURNAMENT}}</div>
 </div>
 
-<div class="matches {{GRID}}">
-{{MATCHES}}
+<div class="content">
+  <div class="matches {{GRID}}">
+    {{MATCHES}}
+  </div>
 </div>
 
 <div class="footer">
