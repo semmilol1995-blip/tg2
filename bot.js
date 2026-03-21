@@ -41,6 +41,7 @@ const MATCH_MENU = {
 const NEWS_TEMPLATES = {};
 
 NEWS_TEMPLATES["news"] = "news-template.html";
+NEWS_TEMPLATES["news9"] = "news9-template.html"; // 🔥 ВОТ ЦЕ
 
 for (let i = 1; i <= 15; i++) {
   NEWS_TEMPLATES[`news${i}`] = `news${i}-template.html`;
