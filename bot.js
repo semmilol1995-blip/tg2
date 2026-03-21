@@ -1,4 +1,4 @@
-const TelegramBot = require("node-telegram-bot-api");
+cconst TelegramBot = require("node-telegram-bot-api");
 const puppeteer = require("puppeteer");
 const fs = require("fs-extra");
 const path = require("path");
@@ -13,8 +13,9 @@ const bot = new TelegramBot(token, { polling: true });
 const MAIN_MENU = {
   reply_markup: {
     keyboard: [
-      ["🟣 Новина", "💬 Цитата"],
-      ["🎤 Side Quote", "📊 Факт"],
+      ["🟣 Новина 1", "🆕 Новина 2"],
+      ["🎤 Side Quote", "💬 Цитата"],
+      ["📊 Факт"],
       ["🔥 MVP (гор)", "📈 MVP (верт)"],
       ["📊 RESULT", "📅 MATCHES"],
       ["🧠 VETO BO1", "🧠 VETO BO3", "🧠 VETO BO5"],
@@ -52,6 +53,7 @@ function getFontSize(text){
   if(text.length > 80) return 42;
   return 52;
 }
+
 /* ============================= */
 /* MENU BUTTONS */
 /* ============================= */
@@ -99,25 +101,36 @@ dust2 16:14 team1
 inferno 13:6 team1
 overpass -`;
   }
-  else if(text === "🟣 Новина"){
+
+  else if(text === "🟣 Новина 1"){
 example = `/news
 RESULT
 FURIA WIN 2-0`;
   }
+
+  else if(text === "🆕 Новина 2"){
+example = `/news9
+RESULT
+FURIA WIN 2-0`;
+  }
+
   else if(text === "💬 Цитата"){
 example = `/news1
 WE ARE READY
 S1MPLE`;
   }
+
   else if(text === "🎤 Side Quote"){
 example = `/news2
 WE DESTROYED THEM
 CAIRNE`;
   }
+
   else if(text === "📊 Факт"){
 example = `/news3
 FAZE QUALIFIED`;
   }
+
   else if(text === "🔥 MVP (гор)"){
 example = `/news4
 XKASPERKY
@@ -125,6 +138,7 @@ XKASPERKY
 +12.24
 2.07`;
   }
+
   else if(text === "📈 MVP (верт)"){
 example = `/news5
 XKASPERKY
@@ -132,6 +146,7 @@ XKASPERKY
 +12.24
 2.07`;
   }
+
   else if(text === "🧠 VETO BO1"){
 example = `/news6
 navi vs falcons
@@ -145,6 +160,7 @@ nuke ban navi
 dust2 ban falcons
 ancient decider`;
   }
+
   else if(text === "🧠 VETO BO3"){
 example = `/news6
 navi vs falcons
@@ -158,6 +174,7 @@ nuke pick navi
 dust2 pick falcons
 ancient decider`;
   }
+
   else if(text === "🧠 VETO BO5"){
 example = `/news6
 navi vs falcons
@@ -171,6 +188,7 @@ nuke pick navi
 dust2 pick falcons
 ancient decider`;
   }
+
   else if(text === "ℹ️ Інфо"){
     return bot.sendMessage(msg.chat.id, "/info", MAIN_MENU);
   }
@@ -206,7 +224,9 @@ let label = "NEWS";
 let textValue = "";
 let author = "";
 let stat1 = "", stat2 = "", stat3 = "";
-if(commandKey === "news"){
+
+/* 🔥 ОЦЕ ЄДИНА ЗМІНА */
+if(commandKey === "news" || commandKey === "news9"){
   label = (lines[0] || "NEWS").trim();
   textValue = (lines[1] || "").trim();
 
@@ -232,6 +252,8 @@ else if(commandKey === "news4" || commandKey === "news5"){
   stat3 = lines[3] || "";
   label = "СТАТИСТИКА";
 }
+
+/* ДАЛІ ЙДЕ ТВОЯ ОРИГІНАЛЬНА ЛОГІКА news6/news7/news8 БЕЗ ЗМІН */
 else if(commandKey === "news6"){
 
 let vsLine = lines[0] || "";
