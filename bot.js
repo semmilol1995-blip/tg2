@@ -142,6 +142,7 @@ ancient decider`;
   else return;
 
   bot.sendMessage(msg.chat.id, example, MAIN_MENU);
+
 });
 
 /* ============================= */
@@ -172,6 +173,7 @@ let textValue = "";
 let author = "";
 let stat1 = "", stat2 = "", stat3 = "";
 
+/* 🔥 FIX ДЛЯ /news */
 if(commandKey === "news"){
   label = (lines[0] || "NEWS").trim();
   textValue = (lines[1] || "").trim();
@@ -199,7 +201,7 @@ else if(commandKey === "news4" || commandKey === "news5"){
   label = "СТАТИСТИКА";
 }
 /* ============================= */
-/* NEWS6 (ТВОЯ ВЕРСІЯ 2.0) */
+/* NEWS6 (НЕ ЧІПАЛИ — 2.0) */
 /* ============================= */
 else if(commandKey === "news6"){
 
@@ -314,6 +316,7 @@ html = html
 .replace(/{{TEAM2_LOGO}}/g, img(`/logos/${team2}.png`))
 .replace(/{{TOURNAMENT}}/g, tournament.toUpperCase())
 .replace(/{{FORMAT}}/g, format)
+.replace(/{{FORMAT_CLASS}}/g, format.toLowerCase())
 .replace(/{{ROUND}}/g, round)
 .replace(/{{SCORE1}}/g, score1)
 .replace(/{{SCORE2}}/g, score2);
@@ -335,7 +338,7 @@ for(let i=0;i<5;i++){
   if(score === "-" || !name) cls += " disabled";
 
   if(winner === "team1") cls += " win1";
-  else if(winner === "team2") cls += " win2";
+  if(winner === "team2") cls += " win2";
 
   html = html
   .replace(`{{MAP${i+1}_NAME}}`, name.toUpperCase())
@@ -346,6 +349,7 @@ for(let i=0;i<5;i++){
     winner ? img(`/logos/${winner === "team1" ? team1 : team2}.png`) : img(`/logos/default.png`)
   );
 }
+
 }
 
 /* ============================= */
@@ -389,6 +393,7 @@ html = html
 .replace(/{{STAT2}}/g, stat2)
 .replace(/{{STAT3}}/g, stat3);
 
+/* ============================= */
 const browser = await puppeteer.launch({
   args:["--no-sandbox","--disable-setuid-sandbox"]
 });
