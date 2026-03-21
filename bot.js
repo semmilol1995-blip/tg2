@@ -201,10 +201,10 @@ else if(commandKey === "news4" || commandKey === "news5"){
 }
 
 /* ============================= */
-/* NEWS6 */
+/* NEWS6 — НЕ ЧІПАЄМО */
 /* ============================= */
 else if(commandKey === "news6"){
-// залишено без змін
+// твій код тут без змін
 }
 
 /* ============================= */
@@ -247,8 +247,6 @@ if(format === "BO5") mapCount = 5;
 
 for(let i=0;i<5;i++){
 
-  let isActive = i < mapCount;
-
   const line = mapLines[i] || "";
   const p = line.toLowerCase().split(" ");
 
@@ -257,26 +255,22 @@ for(let i=0;i<5;i++){
   let winner = p[2] || null;
 
   let cls = "";
-  let winIcon = "";
 
-  if(!isActive){
-    cls = "disabled";
+  if(i >= mapCount){
+    cls = "hidden";
     name = "";
     score = "";
   }
 
   if(score === "-" || !name){
     cls = "disabled";
-    winIcon = img(`/logos/default.png`);
   }
 
   if(winner === "team1"){
-    cls = "win1";
-    winIcon = img(`/logos/${team1}.png`);
+    cls += " win1";
   }
   else if(winner === "team2"){
-    cls = "win2";
-    winIcon = img(`/logos/${team2}.png`);
+    cls += " win2";
   }
 
   html = html
@@ -284,7 +278,7 @@ for(let i=0;i<5;i++){
   .replace(`{{MAP${i+1}_SCORE}}`, score)
   .replace(`{{MAP${i+1}_IMAGE}}`, name ? img(`/maps/${name}.png`) : "")
   .replace(`{{MAP${i+1}_CLASS}}`, cls)
-  .replace(`{{MAP${i+1}_WINNER}}`, winIcon);
+  .replace(`{{MAP${i+1}_WINNER}}`, winner ? img(`/logos/${winner === "team1" ? team1 : team2}.png`) : img(`/logos/default.png`));
 }
 }
 
@@ -293,17 +287,19 @@ for(let i=0;i<5;i++){
 /* ============================= */
 let imageBase64 = "";
 
-if(commandKey === "news7"){
+if(commandKey === "news6"){
+  imageBase64 = "";
+}
+else if(commandKey === "news7"){
   if(msg.photo){
     const fileId = msg.photo[msg.photo.length - 1].file_id;
     const file = await bot.getFile(fileId);
     const fileUrl = `https://api.telegram.org/file/bot${token}/${file.file_path}`;
-
     const imgBuffer = (await axios.get(fileUrl, { responseType: "arraybuffer" })).data;
     imageBase64 = `data:image/jpeg;base64,${Buffer.from(imgBuffer).toString("base64")}`;
   }
 }
-else if(commandKey !== "news6"){
+else{
   if(!msg.photo){
     return bot.sendMessage(msg.chat.id, "Додай фото 📸", MAIN_MENU);
   }
@@ -311,7 +307,6 @@ else if(commandKey !== "news6"){
   const fileId = msg.photo[msg.photo.length - 1].file_id;
   const file = await bot.getFile(fileId);
   const fileUrl = `https://api.telegram.org/file/bot${token}/${file.file_path}`;
-
   const imgBuffer = (await axios.get(fileUrl, { responseType: "arraybuffer" })).data;
   imageBase64 = `data:image/jpeg;base64,${Buffer.from(imgBuffer).toString("base64")}`;
 }
