@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -10,100 +11,114 @@ width:900px;
 height:900px;
 font-family:'Inter', sans-serif;
 overflow:hidden;
-background:black;
+background:#0b0b0f;
+color:white;
 }
 
-/* фон */
+/* IMAGE */
 .bg{
-position:absolute;
-width:100%;
-height:100%;
-object-fit:cover;
-filter:brightness(0.7);
-}
-
-.fadeBottom{
 position:absolute;
 bottom:0;
 width:100%;
-height:75%;
-background:linear-gradient(to top, rgba(0,0,0,0.98), transparent);
+height:55%;
+object-fit:cover;
+filter:brightness(0.75);
 }
 
+/* DARK GRADIENT OVER IMAGE */
+.imageFade{
+position:absolute;
+bottom:0;
+width:100%;
+height:55%;
+background:linear-gradient(to top, rgba(11,11,15,1), rgba(11,11,15,0.2));
+}
+
+/* TOP BLOCK */
+.top{
+position:absolute;
+top:0;
+width:100%;
+height:55%;
+
+display:flex;
+align-items:center;
+justify-content:center;
+padding:70px 80px;
+box-sizing:border-box;
+
+/* 🔥 твій стиль */
+background:radial-gradient(circle at top,#2a1b4a,#0b0b0f 70%);
+}
+
+/* TEXT */
+.text{
+font-size:{{FONTSIZE}};
+font-weight:900;
+line-height:1.15;
+text-align:center;
+text-transform:uppercase;
+letter-spacing:1px;
+
+/* glow */
+color:#e9d5ff;
+text-shadow:
+0 0 12px rgba(168,85,247,0.6),
+0 0 30px rgba(168,85,247,0.25);
+}
+
+/* DIVIDER LINE */
+.line{
+position:absolute;
+top:55%;
+width:100%;
+height:2px;
+
+background:linear-gradient(90deg, transparent, #a855f7, transparent);
+opacity:0.8;
+}
+
+/* LABEL */
+.label{
+position:absolute;
+top:55%;
+left:50%;
+transform:translate(-50%, -50%);
+
+background:#0b0b0f;
+color:#a855f7;
+
+font-weight:900;
+padding:10px 26px;
+font-size:20px;
+letter-spacing:1px;
+
+/* glow */
+border:1px solid rgba(168,85,247,0.6);
+box-shadow:
+0 0 20px rgba(168,85,247,0.6),
+inset 0 0 10px rgba(168,85,247,0.2);
+}
+
+/* NOISE */
 .grain{
 position:absolute;
 width:100%;
 height:100%;
-opacity:0.12;
+opacity:0.05;
 background-image:url('https://grainy-gradients.vercel.app/noise.svg');
 }
 
-/* центр */
-.centerWrap{
-position:absolute;
-bottom:100px;
-width:100%;
-display:flex;
-justify-content:center;
-}
-
-/* контейнер */
-.content{
-width:760px;
-display:flex;
-flex-direction:column;
-align-items:center;
-text-align:center;
-}
-
-/* label */
-.label{
-background:#a855f7;
-color:black;
-font-weight:900;
-padding:10px 28px;
-font-size:20px;
-margin-bottom:25px;
-}
-
-/* лапки */
-.quoteMark{
-font-size:60px;
-color:#a855f7;
-margin-bottom:10px;
-line-height:1;
-}
-
-/* текст */
-.text{
-font-size:{{FONTSIZE}};
-font-weight:900;
-line-height:1.2;
-text-transform:uppercase;
-letter-spacing:1px;
-color:white;
-font-style:italic;
-}
-
-/* автор */
-.author{
-margin-top:25px;
-font-size:22px;
-font-weight:800;
-color:#a855f7;
-letter-spacing:1px;
-}
-
-/* tg */
+/* FOOTER */
 .bottomBar{
 position:absolute;
-bottom:20px;
+bottom:22px;
 width:100%;
 display:flex;
 justify-content:center;
 font-size:18px;
 font-weight:800;
-color:white;
+opacity:0.9;
 }
 
 .bottomBar img{
@@ -116,24 +131,18 @@ filter:brightness(0) invert(1);
 
 <body>
 
-<img src="{{IMAGE}}" class="bg">
-
-<div class="fadeBottom"></div>
-<div class="grain"></div>
-
-<div class="centerWrap">
-  <div class="content">
-
-    <div class="label">{{LABEL}}</div>
-
-    <div class="quoteMark">“</div>
-
-    <div class="text">{{TEXT}}</div>
-
-    <div class="author">{{AUTHOR}}</div>
-
-  </div>
+<div class="top">
+  <div class="text">{{TEXT}}</div>
 </div>
+
+<div class="line"></div>
+
+<div class="label">{{LABEL}}</div>
+
+<img src="{{IMAGE}}" class="bg">
+<div class="imageFade"></div>
+
+<div class="grain"></div>
 
 <div class="bottomBar">
   <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/telegram.svg">
