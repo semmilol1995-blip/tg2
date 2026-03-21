@@ -1,7 +1,8 @@
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@700;800;900&display=swap" rel="stylesheet">
 
 <style>
 body{
@@ -9,135 +10,160 @@ margin:0;
 width:900px;
 height:900px;
 font-family:'Inter', sans-serif;
+background:radial-gradient(circle at top,#2a1b4a,#0b0b0f 70%);
+color:white;
 overflow:hidden;
-background:black;
-}
-
-/* фон */
-.bg{
-position:absolute;
-width:100%;
-height:100%;
-object-fit:cover;
-filter:brightness(0.7);
-}
-
-.fadeBottom{
-position:absolute;
-bottom:0;
-width:100%;
-height:75%;
-background:linear-gradient(to top, rgba(0,0,0,0.98), transparent);
-}
-
-.grain{
-position:absolute;
-width:100%;
-height:100%;
-opacity:0.12;
-background-image:url('https://grainy-gradients.vercel.app/noise.svg');
-}
-
-/* центр */
-.centerWrap{
-position:absolute;
-bottom:100px;
-width:100%;
-display:flex;
-justify-content:center;
-}
-
-/* контейнер */
-.content{
-width:760px;
 display:flex;
 flex-direction:column;
-align-items:center;
+}
+
+/* NOISE */
+.noise{
+position:absolute;
+width:100%;
+height:100%;
+background:url('https://grainy-gradients.vercel.app/noise.svg');
+opacity:0.05;
+}
+
+/* HEADER */
+.header{
+margin-top:70px;
 text-align:center;
 }
 
-/* label */
-.label{
-background:#a855f7;
-color:black;
+.title{
+font-size:72px;
 font-weight:900;
-padding:10px 28px;
+letter-spacing:2px;
+
+background:linear-gradient(90deg,#e9d5ff,#a855f7);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+
+text-shadow:0 0 40px rgba(168,85,247,0.5);
+}
+
+.subtitle{
+margin-top:12px;
 font-size:20px;
-margin-bottom:25px;
+opacity:0.8;
 }
 
-/* лапки */
-.quoteMark{
-font-size:60px;
-color:#a855f7;
-margin-bottom:10px;
-line-height:1;
+/* GRID */
+.matches{
+margin-top:70px;
+padding:0 70px;
+display:grid;
+gap:28px;
 }
 
-/* текст */
-.text{
-font-size:{{FONTSIZE}};
-font-weight:900;
-line-height:1.2;
-text-transform:uppercase;
-letter-spacing:1px;
-color:white;
-font-style:italic;
+.grid-1{
+grid-template-columns:1fr;
 }
 
-/* автор */
-.author{
-margin-top:25px;
-font-size:22px;
+.grid-2{
+grid-template-columns:1fr 1fr;
+}
+
+/* CARD */
+.card{
+display:flex;
+align-items:center;
+justify-content:space-between;
+
+padding:18px 22px;
+border-radius:22px;
+
+background:rgba(25,10,45,0.65);
+backdrop-filter:blur(14px);
+
+border:1px solid rgba(168,85,247,0.35);
+
+box-shadow:
+0 0 30px rgba(168,85,247,0.25),
+inset 0 0 25px rgba(168,85,247,0.12);
+}
+
+/* TEAM */
+.team{
+display:flex;
+align-items:center;
+gap:14px;
 font-weight:800;
-color:#a855f7;
-letter-spacing:1px;
+font-size:18px;
 }
 
-/* tg */
-.bottomBar{
-position:absolute;
-bottom:20px;
-width:100%;
+/* LOGO BOX */
+.logoBox{
+width:46px;
+height:46px;
+border-radius:14px;
+
+background:#0b0b0f;
+display:flex;
+align-items:center;
+justify-content:center;
+
+border:2px solid rgba(168,85,247,0.7);
+box-shadow:0 0 15px rgba(168,85,247,0.6);
+}
+
+.logoBox img{
+width:70%;
+}
+
+/* CENTER */
+.center{
+text-align:center;
+font-weight:900;
+font-size:26px;
+min-width:90px;
+}
+
+.format{
+font-size:12px;
+opacity:0.6;
+margin-top:3px;
+}
+
+/* FOOTER */
+.footer{
+margin-top:auto;
+margin-bottom:26px;
 display:flex;
 justify-content:center;
-font-size:18px;
+align-items:center;
 font-weight:800;
-color:white;
+font-size:16px;
+opacity:0.9;
 }
 
-.bottomBar img{
+.footer img{
 width:20px;
 margin-right:8px;
-filter:brightness(0) invert(1);
+filter:invert(1);
+opacity:0.9;
 }
 </style>
 </head>
 
 <body>
 
-<img src="{{IMAGE}}" class="bg">
+<div class="noise"></div>
 
-<div class="fadeBottom"></div>
-<div class="grain"></div>
-
-<div class="centerWrap">
-  <div class="content">
-
-    <div class="label">{{LABEL}}</div>
-
-    <div class="quoteMark">“</div>
-
-    <div class="text">{{TEXT}}</div>
-
-    <div class="author">{{AUTHOR}}</div>
-
-  </div>
+<div class="header">
+<div class="title">{{TITLE}}</div>
+<div class="subtitle">{{TOURNAMENT}}</div>
 </div>
 
-<div class="bottomBar">
-  <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/telegram.svg">
-  t.me/zbr4_cast
+<div class="matches {{GRID}}">
+{{MATCHES}}
+</div>
+
+<div class="footer">
+<img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/telegram.svg">
+t.me/zbr4_cast
 </div>
 
 </body>
