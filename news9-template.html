@@ -10,31 +10,93 @@ width:900px;
 height:900px;
 font-family:'Inter', sans-serif;
 overflow:hidden;
-background:black;
+background:#0b0b0f;
 position:relative;
 }
 
-/* BG IMAGE */
+/* BG IMAGE (НИЗ) */
 .bg{
 position:absolute;
 bottom:0;
 width:100%;
-height:65%;
+height:55%;
 object-fit:cover;
 }
 
-/* OVERLAY (ГОЛОВНИЙ ГРАДІЄНТ) */
-.overlay{
+/* TOP BLOCK */
+.top{
 position:absolute;
 top:0;
 width:100%;
-height:100%;
+height:55%;
+background:linear-gradient(135deg,#0b0b0f,#1a1030);
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:flex-start;
+padding-top:120px;
+}
+
+/* TEXT */
+.text{
+width:780px;
+text-align:center;
+font-size:{{FONTSIZE}};
+font-weight:900;
+line-height:1.15;
+text-transform:uppercase;
+letter-spacing:1px;
+
+color:#e9d5ff;
+
+text-shadow:
+0 0 10px rgba(168,85,247,0.6),
+0 0 25px rgba(168,85,247,0.4);
+}
+
+/* DIVIDER */
+.divider{
+position:absolute;
+top:55%;
+width:100%;
+height:2px;
 background:linear-gradient(
-to bottom,
-rgba(10,5,20,0.95) 0%,
-rgba(20,10,40,0.95) 40%,
-rgba(0,0,0,0.4) 65%,
-rgba(0,0,0,0.95) 100%
+to right,
+transparent,
+rgba(168,85,247,0.9),
+transparent
+);
+z-index:2;
+}
+
+/* LABEL (ЯК У РЕФІ) */
+.label{
+position:absolute;
+top:55%;
+left:50%;
+transform:translate(-50%, -50%);
+background:#a855f7;
+color:black;
+font-weight:900;
+padding:10px 26px;
+font-size:20px;
+z-index:5;
+border-radius:4px;
+letter-spacing:1px;
+box-shadow:0 0 20px rgba(168,85,247,0.6);
+}
+
+/* FADE НА ФОТО */
+.fade{
+position:absolute;
+bottom:0;
+width:100%;
+height:55%;
+background:linear-gradient(
+to top,
+rgba(0,0,0,0.95),
+rgba(0,0,0,0.4),
+transparent
 );
 }
 
@@ -43,50 +105,8 @@ rgba(0,0,0,0.95) 100%
 position:absolute;
 width:100%;
 height:100%;
-opacity:0.12;
-background-image:url('https://grainy-gradients.vercel.app/noise.svg');
-}
-
-/* CONTENT */
-.content{
-position:absolute;
-top:120px;
-width:100%;
-display:flex;
-flex-direction:column;
-align-items:center;
-z-index:2;
-}
-
-/* LABEL */
-.label{
-background:#a855f7;
-color:black;
-font-weight:900;
-padding:10px 28px;
-font-size:22px;
-margin-bottom:20px;
-}
-
-/* BOX */
-.box{
-width:760px;
-padding:40px 30px;
-background:rgba(0,0,0,0.6);
-border:2px solid #a855f7;
-backdrop-filter:blur(6px);
-}
-
-/* TEXT */
-.text{
-font-size:{{FONTSIZE}};
-font-weight:900;
-line-height:1.15;
-text-transform:uppercase;
-text-align:center;
-letter-spacing:1px;
-color:#e9d5ff;
-text-shadow:0 0 25px rgba(168,85,247,0.6);
+opacity:0.08;
+background:url('https://grainy-gradients.vercel.app/noise.svg');
 }
 
 /* FOOTER */
@@ -99,7 +119,7 @@ justify-content:center;
 font-size:18px;
 font-weight:800;
 color:white;
-z-index:3;
+z-index:6;
 }
 
 .bottomBar img{
@@ -112,21 +132,27 @@ filter:brightness(0) invert(1);
 
 <body>
 
-<img src="{{IMAGE}}" class="bg">
-
-<div class="overlay"></div>
-<div class="grain"></div>
-
-<div class="content">
-
-  <div class="label">{{LABEL}}</div>
-
-  <div class="box">
-    <div class="text">{{TEXT}}</div>
-  </div>
-
+<!-- TOP -->
+<div class="top">
+  <div class="text">{{TEXT}}</div>
 </div>
 
+<!-- IMAGE -->
+<img src="{{IMAGE}}" class="bg">
+
+<!-- DIVIDER -->
+<div class="divider"></div>
+
+<!-- LABEL -->
+<div class="label">{{LABEL}}</div>
+
+<!-- FADE -->
+<div class="fade"></div>
+
+<!-- GRAIN -->
+<div class="grain"></div>
+
+<!-- FOOTER -->
 <div class="bottomBar">
   <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/telegram.svg">
   t.me/zbr4_cast
