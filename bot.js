@@ -175,6 +175,11 @@ let stat1 = "", stat2 = "", stat3 = "";
 if(commandKey === "news"){
   label = (lines[0] || "NEWS").trim();
   textValue = (lines[1] || "").trim();
+
+  if(!textValue){
+    textValue = label;
+    label = "NEWS";
+  }
 }
 
 else if(commandKey === "news1" || commandKey === "news2"){
@@ -193,9 +198,8 @@ else if(commandKey === "news4" || commandKey === "news5"){
   stat3 = lines[3] || "";
   label = "СТАТИСТИКА";
 }
-
 /* ============================= */
-/* NEWS6 (ПОВНІСТЮ РОБОЧИЙ) */
+/* NEWS6 (ТВОЯ ВЕРСІЯ 2.0) */
 /* ============================= */
 else if(commandKey === "news6"){
 
@@ -327,13 +331,8 @@ for(let i=0;i<5;i++){
 
   let cls = "";
 
-  if(i >= mapCount){
-    cls = "hidden";
-  }
-
-  if(score === "-" || !name){
-    cls = "disabled";
-  }
+  if(i >= mapCount) cls += " hidden";
+  if(score === "-" || !name) cls += " disabled";
 
   if(winner === "team1") cls += " win1";
   else if(winner === "team2") cls += " win2";
