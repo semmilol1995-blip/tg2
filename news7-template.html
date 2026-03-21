@@ -9,10 +9,10 @@ margin:0;
 width:900px;
 height:900px;
 font-family:'Inter', sans-serif;
-color:white;
+background:#000;
 overflow:hidden;
 position:relative;
-background:#000;
+color:white;
 }
 
 /* BG */
@@ -21,7 +21,8 @@ position:absolute;
 width:100%;
 height:100%;
 object-fit:cover;
-filter:blur(8px) brightness(0.35);
+filter:blur(6px) brightness(0.55);
+z-index:0;
 }
 
 /* OVERLAY */
@@ -29,7 +30,8 @@ filter:blur(8px) brightness(0.35);
 position:absolute;
 width:100%;
 height:100%;
-background:linear-gradient(180deg,rgba(0,0,0,0.3),#000 80%);
+background:linear-gradient(180deg,rgba(0,0,0,0.2),rgba(0,0,0,0.85) 80%);
+z-index:1;
 }
 
 /* NOISE */
@@ -39,6 +41,7 @@ width:100%;
 height:100%;
 background:url('https://grainy-gradients.vercel.app/noise.svg');
 opacity:0.05;
+z-index:2;
 }
 
 /* HEADER */
@@ -50,6 +53,7 @@ text-align:center;
 font-size:28px;
 font-weight:900;
 letter-spacing:2px;
+z-index:5;
 }
 
 /* CENTER */
@@ -59,6 +63,7 @@ top:50%;
 left:50%;
 transform:translate(-50%,-50%);
 text-align:center;
+z-index:5;
 }
 
 .round{
@@ -88,8 +93,11 @@ left:0;
 width:100%;
 display:flex;
 justify-content:space-between;
+align-items:center;
 transform:translateY(-50%);
-padding:0 80px;
+padding:0 60px;
+box-sizing:border-box;
+z-index:5;
 }
 
 .team{
@@ -109,20 +117,21 @@ margin-top:10px;
 font-weight:800;
 }
 
-/* MAPS WRAP */
+/* MAPS */
 .maps{
 position:absolute;
-bottom:90px;
+bottom:80px;
 width:100%;
 display:flex;
 justify-content:center;
-gap:24px;
+gap:20px;
+z-index:5;
 }
 
-/* MAP */
+/* MAP CARD */
 .map{
-width:190px;
-height:110px;
+width:180px;
+height:100px;
 position:relative;
 overflow:hidden;
 border-radius:6px;
@@ -137,7 +146,7 @@ height:100%;
 object-fit:cover;
 }
 
-/* DARK FADE */
+/* FADE */
 .map::after{
 content:'';
 position:absolute;
@@ -149,37 +158,32 @@ background:linear-gradient(to top,rgba(0,0,0,0.8),transparent);
 /* SCORE */
 .mapScore{
 position:absolute;
-top:10px;
-left:12px;
+top:8px;
+left:10px;
 font-weight:900;
-font-size:22px;
+font-size:20px;
 }
-
 /* NAME */
 .mapName{
 position:absolute;
-bottom:10px;
-left:12px;
+bottom:8px;
+left:10px;
 font-size:13px;
 font-weight:800;
 }
 
-/* WINNER ICON */
+/* WINNER */
 .winIcon{
 position:absolute;
-bottom:10px;
-right:12px;
-width:22px;
-height:22px;
+bottom:8px;
+right:10px;
+width:20px;
+height:20px;
 }
 
 /* STATES */
-.map.win1{
-box-shadow:0 0 18px rgba(34,197,94,0.9);
-}
-
-.map.win2{
-box-shadow:0 0 18px rgba(59,130,246,0.9);
+.map.hidden{
+display:none;
 }
 
 .map.disabled{
@@ -187,8 +191,12 @@ opacity:0.25;
 filter:grayscale(1);
 }
 
-.map.hidden{
-display:none;
+.map.win1{
+box-shadow:0 0 15px rgba(34,197,94,0.9);
+}
+
+.map.win2{
+box-shadow:0 0 15px rgba(59,130,246,0.9);
 }
 
 /* FOOTER */
@@ -199,6 +207,7 @@ width:100%;
 text-align:center;
 font-weight:800;
 opacity:0.85;
+z-index:5;
 }
 
 .footer img{
