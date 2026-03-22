@@ -57,44 +57,44 @@ letter-spacing:2px;
 z-index:5;
 }
 
-/* MATCH LEFT BLOCK */
+/* MATCH LEFT */
 .matchBlock{
 position:absolute;
 left:70px;
-top:200px;
+top:190px;
 z-index:5;
 }
 
 .matchTitle{
 font-family:'Anton', sans-serif;
-font-size:120px;
-line-height:0.82;
+font-size:125px;
+line-height:0.78;
 letter-spacing:1px;
 }
 
 .matchTeams{
-margin-top:24px;
+margin-top:28px;
 font-size:18px;
 opacity:0.65;
 letter-spacing:2px;
 font-weight:500;
 }
 
-/* RIGHT SCORE BLOCK */
+/* SCORE BLOCK (ТОЧНО ПІД РЕФ) */
 .scoreBlock{
 position:absolute;
-right:90px;
-top:240px;
+left:520px;
+top:255px;
 display:flex;
 align-items:center;
-gap:40px;
+gap:38px;
 z-index:5;
 }
 
-/* LOGO BOX */
+/* LOGO */
 .teamLogo{
-width:90px;
-height:90px;
+width:92px;
+height:92px;
 border:2px solid rgba(255,255,255,0.9);
 display:flex;
 align-items:center;
@@ -103,37 +103,44 @@ background:#0b1220;
 }
 
 .teamLogo img{
-max-width:70px;
-max-height:70px;
+max-width:68px;
+max-height:68px;
 object-fit:contain;
 }
 
 /* SCORE */
 .score{
 font-family:'Anton', sans-serif;
-font-size:100px;
+font-size:102px;
 letter-spacing:2px;
 }
 
-/* META */
-.meta{
+/* META (РОЗКИДАНО ЯК В РЕФІ) */
+.round{
 position:absolute;
-right:90px;
-top:380px;
-display:flex;
-width:320px;
-justify-content:space-between;
+left:520px;
+top:375px;
 font-size:13px;
 letter-spacing:2px;
 opacity:0.7;
 z-index:5;
 }
 
-/* MAPS WRAP */
+.format{
+position:absolute;
+left:720px;
+top:375px;
+font-size:13px;
+letter-spacing:2px;
+opacity:0.7;
+z-index:5;
+}
+
+/* MAPS */
 .mapsWrap{
 position:absolute;
+top:610px;
 left:50%;
-top:600px;
 transform:translateX(-50%);
 display:flex;
 justify-content:center;
@@ -141,29 +148,25 @@ align-items:center;
 z-index:5;
 }
 
-/* MAPS */
 .maps{
 display:flex;
-gap:20px;
+gap:22px;
 }
 
-/* BO5 */
 .maps.bo5 .map{
 width:140px;
 height:95px;
 }
 
-/* MAP CARD */
 .map{
-width:180px;
-height:100px;
+width:185px;
+height:105px;
 position:relative;
 overflow:hidden;
 border-radius:6px;
 background:#111;
 }
 
-/* IMAGE */
 .map img.bgMap{
 position:absolute;
 width:100%;
@@ -172,40 +175,38 @@ object-fit:cover;
 z-index:0;
 }
 
-/* GRADIENT */
 .map::after{
 content:'';
 position:absolute;
 width:100%;
 height:100%;
-background:linear-gradient(to top,rgba(0,0,0,0.6),transparent);
+background:linear-gradient(to top,rgba(0,0,0,0.65),transparent);
 z-index:1;
 }
 
-/* TEXT */
 .mapScore{
 position:absolute;
-top:8px;
-left:10px;
+top:10px;
+left:12px;
 font-weight:900;
-font-size:20px;
+font-size:22px;
 z-index:2;
 }
 
 .mapName{
 position:absolute;
-bottom:8px;
-left:10px;
+bottom:10px;
+left:12px;
 font-size:13px;
 font-weight:800;
 z-index:2;
+letter-spacing:1px;
 }
 
-/* WIN ICON */
 .winIcon{
 position:absolute;
-bottom:8px;
-right:10px;
+bottom:10px;
+right:12px;
 width:26px;
 height:26px;
 display:flex;
@@ -277,7 +278,7 @@ filter:invert(1);
   </div>
 </div>
 
-<!-- RIGHT SCORE -->
+<!-- SCORE -->
 <div class="scoreBlock">
   <div class="teamLogo">
     <img src="{{TEAM1_LOGO}}">
@@ -290,11 +291,8 @@ filter:invert(1);
   </div>
 </div>
 
-<!-- META -->
-<div class="meta">
-  <div class="round">{{ROUND}}</div>
-  <div class="format">{{FORMAT}}</div>
-</div>
+<div class="round">{{ROUND}}</div>
+<div class="format">{{FORMAT}}</div>
 
 <!-- MAPS -->
 <div class="mapsWrap">
