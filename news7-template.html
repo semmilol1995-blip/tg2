@@ -16,7 +16,7 @@ position:relative;
 color:white;
 }
 
-/* BACKGROUND */
+/* BG */
 .bg{
 position:absolute;
 width:100%;
@@ -26,7 +26,6 @@ filter:blur(6px) brightness(0.55);
 z-index:0;
 }
 
-/* OVERLAY */
 .overlay{
 position:absolute;
 width:100%;
@@ -35,7 +34,6 @@ background:linear-gradient(180deg,rgba(0,0,0,0.25),rgba(0,0,0,0.9));
 z-index:1;
 }
 
-/* NOISE */
 .noise{
 position:absolute;
 width:100%;
@@ -57,41 +55,23 @@ letter-spacing:2px;
 z-index:5;
 }
 
-/* MAIN ROW (BOTTOM ALIGN) */
+/* MAIN ROW (MATCH + SCORE) */
 .mainRow{
 position:absolute;
 left:80px;
 right:80px;
 bottom:420px;
 display:flex;
-align-items:flex-end;
 justify-content:space-between;
+align-items:flex-end;
 z-index:5;
 }
 
 /* LEFT */
-.matchBlock{
-display:flex;
-flex-direction:column;
-justify-content:flex-end;
-}
-
-
-
 .matchTitle{
 font-family:'Anton', sans-serif;
 font-size:130px;
-line-height:0.88; /* було 0.78 → тепер норм відступ між MATCH / RESULT */
-letter-spacing:1px;
-}
-
-
-
-.matchTeams{
-margin-top:20px;
-font-size:18px;
-opacity:0.65;
-letter-spacing:2px;
+line-height:0.9;
 }
 
 /* RIGHT SCORE */
@@ -120,7 +100,6 @@ object-fit:contain;
 .score{
 font-family:'Anton', sans-serif;
 font-size:110px;
-line-height:1;
 }
 
 /* INFO ROW */
@@ -138,22 +117,12 @@ opacity:0.7;
 z-index:5;
 }
 
-.leftInfo{
-display:flex;
-gap:25px;
-}
-
-.rightInfo{
-display:flex;
-gap:40px;
-}
-
-/* MAPS (ADAPTIVE WIDTH) */
+/* MAPS */
 .mapsWrap{
 position:absolute;
-bottom:100px;
 left:80px;
 right:80px;
+bottom:110px;
 display:flex;
 justify-content:center;
 z-index:5;
@@ -180,7 +149,7 @@ background:#111;
 .maps.bo3 .map{ max-width:200px; }
 .maps.bo5 .map{ max-width:150px; }
 
-/* IMAGE */
+/* MAP STYLE */
 .map img.bgMap{
 position:absolute;
 width:100%;
@@ -236,23 +205,10 @@ object-fit:contain;
 }
 
 /* STATES */
-
-.map.hidden{
-display:none;
-}
-
-.map.disabled{
-opacity:0.4;
-filter:grayscale(1);
-}
-
-.map.win1{
-box-shadow:0 0 15px rgba(34,197,94,0.9);
-}
-
-.map.win2{
-box-shadow:0 0 15px rgba(59,130,246,0.9);
-}
+.map.hidden{display:none;}
+.map.disabled{opacity:0.4;filter:grayscale(1);}
+.map.win1{box-shadow:0 0 15px rgba(34,197,94,0.9);}
+.map.win2{box-shadow:0 0 15px rgba(59,130,246,0.9);}
 
 /* FOOTER */
 .footer{
@@ -282,16 +238,11 @@ filter:invert(1);
 
 <div class="header">{{TOURNAMENT}}</div>
 
-<!-- MAIN -->
+<!-- MATCH + SCORE -->
 <div class="mainRow">
 
-  <div class="matchBlock">
-    <div class="matchTitle">
-      MATCH<br>RESULT
-    </div>
-    <div class="matchTeams">
-      {{TEAM1}} vs {{TEAM2}}
-    </div>
+  <div class="matchTitle">
+    MATCH<br>RESULT
   </div>
 
   <div class="scoreBlock">
@@ -310,12 +261,9 @@ filter:invert(1);
 
 <!-- INFO -->
 <div class="infoRow">
-  <div class="leftInfo">
-    <div>{{ROUND}}</div>
-  </div>
-  <div class="rightInfo">
-    <div>{{FORMAT}}</div>
-  </div>
+  <div>{{TEAM1}} vs {{TEAM2}}</div>
+  <div>{{ROUND}}</div>
+  <div>{{FORMAT}}</div>
 </div>
 
 <!-- MAPS -->
