@@ -101,17 +101,33 @@ z-index:5;
 }
 
 .team{
-text-align:center;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
 }
 
-.team img{
+/* 🔥 LOGO CONTAINER */
+.teamLogo{
 width:90px;
 height:90px;
 border:2px solid white;
-padding:10px;
 background:#000;
+display:flex;
+align-items:center;
+justify-content:center;
 }
 
+/* 🔥 LOGO FIX (ГОЛОВНЕ) */
+.teamLogo img{
+max-width:70px;
+max-height:70px;
+width:auto;
+height:auto;
+object-fit:contain;
+}
+
+/* TEAM NAME */
 .teamName{
 margin-top:10px;
 font-weight:800;
@@ -128,7 +144,7 @@ gap:20px;
 z-index:5;
 }
 
-/* BO5 FIX */
+/* 🔥 BO5 FIX */
 .maps.bo5 .map{
 width:140px;
 height:95px;
@@ -163,7 +179,7 @@ background:linear-gradient(to top,rgba(0,0,0,0.7),transparent);
 z-index:1;
 }
 
-/* TEXT (ЗАВЖДИ НАД ГРАДІЄНТОМ) */
+/* TEXT ABOVE */
 .mapScore{
 position:absolute;
 top:8px;
@@ -193,29 +209,27 @@ z-index:2;
 
 /* STATES */
 
-/* 🔥 НЕ ПОКАЗУЄМО */
+/* HIDDEN */
 .map.hidden{
 display:none;
 }
 
-/* 🔥 НЕ ЗІГРАНА МАПА (ФІКС) */
+/* 🔥 DISABLED MAP FIX */
 .map.disabled{
 opacity:0.75;
 filter:grayscale(0.4);
 }
 
-/* легкий overlay щоб не зливалася */
 .map.disabled::after{
 background:linear-gradient(to top,rgba(0,0,0,0.5),transparent);
 }
 
-/* текст норм видно */
 .map.disabled .mapScore,
 .map.disabled .mapName{
 opacity:0.9;
 }
 
-/* 🔥 WIN EFFECT */
+/* WIN EFFECT */
 .map.win1{
 box-shadow:0 0 15px rgba(34,197,94,0.9);
 }
@@ -241,7 +255,7 @@ margin-right:6px;
 vertical-align:middle;
 filter:invert(1);
 }
-</style>
+</style> 
 </head>
 
 <body>
