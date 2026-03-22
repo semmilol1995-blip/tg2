@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
 
 <style>
 
@@ -11,11 +11,11 @@ body{
 margin:0;
 width:900px;
 height:900px;
-font-family:'Inter', sans-serif;
+font-family:'Inter',sans-serif;
 background:#000;
-overflow:hidden;
 position:relative;
-color:white;
+color:#fff;
+overflow:hidden;
 }
 
 /* BG */
@@ -24,183 +24,170 @@ position:absolute;
 width:100%;
 height:100%;
 object-fit:cover;
-filter:blur(6px) brightness(0.6);
-z-index:0;
+filter:blur(4px) brightness(0.65);
 }
 
-/* OVERLAY */
+/* LEFT DARK ZONE (як у рефі) */
 .overlay{
 position:absolute;
 width:100%;
 height:100%;
-background:linear-gradient(90deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.6) 40%, rgba(0,0,0,0.2) 100%);
-z-index:1;
+background:linear-gradient(90deg,rgba(0,0,0,0.85) 0%,rgba(0,0,0,0.6) 45%,rgba(0,0,0,0.2) 100%);
 }
 
 /* HEADER */
 .header{
 position:absolute;
-top:40px;
+top:36px;
 width:100%;
 text-align:center;
-font-size:28px;
-font-weight:900;
+font-size:24px;
+font-weight:800;
 letter-spacing:2px;
-z-index:5;
 }
 
-/* MATCH RESULT (лівий блок як реф) */
+/* MATCH RESULT */
 .matchTitle{
 position:absolute;
 left:70px;
 top:250px;
-font-size:120px;
+font-size:110px;
 font-weight:900;
 line-height:0.9;
-letter-spacing:-3px;
-z-index:5;
+letter-spacing:-2px;
 }
 
 /* VS */
-.vsText{
+.vs{
 position:absolute;
 left:70px;
-top:500px;
+top:520px;
 font-size:14px;
 opacity:0.7;
-z-index:5;
+letter-spacing:2px;
 }
 
-/* CENTER BLOCK (ГОЛОВНИЙ ФІКС) */
+/* CENTER PANEL */
 .center{
 position:absolute;
-top:380px;
-left:600px;
+top:360px;
+left:520px;
 display:flex;
 align-items:center;
 gap:40px;
-transform:translateX(-50%);
-z-index:5;
 }
 
-/* TEAM */
-.team{
-text-align:center;
+/* TEAM LOGO BOX */
+.teamBox{
+width:90px;
+height:90px;
+background:#0f1722;
+display:flex;
+align-items:center;
+justify-content:center;
+border-radius:4px;
 }
 
-/* LOGO FRAME */
-.team img{
-width:100px;
-height:100px;
+.teamBox img{
+max-width:70%;
+max-height:70%;
 object-fit:contain;
-border:2px solid white;
-background:#000;
-padding:12px;
 }
 
 /* SCORE */
 .score{
-font-size:100px;
+font-size:72px;
 font-weight:900;
-display:flex;
-align-items:center;
-gap:20px;
+letter-spacing:2px;
 }
 
 /* INFO */
 .info{
 position:absolute;
-top:520px;
-left:600px;
-transform:translateX(-50%);
+top:460px;
+left:520px;
 display:flex;
 gap:40px;
-font-size:14px;
-opacity:0.7;
-z-index:5;
+font-size:13px;
+letter-spacing:2px;
+opacity:0.75;
 }
 
-/* MAPS (ПОВЕРТАЄМО ТВІЙ СТИЛЬ) */
+/* MAP STRIP */
 .maps{
 position:absolute;
 bottom:110px;
-left:50%;
-transform:translateX(-50%);
+left:70px;
 display:flex;
-gap:18px;
-z-index:5;
+gap:14px;
 }
 
 /* BO5 */
 .maps.bo5 .map{
-width:135px;
+width:150px;
 }
 
 /* MAP */
 .map{
-width:170px;
-height:95px;
-position:relative;
+width:200px;
+height:72px;
+background:#121c28;
+border-radius:6px;
 overflow:hidden;
-border-radius:8px;
-background:#111;
+position:relative;
 }
 
-/* MAP IMG */
+/* MAP IMAGE */
 .map img.bgMap{
 position:absolute;
-width:100%;
+right:0;
+width:70%;
 height:100%;
 object-fit:cover;
-z-index:0;
+opacity:0.9;
 }
 
-/* GRADIENT */
-.map::after{
-content:'';
+/* LEFT BLOCK */
+.mapLeft{
 position:absolute;
-width:100%;
-height:100%;
-background:linear-gradient(to top,rgba(0,0,0,0.6),transparent);
-z-index:1;
+left:0;
+top:0;
+bottom:0;
+width:55%;
+padding:10px;
+display:flex;
+flex-direction:column;
+justify-content:center;
 }
 
-/* TEXT */
+/* SCORE */
 .mapScore{
-position:absolute;
-top:6px;
-left:8px;
 font-size:18px;
 font-weight:900;
-z-index:2;
 }
 
+/* NAME */
 .mapName{
-position:absolute;
-bottom:6px;
-left:8px;
 font-size:12px;
-font-weight:800;
-z-index:2;
+opacity:0.7;
+margin-top:2px;
 }
 
-/* WIN */
+/* WIN ICON */
 .winIcon{
 position:absolute;
-bottom:6px;
 right:8px;
-width:22px;
-height:22px;
+bottom:8px;
+width:18px;
+height:18px;
 object-fit:contain;
-z-index:2;
 }
 
 /* STATES */
-.map.hidden{ display:none; }
+.map.hidden{display:none;}
 
 .map.disabled{
-opacity:0.75;
-filter:grayscale(0.3);
+opacity:0.6;
 }
 
 /* FOOTER */
@@ -209,15 +196,16 @@ position:absolute;
 bottom:30px;
 width:100%;
 text-align:center;
-font-weight:800;
+font-size:14px;
+display:flex;
+justify-content:center;
+align-items:center;
+gap:8px;
 opacity:0.9;
-z-index:5;
 }
 
 .footer img{
-width:18px;
-margin-right:6px;
-vertical-align:middle;
+width:16px;
 filter:invert(1);
 }
 
@@ -242,7 +230,7 @@ MATCH<br>RESULT
 <!-- CENTER -->
 <div class="center">
 
-  <div class="logoBox">
+  <div class="teamBox">
     <img src="{{TEAM1_LOGO}}">
   </div>
 
@@ -250,7 +238,7 @@ MATCH<br>RESULT
     {{SCORE1}}:{{SCORE2}}
   </div>
 
-  <div class="logoBox">
+  <div class="teamBox">
     <img src="{{TEAM2_LOGO}}">
   </div>
 
@@ -312,7 +300,6 @@ MATCH<br>RESULT
 
 </div>
 
-<!-- FOOTER -->
 <div class="footer">
   <img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png">
   t.me/zbr4_cast
