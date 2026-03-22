@@ -107,7 +107,7 @@ align-items:center;
 justify-content:center;
 }
 
-/* 🔥 LOGO CONTAINER */
+/* 🔥 РАМКА */
 .teamLogo{
 width:90px;
 height:90px;
@@ -116,12 +116,13 @@ background:#000;
 display:flex;
 align-items:center;
 justify-content:center;
+overflow:hidden;
 }
 
-/* 🔥 LOGO FIX (ГОЛОВНЕ) */
+/* 🔥 ЛОГО FIX */
 .teamLogo img{
-max-width:70px;
-max-height:70px;
+max-width:80%;
+max-height:80%;
 width:auto;
 height:auto;
 object-fit:contain;
@@ -144,13 +145,13 @@ gap:20px;
 z-index:5;
 }
 
-/* 🔥 BO5 FIX */
+/* BO5 */
 .maps.bo5 .map{
 width:140px;
 height:95px;
 }
 
-/* MAP CARD */
+/* MAP */
 .map{
 width:180px;
 height:100px;
@@ -160,7 +161,7 @@ border-radius:6px;
 background:#111;
 }
 
-/* MAP IMAGE */
+/* IMAGE */
 .map img.bgMap{
 position:absolute;
 width:100%;
@@ -179,7 +180,7 @@ background:linear-gradient(to top,rgba(0,0,0,0.7),transparent);
 z-index:1;
 }
 
-/* TEXT ABOVE */
+/* TEXT */
 .mapScore{
 position:absolute;
 top:8px;
@@ -208,13 +209,10 @@ z-index:2;
 }
 
 /* STATES */
-
-/* HIDDEN */
 .map.hidden{
 display:none;
 }
 
-/* 🔥 DISABLED MAP FIX */
 .map.disabled{
 opacity:0.75;
 filter:grayscale(0.4);
@@ -229,7 +227,6 @@ background:linear-gradient(to top,rgba(0,0,0,0.5),transparent);
 opacity:0.9;
 }
 
-/* WIN EFFECT */
 .map.win1{
 box-shadow:0 0 15px rgba(34,197,94,0.9);
 }
@@ -255,7 +252,7 @@ margin-right:6px;
 vertical-align:middle;
 filter:invert(1);
 }
-</style> 
+</style>
 </head>
 
 <body>
@@ -275,12 +272,16 @@ filter:invert(1);
 <div class="teams">
 
 <div class="team">
+<div class="teamLogo">
 <img src="{{TEAM1_LOGO}}">
+</div>
 <div class="teamName">{{TEAM1}}</div>
 </div>
 
 <div class="team">
+<div class="teamLogo">
 <img src="{{TEAM2_LOGO}}">
+</div>
 <div class="teamName">{{TEAM2}}</div>
 </div>
 
