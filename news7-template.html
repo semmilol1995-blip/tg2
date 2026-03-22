@@ -1,7 +1,8 @@
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@700;800;900&display=swap" rel="stylesheet">
 
 <style>
 body{
@@ -21,7 +22,7 @@ position:absolute;
 width:100%;
 height:100%;
 object-fit:cover;
-filter:blur(6px) brightness(0.55);
+filter:blur(6px) brightness(0.6);
 z-index:0;
 }
 
@@ -30,7 +31,7 @@ z-index:0;
 position:absolute;
 width:100%;
 height:100%;
-background:linear-gradient(180deg,rgba(0,0,0,0.2),rgba(0,0,0,0.85));
+background:linear-gradient(180deg,rgba(0,0,0,0.15),rgba(0,0,0,0.8));
 z-index:1;
 }
 
@@ -95,7 +96,7 @@ display:flex;
 justify-content:space-between;
 align-items:center;
 transform:translateY(-50%);
-padding:0 60px;
+padding:0 80px;
 box-sizing:border-box;
 z-index:5;
 }
@@ -104,12 +105,22 @@ z-index:5;
 text-align:center;
 }
 
-.team img{
-width:90px;
-height:90px;
+.teamLogo{
+width:100px;
+height:100px;
 border:2px solid white;
-padding:10px;
 background:#000;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+.teamLogo img{
+max-width:80%;
+max-height:80%;
+width:auto;
+height:auto;
+object-fit:contain;
 }
 
 .teamName{
@@ -117,18 +128,25 @@ margin-top:10px;
 font-weight:800;
 }
 
-/* MAPS WRAP */
-.maps{
+/* MAPS WRAP (CENTER FIX) */
+.mapsWrap{
 position:absolute;
-bottom:80px;
-width:100%;
+left:50%;
+top:72%;
+transform:translateX(-50%);
 display:flex;
 justify-content:center;
-gap:20px;
+align-items:center;
 z-index:5;
 }
 
-/* BO5 FIX */
+/* MAPS */
+.maps{
+display:flex;
+gap:20px;
+}
+
+/* BO5 */
 .maps.bo5 .map{
 width:140px;
 height:95px;
@@ -143,7 +161,8 @@ overflow:hidden;
 border-radius:6px;
 background:#111;
 }
-/* BG IMAGE */
+
+/* IMAGE */
 .map img.bgMap{
 position:absolute;
 width:100%;
@@ -158,11 +177,11 @@ content:'';
 position:absolute;
 width:100%;
 height:100%;
-background:linear-gradient(to top,rgba(0,0,0,0.7),transparent);
+background:linear-gradient(to top,rgba(0,0,0,0.6),transparent);
 z-index:1;
 }
 
-/* TEXT ABOVE */
+/* TEXT */
 .mapScore{
 position:absolute;
 top:8px;
@@ -181,23 +200,40 @@ font-weight:800;
 z-index:2;
 }
 
+/* WIN ICON (FIXED) */
 .winIcon{
 position:absolute;
 bottom:8px;
 right:10px;
-width:20px;
-height:20px;
+width:26px;
+height:26px;
+display:flex;
+align-items:center;
+justify-content:center;
 z-index:2;
 }
 
+.winIcon img{
+max-width:100%;
+max-height:100%;
+width:auto;
+height:auto;
+object-fit:contain;
+}
+
 /* STATES */
+
 .map.hidden{
 display:none;
 }
 
 .map.disabled{
-opacity:0.25;
-filter:grayscale(1);
+opacity:0.75;
+filter:grayscale(0.4);
+}
+
+.map.disabled::after{
+background:linear-gradient(to top,rgba(0,0,0,0.5),transparent);
 }
 
 .map.win1{
@@ -230,69 +266,73 @@ filter:invert(1);
 
 <body>
 
-<img src="{{IMAGE}}" class="bg">
+<img src="{{PLAYER_IMAGE}}" class="bg">
 <div class="overlay"></div>
 <div class="noise"></div>
 
 <div class="header">{{TOURNAMENT}}</div>
 
-<div class="center">
-<div class="round">{{ROUND}}</div>
-<div class="score">{{SCORE1}} - {{SCORE2}}</div>
-<div class="format">{{FORMAT}}</div>
-</div>
-
 <div class="teams">
+  <div class="team">
+    <div class="teamLogo">
+      <img src="{{TEAM1_LOGO}}">
+    </div>
+    <div class="teamName">{{TEAM1}}</div>
+  </div>
 
-<div class="team">
-<img src="{{TEAM1_LOGO}}">
-<div class="teamName">{{TEAM1}}</div>
+  <div class="team">
+    <div class="teamLogo">
+      <img src="{{TEAM2_LOGO}}">
+    </div>
+    <div class="teamName">{{TEAM2}}</div>
+  </div>
 </div>
 
-<div class="team">
-<img src="{{TEAM2_LOGO}}">
-<div class="teamName">{{TEAM2}}</div>
+<div class="center">
+  <div class="round">{{ROUND}}</div>
+  <div class="score">{{SCORE1}} - {{SCORE2}}</div>
+  <div class="format">{{FORMAT}}</div>
 </div>
 
-</div>
+<div class="mapsWrap">
+  <div class="maps {{FORMAT_CLASS}}">
 
-<div class="maps {{FORMAT_CLASS}}">
+    <div class="map {{MAP1_CLASS}}">
+      <img class="bgMap" src="{{MAP1_IMAGE}}">
+      <div class="mapScore">{{MAP1_SCORE}}</div>
+      <div class="mapName">{{MAP1_NAME}}</div>
+      <div class="winIcon"><img src="{{MAP1_WINNER}}"></div>
+    </div>
 
-<div class="map {{MAP1_CLASS}}">
-<img class="bgMap" src="{{MAP1_IMAGE}}">
-<div class="mapScore">{{MAP1_SCORE}}</div>
-<div class="mapName">{{MAP1_NAME}}</div>
-<img class="winIcon" src="{{MAP1_WINNER}}">
-</div>
+    <div class="map {{MAP2_CLASS}}">
+      <img class="bgMap" src="{{MAP2_IMAGE}}">
+      <div class="mapScore">{{MAP2_SCORE}}</div>
+      <div class="mapName">{{MAP2_NAME}}</div>
+      <div class="winIcon"><img src="{{MAP2_WINNER}}"></div>
+    </div>
 
-<div class="map {{MAP2_CLASS}}">
-<img class="bgMap" src="{{MAP2_IMAGE}}">
-<div class="mapScore">{{MAP2_SCORE}}</div>
-<div class="mapName">{{MAP2_NAME}}</div>
-<img class="winIcon" src="{{MAP2_WINNER}}">
-</div>
+    <div class="map {{MAP3_CLASS}}">
+      <img class="bgMap" src="{{MAP3_IMAGE}}">
+      <div class="mapScore">{{MAP3_SCORE}}</div>
+      <div class="mapName">{{MAP3_NAME}}</div>
+      <div class="winIcon"><img src="{{MAP3_WINNER}}"></div>
+    </div>
 
-<div class="map {{MAP3_CLASS}}">
-<img class="bgMap" src="{{MAP3_IMAGE}}">
-<div class="mapScore">{{MAP3_SCORE}}</div>
-<div class="mapName">{{MAP3_NAME}}</div>
-<img class="winIcon" src="{{MAP3_WINNER}}">
-</div>
+    <div class="map {{MAP4_CLASS}}">
+      <img class="bgMap" src="{{MAP4_IMAGE}}">
+      <div class="mapScore">{{MAP4_SCORE}}</div>
+      <div class="mapName">{{MAP4_NAME}}</div>
+      <div class="winIcon"><img src="{{MAP4_WINNER}}"></div>
+    </div>
 
-<div class="map {{MAP4_CLASS}}">
-<img class="bgMap" src="{{MAP4_IMAGE}}">
-<div class="mapScore">{{MAP4_SCORE}}</div>
-<div class="mapName">{{MAP4_NAME}}</div>
-<img class="winIcon" src="{{MAP4_WINNER}}">
-</div>
+    <div class="map {{MAP5_CLASS}}">
+      <img class="bgMap" src="{{MAP5_IMAGE}}">
+      <div class="mapScore">{{MAP5_SCORE}}</div>
+      <div class="mapName">{{MAP5_NAME}}</div>
+      <div class="winIcon"><img src="{{MAP5_WINNER}}"></div>
+    </div>
 
-<div class="map {{MAP5_CLASS}}">
-<img class="bgMap" src="{{MAP5_IMAGE}}">
-<div class="mapScore">{{MAP5_SCORE}}</div>
-<div class="mapName">{{MAP5_NAME}}</div>
-<img class="winIcon" src="{{MAP5_WINNER}}">
-</div>
-
+  </div>
 </div>
 
 <div class="footer">
@@ -301,4 +341,4 @@ t.me/zbr4_cast
 </div>
 
 </body>
-</html>  
+</html>
