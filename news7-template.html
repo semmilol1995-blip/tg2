@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
-<title>NEWS7</title>
 
 <style>
 body{
@@ -12,8 +11,7 @@ height:900px;
 font-family:'Inter', sans-serif;
 background:#000;
 overflow:hidden;
-position:relative;
-color:white;
+color:#fff;
 }
 
 /* BG */
@@ -22,27 +20,17 @@ position:absolute;
 width:100%;
 height:100%;
 object-fit:cover;
-filter:blur(6px) brightness(0.6);
+filter:blur(6px) brightness(0.65);
 z-index:0;
 }
 
-/* overlay */
+/* OVERLAY */
 .overlay{
 position:absolute;
 width:100%;
 height:100%;
-background:linear-gradient(180deg,rgba(0,0,0,0.2),rgba(0,0,0,0.85));
+background:linear-gradient(180deg,rgba(0,0,0,0.15),rgba(0,0,0,0.85));
 z-index:1;
-}
-
-/* noise */
-.noise{
-position:absolute;
-width:100%;
-height:100%;
-background:url('https://grainy-gradients.vercel.app/noise.svg');
-opacity:0.05;
-z-index:2;
 }
 
 /* HEADER */
@@ -57,51 +45,43 @@ letter-spacing:2px;
 z-index:5;
 }
 
-/* LEFT */
-.leftBlock{
+/* LEFT BIG TEXT */
+.left{
 position:absolute;
-top:250px;
+top:260px;
 left:60px;
 z-index:5;
 }
 
-.matchTitle{
-font-size:100px;
+.title{
+font-size:120px;
 font-weight:900;
-line-height:0.9;
+line-height:0.82;
 }
 
-.vsLine{
+.subtitle{
 margin-top:20px;
 font-size:16px;
 opacity:0.7;
 letter-spacing:1px;
 }
 
-/* CENTER */
-.center{
+/* RIGHT SCORE BLOCK */
+.scoreWrap{
 position:absolute;
-top:50%;
-left:62%;
-transform:translate(-50%,-50%);
+top:360px;
+left:460px;
 display:flex;
-flex-direction:column;
 align-items:center;
+gap:30px;
 z-index:5;
-}
-
-/* SCORE ROW */
-.scoreRow{
-display:flex;
-align-items:center;
-gap:20px;
 }
 
 /* TEAM BOX */
 .teamBox{
-width:90px;
-height:90px;
-border:2px solid white;
+width:110px;
+height:110px;
+border:2px solid #fff;
 display:flex;
 align-items:center;
 justify-content:center;
@@ -115,25 +95,28 @@ object-fit:contain;
 }
 
 /* SCORE */
-.scoreBlock{
+.score{
+font-size:100px;
+font-weight:900;
 display:flex;
 align-items:center;
-gap:12px;
-font-size:90px;
-font-weight:900;
+gap:15px;
 }
 
-.dash{
-opacity:0.7;
+.score span{
+display:inline-block;
 }
 
 /* INFO */
-.infoRow{
-margin-top:15px;
+.info{
+position:absolute;
+top:510px;
+left:520px;
 display:flex;
-gap:30px;
-font-size:13px;
+gap:40px;
+font-size:14px;
 opacity:0.7;
+z-index:5;
 }
 
 /* MAPS */
@@ -147,13 +130,12 @@ gap:20px;
 z-index:5;
 }
 
-/* BO5 */
+/* BO5 FIX */
 .maps.bo5 .map{
 width:140px;
 height:95px;
 }
 
-/* MAP */
 .map{
 width:200px;
 height:110px;
@@ -163,23 +145,21 @@ overflow:hidden;
 background:#111;
 }
 
-/* IMAGE */
+/* IMG */
 .map img.bgMap{
 position:absolute;
 width:100%;
 height:100%;
 object-fit:cover;
-z-index:0;
 }
 
-/* GRADIENT */
+/* OVERLAY */
 .map::after{
 content:'';
 position:absolute;
 width:100%;
 height:100%;
 background:linear-gradient(to top,rgba(0,0,0,0.6),transparent);
-z-index:1;
 }
 
 /* TEXT */
@@ -194,24 +174,34 @@ z-index:2;
 
 .mapName{
 position:absolute;
-bottom:8px;
+bottom:10px;
 left:10px;
 font-size:13px;
 font-weight:800;
 z-index:2;
 }
 
+/* UNDERLINE */
+.map::before{
+content:'';
+position:absolute;
+bottom:0;
+left:0;
+width:100%;
+height:3px;
+background:#38bdf8;
+}
+
 /* WIN ICON */
 .winIcon{
 position:absolute;
-right:10px;
 bottom:8px;
+right:10px;
 width:20px;
 height:20px;
 display:flex;
 align-items:center;
 justify-content:center;
-z-index:2;
 }
 
 .winIcon img{
@@ -221,9 +211,7 @@ object-fit:contain;
 }
 
 /* STATES */
-.map.hidden{
-display:none;
-}
+.map.hidden{display:none;}
 
 .map.disabled{
 opacity:0.8;
@@ -238,21 +226,19 @@ box-shadow:0 0 15px rgba(34,197,94,0.9);
 box-shadow:0 0 15px rgba(59,130,246,0.9);
 }
 
-/* FOOTER */
+/* FOOTER (НЕ ЧІПАЄМО) */
 .footer{
 position:absolute;
 bottom:20px;
 width:100%;
 text-align:center;
 opacity:0.8;
-z-index:5;
 }
 
 .footer img{
 width:18px;
 margin-right:6px;
 filter:invert(1);
-vertical-align:middle;
 }
 </style>
 </head>
@@ -261,26 +247,23 @@ vertical-align:middle;
 
 <img class="bg" src="{{IMAGE}}">
 <div class="overlay"></div>
-<div class="noise"></div>
 
 <div class="header">{{TOURNAMENT}}</div>
 
-<div class="leftBlock">
-<div class="matchTitle">MATCH<br>RESULT</div>
-<div class="vsLine">{{TEAM1}} vs {{TEAM2}}</div>
+<div class="left">
+<div class="title">MATCH<br>RESULT</div>
+<div class="subtitle">{{TEAM1}} vs {{TEAM2}}</div>
 </div>
 
-<div class="center">
-
-<div class="scoreRow">
+<div class="scoreWrap">
 
 <div class="teamBox">
 <img src="{{TEAM1_LOGO}}">
 </div>
 
-<div class="scoreBlock">
+<div class="score">
 <span>{{SCORE1}}</span>
-<span class="dash">-</span>
+<span>-</span>
 <span>{{SCORE2}}</span>
 </div>
 
@@ -290,11 +273,9 @@ vertical-align:middle;
 
 </div>
 
-<div class="infoRow">
+<div class="info">
 <span>{{ROUND}}</span>
 <span>{{FORMAT}}</span>
-</div>
-
 </div>
 
 <div class="maps {{FORMAT_CLASS}}">
