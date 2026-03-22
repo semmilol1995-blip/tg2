@@ -2,9 +2,12 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>NEWS7</title>
+
+<!-- ✅ ТВОЙ ШРИФТ -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
 
 <style>
+
 body{
 margin:0;
 width:900px;
@@ -16,13 +19,13 @@ position:relative;
 color:white;
 }
 
-/* BG */
+/* BACKGROUND */
 .bg{
 position:absolute;
 width:100%;
 height:100%;
 object-fit:cover;
-filter:blur(6px) brightness(0.65);
+filter:blur(6px) brightness(0.6);
 z-index:0;
 }
 
@@ -31,7 +34,7 @@ z-index:0;
 position:absolute;
 width:100%;
 height:100%;
-background:linear-gradient(180deg,rgba(0,0,0,0.15),rgba(0,0,0,0.85));
+background:linear-gradient(180deg,rgba(0,0,0,0.2),rgba(0,0,0,0.85));
 z-index:1;
 }
 
@@ -57,75 +60,71 @@ letter-spacing:2px;
 z-index:5;
 }
 
-/* LEFT BLOCK */
-.leftBlock{
+/* MATCH RESULT */
+.matchTitle{
 position:absolute;
-top:250px;
-left:60px;
+top:240px;
+left:80px;
+font-size:115px;
+font-weight:900;
+line-height:0.9;
+letter-spacing:-3px;
 z-index:5;
 }
 
-.matchTitle{
-font-size:120px;
-font-weight:900;
-line-height:0.8;
-letter-spacing:-2px;
-}
-
-.vsLine{
-margin-top:20px;
+/* VS TEXT */
+.vsText{
+position:absolute;
+top:420px;
+left:80px;
 font-size:16px;
 opacity:0.7;
-letter-spacing:1px;
+z-index:5;
 }
 
-/* 🔥 TEAMS + SCORE */
+/* TEAMS + SCORE (ГОЛОВНИЙ ФІКС) */
 .teams{
 position:absolute;
-top:390px;
-left:460px;
+top:400px;
+left:50%;
+transform:translateX(-50%);
 display:flex;
 align-items:center;
-gap:30px;
+gap:60px;
 z-index:5;
 }
 
 .team{
-display:flex;
-flex-direction:column;
-align-items:center;
+text-align:center;
 }
 
+/* ЛОГО В РАМЦІ */
 .team img{
-width:110px;
-height:110px;
+width:100px;
+height:100px;
 object-fit:contain;
 border:2px solid white;
 background:#000;
-padding:14px;
-}
-
-.teamName{
-margin-top:10px;
-font-weight:800;
+padding:12px;
 }
 
 /* SCORE */
 .score{
-font-size:110px;
+font-size:95px;
 font-weight:900;
 display:flex;
-gap:15px;
 align-items:center;
+gap:20px;
 }
 
-/* INFO */
-.center-block{
+/* ROUND + FORMAT */
+.info{
 position:absolute;
-top:540px;
-left:520px;
+top:520px;
+left:50%;
+transform:translateX(-50%);
 display:flex;
-gap:40px;
+gap:30px;
 font-size:14px;
 opacity:0.7;
 z-index:5;
@@ -134,28 +133,25 @@ z-index:5;
 /* MAPS */
 .maps{
 position:absolute;
-bottom:90px;
+bottom:100px;
 left:50%;
 transform:translateX(-50%);
 display:flex;
-gap:20px;
+gap:18px;
 z-index:5;
+}
+
+.map{
+width:170px;
+height:95px;
+position:relative;
+border-radius:8px;
+overflow:hidden;
 }
 
 /* BO5 */
 .maps.bo5 .map{
-width:140px;
-height:95px;
-}
-
-/* MAP */
-.map{
-width:200px;
-height:110px;
-position:relative;
-border-radius:6px;
-overflow:hidden;
-background:#111;
+width:135px;
 }
 
 /* MAP IMAGE */
@@ -166,7 +162,7 @@ height:100%;
 object-fit:cover;
 }
 
-/* GRADIENT */
+/* MAP GRADIENT */
 .map::after{
 content:'';
 position:absolute;
@@ -178,85 +174,54 @@ background:linear-gradient(to top,rgba(0,0,0,0.6),transparent);
 /* TEXT */
 .mapScore{
 position:absolute;
-top:8px;
-left:10px;
-font-size:20px;
+top:6px;
+left:8px;
 font-weight:900;
+font-size:18px;
 z-index:2;
 }
 
 .mapName{
 position:absolute;
-bottom:10px;
-left:10px;
-font-size:13px;
+bottom:6px;
+left:8px;
+font-size:12px;
 font-weight:800;
 z-index:2;
 }
 
-/* UNDERLINE */
-.map::before{
-content:'';
-position:absolute;
-bottom:0;
-left:0;
-width:100%;
-height:3px;
-background:#38bdf8;
-z-index:2;
-}
-
-/* WIN ICON */
+/* WIN LOGO */
 .winIcon{
 position:absolute;
-right:10px;
-bottom:8px;
-width:20px;
-height:20px;
-display:flex;
-align-items:center;
-justify-content:center;
-z-index:2;
-}
-
-.winIcon img{
-max-width:100%;
-max-height:100%;
+bottom:6px;
+right:8px;
+width:22px;
+height:22px;
 object-fit:contain;
 }
 
-/* STATES */
-.map.hidden{display:none;}
-
+/* DISABLED MAP */
 .map.disabled{
 opacity:0.8;
 filter:grayscale(0.3);
 }
 
-.map.win1{
-box-shadow:0 0 15px rgba(34,197,94,0.9);
-}
-
-.map.win2{
-box-shadow:0 0 15px rgba(59,130,246,0.9);
+/* HIDDEN */
+.map.hidden{
+display:none;
 }
 
 /* FOOTER */
 .footer{
 position:absolute;
-bottom:20px;
+bottom:30px;
 width:100%;
 text-align:center;
-opacity:0.8;
+font-weight:800;
+opacity:0.85;
 z-index:5;
 }
 
-.footer img{
-width:18px;
-margin-right:6px;
-filter:invert(1);
-vertical-align:middle;
-}
 </style>
 </head>
 
@@ -268,82 +233,71 @@ vertical-align:middle;
 
 <div class="header">{{TOURNAMENT}}</div>
 
-<div class="leftBlock">
 <div class="matchTitle">MATCH<br>RESULT</div>
-<div class="vsLine">{{TEAM1}} vs {{TEAM2}}</div>
-</div>
+<div class="vsText">{{TEAM1}} vs {{TEAM2}}</div>
 
 <!-- TEAMS + SCORE -->
 <div class="teams">
+  <div class="team">
+    <img src="{{TEAM1_LOGO}}">
+  </div>
 
-<div class="team">
-<img src="{{TEAM1_LOGO}}">
-<div class="teamName">{{TEAM1}}</div>
-</div>
+  <div class="score">
+    <span>{{SCORE1}}</span>
+    <span>-</span>
+    <span>{{SCORE2}}</span>
+  </div>
 
-<div class="score">
-<span>{{SCORE1}}</span>
-<span>-</span>
-<span>{{SCORE2}}</span>
-</div>
-
-<div class="team">
-<img src="{{TEAM2_LOGO}}">
-<div class="teamName">{{TEAM2}}</div>
-</div>
-
+  <div class="team">
+    <img src="{{TEAM2_LOGO}}">
+  </div>
 </div>
 
 <!-- INFO -->
-<div class="center-block">
-<span>{{ROUND}}</span>
-<span>{{FORMAT}}</span>
+<div class="info">
+  <div>{{ROUND}}</div>
+  <div>{{FORMAT}}</div>
 </div>
 
 <!-- MAPS -->
 <div class="maps {{FORMAT_CLASS}}">
+  <div class="map {{MAP1_CLASS}}">
+    <img class="bgMap" src="{{MAP1_IMAGE}}">
+    <div class="mapScore">{{MAP1_SCORE}}</div>
+    <div class="mapName">{{MAP1_NAME}}</div>
+    <img class="winIcon" src="{{MAP1_WINNER}}">
+  </div>
 
-<div class="map {{MAP1_CLASS}}">
-<img class="bgMap" src="{{MAP1_IMAGE}}">
-<div class="mapScore">{{MAP1_SCORE}}</div>
-<div class="mapName">{{MAP1_NAME}}</div>
-<div class="winIcon"><img src="{{MAP1_WINNER}}"></div>
+  <div class="map {{MAP2_CLASS}}">
+    <img class="bgMap" src="{{MAP2_IMAGE}}">
+    <div class="mapScore">{{MAP2_SCORE}}</div>
+    <div class="mapName">{{MAP2_NAME}}</div>
+    <img class="winIcon" src="{{MAP2_WINNER}}">
+  </div>
+
+  <div class="map {{MAP3_CLASS}}">
+    <img class="bgMap" src="{{MAP3_IMAGE}}">
+    <div class="mapScore">{{MAP3_SCORE}}</div>
+    <div class="mapName">{{MAP3_NAME}}</div>
+    <img class="winIcon" src="{{MAP3_WINNER}}">
+  </div>
+
+  <div class="map {{MAP4_CLASS}}">
+    <img class="bgMap" src="{{MAP4_IMAGE}}">
+    <div class="mapScore">{{MAP4_SCORE}}</div>
+    <div class="mapName">{{MAP4_NAME}}</div>
+    <img class="winIcon" src="{{MAP4_WINNER}}">
+  </div>
+
+  <div class="map {{MAP5_CLASS}}">
+    <img class="bgMap" src="{{MAP5_IMAGE}}">
+    <div class="mapScore">{{MAP5_SCORE}}</div>
+    <div class="mapName">{{MAP5_NAME}}</div>
+    <img class="winIcon" src="{{MAP5_WINNER}}">
+  </div>
 </div>
 
-<div class="map {{MAP2_CLASS}}">
-<img class="bgMap" src="{{MAP2_IMAGE}}">
-<div class="mapScore">{{MAP2_SCORE}}</div>
-<div class="mapName">{{MAP2_NAME}}</div>
-<div class="winIcon"><img src="{{MAP2_WINNER}}"></div>
-</div>
-
-<div class="map {{MAP3_CLASS}}">
-<img class="bgMap" src="{{MAP3_IMAGE}}">
-<div class="mapScore">{{MAP3_SCORE}}</div>
-<div class="mapName">{{MAP3_NAME}}</div>
-<div class="winIcon"><img src="{{MAP3_WINNER}}"></div>
-</div>
-
-<div class="map {{MAP4_CLASS}}">
-<img class="bgMap" src="{{MAP4_IMAGE}}">
-<div class="mapScore">{{MAP4_SCORE}}</div>
-<div class="mapName">{{MAP4_NAME}}</div>
-<div class="winIcon"><img src="{{MAP4_WINNER}}"></div>
-</div>
-
-<div class="map {{MAP5_CLASS}}">
-<img class="bgMap" src="{{MAP5_IMAGE}}">
-<div class="mapScore">{{MAP5_SCORE}}</div>
-<div class="mapName">{{MAP5_NAME}}</div>
-<div class="winIcon"><img src="{{MAP5_WINNER}}"></div>
-</div>
-
-</div>
-
-<div class="footer">
-<img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png">
-t.me/zbr4_cast
-</div>
+<div class="footer">t.me/zbr4_cast</div>
 
 </body>
 </html>
