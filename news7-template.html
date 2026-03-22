@@ -10,14 +10,14 @@ body{
 margin:0;
 width:900px;
 height:900px;
-background:#000;
 font-family:'Inter', sans-serif;
-color:white;
+background:#000;
 overflow:hidden;
 position:relative;
+color:white;
 }
 
-/* BG */
+/* BACKGROUND */
 .bg{
 position:absolute;
 width:100%;
@@ -27,12 +27,12 @@ filter:blur(6px) brightness(0.55);
 z-index:0;
 }
 
-/* DARK OVERLAY */
+/* OVERLAY */
 .overlay{
 position:absolute;
 width:100%;
 height:100%;
-background:linear-gradient(90deg,rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.2) 60%);
+background:linear-gradient(90deg,rgba(0,0,0,0.75),rgba(0,0,0,0.2));
 z-index:1;
 }
 
@@ -58,55 +58,56 @@ letter-spacing:2px;
 z-index:5;
 }
 
-/* LEFT TITLE */
-.title{
+/* MATCH RESULT */
+.matchTitle{
 position:absolute;
 left:60px;
-top:250px;
+top:240px;
 font-family:'Bebas Neue', sans-serif;
-font-size:150px;
-line-height:115px;
+font-size:140px;
+line-height:110px;
 z-index:5;
 }
 
-/* VS TEXT */
+/* VS */
 .vs{
 position:absolute;
 left:60px;
-top:460px;
+top:440px;
 font-size:16px;
 opacity:0.7;
 letter-spacing:2px;
 z-index:5;
 }
 
-/* RIGHT BLOCK */
-.right{
+/* RIGHT SIDE BLOCK */
+.center{
 position:absolute;
 top:360px;
 right:120px;
-display:flex;
-align-items:center;
-gap:30px;
 z-index:5;
 }
 
-/* LOGO */
-.logoBox{
-width:90px;
-height:90px;
-border-radius:8px;
-background:#0b1220;
-border:1px solid rgba(255,255,255,0.1);
+/* TEAMS */
+.teams{
 display:flex;
 align-items:center;
-justify-content:center;
+gap:30px;
 }
 
-.logoBox img{
-max-width:70%;
-max-height:70%;
+/* TEAM */
+.team{
+text-align:center;
+}
+
+/* LOGO */
+.team img{
+width:90px;
+height:90px;
 object-fit:contain;
+padding:10px;
+background:#0b1220;
+border:2px solid #fff;
 }
 
 /* SCORE */
@@ -117,18 +118,16 @@ font-weight:900;
 
 /* INFO */
 .info{
-position:absolute;
-top:460px;
-right:160px;
+margin-top:12px;
 display:flex;
 gap:25px;
 font-size:13px;
 opacity:0.7;
 letter-spacing:2px;
-z-index:5;
+justify-content:center;
 }
 
-/* MAPS */
+/* MAPS WRAP */
 .maps{
 position:absolute;
 bottom:120px;
@@ -139,13 +138,19 @@ gap:20px;
 z-index:5;
 }
 
+/* BO5 FIX */
+.maps.bo5 .map{
+width:140px;
+height:95px;
+}
+
 /* MAP CARD */
 .map{
 width:180px;
 height:100px;
 position:relative;
-border-radius:8px;
 overflow:hidden;
+border-radius:6px;
 background:#111;
 }
 
@@ -194,17 +199,20 @@ right:10px;
 width:20px;
 z-index:2;
 }
-
 /* STATES */
+
+/* HIDE */
 .map.hidden{
 display:none;
 }
 
+/* NOT PLAYED */
 .map.disabled{
 opacity:0.75;
 filter:grayscale(0.4);
 }
 
+/* WIN */
 .map.win1{
 box-shadow:0 0 15px rgba(34,197,94,0.9);
 }
@@ -241,7 +249,7 @@ filter:invert(1);
 
 <div class="header">{tournament}</div>
 
-<div class="title">
+<div class="matchTitle">
 MATCH<br>RESULT
 </div>
 
@@ -249,21 +257,27 @@ MATCH<br>RESULT
 {team1} vs {team2}
 </div>
 
-<div class="right">
-<div class="logoBox">
+<div class="center">
+
+<div class="teams">
+
+<div class="team">
 <img src="{team1_logo}">
 </div>
 
 <div class="score">{score}</div>
 
-<div class="logoBox">
+<div class="team">
 <img src="{team2_logo}">
 </div>
+
 </div>
 
 <div class="info">
 <div>{stage}</div>
 <div>{format}</div>
+</div>
+
 </div>
 
 <div class="maps {boClass}">
@@ -276,4 +290,4 @@ t.me/zbr4_cast
 </div>
 
 </body>
-</html>
+</html>  
