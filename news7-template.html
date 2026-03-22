@@ -45,7 +45,7 @@ opacity:0.05;
 z-index:2;
 }
 
-/* HEADER (НЕ ЧІПАЄМО) */
+/* HEADER */
 .header{
 position:absolute;
 top:40px;
@@ -57,36 +57,48 @@ letter-spacing:2px;
 z-index:5;
 }
 
-/* LEFT BLOCK */
-.matchBlock{
+/* MAIN ROW (BOTTOM ALIGN) */
+.mainRow{
 position:absolute;
 left:80px;
-top:210px;
+right:80px;
+bottom:420px;
+display:flex;
+align-items:flex-end;
+justify-content:space-between;
 z-index:5;
 }
+
+/* LEFT */
+.matchBlock{
+display:flex;
+flex-direction:column;
+justify-content:flex-end;
+}
+
+
 
 .matchTitle{
 font-family:'Anton', sans-serif;
 font-size:130px;
-line-height:0.75;
+line-height:0.88; /* було 0.78 → тепер норм відступ між MATCH / RESULT */
+letter-spacing:1px;
 }
 
+
+
 .matchTeams{
-margin-top:30px;
+margin-top:20px;
 font-size:18px;
 opacity:0.65;
 letter-spacing:2px;
 }
 
-/* SCORE BLOCK (ПІД РЕФ) */
+/* RIGHT SCORE */
 .scoreBlock{
-position:absolute;
-left:505px;
-top:265px;
 display:flex;
-align-items:center;
-gap:42px;
-z-index:5;
+align-items:flex-end;
+gap:40px;
 }
 
 .teamLogo{
@@ -108,57 +120,67 @@ object-fit:contain;
 .score{
 font-family:'Anton', sans-serif;
 font-size:110px;
+line-height:1;
 }
 
-/* META (РОЗКИДКА ЯК В РЕФІ) */
-.round{
+/* INFO ROW */
+.infoRow{
 position:absolute;
-left:505px;
-top:400px;
-font-size:13px;
+left:80px;
+right:80px;
+bottom:300px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+font-size:14px;
 letter-spacing:2px;
 opacity:0.7;
 z-index:5;
 }
 
-.format{
-position:absolute;
-left:735px;
-top:400px;
-font-size:13px;
-letter-spacing:2px;
-opacity:0.7;
-z-index:5;
+.leftInfo{
+display:flex;
+gap:25px;
 }
 
-/* MAPS */
+.rightInfo{
+display:flex;
+gap:40px;
+}
+
+/* MAPS (ADAPTIVE WIDTH) */
 .mapsWrap{
 position:absolute;
-top:620px;
-left:50%;
-transform:translateX(-50%);
+bottom:100px;
+left:80px;
+right:80px;
+display:flex;
+justify-content:center;
 z-index:5;
 }
 
 .maps{
 display:flex;
 gap:24px;
-}
-
-.maps.bo5 .map{
-width:140px;
-height:95px;
+width:100%;
+justify-content:center;
 }
 
 .map{
-width:190px;
+flex:1;
 height:110px;
+max-width:180px;
 position:relative;
 overflow:hidden;
 border-radius:6px;
 background:#111;
 }
 
+.maps.bo1 .map{ max-width:260px; }
+.maps.bo3 .map{ max-width:200px; }
+.maps.bo5 .map{ max-width:150px; }
+
+/* IMAGE */
 .map img.bgMap{
 position:absolute;
 width:100%;
@@ -260,31 +282,41 @@ filter:invert(1);
 
 <div class="header">{{TOURNAMENT}}</div>
 
-<!-- LEFT -->
-<div class="matchBlock">
-  <div class="matchTitle">
-    MATCH<br>RESULT
+<!-- MAIN -->
+<div class="mainRow">
+
+  <div class="matchBlock">
+    <div class="matchTitle">
+      MATCH<br>RESULT
+    </div>
+    <div class="matchTeams">
+      {{TEAM1}} vs {{TEAM2}}
+    </div>
   </div>
-  <div class="matchTeams">
-    {{TEAM1}} vs {{TEAM2}}
+
+  <div class="scoreBlock">
+    <div class="teamLogo">
+      <img src="{{TEAM1_LOGO}}">
+    </div>
+
+    <div class="score">{{SCORE1}}:{{SCORE2}}</div>
+
+    <div class="teamLogo">
+      <img src="{{TEAM2_LOGO}}">
+    </div>
   </div>
+
 </div>
 
-<!-- SCORE -->
-<div class="scoreBlock">
-  <div class="teamLogo">
-    <img src="{{TEAM1_LOGO}}">
+<!-- INFO -->
+<div class="infoRow">
+  <div class="leftInfo">
+    <div>{{ROUND}}</div>
   </div>
-
-  <div class="score">{{SCORE1}}:{{SCORE2}}</div>
-
-  <div class="teamLogo">
-    <img src="{{TEAM2_LOGO}}">
+  <div class="rightInfo">
+    <div>{{FORMAT}}</div>
   </div>
 </div>
-
-<div class="round">{{ROUND}}</div>
-<div class="format">{{FORMAT}}</div>
 
 <!-- MAPS -->
 <div class="mapsWrap">
