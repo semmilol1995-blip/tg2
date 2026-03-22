@@ -1,21 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
+<title>Match Result</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Bebas+Neue&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&family=Bebas+Neue&display=swap" rel="stylesheet">
 
 <style>
-
 body{
 margin:0;
 width:900px;
 height:900px;
-font-family:'Inter',sans-serif;
+font-family:'Inter', sans-serif;
 background:#000;
-position:relative;
-color:#fff;
+color:white;
 overflow:hidden;
+position:relative;
 }
 
 /* BG */
@@ -27,115 +27,102 @@ object-fit:cover;
 filter:blur(6px) brightness(0.55);
 }
 
-/* OVERLAY */
 .overlay{
 position:absolute;
 width:100%;
 height:100%;
-background:linear-gradient(90deg,rgba(10,10,20,0.95) 0%,rgba(10,10,20,0.8) 45%,rgba(10,10,20,0.2) 100%);
+background:linear-gradient(180deg,rgba(0,0,0,0.15),rgba(0,0,0,0.85));
+}
+
+.noise{
+position:absolute;
+width:100%;
+height:100%;
+background:url('https://grainy-gradients.vercel.app/noise.svg');
+opacity:0.05;
 }
 
 /* HEADER */
 .header{
 position:absolute;
-top:40px;
+top:42px;
 width:100%;
 text-align:center;
+font-weight:800;
 font-size:26px;
-font-weight:900;
 letter-spacing:2px;
 }
 
-/* TITLE */
-.matchTitle{
+/* MATCH RESULT (LEFT BLOCK) */
+.title{
 position:absolute;
 left:70px;
-top:250px;
-font-family:'Bebas Neue',sans-serif;
+top:230px;
+font-family:'Bebas Neue', sans-serif;
 font-size:150px;
-line-height:0.85;
+line-height:120px;
 letter-spacing:2px;
 }
 
-/* VS */
-.vs{
+/* VS TEXT */
+.sub{
 position:absolute;
-left:72px;
-top:520px;
-font-size:14px;
-opacity:0.7;
+left:70px;
+top:440px;
+font-size:16px;
+opacity:0.6;
 letter-spacing:2px;
 }
 
-/* CENTER */
-.center{
+/* RIGHT SIDE (MAIN BLOCK) */
+.main{
 position:absolute;
-top:350px;
-left:50%;
-transform:translateX(-50%);
+top:310px;
+right:80px;
 display:flex;
 align-items:center;
-gap:28px;
+gap:35px;
 }
 
-/* TEAM BOX */
-.teamWrap{
-display:flex;
-flex-direction:column;
-align-items:center;
-gap:10px;
-}
-
-.teamBox{
-width:90px;
-height:90px;
-background:#0b0f1a;
-border:2px solid rgba(255,255,255,0.15);
+/* LOGO BLOCK */
+.logoBox{
+width:95px;
+height:95px;
+border-radius:10px;
+background:linear-gradient(145deg,#0b1220,#111827);
+border:1px solid rgba(255,255,255,0.1);
 display:flex;
 align-items:center;
 justify-content:center;
-border-radius:6px;
-box-shadow:0 0 25px rgba(124,58,237,0.25);
+box-shadow:0 0 25px rgba(124,58,237,0.15);
 }
 
-.teamBox img{
-max-width:70%;
-max-height:70%;
+.logoBox img{
+max-width:75%;
+max-height:75%;
 object-fit:contain;
 }
 
 /* SCORE */
 .score{
-font-size:72px;
+font-size:70px;
 font-weight:900;
 letter-spacing:2px;
 }
 
-/* INFO (як у рефі) */
+/* INFO UNDER SCORE */
 .info{
 position:absolute;
-top:460px;
-left:50%;
-transform:translateX(-50%);
+top:410px;
+right:180px;
 display:flex;
-align-items:center;
-gap:40px;
+gap:30px;
 font-size:13px;
-letter-spacing:2px;
-opacity:0.7;
-}
-
-/* BO3 під правим */
-.format{
-position:absolute;
-top:490px;
-left:calc(50% + 110px);
-font-size:12px;
 opacity:0.7;
 letter-spacing:2px;
 }
 
-/* MAPS CENTER */
+/* MAPS */
 .maps{
 position:absolute;
 bottom:120px;
@@ -145,38 +132,31 @@ display:flex;
 gap:18px;
 }
 
-/* BO5 */
-.maps.bo5 .map{
-width:150px;
-}
-
-/* MAP */
+/* MAP CARD */
 .map{
-width:190px;
-height:95px;
-position:relative;
-border-radius:10px;
+width:180px;
+height:100px;
+border-radius:8px;
 overflow:hidden;
+position:relative;
 background:#111;
 }
 
-/* IMG */
+/* BG */
 .map img.bgMap{
 position:absolute;
 width:100%;
 height:100%;
 object-fit:cover;
-z-index:0;
 }
 
-/* OVERLAY */
+/* GRADIENT */
 .map::after{
 content:'';
 position:absolute;
 width:100%;
 height:100%;
-background:linear-gradient(to top,rgba(0,0,0,0.75),transparent);
-z-index:1;
+background:linear-gradient(to top,rgba(0,0,0,0.7),transparent);
 }
 
 /* TEXT */
@@ -184,8 +164,8 @@ z-index:1;
 position:absolute;
 top:8px;
 left:10px;
+font-size:20px;
 font-weight:900;
-font-size:18px;
 z-index:2;
 }
 
@@ -193,7 +173,7 @@ z-index:2;
 position:absolute;
 bottom:8px;
 left:10px;
-font-size:12px;
+font-size:13px;
 font-weight:800;
 z-index:2;
 }
@@ -203,140 +183,78 @@ z-index:2;
 position:absolute;
 bottom:8px;
 right:10px;
-width:18px;
-height:18px;
+width:20px;
 z-index:2;
-object-fit:contain;
 }
 
 /* STATES */
-.map.hidden{display:none;}
+.map.win1{
+box-shadow:0 0 15px rgba(34,197,94,0.9);
+}
+
+.map.win2{
+box-shadow:0 0 15px rgba(59,130,246,0.9);
+}
 
 .map.disabled{
 opacity:0.75;
 filter:grayscale(0.4);
 }
 
-/* GLOW */
-.map.win1{
-box-shadow:0 0 18px rgba(34,197,94,0.8);
-}
-
-.map.win2{
-box-shadow:0 0 18px rgba(59,130,246,0.8);
-}
-
 /* FOOTER */
 .footer{
 position:absolute;
-bottom:25px;
+bottom:30px;
 width:100%;
 text-align:center;
-font-weight:800;
+font-weight:700;
 opacity:0.9;
-display:flex;
-justify-content:center;
-align-items:center;
-gap:8px;
 }
 
 .footer img{
 width:18px;
+vertical-align:middle;
+margin-right:6px;
 filter:invert(1);
 }
-
 </style>
 </head>
 
 <body>
 
-<img class="bg" src="{{IMAGE}}">
+<img class="bg" src="{bg}">
 <div class="overlay"></div>
+<div class="noise"></div>
 
-<div class="header">{{TOURNAMENT}}</div>
+<div class="header">{tournament}</div>
 
-<div class="matchTitle">
-MATCH<br>RESULT
+<div class="title">MATCH<br>RESULT</div>
+<div class="sub">{team1} vs {team2}</div>
+
+<div class="main">
+<div class="logoBox">
+<img src="{team1_logo}">
 </div>
 
-<div class="vs">
-{{TEAM1}} X {{TEAM2}}
+<div class="score">{score}</div>
+
+<div class="logoBox">
+<img src="{team2_logo}">
+</div>
 </div>
 
-<!-- CENTER -->
-<div class="center">
-
-  <div class="teamWrap">
-    <div class="teamBox">
-      <img src="{{TEAM1_LOGO}}">
-    </div>
-  </div>
-
-  <div class="score">
-    {{SCORE1}}:{{SCORE2}}
-  </div>
-
-  <div class="teamWrap">
-    <div class="teamBox">
-      <img src="{{TEAM2_LOGO}}">
-    </div>
-  </div>
-
-</div>
-
-<!-- INFO -->
 <div class="info">
-  <div>{{ROUND}}</div>
+<div>{stage}</div>
+<div>{format}</div>
 </div>
 
-<div class="format">
-  {{FORMAT}}
+<div class="maps {boClass}">
+{maps}
 </div>
 
-<!-- MAPS -->
-<div class="maps {{FORMAT_CLASS}}">
-
-  <div class="map {{MAP1_CLASS}}">
-    <img class="bgMap" src="{{MAP1_IMAGE}}">
-    <div class="mapScore">{{MAP1_SCORE}}</div>
-    <div class="mapName">{{MAP1_NAME}}</div>
-    <img class="winIcon" src="{{MAP1_WINNER}}">
-  </div>
-
-  <div class="map {{MAP2_CLASS}}">
-    <img class="bgMap" src="{{MAP2_IMAGE}}">
-    <div class="mapScore">{{MAP2_SCORE}}</div>
-    <div class="mapName">{{MAP2_NAME}}</div>
-    <img class="winIcon" src="{{MAP2_WINNER}}">
-  </div>
-
-  <div class="map {{MAP3_CLASS}}">
-    <img class="bgMap" src="{{MAP3_IMAGE}}">
-    <div class="mapScore">{{MAP3_SCORE}}</div>
-    <div class="mapName">{{MAP3_NAME}}</div>
-    <img class="winIcon" src="{{MAP3_WINNER}}">
-  </div>
-
-  <div class="map {{MAP4_CLASS}}">
-    <img class="bgMap" src="{{MAP4_IMAGE}}">
-    <div class="mapScore">{{MAP4_SCORE}}</div>
-    <div class="mapName">{{MAP4_NAME}}</div>
-    <img class="winIcon" src="{{MAP4_WINNER}}">
-  </div>
-
-  <div class="map {{MAP5_CLASS}}">
-    <img class="bgMap" src="{{MAP5_IMAGE}}">
-    <div class="mapScore">{{MAP5_SCORE}}</div>
-    <div class="mapName">{{MAP5_NAME}}</div>
-    <img class="winIcon" src="{{MAP5_WINNER}}">
-  </div>
-
-</div>
-
-<!-- FOOTER -->
 <div class="footer">
-  <img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png">
-  t.me/zbr4_cast
+<img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png">
+t.me/zbr4_cast
 </div>
 
 </body>
