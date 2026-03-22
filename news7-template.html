@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
 <style>
 body{
@@ -22,7 +22,7 @@ position:absolute;
 width:100%;
 height:100%;
 object-fit:cover;
-filter:blur(6px) brightness(0.6);
+filter:blur(6px) brightness(0.55);
 z-index:0;
 }
 
@@ -31,7 +31,7 @@ z-index:0;
 position:absolute;
 width:100%;
 height:100%;
-background:linear-gradient(180deg,rgba(0,0,0,0.15),rgba(0,0,0,0.8));
+background:linear-gradient(180deg,rgba(0,0,0,0.2),rgba(0,0,0,0.85));
 z-index:1;
 }
 
@@ -45,7 +45,7 @@ opacity:0.05;
 z-index:2;
 }
 
-/* HEADER */
+/* HEADER (НЕ ЧІПАЄМО) */
 .header{
 position:absolute;
 top:40px;
@@ -57,82 +57,83 @@ letter-spacing:2px;
 z-index:5;
 }
 
-/* CENTER */
-.center{
+/* MATCH LEFT BLOCK */
+.matchBlock{
 position:absolute;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%);
-text-align:center;
+left:70px;
+top:200px;
 z-index:5;
 }
 
-.round{
-opacity:0.7;
-margin-bottom:10px;
-}
-
-.score{
+.matchTitle{
+font-family:'Anton', sans-serif;
 font-size:120px;
-font-weight:900;
+line-height:0.82;
+letter-spacing:1px;
 }
 
-.format{
-margin-top:10px;
-display:inline-block;
-padding:6px 16px;
-background:linear-gradient(90deg,#7c3aed,#3b82f6);
-border-radius:4px;
-font-weight:900;
+.matchTeams{
+margin-top:24px;
+font-size:18px;
+opacity:0.65;
+letter-spacing:2px;
+font-weight:500;
 }
 
-/* TEAMS */
-.teams{
+/* RIGHT SCORE BLOCK */
+.scoreBlock{
 position:absolute;
-top:50%;
-left:0;
-width:100%;
+right:90px;
+top:240px;
 display:flex;
-justify-content:space-between;
 align-items:center;
-transform:translateY(-50%);
-padding:0 80px;
-box-sizing:border-box;
+gap:40px;
 z-index:5;
 }
 
-.team{
-text-align:center;
-}
-
+/* LOGO BOX */
 .teamLogo{
-width:100px;
-height:100px;
-border:2px solid white;
-background:#000;
+width:90px;
+height:90px;
+border:2px solid rgba(255,255,255,0.9);
 display:flex;
 align-items:center;
 justify-content:center;
+background:#0b1220;
 }
 
 .teamLogo img{
-max-width:80%;
-max-height:80%;
-width:auto;
-height:auto;
+max-width:70px;
+max-height:70px;
 object-fit:contain;
 }
 
-.teamName{
-margin-top:10px;
-font-weight:800;
+/* SCORE */
+.score{
+font-family:'Anton', sans-serif;
+font-size:100px;
+letter-spacing:2px;
 }
 
-/* MAPS WRAP (CENTER FIX) */
+/* META */
+.meta{
+position:absolute;
+right:90px;
+top:380px;
+display:flex;
+width:320px;
+justify-content:space-between;
+font-size:13px;
+letter-spacing:2px;
+opacity:0.7;
+z-index:5;
+}
+
+/* MAPS WRAP */
 .mapsWrap{
 position:absolute;
 left:50%;
-top:72%;
+top:600px;
 transform:translateX(-50%);
 display:flex;
 justify-content:center;
@@ -200,7 +201,7 @@ font-weight:800;
 z-index:2;
 }
 
-/* WIN ICON (FIXED) */
+/* WIN ICON */
 .winIcon{
 position:absolute;
 bottom:8px;
@@ -216,8 +217,6 @@ z-index:2;
 .winIcon img{
 max-width:100%;
 max-height:100%;
-width:auto;
-height:auto;
 object-fit:contain;
 }
 
@@ -228,12 +227,8 @@ display:none;
 }
 
 .map.disabled{
-opacity:0.75;
-filter:grayscale(0.4);
-}
-
-.map.disabled::after{
-background:linear-gradient(to top,rgba(0,0,0,0.5),transparent);
+opacity:0.4;
+filter:grayscale(1);
 }
 
 .map.win1{
@@ -244,7 +239,7 @@ box-shadow:0 0 15px rgba(34,197,94,0.9);
 box-shadow:0 0 15px rgba(59,130,246,0.9);
 }
 
-/* FOOTER */
+/* FOOTER (НЕ ЧІПАЄМО) */
 .footer{
 position:absolute;
 bottom:20px;
@@ -272,28 +267,36 @@ filter:invert(1);
 
 <div class="header">{{TOURNAMENT}}</div>
 
-<div class="teams">
-  <div class="team">
-    <div class="teamLogo">
-      <img src="{{TEAM1_LOGO}}">
-    </div>
-    <div class="teamName">{{TEAM1}}</div>
+<!-- MATCH LEFT -->
+<div class="matchBlock">
+  <div class="matchTitle">
+    MATCH<br>RESULT
   </div>
-
-  <div class="team">
-    <div class="teamLogo">
-      <img src="{{TEAM2_LOGO}}">
-    </div>
-    <div class="teamName">{{TEAM2}}</div>
+  <div class="matchTeams">
+    {{TEAM1}} vs {{TEAM2}}
   </div>
 </div>
 
-<div class="center">
+<!-- RIGHT SCORE -->
+<div class="scoreBlock">
+  <div class="teamLogo">
+    <img src="{{TEAM1_LOGO}}">
+  </div>
+
+  <div class="score">{{SCORE1}}:{{SCORE2}}</div>
+
+  <div class="teamLogo">
+    <img src="{{TEAM2_LOGO}}">
+  </div>
+</div>
+
+<!-- META -->
+<div class="meta">
   <div class="round">{{ROUND}}</div>
-  <div class="score">{{SCORE1}} - {{SCORE2}}</div>
   <div class="format">{{FORMAT}}</div>
 </div>
 
+<!-- MAPS -->
 <div class="mapsWrap">
   <div class="maps {{FORMAT_CLASS}}">
 
