@@ -9,10 +9,10 @@ margin:0;
 width:900px;
 height:900px;
 font-family:'Inter', sans-serif;
-color:white;
+background:#000;
 overflow:hidden;
 position:relative;
-background:#000;
+color:white;
 }
 
 /* BACKGROUND */
@@ -21,14 +21,17 @@ position:absolute;
 width:100%;
 height:100%;
 object-fit:cover;
-filter:blur(6px) brightness(0.4);
+filter:blur(6px) brightness(0.55);
+z-index:0;
 }
 
+/* OVERLAY */
 .overlay{
 position:absolute;
 width:100%;
 height:100%;
-background:linear-gradient(180deg, rgba(0,0,0,0.4), #000 80%);
+background:linear-gradient(180deg,rgba(0,0,0,0.2),rgba(0,0,0,0.85));
+z-index:1;
 }
 
 /* NOISE */
@@ -38,6 +41,7 @@ width:100%;
 height:100%;
 background:url('https://grainy-gradients.vercel.app/noise.svg');
 opacity:0.05;
+z-index:2;
 }
 
 /* HEADER */
@@ -46,9 +50,10 @@ position:absolute;
 top:40px;
 width:100%;
 text-align:center;
-font-weight:900;
 font-size:28px;
+font-weight:900;
 letter-spacing:2px;
+z-index:5;
 }
 
 /* CENTER */
@@ -58,6 +63,7 @@ top:50%;
 left:50%;
 transform:translate(-50%,-50%);
 text-align:center;
+z-index:5;
 }
 
 .round{
@@ -83,11 +89,15 @@ font-weight:900;
 .teams{
 position:absolute;
 top:50%;
+left:0;
 width:100%;
 display:flex;
 justify-content:space-between;
+align-items:center;
 transform:translateY(-50%);
-padding:0 80px;
+padding:0 60px;
+box-sizing:border-box;
+z-index:5;
 }
 
 .team{
@@ -107,7 +117,7 @@ margin-top:10px;
 font-weight:800;
 }
 
-/* MAPS */
+/* MAPS WRAP */
 .maps{
 position:absolute;
 bottom:80px;
@@ -115,6 +125,13 @@ width:100%;
 display:flex;
 justify-content:center;
 gap:20px;
+z-index:5;
+}
+
+/* BO5 FIX */
+.maps.bo5 .map{
+width:140px;
+height:95px;
 }
 
 /* MAP CARD */
@@ -123,60 +140,59 @@ width:180px;
 height:100px;
 position:relative;
 overflow:hidden;
-background:#111;
 border-radius:6px;
+background:#111;
 }
-
-.map img{
+/* BG IMAGE */
+.map img.bgMap{
 position:absolute;
 width:100%;
 height:100%;
 object-fit:cover;
+z-index:0;
 }
 
-/* OVERLAY */
+/* GRADIENT */
 .map::after{
 content:'';
 position:absolute;
 width:100%;
 height:100%;
-background:linear-gradient(to top,rgba(0,0,0,0.8),transparent);
+background:linear-gradient(to top,rgba(0,0,0,0.7),transparent);
+z-index:1;
 }
 
-/* SCORE */
+/* TEXT ABOVE */
 .mapScore{
 position:absolute;
-top:10px;
+top:8px;
 left:10px;
 font-weight:900;
-font-size:22px;
+font-size:20px;
+z-index:2;
 }
 
-/* NAME */
 .mapName{
 position:absolute;
 bottom:8px;
 left:10px;
-font-size:14px;
+font-size:13px;
 font-weight:800;
+z-index:2;
 }
 
-/* WINNER */
 .winIcon{
 position:absolute;
 bottom:8px;
 right:10px;
 width:20px;
 height:20px;
+z-index:2;
 }
 
 /* STATES */
-.map.win1{
-box-shadow:0 0 15px #22c55e;
-}
-
-.map.win2{
-box-shadow:0 0 15px #3b82f6;
+.map.hidden{
+display:none;
 }
 
 .map.disabled{
@@ -184,8 +200,12 @@ opacity:0.25;
 filter:grayscale(1);
 }
 
-.map.hidden{
-display:none;
+.map.win1{
+box-shadow:0 0 15px rgba(34,197,94,0.9);
+}
+
+.map.win2{
+box-shadow:0 0 15px rgba(59,130,246,0.9);
 }
 
 /* FOOTER */
@@ -195,13 +215,14 @@ bottom:20px;
 width:100%;
 text-align:center;
 font-weight:800;
-opacity:0.8;
+opacity:0.85;
+z-index:5;
 }
 
 .footer img{
 width:18px;
-vertical-align:middle;
 margin-right:6px;
+vertical-align:middle;
 filter:invert(1);
 }
 </style>
@@ -222,6 +243,7 @@ filter:invert(1);
 </div>
 
 <div class="teams">
+
 <div class="team">
 <img src="{{TEAM1_LOGO}}">
 <div class="teamName">{{TEAM1}}</div>
@@ -231,40 +253,41 @@ filter:invert(1);
 <img src="{{TEAM2_LOGO}}">
 <div class="teamName">{{TEAM2}}</div>
 </div>
+
 </div>
 
-<div class="maps">
+<div class="maps {{FORMAT_CLASS}}">
 
 <div class="map {{MAP1_CLASS}}">
-<img src="{{MAP1_IMAGE}}">
+<img class="bgMap" src="{{MAP1_IMAGE}}">
 <div class="mapScore">{{MAP1_SCORE}}</div>
 <div class="mapName">{{MAP1_NAME}}</div>
 <img class="winIcon" src="{{MAP1_WINNER}}">
 </div>
 
 <div class="map {{MAP2_CLASS}}">
-<img src="{{MAP2_IMAGE}}">
+<img class="bgMap" src="{{MAP2_IMAGE}}">
 <div class="mapScore">{{MAP2_SCORE}}</div>
 <div class="mapName">{{MAP2_NAME}}</div>
 <img class="winIcon" src="{{MAP2_WINNER}}">
 </div>
 
 <div class="map {{MAP3_CLASS}}">
-<img src="{{MAP3_IMAGE}}">
+<img class="bgMap" src="{{MAP3_IMAGE}}">
 <div class="mapScore">{{MAP3_SCORE}}</div>
 <div class="mapName">{{MAP3_NAME}}</div>
 <img class="winIcon" src="{{MAP3_WINNER}}">
 </div>
 
 <div class="map {{MAP4_CLASS}}">
-<img src="{{MAP4_IMAGE}}">
+<img class="bgMap" src="{{MAP4_IMAGE}}">
 <div class="mapScore">{{MAP4_SCORE}}</div>
 <div class="mapName">{{MAP4_NAME}}</div>
 <img class="winIcon" src="{{MAP4_WINNER}}">
 </div>
 
 <div class="map {{MAP5_CLASS}}">
-<img src="{{MAP5_IMAGE}}">
+<img class="bgMap" src="{{MAP5_IMAGE}}">
 <div class="mapScore">{{MAP5_SCORE}}</div>
 <div class="mapName">{{MAP5_NAME}}</div>
 <img class="winIcon" src="{{MAP5_WINNER}}">
@@ -278,4 +301,4 @@ t.me/zbr4_cast
 </div>
 
 </body>
-</html>
+</html>  
