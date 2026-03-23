@@ -84,7 +84,7 @@ aurora vs furia 20:30 bo3`;
 
   else if(text === "🏁 Результати"){
 example = `/news8
-BLAST Open Lisbon 2026
+BLAST Open rotterdam 2026
 nrg 2:0 b8
 faze 1:2 tyloo
 falcons 1:2 navi
@@ -171,8 +171,8 @@ inferno ban navi
 overpass ban falcons
 anubis pick navi
 mirage pick falcons
-nuke pick navi
-dust2 pick falcons
+nuke ban navi
+dust2 ban falcons
 ancient decider`;
   }
 
