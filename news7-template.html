@@ -206,41 +206,37 @@ height:42px;
 background:#fff;
 display:flex;
 align-items:center;
-justify-content:space-between;
-padding-left:12px;
 z-index:2;
 }
 
-/* TEXT */
 .mapName span{
 font-family:'Anton', sans-serif;
 font-size:26px;
 color:#000;
+padding-left:12px;
 }
 
-/* LOGO (ІДЕАЛЬНО ЯК РЕФ) */
-<!-- ЗАМІНИ ТІЛЬКИ ЦЕ -->
-
+/* 🔥 DARK BLOCK + CENTER LOGO */
 .winIcon{
-height:100%;
-width:50px;
+position:absolute;
+right:0;
+bottom:0;
+width:60px;
+height:42px;
 background:#0b1220;
 
 display:flex;
 align-items:center;
-justify-content:center; /* 🔥 центр по горизонталі */
-
-flex-shrink:0; /* щоб не стискався */
-
-margin-left:auto; /* відштовхує вправо, але не ламає центр */
+justify-content:center;
+z-index:3;
 }
 
 .winIcon img{
 display:block;
-margin:auto; /* 🔥 гарант центр */
-max-width:65%;
-max-height:65%;
+max-width:55%;
+max-height:55%;
 object-fit:contain;
+margin:auto;
 }
 
 /* STATES */
@@ -322,8 +318,8 @@ filter:invert(1);
       <div class="mapScore">{{MAP1_SCORE}}</div>
       <div class="mapName">
         <span>{{MAP1_NAME}}</span>
-        <div class="winIcon"><img src="{{MAP1_WINNER}}"></div>
       </div>
+      <div class="winIcon"><img src="{{MAP1_WINNER}}"></div>
     </div>
 
     <div class="map {{MAP2_CLASS}}">
@@ -331,8 +327,8 @@ filter:invert(1);
       <div class="mapScore">{{MAP2_SCORE}}</div>
       <div class="mapName">
         <span>{{MAP2_NAME}}</span>
-        <div class="winIcon"><img src="{{MAP2_WINNER}}"></div>
       </div>
+      <div class="winIcon"><img src="{{MAP2_WINNER}}"></div>
     </div>
 
     <div class="map {{MAP3_CLASS}}">
@@ -340,8 +336,8 @@ filter:invert(1);
       <div class="mapScore">{{MAP3_SCORE}}</div>
       <div class="mapName">
         <span>{{MAP3_NAME}}</span>
-        <div class="winIcon"><img src="{{MAP3_WINNER}}"></div>
       </div>
+      <div class="winIcon"><img src="{{MAP3_WINNER}}"></div>
     </div>
 
     <div class="map {{MAP4_CLASS}}">
@@ -349,8 +345,8 @@ filter:invert(1);
       <div class="mapScore">{{MAP4_SCORE}}</div>
       <div class="mapName">
         <span>{{MAP4_NAME}}</span>
-        <div class="winIcon"><img src="{{MAP4_WINNER}}"></div>
       </div>
+      <div class="winIcon"><img src="{{MAP4_WINNER}}"></div>
     </div>
 
     <div class="map {{MAP5_CLASS}}">
@@ -358,8 +354,8 @@ filter:invert(1);
       <div class="mapScore">{{MAP5_SCORE}}</div>
       <div class="mapName">
         <span>{{MAP5_NAME}}</span>
-        <div class="winIcon"><img src="{{MAP5_WINNER}}"></div>
       </div>
+      <div class="winIcon"><img src="{{MAP5_WINNER}}"></div>
     </div>
 
   </div>
