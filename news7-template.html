@@ -207,22 +207,26 @@ background:#fff;
 display:flex;
 align-items:center;
 z-index:2;
+overflow:hidden;
 }
 
+/* 🔥 АДАПТИВНИЙ ТЕКСТ */
 .mapName span{
 font-family:'Anton', sans-serif;
-font-size:26px;
+font-size:clamp(16px, 2.2vw, 26px);
 color:#000;
 padding-left:12px;
+white-space:nowrap;
 }
 
-/* 🔥 DARK BLOCK + CENTER LOGO */
+/* 🔥 КВАДРАТНИЙ БЛОК */
 .winIcon{
 position:absolute;
 right:0;
 bottom:0;
-width:60px;
 height:42px;
+width:42px; /* квадрат */
+
 background:#0b1220;
 
 display:flex;
@@ -232,11 +236,9 @@ z-index:3;
 }
 
 .winIcon img{
-display:block;
-max-width:55%;
-max-height:55%;
+max-width:60%;
+max-height:60%;
 object-fit:contain;
-margin:auto;
 }
 
 /* STATES */
