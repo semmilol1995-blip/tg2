@@ -74,18 +74,26 @@ justify-content:space-between;
 align-items:flex-end;
 }
 
+/* LEFT */
 .leftBlock{
 display:flex;
 flex-direction:column;
 width:50%;
 }
 
-.matchTitle{
-font-family:'Anton', sans-serif;
-font-size:120px; /* було 130px */
-line-height:0.9;
+/* 🔥 MATCH RESULT SPLIT */
+.matchWrap{
+width:100%; /* = ширина team рядка */
 }
 
+.matchLine{
+font-family:'Anton', sans-serif;
+font-size:128px;
+line-height:0.9;
+display:block;
+}
+
+/* TEAM */
 .matchTeams{
 margin-top:12px;
 font-size:18px;
@@ -130,7 +138,7 @@ font-size:110px;
 
 /* META */
 .metaRow{
-margin-top:12px; /* 🔥 ВИРІВНЯНО З matchTeams */
+margin-top:12px;
 display:flex;
 width:100%;
 font-size:14px;
@@ -138,7 +146,6 @@ letter-spacing:2px;
 opacity:0.7;
 }
 
-/* ALIGNMENT */
 .metaLeft{
 margin-left:0;
 width:calc(92px + 40px + 110px / 2);
@@ -262,9 +269,13 @@ filter:invert(1);
   <div class="row2">
 
     <div class="leftBlock">
-      <div class="matchTitle">
-        MATCH<br>RESULT
+
+      <!-- 🔥 SPLIT -->
+      <div class="matchWrap">
+        <span class="matchLine">MATCH</span>
+        <span class="matchLine">RESULT</span>
       </div>
+
       <div class="matchTeams">
         {{TEAM1}} vs {{TEAM2}}
       </div>
