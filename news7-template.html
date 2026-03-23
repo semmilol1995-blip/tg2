@@ -43,7 +43,7 @@ opacity:0.05;
 z-index:2;
 }
 
-/* ROW 1 */
+/* HEADER */
 .header{
 position:absolute;
 top:40px;
@@ -55,7 +55,7 @@ letter-spacing:2px;
 z-index:5;
 }
 
-/* SHARED GRID */
+/* WRAPPER */
 .wrapper{
 position:absolute;
 left:80px;
@@ -63,21 +63,45 @@ right:80px;
 bottom:120px;
 display:flex;
 flex-direction:column;
-gap:20px; /* 🔥 рівно 20px між ряд2-4 */
+gap:20px;
 z-index:5;
 }
 
-/* ROW 2 */
+/* ROW2 */
 .row2{
 display:flex;
 justify-content:space-between;
 align-items:flex-end;
 }
 
+/* LEFT BLOCK */
+.leftBlock{
+display:flex;
+flex-direction:column;
+align-items:flex-start;
+width:50%;
+}
+
 .matchTitle{
 font-family:'Anton', sans-serif;
 font-size:130px;
 line-height:0.9;
+}
+
+/* 👉 ВИРІВНЮВАННЯ TEAM ПІД MATCH */
+.matchTeams{
+margin-top:12px;
+font-size:18px;
+opacity:0.65;
+letter-spacing:2px;
+}
+
+/* RIGHT BLOCK */
+.rightBlock{
+display:flex;
+flex-direction:column;
+align-items:flex-end;
+width:50%;
 }
 
 /* SCORE */
@@ -106,61 +130,50 @@ object-fit:contain;
 .score{
 font-family:'Anton', sans-serif;
 font-size:110px;
-line-height:1;
 }
 
-/* ROW 3 */
-.row3{
+/* META */
+.metaRow{
+margin-top:10px;
 display:flex;
+width:100%;
 justify-content:space-between;
-align-items:center;
 font-size:14px;
 letter-spacing:2px;
 opacity:0.7;
 }
 
-/* 👉 ВАЖЛИВО: ПРИВ’ЯЗКА ДО РЯД2 */
-.row3 .left{
-width:50%; /* рівно під MATCH */
+/* 👉 ROUND ПІД ЛОГО1 */
+.metaLeft{
+text-align:left;
 }
 
-.row3 .right{
-width:50%; /* рівно під SCORE */
-display:flex;
-justify-content:space-between;
+/* 👉 FORMAT ПІД ЛОГО2 */
+.metaRight{
+text-align:right;
 }
 
-/* ROW 4 */
+/* MAPS */
 .maps{
 display:flex;
 gap:20px;
 width:100%;
 }
 
-/* MAP */
 .map{
 flex:1;
 height:110px;
 position:relative;
 overflow:hidden;
 background:#111;
-border-radius:0; /* ❗ без заокруглення */
+border-radius:0;
 }
 
-/* ADAPTIVE */
-.maps.bo1 .map{
-flex:1 1 100%;
-}
+.maps.bo1 .map{flex:1 1 100%;}
+.maps.bo3 .map{flex:1;}
+.maps.bo5 .map{flex:1;}
 
-.maps.bo3 .map{
-flex:1;
-}
-
-.maps.bo5 .map{
-flex:1;
-}
-
-/* IMAGE */
+/* MAP STYLE */
 .map img.bgMap{
 position:absolute;
 width:100%;
@@ -247,44 +260,46 @@ filter:invert(1);
 <div class="overlay"></div>
 <div class="noise"></div>
 
-<!-- ROW 1 -->
 <div class="header">{{TOURNAMENT}}</div>
 
-<!-- ROW 2-4 -->
 <div class="wrapper">
 
-  <!-- ROW 2 -->
+  <!-- ROW2 -->
   <div class="row2">
-    <div class="matchTitle">
-      MATCH<br>RESULT
-    </div>
 
-    <div class="scoreRow">
-      <div class="teamLogo">
-        <img src="{{TEAM1_LOGO}}">
+    <div class="leftBlock">
+      <div class="matchTitle">
+        MATCH<br>RESULT
       </div>
-
-      <div class="score">{{SCORE1}}:{{SCORE2}}</div>
-
-      <div class="teamLogo">
-        <img src="{{TEAM2_LOGO}}">
+      <div class="matchTeams">
+        {{TEAM1}} vs {{TEAM2}}
       </div>
     </div>
-  </div>
 
-  <!-- ROW 3 -->
-  <div class="row3">
-    <div class="left">
-      {{TEAM1}} vs {{TEAM2}}
+    <div class="rightBlock">
+
+      <div class="scoreRow">
+        <div class="teamLogo">
+          <img src="{{TEAM1_LOGO}}">
+        </div>
+
+        <div class="score">{{SCORE1}}:{{SCORE2}}</div>
+
+        <div class="teamLogo">
+          <img src="{{TEAM2_LOGO}}">
+        </div>
+      </div>
+
+      <div class="metaRow">
+        <div class="metaLeft">{{ROUND}}</div>
+        <div class="metaRight">{{FORMAT}}</div>
+      </div>
+
     </div>
 
-    <div class="right">
-      <div>{{ROUND}}</div>
-      <div>{{FORMAT}}</div>
-    </div>
   </div>
 
-  <!-- ROW 4 -->
+  <!-- MAPS -->
   <div class="maps {{FORMAT_CLASS}}">
 
     <div class="map {{MAP1_CLASS}}">
@@ -326,7 +341,6 @@ filter:invert(1);
 
 </div>
 
-<!-- ROW 5 -->
 <div class="footer">
 <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/telegram.svg">
 t.me/zbr4_cast
