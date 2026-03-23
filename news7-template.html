@@ -186,7 +186,7 @@ background:linear-gradient(to top,rgba(0,0,0,0.8),transparent 60%);
 z-index:1;
 }
 
-/* SCORE (менший) */
+/* SCORE */
 .mapScore{
 position:absolute;
 top:10px;
@@ -210,21 +210,22 @@ font-size:16px;
 display:flex;
 align-items:center;
 padding-left:12px;
-z-index:3;
+z-index:2;
 }
 
-/* DARK LOGO BLOCK */
+/* 🔥 LOGO OVERLAY */
 .winIcon{
 position:absolute;
-bottom:40px;
+bottom:0; /* на рівні з білим */
 right:0;
-width:40px;
-height:40px;
+width:42px;
+height:42px;
 background:#0b1220;
 display:flex;
 align-items:center;
 justify-content:center;
-z-index:3;
+z-index:3; /* перекриває */
+transform:translateY(-6px); /* легкий виїзд вверх */
 }
 
 .winIcon img{
@@ -310,36 +311,36 @@ filter:invert(1);
     <div class="map {{MAP1_CLASS}}">
       <img class="bgMap" src="{{MAP1_IMAGE}}">
       <div class="mapScore">{{MAP1_SCORE}}</div>
-      <div class="winIcon"><img src="{{MAP1_WINNER}}"></div>
       <div class="mapName">{{MAP1_NAME}}</div>
+      <div class="winIcon"><img src="{{MAP1_WINNER}}"></div>
     </div>
 
     <div class="map {{MAP2_CLASS}}">
       <img class="bgMap" src="{{MAP2_IMAGE}}">
       <div class="mapScore">{{MAP2_SCORE}}</div>
-      <div class="winIcon"><img src="{{MAP2_WINNER}}"></div>
       <div class="mapName">{{MAP2_NAME}}</div>
+      <div class="winIcon"><img src="{{MAP2_WINNER}}"></div>
     </div>
 
     <div class="map {{MAP3_CLASS}}">
       <img class="bgMap" src="{{MAP3_IMAGE}}">
       <div class="mapScore">{{MAP3_SCORE}}</div>
-      <div class="winIcon"><img src="{{MAP3_WINNER}}"></div>
       <div class="mapName">{{MAP3_NAME}}</div>
+      <div class="winIcon"><img src="{{MAP3_WINNER}}"></div>
     </div>
 
     <div class="map {{MAP4_CLASS}}">
       <img class="bgMap" src="{{MAP4_IMAGE}}">
       <div class="mapScore">{{MAP4_SCORE}}</div>
-      <div class="winIcon"><img src="{{MAP4_WINNER}}"></div>
       <div class="mapName">{{MAP4_NAME}}</div>
+      <div class="winIcon"><img src="{{MAP4_WINNER}}"></div>
     </div>
 
     <div class="map {{MAP5_CLASS}}">
       <img class="bgMap" src="{{MAP5_IMAGE}}">
       <div class="mapScore">{{MAP5_SCORE}}</div>
-      <div class="winIcon"><img src="{{MAP5_WINNER}}"></div>
       <div class="mapName">{{MAP5_NAME}}</div>
+      <div class="winIcon"><img src="{{MAP5_WINNER}}"></div>
     </div>
 
   </div>
