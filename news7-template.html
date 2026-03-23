@@ -55,12 +55,12 @@ letter-spacing:2px;
 z-index:5;
 }
 
-/* MAIN ROW (MATCH + SCORE) */
+/* MAIN ROW */
 .mainRow{
 position:absolute;
 left:80px;
 right:80px;
-bottom:420px;
+bottom:330px; /* було 420 → підняли вниз ближче до info */
 display:flex;
 justify-content:space-between;
 align-items:flex-end;
@@ -74,7 +74,7 @@ font-size:130px;
 line-height:0.9;
 }
 
-/* RIGHT SCORE */
+/* SCORE */
 .scoreBlock{
 display:flex;
 align-items:flex-end;
@@ -102,12 +102,12 @@ font-family:'Anton', sans-serif;
 font-size:110px;
 }
 
-/* INFO ROW */
+/* INFO (мінімальний відступ) */
 .infoRow{
 position:absolute;
 left:80px;
 right:80px;
-bottom:300px;
+bottom:300px; /* дуже близько до mainRow */
 display:flex;
 justify-content:space-between;
 align-items:center;
@@ -149,7 +149,6 @@ background:#111;
 .maps.bo3 .map{ max-width:200px; }
 .maps.bo5 .map{ max-width:150px; }
 
-/* MAP STYLE */
 .map img.bgMap{
 position:absolute;
 width:100%;
@@ -204,7 +203,6 @@ max-height:100%;
 object-fit:contain;
 }
 
-/* STATES */
 .map.hidden{display:none;}
 .map.disabled{opacity:0.4;filter:grayscale(1);}
 .map.win1{box-shadow:0 0 15px rgba(34,197,94,0.9);}
