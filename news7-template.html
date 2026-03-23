@@ -55,16 +55,23 @@ letter-spacing:2px;
 z-index:5;
 }
 
-/* ROW 2 */
-.row2{
+/* SHARED GRID */
+.wrapper{
 position:absolute;
 left:80px;
 right:80px;
-bottom:360px;
+bottom:120px;
+display:flex;
+flex-direction:column;
+gap:20px; /* 🔥 рівно 20px між ряд2-4 */
+z-index:5;
+}
+
+/* ROW 2 */
+.row2{
 display:flex;
 justify-content:space-between;
 align-items:flex-end;
-z-index:5;
 }
 
 .matchTitle{
@@ -104,48 +111,54 @@ line-height:1;
 
 /* ROW 3 */
 .row3{
-position:absolute;
-left:80px;
-right:80px;
-bottom:310px;
 display:flex;
 justify-content:space-between;
 align-items:center;
 font-size:14px;
 letter-spacing:2px;
 opacity:0.7;
-z-index:5;
 }
 
-/* ROW 4 (MAPS) */
-.mapsWrap{
-position:absolute;
-left:80px;
-right:80px;
-bottom:120px;
-z-index:5;
+/* 👉 ВАЖЛИВО: ПРИВ’ЯЗКА ДО РЯД2 */
+.row3 .left{
+width:50%; /* рівно під MATCH */
 }
 
+.row3 .right{
+width:50%; /* рівно під SCORE */
+display:flex;
+justify-content:space-between;
+}
+
+/* ROW 4 */
 .maps{
 display:flex;
-gap:24px;
+gap:20px;
 width:100%;
 }
 
-/* ADAPTIVE WIDTH */
+/* MAP */
 .map{
 flex:1;
 height:110px;
 position:relative;
 overflow:hidden;
-border-radius:6px;
 background:#111;
+border-radius:0; /* ❗ без заокруглення */
 }
 
-/* BO логіка ширини */
-.maps.bo1 .map{ flex:1 1 100%; }
-.maps.bo3 .map{ flex:1 1 0; }
-.maps.bo5 .map{ flex:1 1 0; }
+/* ADAPTIVE */
+.maps.bo1 .map{
+flex:1 1 100%;
+}
+
+.maps.bo3 .map{
+flex:1;
+}
+
+.maps.bo5 .map{
+flex:1;
+}
 
 /* IMAGE */
 .map img.bgMap{
@@ -237,36 +250,41 @@ filter:invert(1);
 <!-- ROW 1 -->
 <div class="header">{{TOURNAMENT}}</div>
 
-<!-- ROW 2 -->
-<div class="row2">
+<!-- ROW 2-4 -->
+<div class="wrapper">
 
-  <div class="matchTitle">
-    MATCH<br>RESULT
-  </div>
-
-  <div class="scoreRow">
-    <div class="teamLogo">
-      <img src="{{TEAM1_LOGO}}">
+  <!-- ROW 2 -->
+  <div class="row2">
+    <div class="matchTitle">
+      MATCH<br>RESULT
     </div>
 
-    <div class="score">{{SCORE1}}:{{SCORE2}}</div>
+    <div class="scoreRow">
+      <div class="teamLogo">
+        <img src="{{TEAM1_LOGO}}">
+      </div>
 
-    <div class="teamLogo">
-      <img src="{{TEAM2_LOGO}}">
+      <div class="score">{{SCORE1}}:{{SCORE2}}</div>
+
+      <div class="teamLogo">
+        <img src="{{TEAM2_LOGO}}">
+      </div>
     </div>
   </div>
 
-</div>
+  <!-- ROW 3 -->
+  <div class="row3">
+    <div class="left">
+      {{TEAM1}} vs {{TEAM2}}
+    </div>
 
-<!-- ROW 3 -->
-<div class="row3">
-  <div>{{TEAM1}} vs {{TEAM2}}</div>
-  <div>{{ROUND}}</div>
-  <div>{{FORMAT}}</div>
-</div>
+    <div class="right">
+      <div>{{ROUND}}</div>
+      <div>{{FORMAT}}</div>
+    </div>
+  </div>
 
-<!-- ROW 4 -->
-<div class="mapsWrap">
+  <!-- ROW 4 -->
   <div class="maps {{FORMAT_CLASS}}">
 
     <div class="map {{MAP1_CLASS}}">
@@ -305,6 +323,7 @@ filter:invert(1);
     </div>
 
   </div>
+
 </div>
 
 <!-- ROW 5 -->
