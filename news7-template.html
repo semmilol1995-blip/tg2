@@ -43,7 +43,7 @@ opacity:0.05;
 z-index:2;
 }
 
-/* HEADER */
+/* ROW 1 */
 .header{
 position:absolute;
 top:40px;
@@ -55,23 +55,16 @@ letter-spacing:2px;
 z-index:5;
 }
 
-/* MAIN ROW */
-.mainRow{
+/* ROW 2 */
+.row2{
 position:absolute;
 left:80px;
 right:80px;
-bottom:340px;
+bottom:360px;
 display:flex;
 justify-content:space-between;
 align-items:flex-end;
 z-index:5;
-}
-
-/* LEFT */
-.leftBlock{
-display:flex;
-flex-direction:column;
-align-items:flex-start;
 }
 
 .matchTitle{
@@ -80,24 +73,10 @@ font-size:130px;
 line-height:0.9;
 }
 
-.matchTeams{
-margin-top:12px;
-font-size:18px;
-opacity:0.65;
-letter-spacing:2px;
-}
-
-/* RIGHT */
-.rightBlock{
-display:flex;
-flex-direction:column;
-align-items:flex-end;
-}
-
-/* SCORE ROW */
+/* SCORE */
 .scoreRow{
 display:flex;
-align-items:center; /* FIX: тепер все в одну лінію */
+align-items:center;
 gap:40px;
 }
 
@@ -123,33 +102,27 @@ font-size:110px;
 line-height:1;
 }
 
-/* META ПІД ЛОГО/СКОРОМ */
-.metaRow{
-margin-top:10px;
+/* ROW 3 */
+.row3{
+position:absolute;
+left:80px;
+right:80px;
+bottom:310px;
 display:flex;
 justify-content:space-between;
-width:100%;
+align-items:center;
 font-size:14px;
 letter-spacing:2px;
 opacity:0.7;
+z-index:5;
 }
 
-.metaLeft{
-text-align:left;
-}
-
-.metaRight{
-text-align:right;
-}
-
-/* MAPS */
+/* ROW 4 (MAPS) */
 .mapsWrap{
 position:absolute;
 left:80px;
 right:80px;
-bottom:110px;
-display:flex;
-justify-content:center;
+bottom:120px;
 z-index:5;
 }
 
@@ -157,23 +130,24 @@ z-index:5;
 display:flex;
 gap:24px;
 width:100%;
-justify-content:center;
 }
 
+/* ADAPTIVE WIDTH */
 .map{
 flex:1;
 height:110px;
-max-width:180px;
 position:relative;
 overflow:hidden;
 border-radius:6px;
 background:#111;
 }
 
-.maps.bo1 .map{ max-width:260px; }
-.maps.bo3 .map{ max-width:200px; }
-.maps.bo5 .map{ max-width:150px; }
+/* BO логіка ширини */
+.maps.bo1 .map{ flex:1 1 100%; }
+.maps.bo3 .map{ flex:1 1 0; }
+.maps.bo5 .map{ flex:1 1 0; }
 
+/* IMAGE */
 .map img.bgMap{
 position:absolute;
 width:100%;
@@ -228,6 +202,7 @@ max-height:100%;
 object-fit:contain;
 }
 
+/* STATES */
 .map.hidden{display:none;}
 .map.disabled{opacity:0.4;filter:grayscale(1);}
 .map.win1{box-shadow:0 0 15px rgba(34,197,94,0.9);}
@@ -259,46 +234,38 @@ filter:invert(1);
 <div class="overlay"></div>
 <div class="noise"></div>
 
+<!-- ROW 1 -->
 <div class="header">{{TOURNAMENT}}</div>
 
-<!-- MAIN -->
-<div class="mainRow">
+<!-- ROW 2 -->
+<div class="row2">
 
-  <!-- LEFT -->
-  <div class="leftBlock">
-    <div class="matchTitle">
-      MATCH<br>RESULT
-    </div>
-    <div class="matchTeams">
-      {{TEAM1}} vs {{TEAM2}}
-    </div>
+  <div class="matchTitle">
+    MATCH<br>RESULT
   </div>
 
-  <!-- RIGHT -->
-  <div class="rightBlock">
-
-    <div class="scoreRow">
-      <div class="teamLogo">
-        <img src="{{TEAM1_LOGO}}">
-      </div>
-
-      <div class="score">{{SCORE1}}:{{SCORE2}}</div>
-
-      <div class="teamLogo">
-        <img src="{{TEAM2_LOGO}}">
-      </div>
+  <div class="scoreRow">
+    <div class="teamLogo">
+      <img src="{{TEAM1_LOGO}}">
     </div>
 
-    <div class="metaRow">
-      <div class="metaLeft">{{ROUND}}</div>
-      <div class="metaRight">{{FORMAT}}</div>
-    </div>
+    <div class="score">{{SCORE1}}:{{SCORE2}}</div>
 
+    <div class="teamLogo">
+      <img src="{{TEAM2_LOGO}}">
+    </div>
   </div>
 
 </div>
 
-<!-- MAPS -->
+<!-- ROW 3 -->
+<div class="row3">
+  <div>{{TEAM1}} vs {{TEAM2}}</div>
+  <div>{{ROUND}}</div>
+  <div>{{FORMAT}}</div>
+</div>
+
+<!-- ROW 4 -->
 <div class="mapsWrap">
   <div class="maps {{FORMAT_CLASS}}">
 
@@ -340,6 +307,7 @@ filter:invert(1);
   </div>
 </div>
 
+<!-- ROW 5 -->
 <div class="footer">
 <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/telegram.svg">
 t.me/zbr4_cast
