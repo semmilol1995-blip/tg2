@@ -219,16 +219,25 @@ color:#000;
 }
 
 /* LOGO (ІДЕАЛЬНО ЯК РЕФ) */
+<!-- ЗАМІНИ ТІЛЬКИ ЦЕ -->
+
 .winIcon{
 height:100%;
 width:50px;
 background:#0b1220;
+
 display:flex;
 align-items:center;
-justify-content:center;
+justify-content:center; /* 🔥 центр по горизонталі */
+
+flex-shrink:0; /* щоб не стискався */
+
+margin-left:auto; /* відштовхує вправо, але не ламає центр */
 }
 
 .winIcon img{
+display:block;
+margin:auto; /* 🔥 гарант центр */
 max-width:65%;
 max-height:65%;
 object-fit:contain;
