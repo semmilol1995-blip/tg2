@@ -269,10 +269,6 @@ if(commandKey === "news11"){
 const tournament = (lines[0] || "").toUpperCase();
 const teamUrl = (lines[1] || "").trim();
 
-/* ============================= */
-/* 🔥 PUPPETEER PARSE (STABLE) */
-/* ============================= */
-
 const browser = await puppeteer.launch({
   headless: "new",
   args:[
@@ -285,39 +281,38 @@ const browser = await puppeteer.launch({
 const page = await browser.newPage();
 
 await page.setUserAgent(
-  "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36"
+  "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
 );
 
 await page.goto(teamUrl, { waitUntil:"domcontentloaded" });
 
-/* 🔥 чекаємо поки з’являться гравці */
-await page.waitForSelector(".bodyshot-team-img, .player-picture-pic", { timeout: 8000 });
+/* 🔥 просто даємо час, БЕЗ падіння */
+await new Promise(r => setTimeout(r, 2500));
 
 /* ============================= */
-/* 🔥 ЗБІР КАРТИНОК */
+/* 🔥 ЗБІР КАРТИНОК (БЕЗ СЕЛЕКТОРА) */
 /* ============================= */
 
 const images = await page.evaluate(() => {
-  const imgs = Array.from(document.querySelectorAll(".bodyshot-team-img, .player-picture-pic"));
 
-  return imgs.map(img => {
-    let src = img.getAttribute("src") || img.getAttribute("data-src");
+  const imgs = Array.from(document.querySelectorAll("img"));
 
-    if(!src) return null;
-
-    if(src.startsWith("//")){
-      src = "https:" + src;
-    }
-
-    return src.split("?")[0];
-  }).filter(Boolean);
+  return imgs
+    .map(img => img.src || img.getAttribute("data-src"))
+    .filter(src =>
+      src &&
+      (src.includes("playerbodyshot") || src.includes("/player/"))
+    )
+    .map(src => {
+      if(src.startsWith("//")) src = "https:" + src;
+      return src.split("?")[0];
+    });
 });
 
-/* беремо перші 5 унікальних */
 const uniqueImages = [...new Set(images)].slice(0,5);
 
 /* ============================= */
-/* 🔥 BASE64 */
+/* BASE64 */
 /* ============================= */
 
 let imgs = [];
@@ -338,15 +333,12 @@ for(let img of uniqueImages){
   }
 }
 
-/* добиваємо до 5 */
 while(imgs.length < 5){
   imgs.push("");
 }
 
 await browser.close();
 
-/* ============================= */
-/* 🔥 ВСТАВКА В HTML */
 /* ============================= */
 
 html = html
