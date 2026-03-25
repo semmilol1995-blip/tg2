@@ -640,8 +640,20 @@ const page = await browser.newPage();
 await page.setViewport({ width:900, height:900 });
 await page.setContent(html,{waitUntil:"networkidle0"});
 await page.evaluateHandle('document.fonts.ready');
-// 🔥 ключовий момент
-await new Promise(r => setTimeout(r, 800));
+
+/* 🔥 ЧЕКАЄМО ВСІ IMG */
+await page.evaluate(async () => {
+  const imgs = Array.from(document.images);
+  await Promise.all(imgs.map(img => {
+    if (img.complete) return;
+    return new Promise(resolve => {
+      img.onload = img.onerror = resolve;
+    });
+  }));
+});
+
+/* 🔥 ДОДАТКОВИЙ ЗАПАС */
+await page.waitForTimeout(3000);
 
 const filePath = path.join(__dirname,"news.png");
 
