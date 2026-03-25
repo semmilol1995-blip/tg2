@@ -16,32 +16,67 @@ overflow:hidden;
 position:relative;
 }
 
-/* 🔥 BASE GRADIENT */
+/* 🔥 BASE GRADIENT (центр зверху) */
 .bg-gradient{
 position:absolute;
 inset:0;
+
 background:
-  radial-gradient(circle at 25% 30%, #7c3aed, #0f0f1a 60%),
-  linear-gradient(to bottom, #1a0833 0%, #000 100%);
+  radial-gradient(
+    ellipse at 50% 0%,
+    rgba(124,58,237,0.9) 0%,
+    rgba(124,58,237,0.5) 25%,
+    rgba(124,58,237,0.2) 45%,
+    transparent 60%
+  ),
+  linear-gradient(
+    to bottom,
+    #1a0833 0%,
+    #000 100%
+  );
+
 z-index:0;
 }
 
-/* 🔥 ZEBRA */
+/* 🔥 ZEBRA DIAGONAL */
 .bg-zebra{
 position:absolute;
-inset:-15%;
+inset:-25%;
 z-index:1;
 
 opacity:0.35;
 mix-blend-mode:overlay;
 filter:blur(0.5px);
 
-transform:rotate(-10deg) scale(1.25) skewX(-3deg);
+transform:rotate(35deg) scale(1.4) skewX(-6deg);
 
 background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 1000'%3E%3Cpath fill='white' d='M0 0 C180 120 120 320 260 1000 L0 1000 Z'/%3E%3Cpath fill='black' d='M90 -50 C300 200 140 450 360 1050 L520 1000 C380 520 420 100 250 -50 Z'/%3E%3Cpath fill='white' d='M250 -80 C500 100 300 500 600 1100 L780 1000 C600 600 650 120 420 -60 Z'/%3E%3Cpath fill='black' d='M420 -40 C700 250 500 600 820 1100 L980 1000 C780 620 860 150 650 -40 Z'/%3E%3Cpath fill='white' d='M650 -100 C900 150 700 550 1050 1100 L1220 1000 C980 650 1050 180 850 -90 Z'/%3E%3Cpath fill='black' d='M850 -50 C1150 250 950 650 1300 1100 L1500 1000 C1200 700 1250 200 1050 -50 Z'/%3E%3Cpath fill='white' d='M1100 -120 C1400 150 1200 650 1500 1100 L1600 1000 L1600 0 Z'/%3E%3C/svg%3E");
 
 background-size:cover;
 background-repeat:no-repeat;
+}
+
+/* 🔥 TOP CENTER GLOW */
+.bg-glow{
+position:absolute;
+top:-120px;
+left:50%;
+transform:translateX(-50%);
+
+width:900px;
+height:500px;
+
+background:radial-gradient(
+  ellipse at center,
+  rgba(124,58,237,0.5) 0%,
+  rgba(124,58,237,0.25) 35%,
+  rgba(124,58,237,0.1) 55%,
+  transparent 75%
+);
+
+filter:blur(40px);
+z-index:2;
+pointer-events:none;
 }
 
 /* NOISE */
@@ -51,7 +86,7 @@ width:100%;
 height:100%;
 background:url('https://grainy-gradients.vercel.app/noise.svg');
 opacity:0.06;
-z-index:2;
+z-index:3;
 }
 
 /* PLAYERS */
@@ -169,6 +204,7 @@ opacity:0.9;
 
 <div class="bg-gradient"></div>
 <div class="bg-zebra"></div>
+<div class="bg-glow"></div>
 <div class="noise"></div>
 
 <div class="players">
