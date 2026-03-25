@@ -1,4 +1,32 @@
 {
+  "vitality": [
+    "https://img-cdn.hltv.org/playerbodyshot/3M9h08qvl3YOsaRcAvKhs4.png?ixlib=java-2.1.0&w=400&s=c1acc9777d9e3165140548582e9bf1f5",
+    "https://img-cdn.hltv.org/playerbodyshot/YQ9kQQ3aop1JZQE9xJ140r.png?ixlib=java-2.1.0&w=400&s=d4c7a00036511e25b4854ba3d3af80ca",
+    "https://img-cdn.hltv.org/playerbodyshot/blnoWFtH8GUJZjhr8H0P4u.png?ixlib=java-2.1.0&w=400&s=dc0fe6bd817ef852f59185ccf6b6c868",
+    "https://img-cdn.hltv.org/playerbodyshot/LUQi5dX9boyO0uDadUGht5.png?ixlib=java-2.1.0&w=400&s=1c5c46fe41e79b19a69b479d8abbbb41",
+    "https://img-cdn.hltv.org/playerbodyshot/7GVUrVLAQkgnuovRkk5Bxw.png?ixlib=java-2.1.0&w=400&s=00b346853396c35e5889b00be2766c99"
+  ],
+  "furia": [
+    "https://img-cdn.hltv.org/playerbodyshot/gQbb4I0TeHmxx7bYBOtd7T.png?ixlib=java-2.1.0&w=400&s=744dd676bd5ad23e4adfc8dc8fcbaa80",
+    "https://img-cdn.hltv.org/playerbodyshot/ZapU9KMKIlH1bDpSlV6MO1.png?ixlib=java-2.1.0&w=400&s=09cb203041b92340db49939164bc6f99",
+    "https://img-cdn.hltv.org/playerbodyshot/IO3vEa2fT2qFPRlrPid7hf.png?ixlib=java-2.1.0&w=400&s=2826592c7787a70711b1ca5651ab25a7",
+    "https://img-cdn.hltv.org/playerbodyshot/z0vT0V815B0MdeeKhcf44Y.png?ixlib=java-2.1.0&w=400&s=32afd770ba5023b0eefc0712e029065a",
+    "https://img-cdn.hltv.org/playerbodyshot/oPoWLYFq87cIs2cYDo8id7.png?ixlib=java-2.1.0&w=400&s=26d135bacbf9f98ff775421c3ca2bf4c"
+  ],
+  "mouz": [
+    "https://img-cdn.hltv.org/playerbodyshot/thS88tHhwyOqdZAm5AI9bf.png?ixlib=java-2.1.0&w=400&s=9cfc60ad39306de3eb14b649e0af18e8",
+    "https://img-cdn.hltv.org/playerbodyshot/R_N5toY5QunKzIeapwFCG9.png?ixlib=java-2.1.0&w=400&s=eb37cbe88e025dbd8e8e09c6cd981478",
+    "https://img-cdn.hltv.org/playerbodyshot/e21k33SYzHd4xiEclyz50o.png?ixlib=java-2.1.0&w=400&s=8203b6b71262769700d17cf759a27db8",
+    "https://img-cdn.hltv.org/playerbodyshot/FGhAp42j20Axj0xIAaiS7x.png?ixlib=java-2.1.0&w=400&s=fdb0ec12b6e05517a0558833564d77be",
+    "https://img-cdn.hltv.org/playerbodyshot/f3k06p19e8890q9hq0S9Gi.png?ixlib=java-2.1.0&w=400&s=cf4a1e48e9991ba2fd1f3e41dadcda83"
+  ],
+  "falcons": [
+    "https://img-cdn.hltv.org/playerbodyshot/ZrAcgiRTFgDyDj4k04-xAh.png?ixlib=java-2.1.0&w=400&s=afb5419d8de8399ef582f5446702a278",
+    "https://img-cdn.hltv.org/playerbodyshot/M7vtVu2MP606MqUmkW7ha4.png?ixlib=java-2.1.0&w=400&s=a0e159d3ec0ec708bb1db0eefbddb40b",
+    "https://img-cdn.hltv.org/playerbodyshot/e20I1I0Ld0bWn_VI31pf08.png?ixlib=java-2.1.0&w=400&s=6f89be52bc56efdd00b207268a1f7cfe",
+    "https://img-cdn.hltv.org/playerbodyshot/g9Vcuk0D0lD2ZNoS8Ha0Vd.png?ixlib=java-2.1.0&w=400&s=7bcac1df6a7f6059916c9f8fce742628",
+    "https://img-cdn.hltv.org/playerbodyshot/_s6UUQ4E92xw1uSWWCafsK.png?ixlib=java-2.1.0&w=400&s=d94a122aa9a8ec89f0727656b69e2415"
+  ],
   "navi": [
     "https://img-cdn.hltv.org/playerbodyshot/7-TvianW79yWk13gdw-Jc5.png?ixlib=java-2.1.0&w=400&s=f94eda5a77f332bc02821e6b845ca207",
     "https://img-cdn.hltv.org/playerbodyshot/lWNcoOFOcHF3uIERANZRXh.png?ixlib=java-2.1.0&w=400&s=cd5df4d5e89df8cab0e4a7edd6db0d8b",
@@ -6,8 +34,234 @@
     "https://img-cdn.hltv.org/playerbodyshot/OepRRBoc68iVojIfgK3JIA.png?ixlib=java-2.1.0&w=400&s=99dcc1115ffec1ed275a5cf4eacca825",
     "https://img-cdn.hltv.org/playerbodyshot/U6KmIKHcqg2OpMrNn-Aqk6.png?ixlib=java-2.1.0&w=400&s=420f1bcb0e6943b68fafb5e2d933197c"
   ],
-
-  "vitality": [
-    "https://img-cdn.hltv.org/playerbodyshot/R3MF_lTsMVSw1w6K744i91.png?ixlib=java-2.1.0&w=400&s=00f5abe7c10a1cb7ba784147d0ac00cf"
+  "aurora": [
+    "https://img-cdn.hltv.org/playerbodyshot/OHhj5VnQSq11DnTdsIvR2s.png?ixlib=java-2.1.0&w=400&s=514a2de05d22eaeb9de240c1c0d8f96c",
+    "https://img-cdn.hltv.org/playerbodyshot/aEgLOOfzRrsHvRrKpL47rE.png?ixlib=java-2.1.0&w=400&s=4053033e80f7fe40dc18c5aa5524fcd1",
+    "https://img-cdn.hltv.org/playerbodyshot/2cF-tkevaAVy-qMjUWba4W.png?ixlib=java-2.1.0&w=400&s=f9faedddd609acd19cf124c506ceed76",
+    "https://img-cdn.hltv.org/playerbodyshot/ilIYrdas7tyZB8YsHqZjwq.png?ixlib=java-2.1.0&w=400&s=e91824befe40a7e3fc96bca4570af5b1",
+    "https://img-cdn.hltv.org/playerbodyshot/Z9uIo6WYSEC5Sk9X6q-7BR.png?ixlib=java-2.1.0&w=400&s=39d51ecbd2d6893ee6242011f943d3b6"
+  ],
+  "pv": [
+    "https://img-cdn.hltv.org/playerbodyshot/lExXxzg2gbyA0EHm8KCz4u.png?ixlib=java-2.1.0&w=400&s=c106f0b0387580e86e8b7967a0870a4b",
+    "https://img-cdn.hltv.org/playerbodyshot/zUguI2YXOX1m4qNTvjLVJA.png?ixlib=java-2.1.0&w=400&s=d7b91a53ca75d162319590247dadb8c9",
+    "https://img-cdn.hltv.org/playerbodyshot/12rQpFRvYZuulGxqh4Bp8V.png?ixlib=java-2.1.0&w=400&s=de89c478f6304f225b228c4aef018629",
+    "https://img-cdn.hltv.org/playerbodyshot/5nxuQDMUKuIOM0WQkHU5IU.png?ixlib=java-2.1.0&w=400&s=4db636bcb2c5b0c070a3607deba2bbe1",
+    "https://img-cdn.hltv.org/playerbodyshot/6JACic_lKVZHnkG8w2EEqe.png?ixlib=java-2.1.0&w=400&s=f68c34c9cce1bc78aa779e73fa8ccf01"
+  ],
+  "spirit": [
+    "https://img-cdn.hltv.org/playerbodyshot/Grz5vLIlrpeI7IQmm8d-jH.png?ixlib=java-2.1.0&w=400&s=3cfc5c3d0dbe422578931aabe14faa3c",
+    "https://img-cdn.hltv.org/playerbodyshot/1V7ijAaTXl3umTr7cPo0VF.png?ixlib=java-2.1.0&w=400&s=fd243be6d54de849949d6a837c3abe5e",
+    "https://img-cdn.hltv.org/playerbodyshot/PONEIASU8jyJz2lnNS13bp.png?ixlib=java-2.1.0&w=400&s=c995668c01532a97dc5709f25f479f8d",
+    "https://img-cdn.hltv.org/playerbodyshot/wi3shJIerTjUCELul_JOus.png?ixlib=java-2.1.0&w=400&s=ce5a7296c8ec30e2bae0592b3be12667",
+    "https://img-cdn.hltv.org/playerbodyshot/C4b0sMnty05S40UmXhLRD4.png?ixlib=java-2.1.0&w=400&s=8d846371bff4a867c0fcc3e038e02b1f"
+  ],
+  "mongolz": [
+    "https://img-cdn.hltv.org/playerbodyshot/iZRFNr7JJjsTYN1ZAlCgDQ.png?ixlib=java-2.1.0&w=400&s=44f580dcb6ce56563322872321d04eee",
+    "https://img-cdn.hltv.org/playerbodyshot/mqG9yUYHd3C7P_O7JT3aIk.png?ixlib=java-2.1.0&w=400&s=5dca94b3d8ec7278af0b4b28350bfafc",
+    "https://img-cdn.hltv.org/playerbodyshot/aAu_vh2NO0Y7s-NXpQ_DR7.png?ixlib=java-2.1.0&w=400&s=6b03b2c89e2c770e6e4949fc8943b460",
+    "https://img-cdn.hltv.org/playerbodyshot/VxQNCCbY7RGsKWMHGPrG_j.png?ixlib=java-2.1.0&w=400&s=45ad44f02269180c887b1c77dd0e69c6",
+    "https://img-cdn.hltv.org/playerbodyshot/OzJI6tOD5op15oO_0GVAZw.png?ixlib=java-2.1.0&w=400&s=a5dc6219defcb92d0de3aaf7cb4cc631"
+  ],
+  "astralis": [
+    "https://img-cdn.hltv.org/playerbodyshot/5DSsym2C5UTBwlx6_2HWus.png?ixlib=java-2.1.0&w=400&s=72c6b7876c3dece1dbcb247252618f2e",
+    "https://img-cdn.hltv.org/playerbodyshot/YKUX_-o1Q6SH4Tg15oh3sN.png?ixlib=java-2.1.0&w=400&s=41c1ee8900e8b8e9384c1859f8dcb792",
+    "https://img-cdn.hltv.org/playerbodyshot/dKxXCjAKGoulY4j-QQbtsK.png?ixlib=java-2.1.0&w=400&s=6ea64435f308847e3b5b4a4b444c4a1a",
+    "https://img-cdn.hltv.org/playerbodyshot/G8Z6QGNGayCWloB10UbFlG.png?ixlib=java-2.1.0&w=400&s=515c7a1c8549ec7f9f3fafad7254a46f",
+    "https://img-cdn.hltv.org/playerbodyshot/gUuJ9KeqNkbV3PUCS5h3u1.png?ixlib=java-2.1.0&w=400&s=13142df9e20259d4e7cf1b3ef132bd32"
+  ],
+  "faze": [
+    "https://img-cdn.hltv.org/playerbodyshot/5LUkKnJkRvzZRqDDnvldiC.png?ixlib=java-2.1.0&w=400&s=b0543e702a84517a48de00fc25e83f9d",
+    "https://img-cdn.hltv.org/playerbodyshot/9W3dN51SYk7fVdz0JtUTd6.png?ixlib=java-2.1.0&w=400&s=762cb3fd622fb4fbac83afaa33ea3e5e",
+    "https://img-cdn.hltv.org/playerbodyshot/AciEQEeOmB9PgJRzo_qEHI.png?ixlib=java-2.1.0&w=400&s=5c4ddb0cd7ab3b2bd2ec972569030221",
+    "https://img-cdn.hltv.org/playerbodyshot/PhWXitAqrij9y8UgA14Vtu.png?ixlib=java-2.1.0&w=400&s=35c99a09186fc08befcf20befcff3b14",
+    "https://img-cdn.hltv.org/playerbodyshot/x9MfB1IN50I4WdbdB41v-F.png?ixlib=java-2.1.0&w=400&s=d67ef64b58b43d193191d1750adf203a"
+  ],
+  "fut": [
+    "https://img-cdn.hltv.org/playerbodyshot/8vdNoQ4bmcWPDmuhCDaJv7.png?ixlib=java-2.1.0&w=400&s=76bc25b4440d5f0de8c0192e0e49734c",
+    "https://img-cdn.hltv.org/playerbodyshot/k_0Ljw_kqwLCaU7B7TNm6R.png?ixlib=java-2.1.0&w=400&s=7bc700188253cc8e43b2fd624e706391",
+    "https://img-cdn.hltv.org/playerbodyshot/kcyl7BuE4C4otOtVCpg5w1.png?ixlib=java-2.1.0&w=400&s=6caaba1568f6522e95f90d371fd3e1dd",
+    "https://img-cdn.hltv.org/playerbodyshot/JorVcvfs4eJnOeEASNTJor.png?ixlib=java-2.1.0&w=400&s=6f5570e4fab41656ca1402715b69bf42",
+    "https://img-cdn.hltv.org/playerbodyshot/eTJu4sdB8MJJ97ixYS1Q8i.png?ixlib=java-2.1.0&w=400&s=42a225e58635602bd46ec5011e2b059c"
+  ],
+  "g2": [
+    "https://img-cdn.hltv.org/playerbodyshot/JE11ZcPrGFg7coPnvLmvVX.png?ixlib=java-2.1.0&w=400&s=940963bd380ff9b0449ede87c016607b",
+    "https://img-cdn.hltv.org/playerbodyshot/QWIhUZgGXKt7hcHi9u1hnu.png?ixlib=java-2.1.0&w=400&s=85a195c11817fb9c81b2fb8303607bf1",
+    "https://img-cdn.hltv.org/playerbodyshot/Yya99os5yqWhTt2Zeflql7.png?ixlib=java-2.1.0&w=400&s=ad59fce0d26a0caa04d7a790a798426d",
+    "https://img-cdn.hltv.org/playerbodyshot/3zxur0TGNX3nvFVm0jcRYA.png?ixlib=java-2.1.0&w=400&s=09ef4f562e55e3376945b33a9e6602d9",
+    "https://img-cdn.hltv.org/playerbodyshot/UFlZilQx8mAfCgHFQdUFY1.png?ixlib=java-2.1.0&w=400&s=931245272b548e0222c5a8c1a9def2b1"
+  ],
+  "3dmax": [
+    "https://img-cdn.hltv.org/playerbodyshot/1W9-kjxnxtc5-lmQyoD1zG.png?ixlib=java-2.1.0&w=400&s=d39c14623a502f7f19c8bc833e29f011",
+    "https://img-cdn.hltv.org/playerbodyshot/DMcfIxPaeKaYDodzvCrTdk.png?ixlib=java-2.1.0&w=400&s=251298a6fc81a25285a7bb79ebd38db6",
+    "https://img-cdn.hltv.org/playerbodyshot/W_VSYKjVSV3phB4wqCvO2q.png?ixlib=java-2.1.0&w=400&s=724eb69631fff1b3fc1f6eaff42b352a",
+    "https://img-cdn.hltv.org/playerbodyshot/IYVgzqBalEJQ1yfY44t-tb.png?ixlib=java-2.1.0&w=400&s=e3468e42fc76a75e9d05b6a46bb757f7",
+    "https://img-cdn.hltv.org/playerbodyshot/-uLmAgfdhg94TAc5lc5uYV.png?ixlib=java-2.1.0&w=400&s=1093a73d3f8a75e7a1470003515c287c"
+  ],
+  "legacy": [
+    "https://img-cdn.hltv.org/playerbodyshot/6R2_DgbijJp4wfzXzXLvXk.png?ixlib=java-2.1.0&w=400&s=f3081550a8f8432f978af49cee0addbd",
+    "https://img-cdn.hltv.org/playerbodyshot/7xNNPYHSUcklP9y_IbW89p.png?ixlib=java-2.1.0&w=400&s=e89cff0f523625a7b79cd745cb704db8",
+    "https://img-cdn.hltv.org/playerbodyshot/uiflbxgglnZgrDxhZ8mzjB.png?ixlib=java-2.1.0&w=400&s=955cae05962a8c8dd1cf7d2954d4b970",
+    "https://img-cdn.hltv.org/playerbodyshot/XHf9bjCGPHY2SlyOJjfqHY.png?ixlib=java-2.1.0&w=400&s=197d2364655cd2e084476899dc52a66a",
+    "https://img-cdn.hltv.org/playerbodyshot/o9fTbCscAs47qnxvwYVflj.png?ixlib=java-2.1.0&w=400&s=c7c9832ded4288f829971df5f6687ce7"
+  ],
+  "gamerlegion": [
+    "https://img-cdn.hltv.org/playerbodyshot/PCtBkxFzx6KVhnaGxgVoQa.png?ixlib=java-2.1.0&w=400&s=f0b074cfa6e7dfb5cbf439b5fdd8e08b",
+    "https://img-cdn.hltv.org/playerbodyshot/TSkeOmdv8vyYh9iOGVo502.png?ixlib=java-2.1.0&w=400&s=65e8425097e772ff8f9c8ab46d0a7bc6",
+    "https://img-cdn.hltv.org/playerbodyshot/4jj2BOgVY3BBfKR9FJjtuh.png?ixlib=java-2.1.0&w=400&s=43ae78b709fa3fc7c398d7a2a9dd0132",
+    "https://img-cdn.hltv.org/playerbodyshot/IKV9i3RUVkwVa2Io1VPLgO.png?ixlib=java-2.1.0&w=400&s=a60c88ebe9164c1cb1560d285bb9f0ee",
+    "https://img-cdn.hltv.org/playerbodyshot/_AdiIHHMI1Uc935Rc4cjKu.png?ixlib=java-2.1.0&w=400&s=17ed3f70765273d2b8debb876911c0cd"
+  ],
+  "pain": [
+    "https://img-cdn.hltv.org/playerbodyshot/9l4fmqtPpnYTVLSpIszftp.png?ixlib=java-2.1.0&w=400&s=a49d24061ab0d5cf60dfa48989e64d94",
+    "https://img-cdn.hltv.org/playerbodyshot/HUy3TltSQxWgWwlTy42u9k.png?ixlib=java-2.1.0&w=400&s=4965d6fb0352a171baa71fbc16046e4d",
+    "https://img-cdn.hltv.org/playerbodyshot/VYJimjFTbcbszh3T6eJsNa.png?ixlib=java-2.1.0&w=400&s=5a25a385efea675f761f5c2aa3c294ce",
+    "https://img-cdn.hltv.org/playerbodyshot/rWWHODifGqiby9uKvN8aFu.png?ixlib=java-2.1.0&w=400&s=15ce0e3337b1b4790dd5a66e3bafac66",
+    "https://img-cdn.hltv.org/playerbodyshot/l97Ga-CHqlvYGF_y4oTUr5.png?ixlib=java-2.1.0&w=400&s=d67ced065eabeef6d9a01bc81cf7287b"
+  ],
+  "heroic": [
+    "https://img-cdn.hltv.org/playerbodyshot/wRfFsHlZc3HmOPKxScfQho.png?ixlib=java-2.1.0&w=400&s=5e1620f2762b4da8e269fe673997550d",
+    "https://img-cdn.hltv.org/playerbodyshot/a_XL7ROfsn8YhNS_l7kIbv.png?ixlib=java-2.1.0&w=400&s=3aca6b0f83d2460b05bfe1e141557557",
+    "https://img-cdn.hltv.org/playerbodyshot/Mdc2qZZptN3d3jGfXraSjk.png?ixlib=java-2.1.0&w=400&s=57dd867c35c98dba45e6f822fb5878c4",
+    "https://img-cdn.hltv.org/playerbodyshot/_1cYTJ5FIcWKf6spLhd73f.png?ixlib=java-2.1.0&w=400&s=cb5d1798d9280448f6f064217c45a7a2",
+    "https://img-cdn.hltv.org/playerbodyshot/biOoj0RdE1iWdYlNZ2B6zt.png?ixlib=java-2.1.0&w=400&s=b39726a7e6894883a3b4d886a23863a2"
+  ],
+  "liquid": [
+    "https://img-cdn.hltv.org/playerbodyshot/IsWTIH0Z8VFH27xELG8X-F.png?ixlib=java-2.1.0&w=400&s=f421eb31cfdd47c8bc97a2a95f7d8f7b",
+    "https://img-cdn.hltv.org/playerbodyshot/tY4zfxxGWqYkmtIkQ-K1th.png?ixlib=java-2.1.0&w=400&s=a8922acd464ea669d714298f4cf283d6",
+    "https://img-cdn.hltv.org/playerbodyshot/ctUILRDjbNaDhZTIkGKwXF.png?ixlib=java-2.1.0&w=400&s=6918113c9cad418df3fad983dc894890",
+    "https://img-cdn.hltv.org/playerbodyshot/bHQKxD5jNZ2n1YpeYeeTA6.png?ixlib=java-2.1.0&w=400&s=5061ee629f29b424647754ed12f94e04",
+    "https://img-cdn.hltv.org/playerbodyshot/OXZiSpq7Pv8_LlokCWtjvj.png?ixlib=java-2.1.0&w=400&s=b9162a6b10c8b23865cc7468978b34d6"
+  ],
+  "b8": [
+    "https://img-cdn.hltv.org/playerbodyshot/Jt-DXIL47Y0W1S4bCVcM0F.png?ixlib=java-2.1.0&w=400&s=a5188eb66527f10742aec39c554044aa",
+    "https://img-cdn.hltv.org/playerbodyshot/AYuclo1QTkgChvauJVLHd4.png?ixlib=java-2.1.0&w=400&s=e298c0c475d1029fbd177b1f7c48cda5",
+    "https://img-cdn.hltv.org/playerbodyshot/xucg3E9L0Ykx-0HrQRH4zp.png?ixlib=java-2.1.0&w=400&s=2f72c12d87b3d945c1814fc2b22fab9b",
+    "https://img-cdn.hltv.org/playerbodyshot/TrvdZmKdSvomvCvfBwk163.png?ixlib=java-2.1.0&w=400&s=ae95d94270a1625cf05eb9e6863f5128",
+    "https://img-cdn.hltv.org/playerbodyshot/LUQi5dX9boyO0uDadUGht5.png?ixlib=java-2.1.0&w=400&s=1c5c46fe41e79b19a69b479d8abbbb41"
+  ],
+  "nip": [
+    "https://img-cdn.hltv.org/playerbodyshot/-ihDkbQ6iZIJpru6isBmkw.png?ixlib=java-2.1.0&w=400&s=85bd3c8e58741ca6f72d986d206c4b48",
+    "https://img-cdn.hltv.org/playerbodyshot/LI-h-toKvr9SLKJkmUcZ7c.png?ixlib=java-2.1.0&w=400&s=ed39bf3233a0cc390c850d0e4e206a69",
+    "https://img-cdn.hltv.org/playerbodyshot/ECgxyP04J2OgBgZj7SX9Pm.png?ixlib=java-2.1.0&w=400&s=ead8ea1c1de922bee7e2cdeb032c4e4a",
+    "https://img-cdn.hltv.org/playerbodyshot/4ICjUyvBowN1B8nI2ipn1_.png?ixlib=java-2.1.0&w=400&s=84ca08e91c4000525b16f22d93b321ed",
+    "https://img-cdn.hltv.org/playerbodyshot/ni1UKsMhFGJ90wvU4Obcot.png?ixlib=java-2.1.0&w=400&s=bd8ce360c3b49f725f128f2d57dc5b07"
+  ],
+  "9z": [
+    "https://img-cdn.hltv.org/playerbodyshot/vPT97tKV6UdEu6QPI8oPew.png?ixlib=java-2.1.0&w=400&s=4f8932410e2ff307ec8e934b4f63eba5",
+    "https://img-cdn.hltv.org/playerbodyshot/6WgYZCFU9Si5ZpP8-Mx2Xc.png?ixlib=java-2.1.0&w=400&s=c85964b03b119712205b02cc19a1ab11",
+    "https://img-cdn.hltv.org/playerbodyshot/IChotzP5mVSrqVy4PTHYzK.png?ixlib=java-2.1.0&w=400&s=963f6554d0eaa1ae9924c4e9f4188d0f",
+    "https://img-cdn.hltv.org/playerbodyshot/wwhGNwbmraJczwS0mGEHv-.png?ixlib=java-2.1.0&w=400&s=00a1e7261fdcc71a207c6fe5a6aa00bd",
+    "https://img-cdn.hltv.org/playerbodyshot/-1_hkAFXOtvEwx4rEHfalZ.png?ixlib=java-2.1.0&w=400&s=335580a2fc9675a1e7517803511bae7c"
+  ],
+  "nrg": [
+    "https://img-cdn.hltv.org/playerbodyshot/VV5H8oDdijd-yrY420upLi.png?ixlib=java-2.1.0&w=400&s=843a2ebc3aa094c2087d788f10b6a4da",
+    "https://img-cdn.hltv.org/playerbodyshot/Fuul_Sae87vY63eQkabuKx.png?ixlib=java-2.1.0&w=400&s=face1674a548434672527fb4f78f31b9",
+    "https://img-cdn.hltv.org/playerbodyshot/PSZRu17-f2TcgPB_aFuY0p.png?ixlib=java-2.1.0&w=400&s=01e839321d0044ec205bd544146c1cd2",
+    "https://img-cdn.hltv.org/playerbodyshot/H8zh4XiK2nyhvXIqg1R0jn.png?ixlib=java-2.1.0&w=400&s=9767ad87953641afe0ac83b09df6b7c2",
+    "https://img-cdn.hltv.org/playerbodyshot/GUQ9JBYM_eIJtW-0jbCeBM.png?ixlib=java-2.1.0&w=400&s=0c0dba1dc1ecbdcd452bb2a989d2bba9"
+  ],
+  "gentle-mates": [
+    "https://img-cdn.hltv.org/playerbodyshot/qQTenkRZ-E2fffCYFbKFy7.png?ixlib=java-2.1.0&w=400&s=d76b1c2e47602d164cda891f6b9ffd37",
+    "https://img-cdn.hltv.org/playerbodyshot/KHbfDVctpLVwk-HNqJCr53.png?ixlib=java-2.1.0&w=400&s=3e1eef46e0138a84d844c49d294c48a2",
+    "https://img-cdn.hltv.org/playerbodyshot/odJHGF8lngmXX28-FOWbwG.png?ixlib=java-2.1.0&w=400&s=84009533dcda1a898d224c5ca3505564",
+    "https://img-cdn.hltv.org/playerbodyshot/AS1udbalr2Tm-KHCTO1tXr.png?ixlib=java-2.1.0&w=400&s=fb0a95343d0da0e7ee2eabb41cfca3d7",
+    "https://img-cdn.hltv.org/playerbodyshot/xz7tmgM-b6dkWrLFXpnUYW.png?ixlib=java-2.1.0&w=400&s=860d21cd3cd1f853d1624590101d53e4"
+  ],
+  "m80": [
+    "https://img-cdn.hltv.org/playerbodyshot/y_IxxTxErUYvRag___p54_.png?ixlib=java-2.1.0&w=400&s=33c80d62cf753b1b6fec95a85f0e87c6",
+    "https://img-cdn.hltv.org/playerbodyshot/29ZsyLzmin7ulOnJCcA3wM.png?ixlib=java-2.1.0&w=400&s=6644ca2a670a81840d9f20cb95676f9e",
+    "https://img-cdn.hltv.org/playerbodyshot/omou6FnIFE6WR1gOsMOUYc.png?ixlib=java-2.1.0&w=400&s=d148e6d26f4b9a8a8e8dba45ed31d0c8",
+    "https://img-cdn.hltv.org/playerbodyshot/e1F2VxFPrjax_4VC8-tRB0.png?ixlib=java-2.1.0&w=400&s=70d0da40a4f07c6fdb6fda301649e321",
+    "https://img-cdn.hltv.org/playerbodyshot/fcLbbeY2MoA_9_WCCA-p_R.png?ixlib=java-2.1.0&w=400&s=a8106291a5f1f811c793e2ca5478329b"
+  ],
+  "marsborne": [
+    "https://img-cdn.hltv.org/playerbodyshot/Y4XJtLB2sAxE-y3sAok3JH.png?ixlib=java-2.1.0&w=400&s=82a805080e708662f248f0a3af3b00bd",
+    "https://img-cdn.hltv.org/playerbodyshot/DEY9CQp2lD4sQKBk99NXSG.png?ixlib=java-2.1.0&w=400&s=169da440d848bc95da69c810058c9eb8",
+    "https://img-cdn.hltv.org/playerbodyshot/ehUELnIC00p5pA28-COgrU.png?ixlib=java-2.1.0&w=400&s=ab2a34ff31f1ee4bdb3e4b6c1f13e7db",
+    "https://img-cdn.hltv.org/playerbodyshot/HGNxtdQu-BS70xCHhh-feY.png?ixlib=java-2.1.0&w=400&s=bd91af858967470a44f6307e94e60414",
+    "https://img-cdn.hltv.org/playerbodyshot/dskR5YuXKMCMjdzKIfbD6D.png?ixlib=java-2.1.0&w=400&s=6d82e0b9c132180886f18772c0ea1ff1"
+  ],
+  "voca": [
+    "https://img-cdn.hltv.org/playerbodyshot/SMKJ29xKI8BGLEFCczj0qj.png?ixlib=java-2.1.0&w=400&s=aa1a947fac4f66241d3f1e51b41d2c92",
+    "https://img-cdn.hltv.org/playerbodyshot/odCVf7_HVMKB27iijSQeEy.png?ixlib=java-2.1.0&w=400&s=5f71c4e0d815d4dd8342f6d716c3149a",
+    "https://img-cdn.hltv.org/playerbodyshot/JGj7Utzg_zl3PbPJFvUB24.png?ixlib=java-2.1.0&w=400&s=2a1b7c95d7fd6c9b74f62bdd5faf085b",
+    "https://img-cdn.hltv.org/playerbodyshot/n9MtOW7omwuanrSHdt_KU9.png?ixlib=java-2.1.0&w=400&s=70b30b56641bb2fa1fee44be971f1524",
+    "https://img-cdn.hltv.org/playerbodyshot/7WRnNHB97ogQmtqTw_3LV3.png?ixlib=java-2.1.0&w=400&s=c909552e657885c4c2d46c50a7f008bf"
+  ],
+  "wildcard": [
+    "https://img-cdn.hltv.org/playerbodyshot/FSb3QiR93-g0Yaiwwc8ZKF.png?ixlib=java-2.1.0&w=400&s=3981ab47422122260462cb305da61cfb",
+    "https://img-cdn.hltv.org/playerbodyshot/r0PWuRfSxnvCMgZVP5YXo_.png?ixlib=java-2.1.0&w=400&s=1cdd65b175382eded03aacdfb61d62f6",
+    "https://img-cdn.hltv.org/playerbodyshot/ycADLPRDZVWTaVe9LTbHye.png?ixlib=java-2.1.0&w=400&s=892e3c8ca31154b4838f28606a4953f3",
+    "https://img-cdn.hltv.org/playerbodyshot/MjtB8M9APk_5ZV4CSYf7qs.png?ixlib=java-2.1.0&w=400&s=8f86a28f9aa6303b0a705f999f5fda47",
+    "https://img-cdn.hltv.org/playerbodyshot/u1NR507MuRgGR6vOYdc2PB.png?ixlib=java-2.1.0&w=400&s=ddae718e6152911ff20663ea67598f54"
+  ],
+  "mibr": [
+    "https://img-cdn.hltv.org/playerbodyshot/c7tcRMt0bkk12_yaIBZTLC.png?ixlib=java-2.1.0&w=400&s=b702fd627509f340516faea6b65e815f",
+    "https://img-cdn.hltv.org/playerbodyshot/4QxpvFP9PJy70pt7Cjrmnx.png?ixlib=java-2.1.0&w=400&s=f4c9f818c08cd114b37a0436aaee2650",
+    "https://img-cdn.hltv.org/playerbodyshot/rMLFuDdAsdhOFc2DoQ9n7k.png?ixlib=java-2.1.0&w=400&s=1159d0701afb1514001444387c22ef56",
+    "https://img-cdn.hltv.org/playerbodyshot/BTNEAhe45nPFjEifq-R-sV.png?ixlib=java-2.1.0&w=400&s=dd800e15cd61b560db63025a94b1e4e6",
+    "https://img-cdn.hltv.org/playerbodyshot/_EQqLknLcE-6K0XtiEjRH2.png?ixlib=java-2.1.0&w=400&s=33cb8d510095a7449598721634bdac9c"
+  ],
+  "imperial": [
+    "https://img-cdn.hltv.org/playerbodyshot/X973-Rb9YtkcijdA31-tVM.png?ixlib=java-2.1.0&w=400&s=2e50400aa408ba896cc377ec222cdd2b",
+    "https://img-cdn.hltv.org/playerbodyshot/8eCE6Lrlb-kX89Jo3f2Box.png?ixlib=java-2.1.0&w=400&s=7b8d65bb5bc60727f3806b68343600e8",
+    "https://img-cdn.hltv.org/playerbodyshot/9J9Q8FNhJRw4qGtWELD8E2.png?ixlib=java-2.1.0&w=400&s=b946ace8d0d98bb6cbb930eabf3f5067",
+    "https://img-cdn.hltv.org/playerbodyshot/mOo3MGDNev1mhFs8RWlEVn.png?ixlib=java-2.1.0&w=400&s=2c0fbddecbbfaad198a4b92fb46c3227",
+    "https://img-cdn.hltv.org/playerbodyshot/_Wqcfwl_peYqO2w1_kGDjL.png?ixlib=java-2.1.0&w=400&s=fc0e6bc97fd8eb4a046097b2ae9ab250"
+  ],
+  "fnatic": [
+    "https://img-cdn.hltv.org/playerbodyshot/xXeq41hUweGR4qCOFRoyNe.png?ixlib=java-2.1.0&w=400&s=6cfb869c90091db293ee1dad0b152ae0",
+    "https://img-cdn.hltv.org/playerbodyshot/ESmMcx4tnTEkTFgzOLi-qd.png?ixlib=java-2.1.0&w=400&s=a1fe46e073e79da6fa935145b86d2169",
+    "https://img-cdn.hltv.org/playerbodyshot/p5zXih-xcGHhqel2sNp-iJ.png?ixlib=java-2.1.0&w=400&s=dbf6387d583fb71f7a48d36ac435a4b7",
+    "https://img-cdn.hltv.org/playerbodyshot/1GaE_2AF5gXvlLJHwUDp2W.png?ixlib=java-2.1.0&w=400&s=0c85d66aea40180c2aec4f33eb578440",
+    "https://img-cdn.hltv.org/playerbodyshot/iOgKpDsTNPzW6b9P3kigoV.png?ixlib=java-2.1.0&w=400&s=2b1965da4be669959382b14873de3248"
+  ],
+  "inner-circle": [
+    "https://img-cdn.hltv.org/playerbodyshot/uUQXBX2UELWUOOdEsoS2yJ.png?ixlib=java-2.1.0&w=400&s=81d587433e99dfa9714abc5d488bc4e5",
+    "https://img-cdn.hltv.org/playerbodyshot/G4Noy7N_mFyPR4aaUJPwfK.png?ixlib=java-2.1.0&w=400&s=ca46727d70a47e4b4db3f2554a5a52f1",
+    "https://img-cdn.hltv.org/playerbodyshot/BCS-ZwYtqYcZ3gRNteP41u.png?ixlib=java-2.1.0&w=400&s=f8eb7de4be00f778ebb91e34adfbe08c",
+    "https://img-cdn.hltv.org/playerbodyshot/fKnYryOJlxJGvVOQDCWPye.png?ixlib=java-2.1.0&w=400&s=e4213305e4b2a0a89bce9a1539672344",
+    "https://img-cdn.hltv.org/playerbodyshot/-Gcw5fOOrdQdXmu7VdIjGO.png?ixlib=java-2.1.0&w=400&s=f111b78f8dcae6f4b6d66ab2c8a6edba"
+  ],
+  "lynn-vision": [
+    "https://img-cdn.hltv.org/playerbodyshot/w9IH6NVwZaEghBrni9KUye.png?ixlib=java-2.1.0&w=400&s=5a1798f197ebed18b8cacd9deb0670d2",
+    "https://img-cdn.hltv.org/playerbodyshot/fcO07i0REvntQD_HarJL6R.png?ixlib=java-2.1.0&w=400&s=f2205ac7184639b59abc19ccea375100",
+    "https://img-cdn.hltv.org/playerbodyshot/tuGiVdrZEWz7RX-GAhNJIn.png?ixlib=java-2.1.0&w=400&s=0173f8b47bff2aa64cc872c0480db277",
+    "https://img-cdn.hltv.org/playerbodyshot/KGJ5Waz1a9xx0avH99wf83.png?ixlib=java-2.1.0&w=400&s=94c341ab7d11b9fe1d650c7f1e27bc00",
+    "https://img-cdn.hltv.org/playerbodyshot/l5gxGzlPyAqU3ihCeVYnWS.png?ixlib=java-2.1.0&w=400&s=dc284363d72cbc68efaa6000f196d2b0"
+  ],
+  "jijiehao": [
+    "https://img-cdn.hltv.org/playerbodyshot/1ljji7TPK-NktOH_A5bUE3.png?ixlib=java-2.1.0&w=400&s=b2a9c690c3a5a23ab1aaafc94c4d6ac8",
+    "https://img-cdn.hltv.org/playerbodyshot/1XYRjqG8I2-khll1Pk4r7t.png?ixlib=java-2.1.0&w=400&s=330f6f1b260f6f88d1dcf6581623bc40",
+    "https://img-cdn.hltv.org/playerbodyshot/raKPD-yyNW4mOS9ZEMne18.png?ixlib=java-2.1.0&w=400&s=11f47b683537e1cd6454ae1453bc3303",
+    "https://img-cdn.hltv.org/playerbodyshot/URncrRKNzIUh7MkCnjVMYv.png?ixlib=java-2.1.0&w=400&s=2426f195fc66bb4889afabe2c262f0f3",
+    "https://img-cdn.hltv.org/playerbodyshot/VnMSHCtW9M7DaQksa_Q77j.png?ixlib=java-2.1.0&w=400&s=03d91db4844649823b02b2cfb02129cc"
+  ],
+  "rare-atom": [
+    "https://img-cdn.hltv.org/playerbodyshot/IG4-Tov3COxgmcixWZf7WX.png?ixlib=java-2.1.0&w=400&s=ea50c56c15051f51c9aee43814cc3249",
+    "https://img-cdn.hltv.org/playerbodyshot/DI86Duf59-PFeyOD4lTRb7.png?ixlib=java-2.1.0&w=400&s=06d65dbb31bef04bba0148772f11eabc",
+    "https://img-cdn.hltv.org/playerbodyshot/nek640U-_zsFJX2rYWfKcp.png?ixlib=java-2.1.0&w=400&s=422b015daea91d55d733c58e4f1c3aac",
+    "https://img-cdn.hltv.org/playerbodyshot/rPMsGJbUqOmw3BZzA1f6gx.png?ixlib=java-2.1.0&w=400&s=82ff2daff7464adf103a3c1856b75f02",
+    "https://img-cdn.hltv.org/playerbodyshot/l2ompW-0EXW_3HP_H5lZA5.png?ixlib=java-2.1.0&w=400&s=4d04ffc88a0e3a74764f879960dffde5"
+  ],
+  "the-huns": [
+    "https://img-cdn.hltv.org/playerbodyshot/rpVbDiAKQv1thTn5WFukdD.png?ixlib=java-2.1.0&w=400&s=1b5d7ccf6cbcbf21a05c57ff4aa129d1",
+    "https://img-cdn.hltv.org/playerbodyshot/jmJ_dLTNmCurb94iUMj__f.png?ixlib=java-2.1.0&w=400&s=76740bffeeb28a3bc4e70a49f37c8b3b",
+    "https://img-cdn.hltv.org/playerbodyshot/zjw6Gf7L5foyJqBFmOT-Yi.png?ixlib=java-2.1.0&w=400&s=71ef8fc88176faa7880a933201d09fff",
+    "https://img-cdn.hltv.org/playerbodyshot/DailvlXht6sLKJwwU_ITfW.png?ixlib=java-2.1.0&w=400&s=282e3a60a585ef48503319cbd36f592e",
+    "https://img-cdn.hltv.org/playerbodyshot/S82TwVUyLeUTIjZ3Gtj9oO.png?ixlib=java-2.1.0&w=400&s=947697e63d2f15a5a01b77cf8b75d45e"
+  ],
+  "chinggis-warriors": [
+    "https://img-cdn.hltv.org/playerbodyshot/TP5ZP5tT0ieewG8iGEXOvp.png?ixlib=java-2.1.0&w=400&s=dd3c8f4da1b95a3bd186e9f74ef727b5",
+    "https://img-cdn.hltv.org/playerbodyshot/tdSnbAz8rgC5qlbDxGUYbs.png?ixlib=java-2.1.0&w=400&s=95a826fa3c6094976114f894d266f73e",
+    "https://img-cdn.hltv.org/playerbodyshot/z0vT0V815B0MdeeKhcf44Y.png?ixlib=java-2.1.0&w=400&s=32afd770ba5023b0eefc0712e029065a",
+    "https://img-cdn.hltv.org/playerbodyshot/MmpUjCUqYGgNyzGbXuMhCJ.png?ixlib=java-2.1.0&w=400&s=18f9b2ff62631b2154e02b5a81817224",
+    "https://img-cdn.hltv.org/playerbodyshot/z0vT0V815B0MdeeKhcf44Y.png?ixlib=java-2.1.0&w=400&s=32afd770ba5023b0eefc0712e029065a"
+  ],
+  "semperfi": [
+    "https://img-cdn.hltv.org/playerbodyshot/M35K7tT-iaupDuO3iCXo7S.png?ixlib=java-2.1.0&w=400&s=73aec14809e2dce1a1fccfd092a8f890",
+    "https://img-cdn.hltv.org/playerbodyshot/1AVlhSQ-ftdnQ4ElZo9OJo.png?ixlib=java-2.1.0&w=400&s=e4fd2feca2c1dd7471382a2d14be16ca",
+    "https://img-cdn.hltv.org/playerbodyshot/hQC-K38ZnpjZVard17Q-Ib.png?ixlib=java-2.1.0&w=400&s=57d4173c4d2df680a63cff2f4c707060",
+    "https://img-cdn.hltv.org/playerbodyshot/s_uaGDncmzayUmQ1HeOi0d.png?ixlib=java-2.1.0&w=400&s=73f306252bbc5bd648d8f3252e9d35bb"
   ]
 }
