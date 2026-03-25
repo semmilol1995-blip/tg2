@@ -269,60 +269,73 @@ if(commandKey === "news11"){
 const tournament = (lines[0] || "").toUpperCase();
 const teamUrl = (lines[1] || "").trim();
 
-async function getPlayersImages(url){
+/* ============================= */
+/* GET PLAYER IDS */
+/* ============================= */
+async function getPlayerIds(url){
   try{
     const res = await axios.get(url, {
-      headers:{
-        "User-Agent":"Mozilla/5.0",
-        "Accept-Language":"en-US,en;q=0.9"
-      }
+      headers:{ "User-Agent":"Mozilla/5.0" }
     });
 
     const html = res.data;
 
-    // 🔥 БЕРЕМО ВСІ bodyshot картинки напряму (без cheerio)
-    const matches = [...html.matchAll(/playerbodyshot\/[^"]+/g)];
+    const matches = [...html.matchAll(/\/player\/(\d+)\//g)];
 
-    let images = matches.map(m => {
-      return "https://img-cdn.hltv.org/" + m[0];
-    });
+    let ids = matches.map(m => m[1]);
 
     // унікальні
-    images = [...new Set(images)];
+    ids = [...new Set(ids)];
 
-    // перші 5
-    images = images.slice(0,5);
+    return ids.slice(0,5);
 
-    const base64Images = [];
-
-    for(let img of images){
-      try{
-        const res = await axios.get(img, {
-  responseType: "arraybuffer",
-  headers: {
-    "User-Agent": "Mozilla/5.0",
-    "Referer": "https://www.hltv.org/"
-  }
-});
-        base64Images.push(`data:image/png;base64,${Buffer.from(res.data).toString("base64")}`);
-      }catch{
-        base64Images.push("");
-      }
-    }
-
-    while(base64Images.length < 5){
-      base64Images.push("");
-    }
-
-    return base64Images;
-
-  }catch(e){
-    return ["","","","",""];
+  }catch{
+    return [];
   }
 }
 
-const imgs = await getPlayersImages(teamUrl);
+/* ============================= */
+/* GET IMAGE */
+/* ============================= */
+async function getImage(id){
 
+  const urls = [
+    `https://img-cdn.hltv.org/playerbodyshot/${id}.png`,
+    `https://img-cdn.hltv.org/player/${id}.png`
+  ];
+
+  for(let url of urls){
+    try{
+      const res = await axios.get(url, {
+        responseType:"arraybuffer",
+        headers:{
+          "User-Agent":"Mozilla/5.0",
+          "Referer":"https://www.hltv.org/"
+        }
+      });
+
+      return `data:image/png;base64,${Buffer.from(res.data).toString("base64")}`;
+
+    }catch{}
+  }
+
+  return "";
+}
+
+/* ============================= */
+const ids = await getPlayerIds(teamUrl);
+
+let imgs = [];
+
+for(let id of ids){
+  imgs.push(await getImage(id));
+}
+
+while(imgs.length < 5){
+  imgs.push("");
+}
+
+/* ============================= */
 html = html
 .replace(/{{P1}}/g, imgs[0])
 .replace(/{{P2}}/g, imgs[1])
