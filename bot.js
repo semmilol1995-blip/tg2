@@ -339,17 +339,7 @@ html = html
 }
 
 /* ============================= */
-await page.setViewport({ width:900, height:900 });
 
-await page.setContent(html,{waitUntil:"networkidle0"});
-await page.evaluateHandle('document.fonts.ready');
-
-const filePath = path.join(__dirname,"news.png");
-
-await page.screenshot({ path:filePath });
-
-await browser.close();
-}
 /* ДАЛІ ВСЕ 1:1 ЯК У ТЕБЕ */
 
 
