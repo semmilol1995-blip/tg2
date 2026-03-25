@@ -21,7 +21,7 @@ async function loadTeams(){
   }
 
   try{
-    const res = await axios.get("https://raw.githubusercontent.com/semmilol1995-blip/tg2/refs/heads/main/base.json");
+    const res = await axios.get("https://raw.githubusercontent.com/semmilol1995-blip/tg2/main/base.json");
 
     TEAM_CACHE = res.data;
     LAST_UPDATE = now;
