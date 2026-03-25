@@ -11,33 +11,16 @@ height:900px;
 font-family:'Inter', sans-serif;
 overflow:hidden;
 
-/* 🔥 ГОЛОВНИЙ ГРАДІЄНТ (дзеркальний) */
-background: radial-gradient(circle at center, 
-#000000 0%, 
-#0a0618 35%, 
-#1a0f2e 65%, 
-#2d1b4f 85%, 
-#3b0764 100%
-);
-
 display:flex;
 align-items:center;
 justify-content:center;
 position:relative;
-}
 
-/* glow по кутах */
-body::before{
-content:"";
-position:absolute;
-width:100%;
-height:100%;
+/* 🔥 БАЗА (темний центр) */
 background:
-radial-gradient(circle at top left, rgba(168,85,247,0.35), transparent 40%),
-radial-gradient(circle at top right, rgba(168,85,247,0.35), transparent 40%),
-radial-gradient(circle at bottom left, rgba(168,85,247,0.25), transparent 50%),
-radial-gradient(circle at bottom right, rgba(168,85,247,0.25), transparent 50%);
-pointer-events:none;
+radial-gradient(circle at top left, rgba(168,85,247,0.45), transparent 40%),
+radial-gradient(circle at bottom right, rgba(168,85,247,0.45), transparent 40%),
+#000000;
 }
 
 /* === WRAPPER === */
