@@ -9,18 +9,27 @@ body{
 margin:0;
 width:900px;
 height:900px;
-background:radial-gradient(circle at center, #1a0833 0%, #05010a 70%);
 font-family:'Inter', sans-serif;
-overflow:hidden;
+background:linear-gradient(135deg,#0b0b0f,#1a1030);
 color:white;
+overflow:hidden;
+}
+
+/* 🔥 NOISE (твій стиль) */
+.noise{
+position:absolute;
+width:100%;
+height:100%;
+background:url('https://grainy-gradients.vercel.app/noise.svg');
+opacity:0.06;
 }
 
 /* PLAYERS */
 .players{
 position:absolute;
-bottom:180px;
+bottom:200px; /* трохи вище */
 width:100%;
-height:500px;
+height:520px;
 }
 
 /* COMMON */
@@ -28,7 +37,7 @@ height:500px;
 position:absolute;
 bottom:0;
 transform:translateX(-50%);
-filter:drop-shadow(0 20px 40px rgba(0,0,0,0.9));
+filter:drop-shadow(0 25px 60px rgba(0,0,0,0.9));
 }
 
 .player img{
@@ -36,34 +45,46 @@ height:100%;
 object-fit:contain;
 }
 
-/* LAYOUT */
-.p1{ left:50%; height:520px; z-index:5;}
-.p2{ left:30%; height:460px; z-index:4;}
-.p3{ left:70%; height:460px; z-index:4;}
-.p4{ left:15%; height:420px; z-index:3;}
-.p5{ left:85%; height:420px; z-index:3;}
+/* 🔥 DEPTH (мінімально змінено, але дає ефект) */
+.p1{ left:50%; height:560px; z-index:5;}  /* центр */
+.p2{ left:32%; height:500px; z-index:4;}
+.p3{ left:68%; height:500px; z-index:4;}
+.p4{ left:12%; height:440px; z-index:3;}
+.p5{ left:88%; height:440px; z-index:3;}
+
+/* 🔥 FADE (як у твоєму стилі) */
+.fade{
+position:absolute;
+bottom:0;
+width:100%;
+height:300px;
+background:linear-gradient(to top,#0b0b0f,transparent);
+z-index:6;
+}
 
 /* TITLE */
 .title{
 position:absolute;
-bottom:140px;
+bottom:200px;
 width:100%;
 text-align:center;
 font-family:'Anton';
 font-size:120px;
 color:#facc15;
 letter-spacing:4px;
+z-index:10;
 }
 
 /* SUB */
 .subtitle{
 position:absolute;
-bottom:100px;
+bottom:150px;
 width:100%;
 text-align:center;
 font-weight:800;
 font-size:28px;
 letter-spacing:3px;
+z-index:10;
 }
 
 /* FOOTER */
@@ -74,11 +95,14 @@ width:100%;
 text-align:center;
 opacity:0.8;
 font-weight:600;
+z-index:10;
 }
 </style>
 </head>
 
 <body>
+
+<div class="noise"></div>
 
 <div class="players">
   <div class="player p4"><img src="{{P3}}"></div>
@@ -87,6 +111,9 @@ font-weight:600;
   <div class="player p1"><img src="{{P5}}"></div>
   <div class="player p5"><img src="{{P4}}"></div>
 </div>
+
+<!-- 🔥 fade поверх ніг -->
+<div class="fade"></div>
 
 <div class="title">ЧЕМПІОНИ</div>
 <div class="subtitle">{{TOURNAMENT}}</div>
