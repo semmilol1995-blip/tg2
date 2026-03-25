@@ -269,6 +269,10 @@ if(commandKey === "news11"){
 const tournament = (lines[0] || "").toUpperCase();
 const teamUrl = (lines[1] || "").trim();
 
+/* ============================= */
+/* PUPPETEER */
+/* ============================= */
+
 const browser = await puppeteer.launch({
   headless: "new",
   args:[
@@ -286,11 +290,11 @@ await page.setUserAgent(
 
 await page.goto(teamUrl, { waitUntil:"domcontentloaded" });
 
-/* 🔥 просто даємо час, БЕЗ падіння */
+/* даємо сторінці час */
 await new Promise(r => setTimeout(r, 2500));
 
 /* ============================= */
-/* 🔥 ЗБІР КАРТИНОК (БЕЗ СЕЛЕКТОРА) */
+/* 🔥 ЗБІР КАРТИНОК */
 /* ============================= */
 
 const images = await page.evaluate(() => {
@@ -301,14 +305,11 @@ const images = await page.evaluate(() => {
     .map(img => img.src || img.getAttribute("data-src"))
     .filter(src =>
       src &&
-      (src.includes("playerbodyshot") || src.includes("/player/"))
-    )
-    .map(src => {
-      if(src.startsWith("//")) src = "https:" + src;
-      return src.split("?")[0];
-    });
+      src.includes("playerbodyshot")
+    );
 });
 
+/* унікальні + перші 5 */
 const uniqueImages = [...new Set(images)].slice(0,5);
 
 /* ============================= */
@@ -328,17 +329,22 @@ for(let img of uniqueImages){
     });
 
     imgs.push(`data:image/png;base64,${Buffer.from(res.data).toString("base64")}`);
-  }catch{
+
+  }catch(e){
+    console.log("IMG ERROR:", img);
     imgs.push("");
   }
 }
 
+/* добиваємо до 5 */
 while(imgs.length < 5){
   imgs.push("");
 }
 
 await browser.close();
 
+/* ============================= */
+/* ВСТАВКА */
 /* ============================= */
 
 html = html
