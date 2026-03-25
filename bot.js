@@ -270,37 +270,59 @@ const tournament = (lines[0] || "").toUpperCase();
 const teamUrl = (lines[1] || "").trim();
 
 /* ============================= */
-/* PUPPETEER ПАРС */
+/* 🔥 PUPPETEER PARSE (STABLE) */
 /* ============================= */
 
 const browser = await puppeteer.launch({
-  args:["--no-sandbox","--disable-setuid-sandbox"]
+  headless: "new",
+  args:[
+    "--no-sandbox",
+    "--disable-setuid-sandbox",
+    "--disable-blink-features=AutomationControlled"
+  ]
 });
 
 const page = await browser.newPage();
 
+await page.setUserAgent(
+  "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36"
+);
+
 await page.goto(teamUrl, { waitUntil:"domcontentloaded" });
 
-// даємо сторінці час
-await new Promise(r => setTimeout(r, 2000));
+/* 🔥 чекаємо поки з’являться гравці */
+await page.waitForSelector(".bodyshot-team-img, .player-picture-pic", { timeout: 8000 });
+
+/* ============================= */
+/* 🔥 ЗБІР КАРТИНОК */
+/* ============================= */
 
 const images = await page.evaluate(() => {
-  const imgs = Array.from(document.querySelectorAll("img"));
+  const imgs = Array.from(document.querySelectorAll(".bodyshot-team-img, .player-picture-pic"));
 
-  return imgs
-    .map(img => img.src || img.getAttribute("data-src"))
-    .filter(src => src && src.includes("playerbodyshot"))
-    .map(src => {
-      if(src.startsWith("//")) src = "https:" + src;
-      return src.split("?")[0];
-    })
-    .slice(0,5);
+  return imgs.map(img => {
+    let src = img.getAttribute("src") || img.getAttribute("data-src");
+
+    if(!src) return null;
+
+    if(src.startsWith("//")){
+      src = "https:" + src;
+    }
+
+    return src.split("?")[0];
+  }).filter(Boolean);
 });
 
-/* BASE64 */
+/* беремо перші 5 унікальних */
+const uniqueImages = [...new Set(images)].slice(0,5);
+
+/* ============================= */
+/* 🔥 BASE64 */
+/* ============================= */
+
 let imgs = [];
 
-for(let img of images){
+for(let img of uniqueImages){
   try{
     const res = await axios.get(img, {
       responseType:"arraybuffer",
@@ -316,6 +338,7 @@ for(let img of images){
   }
 }
 
+/* добиваємо до 5 */
 while(imgs.length < 5){
   imgs.push("");
 }
@@ -323,7 +346,7 @@ while(imgs.length < 5){
 await browser.close();
 
 /* ============================= */
-/* ВСТАВКА */
+/* 🔥 ВСТАВКА В HTML */
 /* ============================= */
 
 html = html
