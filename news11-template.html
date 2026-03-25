@@ -15,7 +15,7 @@ color:white;
 overflow:hidden;
 }
 
-/* 🔥 NOISE (твій стиль) */
+/* NOISE */
 .noise{
 position:absolute;
 width:100%;
@@ -27,7 +27,7 @@ opacity:0.06;
 /* PLAYERS */
 .players{
 position:absolute;
-bottom:200px; /* трохи вище */
+bottom:200px;
 width:100%;
 height:520px;
 }
@@ -45,27 +45,34 @@ height:100%;
 object-fit:contain;
 }
 
-/* 🔥 DEPTH (мінімально змінено, але дає ефект) */
-.p1{ left:50%; height:560px; z-index:5;}  /* центр */
+/* DEPTH */
+.p1{ left:50%; height:560px; z-index:5;}
 .p2{ left:32%; height:500px; z-index:4;}
 .p3{ left:68%; height:500px; z-index:4;}
 .p4{ left:12%; height:440px; z-index:3;}
 .p5{ left:88%; height:440px; z-index:3;}
 
-/* 🔥 FADE (як у твоєму стилі) */
+/* 🔥 FADE (ГОЛОВНИЙ ФІКС) */
 .fade{
 position:absolute;
 bottom:0;
 width:100%;
-height:300px;
-background:linear-gradient(to top,#0b0b0f,transparent);
+height:420px;
+background:linear-gradient(
+  to top,
+  #0b0b0f 0%,
+  #0b0b0f 40%,
+  rgba(11,11,15,0.9) 60%,
+  rgba(11,11,15,0.5) 75%,
+  transparent 100%
+);
 z-index:6;
 }
 
 /* TITLE */
 .title{
 position:absolute;
-bottom:200px;
+bottom:230px;
 width:100%;
 text-align:center;
 font-family:'Anton';
@@ -78,7 +85,7 @@ z-index:10;
 /* SUB */
 .subtitle{
 position:absolute;
-bottom:150px;
+bottom:170px;
 width:100%;
 text-align:center;
 font-weight:800;
