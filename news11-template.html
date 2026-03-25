@@ -46,7 +46,7 @@ height:100%;
 object-fit:contain;
 }
 
-/* DEPTH — ЧІТКІ */
+/* DEPTH */
 .p1{ left:50%; height:540px; z-index:5;}
 .p2{ left:32%; height:490px; z-index:4;}
 .p3{ left:68%; height:490px; z-index:4;}
@@ -68,27 +68,25 @@ background:linear-gradient(
 z-index:6;
 }
 
-/* TEAM LOGO — ВЕРХНЯ ТОЧКА СІТКИ */
-.teamLogo{
+/* SUBTITLE (БАЗА) */
+.subtitle{
 position:absolute;
-left:50%;
-transform:translateX(-50%);
-bottom:300px;
-z-index:9;
-display:flex;
-justify-content:center;
-align-items:center;
+bottom:80px;
+width:100%;
+text-align:center;
+
+font-weight:800;
+font-size:32px;
+letter-spacing:2px;
+opacity:0.9;
+
+z-index:10;
 }
 
-.teamLogo img{
-max-height:110px;
-object-fit:contain;
-}
-
-/* TITLE — ЦЕНТР СІТКИ */
+/* TITLE (15px над subtitle) */
 .title{
 position:absolute;
-bottom:170px;
+bottom:95px; /* 80 + 15 */
 width:100%;
 text-align:center;
 
@@ -102,19 +100,21 @@ color:#facc15;
 z-index:10;
 }
 
-/* SUBTITLE — НИЖНЯ ТОЧКА СІТКИ */
-.subtitle{
+/* TEAM LOGO (ще +15px) */
+.teamLogo{
 position:absolute;
-bottom:110px;
-width:100%;
-text-align:center;
+left:50%;
+transform:translateX(-50%);
+bottom:110px; /* 95 + 15 */
+z-index:9;
+display:flex;
+justify-content:center;
+align-items:center;
+}
 
-font-weight:800;
-font-size:32px;
-letter-spacing:2px;
-opacity:0.9;
-
-z-index:10;
+.teamLogo img{
+max-height:110px;
+object-fit:contain;
 }
 
 /* FOOTER */
