@@ -279,7 +279,10 @@ const browser = await puppeteer.launch({
 
 const page = await browser.newPage();
 
-await page.goto(teamUrl, { waitUntil:"networkidle2" });
+await page.goto(teamUrl, { waitUntil:"domcontentloaded" });
+
+// 🔥 КЛЮЧОВЕ
+await page.waitForSelector(".bodyshot-team-img", { timeout: 5000 });
 
 const images = await page.evaluate(() => {
   const imgs = Array.from(document.querySelectorAll(".bodyshot-team-img"));
