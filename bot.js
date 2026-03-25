@@ -270,9 +270,7 @@ if(commandKey === "news11"){
 const tournament = (lines[0] || "").toUpperCase();
 const teamUrl = (lines[1] || "").trim();
 
-/* ============================= */
-/* GET PLAYERS */
-/* ============================= */
+/* PLAYERS */
 async function getPlayers(url){
   try{
     const res = await axios.get(url, {
@@ -298,42 +296,35 @@ async function getPlayers(url){
   }
 }
 
-/* ============================= */
-/* 🔥 ULTRA STABLE IMAGE */
-/* ============================= */
-async function getValidImage(id){
-
-  const urls = [
-    `https://img-cdn.hltv.org/playerbodyshot/${id}.png`,
-    `https://img-cdn.hltv.org/player/${id}.png`
-  ];
-
-  for(const url of urls){
-    try{
-      const res = await axios.head(url);
-      if(res.status === 200){
-        return url;
-      }
-    }catch(e){}
+/* 🔥 BASE64 IMAGE */
+async function getBase64Image(url){
+  try{
+    const res = await axios.get(url, { responseType:"arraybuffer" });
+    return `data:image/png;base64,${Buffer.from(res.data).toString("base64")}`;
+  }catch{
+    return "";
   }
-
-  return "https://www.hltv.org/img/static/player/player_silhouette.png";
 }
 
-/* ============================= */
 const players = await getPlayers(teamUrl);
 
 let imgs = [];
 
 for(let p of players){
-  imgs.push(await getValidImage(p.id));
+
+  let img = await getBase64Image(`https://img-cdn.hltv.org/playerbodyshot/${p.id}.png`);
+
+  if(!img){
+    img = await getBase64Image(`https://img-cdn.hltv.org/player/${p.id}.png`);
+  }
+
+  imgs.push(img);
 }
 
 while(imgs.length < 5){
   imgs.push("");
 }
 
-/* ============================= */
 html = html
 .replace(/{{P1}}/g, imgs[0])
 .replace(/{{P2}}/g, imgs[1])
