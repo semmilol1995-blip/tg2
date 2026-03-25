@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -15,12 +16,86 @@ display:flex;
 align-items:center;
 justify-content:center;
 position:relative;
+color:white;
+}
 
-/* 🔥 БАЗА (темний центр) */
+/* 🔥 MASTER BG v2 */
+.bg-gradient{
+position:absolute;
+inset:0;
+
 background:
-radial-gradient(circle at top left, rgba(168,85,247,0.45), transparent 40%),
-radial-gradient(circle at bottom right, rgba(168,85,247,0.45), transparent 40%),
-#000000;
+  radial-gradient(
+    ellipse at 50% 0%,
+    rgba(124,58,237,0.9) 0%,
+    rgba(124,58,237,0.5) 25%,
+    rgba(124,58,237,0.2) 45%,
+    transparent 60%
+  ),
+  linear-gradient(
+    to bottom,
+    rgba(0,0,0,0) 0%,
+    rgba(0,0,0,0.6) 70%,
+    #000 100%
+  ),
+  linear-gradient(135deg,#0b0b0f,#1a1030);
+
+z-index:0;
+}
+
+/* 🔥 ZEBRA */
+@keyframes zebraMove {
+  0% { transform: rotate(35deg) scale(1.4) skewX(-6deg) translate(0,0); }
+  50% { transform: rotate(36deg) scale(1.42) skewX(-6deg) translate(40px,-30px); }
+  100% { transform: rotate(35deg) scale(1.4) skewX(-6deg) translate(0,0); }
+}
+
+.bg-zebra{
+position:absolute;
+inset:-25%;
+z-index:1;
+
+opacity:0.35;
+mix-blend-mode:overlay;
+filter:blur(0.5px);
+
+animation:zebraMove 20s ease-in-out infinite;
+
+background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 1000'%3E%3Cpath fill='white' d='M0 0 C180 120 120 320 260 1000 L0 1000 Z'/%3E%3Cpath fill='black' d='M90 -50 C300 200 140 450 360 1050 L520 1000 C380 520 420 100 250 -50 Z'/%3E%3Cpath fill='white' d='M250 -80 C500 100 300 500 600 1100 L780 1000 C600 600 650 120 420 -60 Z'/%3E%3Cpath fill='black' d='M420 -40 C700 250 500 600 820 1100 L980 1000 C780 620 860 150 650 -40 Z'/%3E%3Cpath fill='white' d='M650 -100 C900 150 700 550 1050 1100 L1220 1000 C980 650 1050 180 850 -90 Z'/%3E%3Cpath fill='black' d='M850 -50 C1150 250 950 650 1300 1100 L1500 1000 C1200 700 1250 200 1050 -50 Z'/%3E%3Cpath fill='white' d='M1100 -120 C1400 150 1200 650 1500 1100 L1600 1000 L1600 0 Z'/%3E%3C/svg%3E");
+
+background-size:cover;
+}
+
+/* 🔥 GLOW */
+.bg-glow{
+position:absolute;
+top:-120px;
+left:50%;
+transform:translateX(-50%);
+
+width:900px;
+height:500px;
+
+background:radial-gradient(
+  ellipse at center,
+  rgba(124,58,237,0.5) 0%,
+  rgba(124,58,237,0.25) 35%,
+  rgba(124,58,237,0.1) 55%,
+  transparent 75%
+);
+
+filter:blur(40px);
+z-index:2;
+}
+
+/* 🔥 NOISE */
+.noise{
+position:absolute;
+width:100%;
+height:100%;
+background:url('https://grainy-gradients.vercel.app/noise.svg');
+opacity:0.06;
+z-index:3;
 }
 
 /* === WRAPPER === */
@@ -31,9 +106,10 @@ justify-content:center;
 width:100%;
 height:100%;
 position:relative;
+z-index:5;
 }
 
-/* === FRAME (ЗВИЧАЙНА ФІОЛЕТОВА) === */
+/* === FRAME === */
 .frame{
 position:relative;
 
@@ -41,35 +117,25 @@ display:inline-flex;
 align-items:center;
 justify-content:center;
 
-/* 🔥 ПРОСТА РАМКА */
 border:5px solid #a855f7;
 
 box-sizing:border-box;
 
-width:auto;
-height:auto;
-
 max-width:820px;
 max-height:820px;
 
-/* легкий glow */
 box-shadow:0 0 25px rgba(168,85,247,0.25);
 }
 
-/* === IMAGE === */
+/* IMAGE */
 .frame img{
 display:block;
-
 max-width:810px;
 max-height:810px;
-
-width:auto;
-height:auto;
-
 object-fit:contain;
 }
 
-/* === LABEL === */
+/* LABEL */
 .label{
 position:absolute;
 top:-22px;
@@ -85,12 +151,12 @@ letter-spacing:2px;
 
 padding:6px 24px;
 
-z-index:5;
+z-index:6;
 
 box-shadow:0 0 20px rgba(168,85,247,0.6);
 }
 
-/* === FOOTER === */
+/* FOOTER */
 .bottomBar{
 position:absolute;
 bottom:25px;
@@ -105,6 +171,7 @@ font-weight:800;
 color:white;
 
 opacity:0.85;
+z-index:5;
 }
 
 .bottomBar img{
@@ -112,20 +179,15 @@ width:18px;
 margin-right:8px;
 filter:brightness(0) invert(1);
 }
-
-/* === GRAIN === */
-.grain{
-position:absolute;
-width:100%;
-height:100%;
-opacity:0.06;
-background-image:url('https://grainy-gradients.vercel.app/noise.svg');
-pointer-events:none;
-}
 </style>
 </head>
 
 <body>
+
+<div class="bg-gradient"></div>
+<div class="bg-zebra"></div>
+<div class="bg-glow"></div>
+<div class="noise"></div>
 
 <div class="wrapper">
 
@@ -138,8 +200,6 @@ pointer-events:none;
   </div>
 
 </div>
-
-<div class="grain"></div>
 
 <div class="bottomBar">
   <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/telegram.svg">
