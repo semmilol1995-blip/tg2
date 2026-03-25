@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;800;900&display=swap" rel="stylesheet">
 
 <style>
 body{
@@ -27,17 +27,17 @@ opacity:0.06;
 /* PLAYERS */
 .players{
 position:absolute;
-bottom:200px;
+bottom:260px;
 width:100%;
 height:520px;
 }
 
-/* COMMON */
+/* PLAYER */
 .player{
 position:absolute;
 bottom:0;
 transform:translateX(-50%);
-filter:drop-shadow(0 25px 60px rgba(0,0,0,0.9));
+filter:drop-shadow(0 30px 80px rgba(0,0,0,1));
 }
 
 .player img{
@@ -46,64 +46,82 @@ object-fit:contain;
 }
 
 /* DEPTH */
-.p1{ left:50%; height:560px; z-index:5;}
-.p2{ left:32%; height:500px; z-index:4;}
-.p3{ left:68%; height:500px; z-index:4;}
-.p4{ left:12%; height:440px; z-index:3;}
-.p5{ left:88%; height:440px; z-index:3;}
+.p1{ left:50%; height:580px; z-index:5;}
+.p2{ left:32%; height:520px; z-index:4;}
+.p3{ left:68%; height:520px; z-index:4;}
+.p4{ left:12%; height:460px; z-index:3;}
+.p5{ left:88%; height:460px; z-index:3;}
 
 /* FADE */
 .fade{
 position:absolute;
 bottom:0;
 width:100%;
-height:420px;
+height:500px;
 background:linear-gradient(
   to top,
   #0b0b0f 0%,
-  #0b0b0f 40%,
-  rgba(11,11,15,0.9) 60%,
-  rgba(11,11,15,0.5) 75%,
+  #0b0b0f 55%,
+  rgba(11,11,15,0.95) 70%,
+  rgba(11,11,15,0.6) 85%,
   transparent 100%
 );
 z-index:6;
 }
 
-/* TITLE (ЧЕМПІОНИ) */
+/* TITLE */
 .title{
 position:absolute;
-bottom:190px;
+bottom:110px;
 width:100%;
 text-align:center;
-font-family:'Inter', sans-serif;
-font-weight:800;
-font-size:110px;
-color:#facc15;
+
+font-weight:900;
+font-size:170px;
 letter-spacing:2px;
+line-height:0.9;
+
+color:#facc15;
+
 z-index:10;
 }
 
 /* SUBTITLE */
 .subtitle{
 position:absolute;
-bottom:150px;
+bottom:70px;
 width:100%;
 text-align:center;
+
 font-weight:800;
-font-size:28px;
-letter-spacing:3px;
+font-size:32px;
+letter-spacing:2px;
+
+opacity:0.9;
+
 z-index:10;
 }
 
 /* FOOTER */
 .footer{
 position:absolute;
-bottom:20px;
+bottom:15px;
 width:100%;
-text-align:center;
-opacity:0.8;
+display:flex;
+justify-content:center;
+align-items:center;
+gap:6px;
+
+opacity:0.7;
 font-weight:600;
+font-size:14px;
 z-index:10;
+}
+
+.footer img{
+width:16px;
+filter:invert(1);
+opacity:0.9;
 }
 </style>
 </head>
@@ -120,14 +138,14 @@ z-index:10;
   <div class="player p5"><img src="{{P4}}"></div>
 </div>
 
-<!-- 🔥 fade поверх ніг -->
 <div class="fade"></div>
 
 <div class="title">ЧЕМПІОНИ</div>
 <div class="subtitle">{{TOURNAMENT}}</div>
 
 <div class="footer">
-t.me/zbr4_cast
+  <img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png">
+  t.me/zbr4_cast
 </div>
 
 </body>
