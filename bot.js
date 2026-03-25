@@ -269,73 +269,56 @@ if(commandKey === "news11"){
 const tournament = (lines[0] || "").toUpperCase();
 const teamUrl = (lines[1] || "").trim();
 
-/* ============================= */
-/* GET PLAYER IDS */
-/* ============================= */
-async function getPlayerIds(url){
+async function getImages(url){
   try{
     const res = await axios.get(url, {
-      headers:{ "User-Agent":"Mozilla/5.0" }
+      headers:{
+        "User-Agent":"Mozilla/5.0"
+      }
     });
 
     const html = res.data;
 
-    const matches = [...html.matchAll(/\/player\/(\d+)\//g)];
+    // 🔥 шукаємо прямі bodyshot картинки
+    const matches = [...html.matchAll(/img-cdn\.hltv\.org\/playerbodyshot\/[^"]+/g)];
 
-    let ids = matches.map(m => m[1]);
+    let images = matches.map(m => "https://" + m[0]);
 
-    // унікальні
-    ids = [...new Set(ids)];
+    images = [...new Set(images)];
+    images = images.slice(0,5);
 
-    return ids.slice(0,5);
+    const result = [];
+
+    for(let img of images){
+      try{
+        const res = await axios.get(img, {
+          responseType:"arraybuffer",
+          headers:{
+            "User-Agent":"Mozilla/5.0",
+            "Referer":"https://www.hltv.org/"
+          }
+        });
+
+        result.push(`data:image/png;base64,${Buffer.from(res.data).toString("base64")}`);
+
+      }catch{
+        result.push("");
+      }
+    }
+
+    while(result.length < 5){
+      result.push("");
+    }
+
+    return result;
 
   }catch{
-    return [];
+    return ["","","","",""];
   }
 }
 
-/* ============================= */
-/* GET IMAGE */
-/* ============================= */
-async function getImage(id){
+const imgs = await getImages(teamUrl);
 
-  const urls = [
-    `https://img-cdn.hltv.org/playerbodyshot/${id}.png`,
-    `https://img-cdn.hltv.org/player/${id}.png`
-  ];
-
-  for(let url of urls){
-    try{
-      const res = await axios.get(url, {
-        responseType:"arraybuffer",
-        headers:{
-          "User-Agent":"Mozilla/5.0",
-          "Referer":"https://www.hltv.org/"
-        }
-      });
-
-      return `data:image/png;base64,${Buffer.from(res.data).toString("base64")}`;
-
-    }catch{}
-  }
-
-  return "";
-}
-
-/* ============================= */
-const ids = await getPlayerIds(teamUrl);
-
-let imgs = [];
-
-for(let id of ids){
-  imgs.push(await getImage(id));
-}
-
-while(imgs.length < 5){
-  imgs.push("");
-}
-
-/* ============================= */
 html = html
 .replace(/{{P1}}/g, imgs[0])
 .replace(/{{P2}}/g, imgs[1])
@@ -345,7 +328,6 @@ html = html
 .replace(/{{TOURNAMENT}}/g, tournament);
 
 }
-
 /* ДАЛІ ВСЕ 1:1 ЯК У ТЕБЕ */
 
 
