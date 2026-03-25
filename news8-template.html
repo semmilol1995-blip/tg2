@@ -39,7 +39,19 @@ background:
 z-index:0;
 }
 
-/* 🔥 ZEBRA DIAGONAL */
+/* 🔥 ZEBRA ANIMATION */
+@keyframes zebraMove {
+  0% {
+    transform: rotate(35deg) scale(1.4) skewX(-6deg) translate(0px, 0px);
+  }
+  50% {
+    transform: rotate(36deg) scale(1.42) skewX(-6deg) translate(40px, -30px);
+  }
+  100% {
+    transform: rotate(35deg) scale(1.4) skewX(-6deg) translate(0px, 0px);
+  }
+}
+
 .bg-zebra{
 position:absolute;
 inset:-25%;
@@ -49,7 +61,7 @@ opacity:0.35;
 mix-blend-mode:overlay;
 filter:blur(0.5px);
 
-transform:rotate(35deg) scale(1.4) skewX(-6deg);
+animation: zebraMove 20s ease-in-out infinite;
 
 background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 1000'%3E%3Cpath fill='white' d='M0 0 C180 120 120 320 260 1000 L0 1000 Z'/%3E%3Cpath fill='black' d='M90 -50 C300 200 140 450 360 1050 L520 1000 C380 520 420 100 250 -50 Z'/%3E%3Cpath fill='white' d='M250 -80 C500 100 300 500 600 1100 L780 1000 C600 600 650 120 420 -60 Z'/%3E%3Cpath fill='black' d='M420 -40 C700 250 500 600 820 1100 L980 1000 C780 620 860 150 650 -40 Z'/%3E%3Cpath fill='white' d='M650 -100 C900 150 700 550 1050 1100 L1220 1000 C980 650 1050 180 850 -90 Z'/%3E%3Cpath fill='black' d='M850 -50 C1150 250 950 650 1300 1100 L1500 1000 C1200 700 1250 200 1050 -50 Z'/%3E%3Cpath fill='white' d='M1100 -120 C1400 150 1200 650 1500 1100 L1600 1000 L1600 0 Z'/%3E%3C/svg%3E");
 
@@ -131,14 +143,12 @@ display:grid;
 gap:26px;
 }
 
-/* 1 COLUMN */
 .grid-1{
 grid-template-columns:1fr;
 max-width:650px;
 margin:0 auto;
 }
 
-/* 2 COLUMNS */
 .grid-2{
 grid-template-columns:1fr 1fr;
 max-width:850px;
