@@ -312,31 +312,11 @@ if(!imgs){
 }
 
 /* ============================= */
-/* BASE64 */
+/* ❗ ВАЖЛИВО: БЕЗ BASE64 */
 /* ============================= */
 
-let base64Imgs = [];
-
-for(let img of imgs){
-  try{
-    const res = await axios.get(img, {
-      responseType:"arraybuffer",
-      headers:{
-        "User-Agent":"Mozilla/5.0",
-        "Referer":"https://www.hltv.org/"
-      }
-    });
-
-    base64Imgs.push(`data:image/png;base64,${Buffer.from(res.data).toString("base64")}`);
-
-  }catch(e){
-    console.log("IMG ERROR:", img);
-    base64Imgs.push("");
-  }
-}
-
-while(base64Imgs.length < 5){
-  base64Imgs.push("");
+while(imgs.length < 5){
+  imgs.push("");
 }
 
 /* ============================= */
@@ -344,11 +324,11 @@ while(base64Imgs.length < 5){
 /* ============================= */
 
 html = html
-.replace(/{{P1}}/g, base64Imgs[0])
-.replace(/{{P2}}/g, base64Imgs[1])
-.replace(/{{P3}}/g, base64Imgs[2])
-.replace(/{{P4}}/g, base64Imgs[3])
-.replace(/{{P5}}/g, base64Imgs[4])
+.replace(/{{P1}}/g, imgs[0])
+.replace(/{{P2}}/g, imgs[1])
+.replace(/{{P3}}/g, imgs[2])
+.replace(/{{P4}}/g, imgs[3])
+.replace(/{{P5}}/g, imgs[4])
 .replace(/{{TOURNAMENT}}/g, tournament);
 
 }
