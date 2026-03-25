@@ -298,12 +298,8 @@ if(commandKey === "news11"){
 const tournament = (lines[0] || "").toUpperCase();
 const team = (lines[1] || "").toLowerCase().trim();
 
-/* ============================= */
 /* LOAD BASE */
-/* ============================= */
-
 const TEAM_PLAYERS = await loadTeams();
-
 let imgs = TEAM_PLAYERS[team];
 
 if(!imgs){
@@ -311,34 +307,41 @@ if(!imgs){
   return;
 }
 
-/* ============================= */
-/* 🔥 ФІКС: ПРОКСІ ДЛЯ HLTV */
-/* ============================= */
-
-imgs = imgs.map(url => 
-  `https://images.weserv.nl/?url=${encodeURIComponent(url)}`
-);
-
-/* ============================= */
-/* GUARANTEE 5 */
-/* ============================= */
-
-while(imgs.length < 5){
-  imgs.push("");
+/* BASE64 PLAYERS (як ти і хотів стабільно) */
+async function toBase64(url){
+  try{
+    const res = await axios.get(url, { responseType: "arraybuffer" });
+    return `data:image/png;base64,${Buffer.from(res.data).toString("base64")}`;
+  }catch{
+    return "";
+  }
 }
 
-/* ============================= */
-/* HTML */
-/* ============================= */
+const players = await Promise.all(imgs.map(toBase64));
 
+while(players.length < 5){
+  players.push("");
+}
+
+/* LOGO (як у news7 через fs) */
+const getLogo = (team) => {
+  const p = path.join(__dirname, `/logos/${team}.png`);
+  if(!fs.existsSync(p)) return "";
+  return `data:image/png;base64,${fs.readFileSync(p).toString("base64")}`;
+};
+
+const teamLogo = getLogo(team);
+
+/* HTML */
 html = html
-.replace(/{{P1}}/g, imgs[0])
-.replace(/{{P2}}/g, imgs[1])
-.replace(/{{P3}}/g, imgs[2])
-.replace(/{{P4}}/g, imgs[3])
-.replace(/{{P5}}/g, imgs[4])
+.replace(/{{P1}}/g, players[0])
+.replace(/{{P2}}/g, players[1])
+.replace(/{{P3}}/g, players[2])
+.replace(/{{P4}}/g, players[3])
+.replace(/{{P5}}/g, players[4])
 .replace(/{{TOURNAMENT}}/g, tournament)
-.replace(/{{TEAM}}/g, team);
+.replace(/{{TEAM_LOGO}}/g, teamLogo);
+
 }
 /* ============================= */
 
