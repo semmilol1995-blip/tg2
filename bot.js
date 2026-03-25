@@ -13,7 +13,7 @@ const bot = new TelegramBot(token, { polling: true });
 const MAIN_MENU = {
   reply_markup: {
     keyboard: [
-      ["📰 Новини"], // 🔥 ЗАМІНА
+      ["📰 Новини"],
       ["🎤 Side Quote", "💬 Цитата"],
       ["📊 Факт"],
       ["🔥 MVP (гор)", "📈 MVP (верт)"],
@@ -53,7 +53,7 @@ const NEWS_TEMPLATES = {};
 
 NEWS_TEMPLATES["news"] = "news-template.html";
 NEWS_TEMPLATES["news9"] = "news9-template.html";
-NEWS_TEMPLATES["news10"] = "news10-template.html"; // 🔥 ДОДАНО
+NEWS_TEMPLATES["news10"] = "news10-template.html";
 
 for (let i = 1; i <= 15; i++) {
   NEWS_TEMPLATES[`news${i}`] = `news${i}-template.html`;
@@ -77,9 +77,14 @@ bot.on("message", (msg) => {
   const text = msg.text;
   let example = "";
 
-  // 🔥 ДОДАНО
   if(text === "📰 Новини"){
     return bot.sendMessage(msg.chat.id, "Обери тип новини:", NEWS_MENU);
+  }
+
+  if(text === "/news10"){ // 🔥 ПРИ ВВОДІ КОМАНДИ
+    example = `/news10
+RESULT`;
+    return bot.sendMessage(msg.chat.id, example, MAIN_MENU);
   }
 
   if(text === "📅 MATCHES"){
@@ -132,11 +137,9 @@ RESULT
 FURIA WIN 2-0`;
   }
 
-  // 🔥 ДОДАНО
   else if(text === "🆕 Новина 10"){
 example = `/news10
-RESULT
-FURIA DESTROYED NAVI`;
+RESULT`;
   }
 
   else if(text === "💬 Цитата"){
@@ -251,8 +254,8 @@ let textValue = "";
 let author = "";
 let stat1 = "", stat2 = "", stat3 = "";
 
-/* 🔥 ЄДИНА ЗМІНА */
-if(commandKey === "news" || commandKey === "news9" || commandKey === "news10"){
+/* 🔥 ЛОГІКА */
+if(commandKey === "news" || commandKey === "news9"){
   label = (lines[0] || "NEWS").trim();
   textValue = (lines[1] || "").trim();
 
@@ -260,6 +263,11 @@ if(commandKey === "news" || commandKey === "news9" || commandKey === "news10"){
     textValue = label;
     label = "NEWS";
   }
+}
+
+else if(commandKey === "news10"){ // 🔥 ОКРЕМО
+  label = (lines[0] || "NEWS").trim();
+  textValue = "";
 }
 
 else if(commandKey === "news1" || commandKey === "news2"){
