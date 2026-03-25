@@ -3,6 +3,7 @@ const puppeteer = require("puppeteer");
 const fs = require("fs-extra");
 const path = require("path");
 const axios = require("axios");
+const cheerio = require("cheerio");
 
 const token = process.env.TOKEN;
 const bot = new TelegramBot(token, { polling: true });
@@ -265,13 +266,16 @@ let stat1 = "", stat2 = "", stat3 = "";
 /* ============================= */
 /* 🔥 NEWS11 (FINAL WORKING) */
 /* ============================= */
+/* ============================= */
+/* 🔥 NEWS11 FINAL (CHEERIO FIX) */
+/* ============================= */
 if(commandKey === "news11"){
 
 const tournament = (lines[0] || "").toUpperCase();
 const teamUrl = (lines[1] || "").trim();
 
 /* ============================= */
-/* 🔥 PARSE HLTV TEAM (REAL IMG) */
+/* 🔥 PARSE HLTV (STABLE) */
 /* ============================= */
 async function getPlayersImages(url){
   try{
@@ -279,39 +283,37 @@ async function getPlayersImages(url){
       headers:{ "User-Agent":"Mozilla/5.0" }
     });
 
-    const html = res.data;
+    const $ = cheerio.load(res.data);
 
-    // 🔥 беремо ГОТОВІ bodyshot картинки
-    const matches = [...html.matchAll(/class="bodyshot-team-img"[^>]+src="([^"]+)"/g)];
+    let images = [];
 
-    let images = matches.map(m => {
-      let src = m[1];
+    // 🔥 беремо всі картинки гравців
+    $(".bodyshot-team-img").each((i, el)=>{
+      let src = $(el).attr("src");
 
-      // прибираємо query (?ixlib...)
-      src = src.split("?")[0];
-
-      return src;
+      if(src){
+        src = src.split("?")[0];
+        images.push(src);
+      }
     });
 
-    // беремо тільки 5 гравців
+    // беремо перші 5
     images = images.slice(0,5);
 
     /* ============================= */
-    /* 🔥 CONVERT TO BASE64 */
+    /* 🔥 BASE64 (ЩОБ ПРАЦЮВАЛО В ПУППЕТІРІ) */
     /* ============================= */
     const base64Images = [];
 
     for(let img of images){
       try{
         const res = await axios.get(img, { responseType:"arraybuffer" });
-        const base64 = `data:image/png;base64,${Buffer.from(res.data).toString("base64")}`;
-        base64Images.push(base64);
+        base64Images.push(`data:image/png;base64,${Buffer.from(res.data).toString("base64")}`);
       }catch{
         base64Images.push("");
       }
     }
 
-    // fallback до 5
     while(base64Images.length < 5){
       base64Images.push("");
     }
@@ -319,18 +321,17 @@ async function getPlayersImages(url){
     return base64Images;
 
   }catch(e){
-    console.log("HLTV PARSE ERROR", e);
     return ["","","","",""];
   }
 }
 
 /* ============================= */
-/* LOAD IMAGES */
+/* LOAD */
 /* ============================= */
 const imgs = await getPlayersImages(teamUrl);
 
 /* ============================= */
-/* INSERT INTO HTML */
+/* INSERT */
 /* ============================= */
 html = html
 .replace(/{{P1}}/g, imgs[0])
