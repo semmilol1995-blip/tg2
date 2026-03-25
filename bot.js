@@ -274,27 +274,17 @@ const teamUrl = (lines[1] || "").trim();
 /* ============================= */
 
 const browser = await puppeteer.launch({
-  headless: "new",
-  args:[
-    "--no-sandbox",
-    "--disable-setuid-sandbox",
-    "--disable-blink-features=AutomationControlled"
-  ]
+  args:["--no-sandbox","--disable-setuid-sandbox"]
 });
 
 const page = await browser.newPage();
 
-await page.setUserAgent(
-  "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
-);
-
 await page.goto(teamUrl, { waitUntil:"domcontentloaded" });
 
-/* даємо сторінці час */
-await new Promise(r => setTimeout(r, 2500));
+await new Promise(r => setTimeout(r, 2000));
 
 /* ============================= */
-/* 🔥 ЗБІР КАРТИНОК */
+/* ЗБІР URL (НЕ BASE64) */
 /* ============================= */
 
 const images = await page.evaluate(() => {
@@ -303,42 +293,13 @@ const images = await page.evaluate(() => {
 
   return imgs
     .map(img => img.src || img.getAttribute("data-src"))
-    .filter(src =>
-      src &&
-      src.includes("playerbodyshot")
-    );
+    .filter(src => src && src.includes("playerbodyshot"))
+    .slice(0,5);
 });
 
-/* унікальні + перші 5 */
-const uniqueImages = [...new Set(images)].slice(0,5);
-
-/* ============================= */
-/* BASE64 */
-/* ============================= */
-
-let imgs = [];
-
-for(let img of uniqueImages){
-  try{
-    const res = await axios.get(img, {
-      responseType:"arraybuffer",
-      headers:{
-        "User-Agent":"Mozilla/5.0",
-        "Referer":"https://www.hltv.org/"
-      }
-    });
-
-    imgs.push(`data:image/png;base64,${Buffer.from(res.data).toString("base64")}`);
-
-  }catch(e){
-    console.log("IMG ERROR:", img);
-    imgs.push("");
-  }
-}
-
 /* добиваємо до 5 */
-while(imgs.length < 5){
-  imgs.push("");
+while(images.length < 5){
+  images.push("");
 }
 
 await browser.close();
@@ -348,11 +309,11 @@ await browser.close();
 /* ============================= */
 
 html = html
-.replace(/{{P1}}/g, imgs[0])
-.replace(/{{P2}}/g, imgs[1])
-.replace(/{{P3}}/g, imgs[2])
-.replace(/{{P4}}/g, imgs[3])
-.replace(/{{P5}}/g, imgs[4])
+.replace(/{{P1}}/g, images[0])
+.replace(/{{P2}}/g, images[1])
+.replace(/{{P3}}/g, images[2])
+.replace(/{{P4}}/g, images[3])
+.replace(/{{P5}}/g, images[4])
 .replace(/{{TOURNAMENT}}/g, tournament);
 
 }
