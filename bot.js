@@ -337,7 +337,7 @@ html = html
 .replace(/{{P3}}/g, imgs[2])
 .replace(/{{P4}}/g, imgs[3])
 .replace(/{{P5}}/g, imgs[4])
-.replace(/{{TOURNAMENT}}/g, tournament);
+.replace(/{{TOURNAMENT}}/g, tournament)
 .replace(/{{TEAM}}/g, team);
 }
 /* ============================= */
