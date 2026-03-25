@@ -289,7 +289,7 @@ async function getPlayersImages(url){
 
     // 🔥 беремо всі картинки гравців
     $(".bodyshot-team-img").each((i, el)=>{
-      let src = $(el).attr("src");
+      let src = $(el).attr("src") || $(el).attr("data-src");
 
       if(src){
         src = src.split("?")[0];
