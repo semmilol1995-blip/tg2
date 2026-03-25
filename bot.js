@@ -270,7 +270,7 @@ const tournament = (lines[0] || "").toUpperCase();
 const teamUrl = (lines[1] || "").trim();
 
 /* ============================= */
-/* 🔥 ОДИН ЄДИНИЙ PUPPETEER */
+/* PUPPETEER ПАРС */
 /* ============================= */
 
 const browser = await puppeteer.launch({
@@ -279,24 +279,22 @@ const browser = await puppeteer.launch({
 
 const page = await browser.newPage();
 
-await page.goto(teamUrl, { waitUntil:"networkidle2" });
+await page.goto(teamUrl, { waitUntil:"domcontentloaded" });
 
-await page.waitForSelector(".bodyshot-team-img", { timeout: 8000 });
+// даємо сторінці час
+await new Promise(r => setTimeout(r, 2000));
 
 const images = await page.evaluate(() => {
-  const imgs = Array.from(document.querySelectorAll(".bodyshot-team-img"));
+  const imgs = Array.from(document.querySelectorAll("img"));
 
-  return imgs.map(img => {
-    let src = img.getAttribute("src") || img.getAttribute("data-src");
-
-    if(!src) return null;
-
-    if(src.startsWith("//")){
-      src = "https:" + src;
-    }
-
-    return src.split("?")[0];
-  }).filter(Boolean).slice(0,5);
+  return imgs
+    .map(img => img.src || img.getAttribute("data-src"))
+    .filter(src => src && src.includes("playerbodyshot"))
+    .map(src => {
+      if(src.startsWith("//")) src = "https:" + src;
+      return src.split("?")[0];
+    })
+    .slice(0,5);
 });
 
 /* BASE64 */
@@ -325,7 +323,7 @@ while(imgs.length < 5){
 await browser.close();
 
 /* ============================= */
-/* ВСТАВКА В HTML */
+/* ВСТАВКА */
 /* ============================= */
 
 html = html
@@ -337,7 +335,6 @@ html = html
 .replace(/{{TOURNAMENT}}/g, tournament);
 
 }
-
 /* ============================= */
 
 /* ДАЛІ ВСЕ 1:1 ЯК У ТЕБЕ */
