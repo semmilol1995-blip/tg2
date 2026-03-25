@@ -13,13 +13,24 @@ const bot = new TelegramBot(token, { polling: true });
 const MAIN_MENU = {
   reply_markup: {
     keyboard: [
-      ["🟣 Новина 1", "🆕 Новина 2"],
+      ["📰 Новини"], // 🔥 ЗАМІНА
       ["🎤 Side Quote", "💬 Цитата"],
       ["📊 Факт"],
       ["🔥 MVP (гор)", "📈 MVP (верт)"],
       ["📊 RESULT", "📅 MATCHES"],
       ["🧠 VETO BO1", "🧠 VETO BO3", "🧠 VETO BO5"],
       ["ℹ️ Інфо"]
+    ],
+    resize_keyboard: true
+  }
+};
+
+const NEWS_MENU = {
+  reply_markup: {
+    keyboard: [
+      ["🟣 Новина 1", "🆕 Новина 2"],
+      ["🆕 Новина 10"],
+      ["🔙 Назад"]
     ],
     resize_keyboard: true
   }
@@ -41,7 +52,8 @@ const MATCH_MENU = {
 const NEWS_TEMPLATES = {};
 
 NEWS_TEMPLATES["news"] = "news-template.html";
-NEWS_TEMPLATES["news9"] = "news9-template.html"; // 🔥 ВОТ ЦЕ
+NEWS_TEMPLATES["news9"] = "news9-template.html";
+NEWS_TEMPLATES["news10"] = "news10-template.html"; // 🔥 ДОДАНО
 
 for (let i = 1; i <= 15; i++) {
   NEWS_TEMPLATES[`news${i}`] = `news${i}-template.html`;
@@ -64,6 +76,11 @@ bot.on("message", (msg) => {
 
   const text = msg.text;
   let example = "";
+
+  // 🔥 ДОДАНО
+  if(text === "📰 Новини"){
+    return bot.sendMessage(msg.chat.id, "Обери тип новини:", NEWS_MENU);
+  }
 
   if(text === "📅 MATCHES"){
     return bot.sendMessage(msg.chat.id, "Обери режим:", MATCH_MENU);
@@ -113,6 +130,13 @@ FURIA WIN 2-0`;
 example = `/news9
 RESULT
 FURIA WIN 2-0`;
+  }
+
+  // 🔥 ДОДАНО
+  else if(text === "🆕 Новина 10"){
+example = `/news10
+RESULT
+FURIA DESTROYED NAVI`;
   }
 
   else if(text === "💬 Цитата"){
@@ -228,7 +252,7 @@ let author = "";
 let stat1 = "", stat2 = "", stat3 = "";
 
 /* 🔥 ЄДИНА ЗМІНА */
-if(commandKey === "news" || commandKey === "news9"){
+if(commandKey === "news" || commandKey === "news9" || commandKey === "news10"){
   label = (lines[0] || "NEWS").trim();
   textValue = (lines[1] || "").trim();
 
@@ -254,6 +278,8 @@ else if(commandKey === "news4" || commandKey === "news5"){
   stat3 = lines[3] || "";
   label = "СТАТИСТИКА";
 }
+
+/* ДАЛІ ВСЕ 1 В 1 ЯК У ТЕБЕ (NEWS6 / NEWS7 / NEWS8 / IMAGE / RENDER) */
 
 /* ============================= */
 /* NEWS6 */
