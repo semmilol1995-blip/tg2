@@ -634,6 +634,8 @@ const page = await browser.newPage();
 await page.setViewport({ width:900, height:900 });
 await page.setContent(html,{waitUntil:"networkidle0"});
 await page.evaluateHandle('document.fonts.ready');
+// 🔥 ключовий момент
+await new Promise(r => setTimeout(r, 800));
 
 const filePath = path.join(__dirname,"news.png");
 
