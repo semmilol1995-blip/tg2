@@ -264,45 +264,35 @@ let stat1 = "", stat2 = "", stat3 = "";
 /* 🔥 NEWS11 FIX */
 /* ============================= */
 /* ============================= */
-/* 🔥 NEWS11 (FINAL WORKING) */
-/* ============================= */
-/* ============================= */
-/* 🔥 NEWS11 FINAL (CHEERIO FIX) */
-/* ============================= */
 if(commandKey === "news11"){
 
 const tournament = (lines[0] || "").toUpperCase();
 const teamUrl = (lines[1] || "").trim();
 
-/* ============================= */
-/* 🔥 PARSE HLTV (STABLE) */
-/* ============================= */
 async function getPlayersImages(url){
   try{
     const res = await axios.get(url, {
-      headers:{ "User-Agent":"Mozilla/5.0" }
-    });
-
-    const $ = cheerio.load(res.data);
-
-    let images = [];
-
-    // 🔥 беремо всі картинки гравців
-    $(".bodyshot-team-img").each((i, el)=>{
-      let src = $(el).attr("src") || $(el).attr("data-src");
-
-      if(src){
-        src = src.split("?")[0];
-        images.push(src);
+      headers:{
+        "User-Agent":"Mozilla/5.0",
+        "Accept-Language":"en-US,en;q=0.9"
       }
     });
 
-    // беремо перші 5
+    const html = res.data;
+
+    // 🔥 БЕРЕМО ВСІ bodyshot картинки напряму (без cheerio)
+    const matches = [...html.matchAll(/playerbodyshot\/[^"]+/g)];
+
+    let images = matches.map(m => {
+      return "https://img-cdn.hltv.org/" + m[0];
+    });
+
+    // унікальні
+    images = [...new Set(images)];
+
+    // перші 5
     images = images.slice(0,5);
 
-    /* ============================= */
-    /* 🔥 BASE64 (ЩОБ ПРАЦЮВАЛО В ПУППЕТІРІ) */
-    /* ============================= */
     const base64Images = [];
 
     for(let img of images){
@@ -325,14 +315,8 @@ async function getPlayersImages(url){
   }
 }
 
-/* ============================= */
-/* LOAD */
-/* ============================= */
 const imgs = await getPlayersImages(teamUrl);
 
-/* ============================= */
-/* INSERT */
-/* ============================= */
 html = html
 .replace(/{{P1}}/g, imgs[0])
 .replace(/{{P2}}/g, imgs[1])
