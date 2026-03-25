@@ -269,56 +269,60 @@ if(commandKey === "news11"){
 const tournament = (lines[0] || "").toUpperCase();
 const teamUrl = (lines[1] || "").trim();
 
-async function getImages(url){
+/* ============================= */
+/* 🔥 ПАРС ЧЕРЕЗ ТВОЮ PAGE */
+/* ============================= */
+
+const browser = await puppeteer.launch({
+  args:["--no-sandbox","--disable-setuid-sandbox"]
+});
+
+const page = await browser.newPage();
+
+await page.goto(teamUrl, { waitUntil:"networkidle2" });
+
+const images = await page.evaluate(() => {
+  const imgs = Array.from(document.querySelectorAll(".bodyshot-team-img"));
+
+  return imgs.map(img => {
+    let src = img.getAttribute("src") || img.getAttribute("data-src");
+
+    if(!src) return null;
+
+    if(src.startsWith("//")){
+      src = "https:" + src;
+    }
+
+    return src.split("?")[0];
+  }).filter(Boolean).slice(0,5);
+});
+
+/* ============================= */
+/* BASE64 */
+/* ============================= */
+let imgs = [];
+
+for(let img of images){
   try{
-    const res = await axios.get(url, {
+    const res = await require("axios").get(img, {
+      responseType:"arraybuffer",
       headers:{
-        "User-Agent":"Mozilla/5.0"
+        "User-Agent":"Mozilla/5.0",
+        "Referer":"https://www.hltv.org/"
       }
     });
 
-    const html = res.data;
-
-    // 🔥 шукаємо прямі bodyshot картинки
-    const matches = [...html.matchAll(/img-cdn\.hltv\.org\/playerbodyshot\/[^"]+/g)];
-
-    let images = matches.map(m => "https://" + m[0]);
-
-    images = [...new Set(images)];
-    images = images.slice(0,5);
-
-    const result = [];
-
-    for(let img of images){
-      try{
-        const res = await axios.get(img, {
-          responseType:"arraybuffer",
-          headers:{
-            "User-Agent":"Mozilla/5.0",
-            "Referer":"https://www.hltv.org/"
-          }
-        });
-
-        result.push(`data:image/png;base64,${Buffer.from(res.data).toString("base64")}`);
-
-      }catch{
-        result.push("");
-      }
-    }
-
-    while(result.length < 5){
-      result.push("");
-    }
-
-    return result;
-
+    imgs.push(`data:image/png;base64,${Buffer.from(res.data).toString("base64")}`);
   }catch{
-    return ["","","","",""];
+    imgs.push("");
   }
 }
 
-const imgs = await getImages(teamUrl);
+while(imgs.length < 5){
+  imgs.push("");
+}
 
+/* ============================= */
 html = html
 .replace(/{{P1}}/g, imgs[0])
 .replace(/{{P2}}/g, imgs[1])
@@ -327,6 +331,17 @@ html = html
 .replace(/{{P5}}/g, imgs[4])
 .replace(/{{TOURNAMENT}}/g, tournament);
 
+/* ============================= */
+await page.setViewport({ width:900, height:900 });
+
+await page.setContent(html,{waitUntil:"networkidle0"});
+await page.evaluateHandle('document.fonts.ready');
+
+const filePath = path.join(__dirname,"news.png");
+
+await page.screenshot({ path:filePath });
+
+await browser.close();
 }
 /* ДАЛІ ВСЕ 1:1 ЯК У ТЕБЕ */
 
