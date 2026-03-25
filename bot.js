@@ -260,73 +260,42 @@ let author = "";
 let stat1 = "", stat2 = "", stat3 = "";
 
 /* ============================= */
-/* 🔥 NEWS11 */
+/* 🔥 NEWS11 FIX */
 /* ============================= */
 if(commandKey === "news11"){
 
 const tournament = (lines[0] || "").toUpperCase();
 const teamUrl = (lines[1] || "").trim();
 
-async function getPlayers(url){
+async function getPlayersImages(url){
   try{
-    const res = await axios.get(url, { headers:{ "User-Agent":"Mozilla/5.0" }});
-    const htmlPage = res.data;
-
-    const matches = [...htmlPage.matchAll(/href="\/player\/(\d+)\/([^"]+)"/g)];
-    const players = [];
-
-    for(let m of matches){
-      if(players.find(p=>p.id === m[1])) continue;
-      players.push({ id:m[1] });
-      if(players.length >= 5) break;
-    }
-
-    return players;
-
-  }catch(e){
-    return [];
-  }
-}
-
-/* 🔥 FIXED IMG */
-async function getImg(id){
-  try{
-    const res = await axios.get(`https://www.hltv.org/player/${id}/`, {
+    const res = await axios.get(url, {
       headers:{ "User-Agent":"Mozilla/5.0" }
     });
 
     const html = res.data;
 
-    let match = html.match(/bodyshot-img[^>]+src="([^"]+)"/);
-    if(match && !match[1].includes("silhouette")){
-      return match[1].startsWith("http") ? match[1] : "https://www.hltv.org" + match[1];
-    }
+    const matches = [...html.matchAll(/class="playerPicture".*?src="([^"]+)"/g)];
 
-    match = html.match(/playerPicture[^>]+src="([^"]+)"/);
-    if(match && !match[1].includes("silhouette")){
-      return match[1].startsWith("http") ? match[1] : "https://www.hltv.org" + match[1];
-    }
+    let images = matches.map(m=>{
+      let src = m[1];
+      if(src.startsWith("/")) src = "https://www.hltv.org" + src;
+      return src;
+    });
 
-    match = html.match(/<img src="([^"]+)" class=".*?player.*?"/);
-    if(match && !match[1].includes("silhouette")){
-      return match[1].startsWith("http") ? match[1] : "https://www.hltv.org" + match[1];
-    }
+    images = images.slice(0,5);
 
-    return "";
+    while(images.length < 5) images.push("");
 
-  }catch{
-    return "";
+    return images;
+
+  }catch(e){
+    console.log("HLTV ERROR", e);
+    return ["","","","",""];
   }
 }
 
-const players = await getPlayers(teamUrl);
-
-let imgs = [];
-for(let p of players){
-  imgs.push(await getImg(p.id));
-}
-
-while(imgs.length < 5) imgs.push("");
+const imgs = await getPlayersImages(teamUrl);
 
 html = html
 .replace(/{{P1}}/g, imgs[0])
@@ -337,6 +306,8 @@ html = html
 .replace(/{{TOURNAMENT}}/g, tournament);
 
 }
+
+/* ДАЛІ ВСЕ 1:1 ЯК У ТЕБЕ */
 
 
 /* ============================= */
