@@ -19,6 +19,7 @@ const MAIN_MENU = {
       ["🔥 MVP (гор)", "📈 MVP (верт)"],
       ["📊 RESULT", "📅 MATCHES"],
       ["🧠 VETO BO1", "🧠 VETO BO3", "🧠 VETO BO5"],
+      ["🏆 Переможець"], // ✅ ДОДАНО
       ["ℹ️ Інфо"]
     ],
     resize_keyboard: true
@@ -81,7 +82,14 @@ bot.on("message", (msg) => {
     return bot.sendMessage(msg.chat.id, "Обери тип новини:", NEWS_MENU);
   }
 
-  if(text === "/news10"){ // 🔥 ПРИ ВВОДІ КОМАНДИ
+  if(text === "🏆 Переможець"){ // ✅ НОВЕ
+    example = `/news11
+ESL PRO LEAGUE S23
+https://www.hltv.org/team/4608/natus-vincere`;
+    return bot.sendMessage(msg.chat.id, example, MAIN_MENU);
+  }
+
+  if(text === "/news10"){
     example = `/news10
 RESULT`;
     return bot.sendMessage(msg.chat.id, example, MAIN_MENU);
@@ -223,7 +231,6 @@ ancient decider`;
   else return;
 
   bot.sendMessage(msg.chat.id, example, MAIN_MENU);
-
 });
 
 /* ============================= */
@@ -246,15 +253,77 @@ const lines = input.split("\n").slice(1);
 
 let html = await fs.readFile(path.join(__dirname, templateFile),"utf8");
 
-/* ============================= */
-/* DEFAULT NEWS */
-/* ============================= */
+/* DEFAULT */
 let label = "NEWS";
 let textValue = "";
 let author = "";
 let stat1 = "", stat2 = "", stat3 = "";
 
-/* 🔥 ЛОГІКА */
+/* ============================= */
+/* 🔥 НОВИЙ news11 */
+/* ============================= */
+if(commandKey === "news11"){
+
+const tournament = (lines[0] || "").toUpperCase();
+const teamUrl = (lines[1] || "").trim();
+
+async function getPlayers(url){
+  try{
+    const res = await axios.get(url, { headers:{ "User-Agent":"Mozilla/5.0" }});
+    const htmlPage = res.data;
+
+    const matches = [...htmlPage.matchAll(/href="\/player\/(\d+)\/([^"]+)"/g)];
+    const players = [];
+
+    for(let m of matches){
+      if(players.find(p=>p.id === m[1])) continue;
+      players.push({ id:m[1] });
+      if(players.length >= 5) break;
+    }
+
+    return players;
+
+  }catch(e){
+    return [];
+  }
+}
+
+async function getImg(id){
+  try{
+    const res = await axios.get(`https://www.hltv.org/player/${id}/`, {
+      headers:{ "User-Agent":"Mozilla/5.0" }
+    });
+
+    const match = res.data.match(/bodyshot-img" src="([^"]+)"/);
+    return match ? match[1] : "";
+
+  }catch{
+    return "";
+  }
+}
+
+const players = await getPlayers(teamUrl);
+
+let imgs = [];
+for(let p of players){
+  imgs.push(await getImg(p.id));
+}
+
+while(imgs.length < 5) imgs.push("");
+
+html = html
+.replace(/{{P1}}/g, imgs[0])
+.replace(/{{P2}}/g, imgs[1])
+.replace(/{{P3}}/g, imgs[2])
+.replace(/{{P4}}/g, imgs[3])
+.replace(/{{P5}}/g, imgs[4])
+.replace(/{{TOURNAMENT}}/g, tournament);
+
+}
+
+/* ============================= */
+/* DEFAULT NEWS */
+/* ============================= */
 if(commandKey === "news" || commandKey === "news9"){
   label = (lines[0] || "NEWS").trim();
   textValue = (lines[1] || "").trim();
@@ -265,7 +334,7 @@ if(commandKey === "news" || commandKey === "news9"){
   }
 }
 
-else if(commandKey === "news10"){ // 🔥 ОКРЕМО
+else if(commandKey === "news10"){
   label = (lines[0] || "NEWS").trim();
   textValue = "";
 }
@@ -286,8 +355,6 @@ else if(commandKey === "news4" || commandKey === "news5"){
   stat3 = lines[3] || "";
   label = "СТАТИСТИКА";
 }
-
-/* ДАЛІ ВСЕ 1 В 1 ЯК У ТЕБЕ (NEWS6 / NEWS7 / NEWS8 / IMAGE / RENDER) */
 
 /* ============================= */
 /* NEWS6 */
@@ -523,24 +590,9 @@ html = html
 
 }
 
-/* ============================= */
-/* IMAGE */
-/* ============================= */
 let imageBase64 = "";
 
-if(commandKey === "news6"){
-  imageBase64 = "";
-}
-else if(commandKey === "news7"){
-  if(msg.photo){
-    const fileId = msg.photo[msg.photo.length - 1].file_id;
-    const file = await bot.getFile(fileId);
-    const fileUrl = `https://api.telegram.org/file/bot${token}/${file.file_path}`;
-    const imgBuffer = (await axios.get(fileUrl, { responseType: "arraybuffer" })).data;
-    imageBase64 = `data:image/jpeg;base64,${Buffer.from(imgBuffer).toString("base64")}`;
-  }
-}
-else if(commandKey !== "news6" && commandKey !== "news7" && commandKey !== "news8"){
+if(commandKey !== "news6" && commandKey !== "news7" && commandKey !== "news8" && commandKey !== "news11"){
   if(!msg.photo){
     return bot.sendMessage(msg.chat.id, "Додай фото 📸", MAIN_MENU);
   }
@@ -552,7 +604,6 @@ else if(commandKey !== "news6" && commandKey !== "news7" && commandKey !== "news
   imageBase64 = `data:image/jpeg;base64,${Buffer.from(imgBuffer).toString("base64")}`;
 }
 
-/* ============================= */
 html = html
 .replace(/{{IMAGE}}/g, imageBase64)
 .replace(/{{PLAYER_IMAGE}}/g, imageBase64)
@@ -564,7 +615,6 @@ html = html
 .replace(/{{STAT2}}/g, stat2)
 .replace(/{{STAT3}}/g, stat3);
 
-/* ============================= */
 const browser = await puppeteer.launch({
   args:["--no-sandbox","--disable-setuid-sandbox"]
 });
