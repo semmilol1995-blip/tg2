@@ -297,7 +297,13 @@ async function getPlayersImages(url){
 
     for(let img of images){
       try{
-        const res = await axios.get(img, { responseType:"arraybuffer" });
+        const res = await axios.get(img, {
+  responseType: "arraybuffer",
+  headers: {
+    "User-Agent": "Mozilla/5.0",
+    "Referer": "https://www.hltv.org/"
+  }
+});
         base64Images.push(`data:image/png;base64,${Buffer.from(res.data).toString("base64")}`);
       }catch{
         base64Images.push("");
