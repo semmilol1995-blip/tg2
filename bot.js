@@ -270,7 +270,7 @@ const tournament = (lines[0] || "").toUpperCase();
 const teamUrl = (lines[1] || "").trim();
 
 /* ============================= */
-/* 🔥 ПАРС ЧЕРЕЗ ТВОЮ PAGE */
+/* 🔥 ОДИН ЄДИНИЙ PUPPETEER */
 /* ============================= */
 
 const browser = await puppeteer.launch({
@@ -279,10 +279,9 @@ const browser = await puppeteer.launch({
 
 const page = await browser.newPage();
 
-await page.goto(teamUrl, { waitUntil:"domcontentloaded" });
+await page.goto(teamUrl, { waitUntil:"networkidle2" });
 
-// 🔥 КЛЮЧОВЕ
-await page.waitForSelector(".bodyshot-team-img", { timeout: 5000 });
+await page.waitForSelector(".bodyshot-team-img", { timeout: 8000 });
 
 const images = await page.evaluate(() => {
   const imgs = Array.from(document.querySelectorAll(".bodyshot-team-img"));
@@ -300,14 +299,12 @@ const images = await page.evaluate(() => {
   }).filter(Boolean).slice(0,5);
 });
 
-/* ============================= */
 /* BASE64 */
-/* ============================= */
 let imgs = [];
 
 for(let img of images){
   try{
-    const res = await require("axios").get(img, {
+    const res = await axios.get(img, {
       responseType:"arraybuffer",
       headers:{
         "User-Agent":"Mozilla/5.0",
@@ -325,7 +322,12 @@ while(imgs.length < 5){
   imgs.push("");
 }
 
+await browser.close();
+
 /* ============================= */
+/* ВСТАВКА В HTML */
+/* ============================= */
+
 html = html
 .replace(/{{P1}}/g, imgs[0])
 .replace(/{{P2}}/g, imgs[1])
@@ -333,6 +335,8 @@ html = html
 .replace(/{{P4}}/g, imgs[3])
 .replace(/{{P5}}/g, imgs[4])
 .replace(/{{TOURNAMENT}}/g, tournament);
+
+}
 
 /* ============================= */
 await page.setViewport({ width:900, height:900 });
