@@ -4,6 +4,35 @@ const fs = require("fs-extra");
 const path = require("path");
 const axios = require("axios");
 const cheerio = require("cheerio");
+/* ============================= */
+/* 🔥 TEAM BASE + CACHE */
+/* ============================= */
+
+let TEAM_CACHE = {};
+let LAST_UPDATE = 0;
+const CACHE_TTL = 5 * 60 * 1000; // 5 хв
+
+async function loadTeams(){
+
+  const now = Date.now();
+
+  if(now - LAST_UPDATE < CACHE_TTL && Object.keys(TEAM_CACHE).length){
+    return TEAM_CACHE;
+  }
+
+  try{
+    const res = await axios.get("https://raw.githubusercontent.com/USERNAME/REPO/main/base.json");
+
+    TEAM_CACHE = res.data;
+    LAST_UPDATE = now;
+
+    return TEAM_CACHE;
+
+  }catch(e){
+    console.log("BASE LOAD ERROR", e);
+    return TEAM_CACHE;
+  }
+}
 
 const token = process.env.TOKEN;
 const bot = new TelegramBot(token, { polling: true });
@@ -86,7 +115,7 @@ bot.on("message", (msg) => {
   if(text === "🏆 Переможець"){
     example = `/news11
 ESL PRO LEAGUE S23
-https://www.hltv.org/team/4608/natus-vincere`;
+navi`;
     return bot.sendMessage(msg.chat.id, example, MAIN_MENU);
   }
 
@@ -267,53 +296,59 @@ let stat1 = "", stat2 = "", stat3 = "";
 if(commandKey === "news11"){
 
 const tournament = (lines[0] || "").toUpperCase();
-const teamUrl = (lines[1] || "").trim();
+const team = (lines[1] || "").toLowerCase().trim();
 
 /* ============================= */
-/* PUPPETEER */
+/* LOAD BASE */
 /* ============================= */
 
-const browser = await puppeteer.launch({
-  args:["--no-sandbox","--disable-setuid-sandbox"]
-});
+const TEAM_PLAYERS = await loadTeams();
 
-const page = await browser.newPage();
+let imgs = TEAM_PLAYERS[team];
 
-await page.goto(teamUrl, { waitUntil:"domcontentloaded" });
-
-await new Promise(r => setTimeout(r, 2000));
-
-/* ============================= */
-/* ЗБІР URL (НЕ BASE64) */
-/* ============================= */
-
-const images = await page.evaluate(() => {
-
-  const imgs = Array.from(document.querySelectorAll("img"));
-
-  return imgs
-    .map(img => img.src || img.getAttribute("data-src"))
-    .filter(src => src && src.includes("playerbodyshot"))
-    .slice(0,5);
-});
-
-/* добиваємо до 5 */
-while(images.length < 5){
-  images.push("");
+if(!imgs){
+  bot.sendMessage(msg.chat.id, "❌ Команда не знайдена", MAIN_MENU);
+  return;
 }
 
-await browser.close();
+/* ============================= */
+/* BASE64 */
+/* ============================= */
+
+let base64Imgs = [];
+
+for(let img of imgs){
+  try{
+    const res = await axios.get(img, {
+      responseType:"arraybuffer",
+      headers:{
+        "User-Agent":"Mozilla/5.0",
+        "Referer":"https://www.hltv.org/"
+      }
+    });
+
+    base64Imgs.push(`data:image/png;base64,${Buffer.from(res.data).toString("base64")}`);
+
+  }catch(e){
+    console.log("IMG ERROR:", img);
+    base64Imgs.push("");
+  }
+}
+
+while(base64Imgs.length < 5){
+  base64Imgs.push("");
+}
 
 /* ============================= */
-/* ВСТАВКА */
+/* HTML */
 /* ============================= */
 
 html = html
-.replace(/{{P1}}/g, images[0])
-.replace(/{{P2}}/g, images[1])
-.replace(/{{P3}}/g, images[2])
-.replace(/{{P4}}/g, images[3])
-.replace(/{{P5}}/g, images[4])
+.replace(/{{P1}}/g, base64Imgs[0])
+.replace(/{{P2}}/g, base64Imgs[1])
+.replace(/{{P3}}/g, base64Imgs[2])
+.replace(/{{P4}}/g, base64Imgs[3])
+.replace(/{{P5}}/g, base64Imgs[4])
 .replace(/{{TOURNAMENT}}/g, tournament);
 
 }
