@@ -19,7 +19,7 @@ const MAIN_MENU = {
       ["🔥 MVP (гор)", "📈 MVP (верт)"],
       ["📊 RESULT", "📅 MATCHES"],
       ["🧠 VETO BO1", "🧠 VETO BO3", "🧠 VETO BO5"],
-      ["🏆 Переможець"], // ✅ ДОДАНО
+      ["🏆 Переможець"],
       ["ℹ️ Інфо"]
     ],
     resize_keyboard: true
@@ -82,7 +82,7 @@ bot.on("message", (msg) => {
     return bot.sendMessage(msg.chat.id, "Обери тип новини:", NEWS_MENU);
   }
 
-  if(text === "🏆 Переможець"){ // ✅ НОВЕ
+  if(text === "🏆 Переможець"){
     example = `/news11
 ESL PRO LEAGUE S23
 https://www.hltv.org/team/4608/natus-vincere`;
@@ -260,7 +260,7 @@ let author = "";
 let stat1 = "", stat2 = "", stat3 = "";
 
 /* ============================= */
-/* 🔥 НОВИЙ news11 */
+/* 🔥 NEWS11 */
 /* ============================= */
 if(commandKey === "news11"){
 
@@ -288,14 +288,31 @@ async function getPlayers(url){
   }
 }
 
+/* 🔥 FIXED IMG */
 async function getImg(id){
   try{
     const res = await axios.get(`https://www.hltv.org/player/${id}/`, {
       headers:{ "User-Agent":"Mozilla/5.0" }
     });
 
-    const match = res.data.match(/bodyshot-img" src="([^"]+)"/);
-    return match ? match[1] : "";
+    const html = res.data;
+
+    let match = html.match(/bodyshot-img[^>]+src="([^"]+)"/);
+    if(match && !match[1].includes("silhouette")){
+      return match[1].startsWith("http") ? match[1] : "https://www.hltv.org" + match[1];
+    }
+
+    match = html.match(/playerPicture[^>]+src="([^"]+)"/);
+    if(match && !match[1].includes("silhouette")){
+      return match[1].startsWith("http") ? match[1] : "https://www.hltv.org" + match[1];
+    }
+
+    match = html.match(/<img src="([^"]+)" class=".*?player.*?"/);
+    if(match && !match[1].includes("silhouette")){
+      return match[1].startsWith("http") ? match[1] : "https://www.hltv.org" + match[1];
+    }
+
+    return "";
 
   }catch{
     return "";
@@ -320,6 +337,7 @@ html = html
 .replace(/{{TOURNAMENT}}/g, tournament);
 
 }
+
 
 /* ============================= */
 /* DEFAULT NEWS */
