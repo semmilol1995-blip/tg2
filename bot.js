@@ -262,41 +262,78 @@ let stat1 = "", stat2 = "", stat3 = "";
 /* ============================= */
 /* 🔥 NEWS11 FIX */
 /* ============================= */
+// ❗ Я ДАЮ ТІЛЬКИ ЗМІНЕНИЙ БЛОК news11
+// ВСТАВ ЙОГО ЗАМІСТЬ СТАРОГО news11
+
 if(commandKey === "news11"){
 
 const tournament = (lines[0] || "").toUpperCase();
 const teamUrl = (lines[1] || "").trim();
 
-async function getPlayersImages(url){
+/* ============================= */
+/* GET PLAYERS */
+/* ============================= */
+async function getPlayers(url){
   try{
     const res = await axios.get(url, {
       headers:{ "User-Agent":"Mozilla/5.0" }
     });
 
     const html = res.data;
+    const matches = [...html.matchAll(/href="\/player\/(\d+)\/([^"]+)"/g)];
 
-    const matches = [...html.matchAll(/class="playerPicture".*?src="([^"]+)"/g)];
+    const players = [];
 
-    let images = matches.map(m=>{
-      let src = m[1];
-      if(src.startsWith("/")) src = "https://www.hltv.org" + src;
-      return src;
-    });
+    for(let m of matches){
+      if(players.find(p=>p.id === m[1])) continue;
+      players.push({ id:m[1] });
+      if(players.length >= 5) break;
+    }
 
-    images = images.slice(0,5);
-
-    while(images.length < 5) images.push("");
-
-    return images;
+    return players;
 
   }catch(e){
-    console.log("HLTV ERROR", e);
-    return ["","","","",""];
+    console.log("players error", e);
+    return [];
   }
 }
 
-const imgs = await getPlayersImages(teamUrl);
+/* ============================= */
+/* 🔥 ULTRA STABLE IMAGE */
+/* ============================= */
+async function getValidImage(id){
 
+  const urls = [
+    `https://img-cdn.hltv.org/playerbodyshot/${id}.png`,
+    `https://img-cdn.hltv.org/player/${id}.png`
+  ];
+
+  for(const url of urls){
+    try{
+      const res = await axios.head(url);
+      if(res.status === 200){
+        return url;
+      }
+    }catch(e){}
+  }
+
+  return "https://www.hltv.org/img/static/player/player_silhouette.png";
+}
+
+/* ============================= */
+const players = await getPlayers(teamUrl);
+
+let imgs = [];
+
+for(let p of players){
+  imgs.push(await getValidImage(p.id));
+}
+
+while(imgs.length < 5){
+  imgs.push("");
+}
+
+/* ============================= */
 html = html
 .replace(/{{P1}}/g, imgs[0])
 .replace(/{{P2}}/g, imgs[1])
