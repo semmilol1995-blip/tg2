@@ -363,48 +363,53 @@ else if(commandKey === "news12"){
 const title = (lines[0] || "").toUpperCase();
 const subtitle = (lines[1] || "").toUpperCase();
 
+const playersLines = lines.filter(l => l.trim() !== "");
+
 const TEAM_PLAYERS = await loadTeams();
 
-// 🔥 ПРАВИЛЬНИЙ getPlayer
 function getPlayer(line){
 
   const parts = line.split(" ");
-  const nickRaw = parts[0] || "";
+  const nick = (parts[0] || "").toLowerCase();
   const rating = parts[1] || "";
-
-  const nick = nickRaw.toLowerCase();
 
   let img = "";
   let teamName = "";
 
-  // знаходимо гравця і його команду
+  // 🔥 шукаємо по ВСІХ командах
   for(const team in TEAM_PLAYERS){
 
-    const player = TEAM_PLAYERS[team].find(p =>
+    const found = TEAM_PLAYERS[team].find(p =>
       p.name.toLowerCase() === nick
     );
 
-    if(player){
-      img = player.img;
-      teamName = team;
+    if(found){
+      img = found.img;
+      teamName = team; // ← ОЦЕ КЛЮЧ
       break;
     }
   }
 
-  // фото гравця
-  if(img){
-    img = `https://images.weserv.nl/?url=${encodeURIComponent(img)}`;
+  // ❗ якщо не знайшли
+  if(!img){
+    return {
+      name: nick.toUpperCase(),
+      rating,
+      img: "",
+      logo: ""
+    };
   }
 
-  // логотип команди
+  // фото (можеш прибрати weserv якщо хочеш)
+  img = `https://images.weserv.nl/?url=${encodeURIComponent(img)}`;
+
+  // 🔥 ЛОГО ПО КОМАНДІ
   let logo = "";
 
-  if(teamName){
-    const logoPath = path.join(__dirname, `/logos/${teamName}.png`);
+  const logoPath = path.join(__dirname, `/logos/${teamName}.png`);
 
-    if(fs.existsSync(logoPath)){
-      logo = `data:image/png;base64,${fs.readFileSync(logoPath).toString("base64")}`;
-    }
+  if(fs.existsSync(logoPath)){
+    logo = `data:image/png;base64,${fs.readFileSync(logoPath).toString("base64")}`;
   }
 
   return {
@@ -415,12 +420,10 @@ function getPlayer(line){
   };
 }
 
-// отримуємо гравців
-const p1 = getPlayer(lines[2] || "");
-const p2 = getPlayer(lines[3] || "");
-const p3 = getPlayer(lines[4] || "");
+const p1 = getPlayer(playersLines[2] || "");
+const p2 = getPlayer(playersLines[3] || "");
+const p3 = getPlayer(playersLines[4] || "");
 
-// вставляємо в HTML
 html = html
 
 .replace(/{{TITLE}}/g, title)
