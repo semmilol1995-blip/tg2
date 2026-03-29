@@ -322,8 +322,8 @@ if(!imgs){
 }
 
 /* 🔥 ПОВЕРТАЄМО СТАБІЛЬНИЙ ПРОКСІ (як було) */
-imgs = imgs.map(p => 
-  `https://images.weserv.nl/?url=${encodeURIComponent(p.img)}`
+imgs = imgs.map(url => 
+  `https://images.weserv.nl/?url=${encodeURIComponent(url)}`
 );
 
 /* GUARANTEE 5 */
