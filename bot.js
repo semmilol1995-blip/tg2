@@ -4,13 +4,14 @@ const fs = require("fs-extra");
 const path = require("path");
 const axios = require("axios");
 const cheerio = require("cheerio");
+
 /* ============================= */
 /* 🔥 TEAM BASE + CACHE */
 /* ============================= */
 
 let TEAM_CACHE = {};
 let LAST_UPDATE = 0;
-const CACHE_TTL = 5 * 60 * 1000; // 5 хв
+const CACHE_TTL = 5 * 60 * 1000;
 
 async function loadTeams(){
 
@@ -40,6 +41,7 @@ const bot = new TelegramBot(token, { polling: true });
 /* ============================= */
 /* MENU */
 /* ============================= */
+
 const MAIN_MENU = {
   reply_markup: {
     keyboard: [
@@ -50,6 +52,7 @@ const MAIN_MENU = {
       ["📊 RESULT", "📅 MATCHES"],
       ["🧠 VETO BO1", "🧠 VETO BO3", "🧠 VETO BO5"],
       ["🏆 Переможець"],
+      ["🆕 TOP-3 MVP"], // ✅ ДОДАНО
       ["ℹ️ Інфо"]
     ],
     resize_keyboard: true
@@ -255,6 +258,16 @@ dust2 pick falcons
 ancient decider`;
   }
 
+else if(text === "🆕 TOP-3 MVP"){
+example = `/news12
+ТОП-3 ПРЕТЕНДЕНТИ
+НА ЗВАННЯ МВП
+zywoo 1.50
+flamez 1.49
+ropz 1.33`;
+return bot.sendMessage(msg.chat.id, example, MAIN_MENU);
+}
+
   else if(text === "ℹ️ Інфо"){
     return bot.sendMessage(msg.chat.id, "/info", MAIN_MENU);
   }
@@ -307,6 +320,50 @@ if(!imgs){
   bot.sendMessage(msg.chat.id, "❌ Команда не знайдена", MAIN_MENU);
   return;
 }
+
+else if(commandKey === "news12"){
+
+const TEAM_PLAYERS = await loadTeams();
+
+function getPlayer(line){
+  const parts = line.split(" ");
+  const nick = parts[0]?.toLowerCase();
+  const rating = parts[1] || "";
+
+  let img = "";
+
+  for(const team in TEAM_PLAYERS){
+    const player = TEAM_PLAYERS[team].find(p => p.name.toLowerCase() === nick);
+    if(player){ img = player.img; break; }
+  }
+
+  if(img){
+    img = `https://images.weserv.nl/?url=${encodeURIComponent(img)}`;
+  }
+
+  return {
+    name: nick.toUpperCase(),
+    rating,
+    img
+  };
+}
+
+const p1 = getPlayer(lines[2] || "");
+const p2 = getPlayer(lines[3] || "");
+const p3 = getPlayer(lines[4] || "");
+
+html = html
+.replace(/{{P1_NAME}}/g, p1.name)
+.replace(/{{P1_IMG}}/g, p1.img)
+.replace(/{{P1_RATING}}/g, p1.rating)
+.replace(/{{P2_NAME}}/g, p2.name)
+.replace(/{{P2_IMG}}/g, p2.img)
+.replace(/{{P2_RATING}}/g, p2.rating)
+.replace(/{{P3_NAME}}/g, p3.name)
+.replace(/{{P3_IMG}}/g, p3.img)
+.replace(/{{P3_RATING}}/g, p3.rating);
+
+}  
 
 /* 🔥 ПОВЕРТАЄМО СТАБІЛЬНИЙ ПРОКСІ (як було) */
 imgs = imgs.map(url => 
@@ -618,7 +675,7 @@ html = html
 
 let imageBase64 = "";
 
-if(commandKey !== "news6" && commandKey !== "news8" && commandKey !== "news11"){
+if(commandKey !== "news6" && commandKey !== "news8" && commandKey !== "news11" && commandKey !== "news12"){
   if(!msg.photo){
     return bot.sendMessage(msg.chat.id, "Додай фото 📸", MAIN_MENU);
   }
