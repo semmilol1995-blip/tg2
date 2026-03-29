@@ -32,9 +32,7 @@ inset:-25%;
 z-index:1;
 opacity:0.35;
 mix-blend-mode:overlay;
-filter:blur(0.5px);
-transform:rotate(35deg) scale(1.4) skewX(-6deg);
-background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 1000'%3E...");
+transform:rotate(35deg) scale(1.4);
 background-size:cover;
 }
 
@@ -45,7 +43,7 @@ left:50%;
 transform:translateX(-50%);
 width:900px;
 height:500px;
-background:radial-gradient(ellipse at center, rgba(124,58,237,0.5) 0%, rgba(124,58,237,0.25) 35%, rgba(124,58,237,0.1) 55%, transparent 75%);
+background:radial-gradient(ellipse at center, rgba(124,58,237,0.5), transparent);
 filter:blur(40px);
 z-index:2;
 }
@@ -59,22 +57,32 @@ opacity:0.06;
 z-index:3;
 }
 
-/* TITLE */
-.title{
+/* TITLE BLOCK */
+.titleWrap{
 position:absolute;
 top:70px;
 width:100%;
 text-align:center;
-font-family:'Oswald', sans-serif;
-font-size:60px;
-font-weight:700;
 z-index:10;
+}
+
+.title{
+font-family:'Oswald', sans-serif;
+font-size:64px;
+font-weight:700;
+white-space:nowrap;
+}
+
+.subtitle{
+font-family:'Oswald', sans-serif;
+font-size:32px;
+opacity:0.9;
 }
 
 /* PLAYERS */
 .players{
 position:absolute;
-bottom:200px;
+bottom:160px;
 width:100%;
 display:flex;
 justify-content:center;
@@ -86,82 +94,89 @@ z-index:10;
 /* CARD */
 .card{
 width:240px;
-height:380px;
-background:rgba(25,10,45,0.6);
-backdrop-filter:blur(16px);
-border:1px solid rgba(168,85,247,0.3);
-border-radius:20px;
+height:420px;
+position:relative;
 display:flex;
 flex-direction:column;
 align-items:center;
 justify-content:flex-end;
-position:relative;
-box-shadow:0 0 40px rgba(168,85,247,0.25);
-overflow:hidden;
-}
-
-/* gradient */
-.card::after{
-content:"";
-position:absolute;
-bottom:0;
-width:100%;
-height:160px;
-background:linear-gradient(to top, rgba(0,0,0,0.95), transparent);
-z-index:2;
-}
-
-.card.center{
-transform:scale(1.1);
-z-index:2;
 }
 
 /* PLAYER */
 .player{
 position:absolute;
-bottom:0;
+bottom:120px;
 height:300px;
 z-index:1;
 }
 
-/* LOGO НАД НІКОМ */
+/* GRADIENT FADE */
+.card::after{
+content:"";
+position:absolute;
+bottom:120px;
+width:100%;
+height:120px;
+background:linear-gradient(to top, #000, transparent);
+z-index:2;
+}
+
+/* LOGO */
 .logoBox{
 position:absolute;
-bottom:90px;
-width:46px;
-height:46px;
+bottom:150px;
+width:50px;
+height:50px;
 background:rgba(0,0,0,0.6);
-border:1px solid rgba(255,255,255,0.2);
 border-radius:12px;
 display:flex;
 align-items:center;
 justify-content:center;
-z-index:4; /* ВАЖЛИВО — ПОВЕРХ ГРАВЦЯ */
+z-index:3;
 }
 
 .logoBox img{
-width:26px;
+width:30px;
 }
 
 /* NAME */
 .name{
+position:absolute;
+bottom:110px;
 font-size:20px;
 font-weight:800;
 z-index:3;
 }
 
-/* RATING */
-.rating{
-font-size:22px;
-color:#facc15;
-z-index:3;
+/* RATING BLOCK */
+.ratingBox{
+width:100%;
+height:110px;
+background:linear-gradient(180deg, #7c3aed, #4c1d95);
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+z-index:4;
 }
 
+/* RATING NUMBER */
+.rating{
+font-size:56px;
+font-weight:800;
+line-height:1;
+}
+
+/* LABEL */
 .ratingLabel{
-font-size:12px;
-opacity:0.6;
-margin-bottom:20px;
-z-index:3;
+font-size:16px;
+opacity:0.8;
+}
+
+/* CENTER SCALE */
+.card.center{
+transform:scale(1.1);
+z-index:5;
 }
 
 /* FOOTER */
@@ -174,6 +189,7 @@ justify-content:center;
 gap:6px;
 opacity:0.7;
 font-size:14px;
+z-index:10;
 }
 
 .footer img{
@@ -190,8 +206,9 @@ filter:invert(1);
 <div class="bg-glow"></div>
 <div class="noise"></div>
 
-<div class="title">
-{{TITLE}}<br>{{SUBTITLE}}
+<div class="titleWrap">
+  <div class="title">{{TITLE}}</div>
+  <div class="subtitle">{{SUBTITLE}}</div>
 </div>
 
 <div class="players">
@@ -200,24 +217,33 @@ filter:invert(1);
     <img class="player" src="{{P1_IMG}}">
     <div class="logoBox"><img src="{{P1_LOGO}}"></div>
     <div class="name">{{P1_NAME}}</div>
-    <div class="rating">{{P1_RATING}}</div>
-    <div class="ratingLabel">RATING 3.0</div>
+
+    <div class="ratingBox">
+      <div class="rating">{{P1_RATING}}</div>
+      <div class="ratingLabel">RATING</div>
+    </div>
   </div>
 
   <div class="card center">
     <img class="player" src="{{P2_IMG}}">
     <div class="logoBox"><img src="{{P2_LOGO}}"></div>
     <div class="name">{{P2_NAME}}</div>
-    <div class="rating">{{P2_RATING}}</div>
-    <div class="ratingLabel">RATING 3.0</div>
+
+    <div class="ratingBox">
+      <div class="rating">{{P2_RATING}}</div>
+      <div class="ratingLabel">RATING</div>
+    </div>
   </div>
 
   <div class="card">
     <img class="player" src="{{P3_IMG}}">
     <div class="logoBox"><img src="{{P3_LOGO}}"></div>
     <div class="name">{{P3_NAME}}</div>
-    <div class="rating">{{P3_RATING}}</div>
-    <div class="ratingLabel">RATING 3.0</div>
+
+    <div class="ratingBox">
+      <div class="rating">{{P3_RATING}}</div>
+      <div class="ratingLabel">RATING</div>
+    </div>
   </div>
 
 </div>
