@@ -16,118 +16,172 @@ overflow:hidden;
 position:relative;
 }
 
-/* BACKGROUND — ТАКИЙ ЖЕ ЯК У news11 */
-.bg-gradient{position:absolute;inset:0;z-index:0;
+/* BACKGROUND */
+.bg-gradient{
+position:absolute;
+inset:0;
+
 background:
-radial-gradient(ellipse at 50% 0%, rgba(124,58,237,0.9) 0%, rgba(124,58,237,0.5) 25%, rgba(124,58,237,0.2) 45%, transparent 60%),
-linear-gradient(to bottom,#1a0833 0%,#000 100%);
+  radial-gradient(
+    ellipse at 50% 0%,
+    rgba(124,58,237,0.9) 0%,
+    rgba(124,58,237,0.5) 25%,
+    rgba(124,58,237,0.2) 45%,
+    transparent 60%
+  ),
+  linear-gradient(
+    to bottom,
+    #1a0833 0%,
+    #000 100%
+  );
+
+z-index:0;
 }
 
 .bg-zebra{
-position:absolute;inset:-25%;z-index:1;
-opacity:0.35;mix-blend-mode:overlay;filter:blur(0.5px);
+position:absolute;
+inset:-25%;
+z-index:1;
+
+opacity:0.35;
+mix-blend-mode:overlay;
+filter:blur(0.5px);
+
 transform:rotate(35deg) scale(1.4) skewX(-6deg);
-background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 1000'%3E...");
+
+background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 1000'%3E%3Cpath fill='white' d='M0 0 C180 120 120 320 260 1000 L0 1000 Z'/%3E%3Cpath fill='black' d='M90 -50 C300 200 140 450 360 1050 L520 1000 C380 520 420 100 250 -50 Z'/%3E%3Cpath fill='white' d='M250 -80 C500 100 300 500 600 1100 L780 1000 C600 600 650 120 420 -60 Z'/%3E%3Cpath fill='black' d='M420 -40 C700 250 500 600 820 1100 L980 1000 C780 620 860 150 650 -40 Z'/%3E%3Cpath fill='white' d='M650 -100 C900 150 700 550 1050 1100 L1220 1000 C980 650 1050 180 850 -90 Z'/%3E%3Cpath fill='black' d='M850 -50 C1150 250 950 650 1300 1100 L1500 1000 C1200 700 1250 200 1050 -50 Z'/%3E%3Cpath fill='white' d='M1100 -120 C1400 150 1200 650 1500 1100 L1600 1000 L1600 0 Z'/%3E%3C/svg%3E");
+
 background-size:cover;
+background-repeat:no-repeat;
 }
 
 .bg-glow{
 position:absolute;
-top:-120px;left:50%;
+top:-120px;
+left:50%;
 transform:translateX(-50%);
-width:900px;height:500px;
-background:radial-gradient(ellipse,rgba(124,58,237,0.5),transparent 70%);
+
+width:900px;
+height:500px;
+
+background:radial-gradient(
+  ellipse at center,
+  rgba(124,58,237,0.5) 0%,
+  rgba(124,58,237,0.25) 35%,
+  rgba(124,58,237,0.1) 55%,
+  transparent 75%
+);
+
 filter:blur(40px);
 z-index:2;
+pointer-events:none;
 }
 
 .noise{
-position:absolute;inset:0;
+position:absolute;
+width:100%;
+height:100%;
 background:url('https://grainy-gradients.vercel.app/noise.svg');
 opacity:0.06;
 z-index:3;
 }
 
-/* HEADER */
-.header{
+/* TITLE */
+.title{
 position:absolute;
-top:80px;
+top:70px;
 width:100%;
 text-align:center;
+font-family:'Oswald', sans-serif;
+font-size:56px;
+font-weight:700;
+line-height:1.2;
 z-index:10;
 }
 
-.title{
-font-size:90px;
-font-weight:800;
-color:#9bdcff;
-}
-
-.subtitle{
-margin-top:10px;
-font-size:32px;
-opacity:0.9;
-}
-
-/* CARDS */
-.cards{
+/* PLAYERS */
+.players{
 position:absolute;
-bottom:120px;
+bottom:200px;
 width:100%;
 display:flex;
 justify-content:center;
+align-items:flex-end;
 gap:40px;
 z-index:10;
 }
 
+/* CARD */
 .card{
-width:240px;
-text-align:center;
+width:230px;
+height:360px;
+background:rgba(25,10,45,0.6);
+backdrop-filter:blur(16px);
+border:1px solid rgba(168,85,247,0.3);
+border-radius:20px;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:flex-end;
+position:relative;
+box-shadow:0 0 40px rgba(168,85,247,0.25);
 }
 
-.playerImg{
-width:100%;
-height:320px;
-object-fit:cover;
-background:#7fb4d6;
+/* CENTER BIGGER */
+.card.center{
+transform:scale(1.08);
+z-index:2;
 }
 
-.logo{
-width:80px;
-margin: -40px auto 10px;
-display:block;
+/* PLAYER IMAGE */
+.player{
+position:absolute;
+bottom:90px;
+height:260px;
+object-fit:contain;
 }
 
+/* TEAM LOGO */
+.teamLogo{
+position:absolute;
+top:10px;
+width:36px;
+opacity:0.9;
+}
+
+/* NAME */
 .name{
-font-size:26px;
 font-weight:800;
-margin-bottom:10px;
+font-size:18px;
+margin-bottom:6px;
 }
 
-.ratingBox{
-background:linear-gradient(#9bdcff,#4fc3f7);
-padding:20px 0;
-}
-
+/* RATING */
 .rating{
-font-size:64px;
-font-weight:900;
-color:#000;
+font-size:20px;
+color:#facc15;
+margin-bottom:20px;
 }
 
-.ratingText{
-font-size:14px;
-color:#000;
-}
-
+/* FOOTER */
 .footer{
 position:absolute;
-bottom:10px;
+bottom:15px;
 width:100%;
-text-align:center;
-opacity:0.6;
+display:flex;
+justify-content:center;
+align-items:center;
+gap:6px;
+opacity:0.7;
+font-weight:600;
 font-size:14px;
 z-index:10;
+}
+
+.footer img{
+width:16px;
+filter:invert(1);
+opacity:0.9;
 }
 </style>
 </head>
@@ -139,47 +193,38 @@ z-index:10;
 <div class="bg-glow"></div>
 <div class="noise"></div>
 
-<div class="header">
-  <div class="title">{{TITLE}}</div>
-  <div class="subtitle">{{SUBTITLE}}</div>
+<div class="title">
+{{TITLE}}<br>{{SUBTITLE}}
 </div>
 
-<div class="cards">
+<div class="players">
 
   <div class="card">
-    <img class="playerImg" src="{{P1_IMG}}">
-    <img class="logo" src="{{P1_LOGO}}">
+    <img class="teamLogo" src="{{P1_LOGO}}">
+    <img class="player" src="{{P1_IMG}}">
     <div class="name">{{P1_NAME}}</div>
-    <div class="ratingBox">
-      <div class="rating">{{P1_RATING}}</div>
-      <div class="ratingText">RATING</div>
-    </div>
+    <div class="rating">{{P1_RATING}}</div>
   </div>
 
-  <div class="card">
-    <img class="playerImg" src="{{P2_IMG}}">
-    <img class="logo" src="{{P2_LOGO}}">
+  <div class="card center">
+    <img class="teamLogo" src="{{P2_LOGO}}">
+    <img class="player" src="{{P2_IMG}}">
     <div class="name">{{P2_NAME}}</div>
-    <div class="ratingBox">
-      <div class="rating">{{P2_RATING}}</div>
-      <div class="ratingText">RATING</div>
-    </div>
+    <div class="rating">{{P2_RATING}}</div>
   </div>
 
   <div class="card">
-    <img class="playerImg" src="{{P3_IMG}}">
-    <img class="logo" src="{{P3_LOGO}}">
+    <img class="teamLogo" src="{{P3_LOGO}}">
+    <img class="player" src="{{P3_IMG}}">
     <div class="name">{{P3_NAME}}</div>
-    <div class="ratingBox">
-      <div class="rating">{{P3_RATING}}</div>
-      <div class="ratingText">RATING</div>
-    </div>
+    <div class="rating">{{P3_RATING}}</div>
   </div>
 
 </div>
 
 <div class="footer">
-t.me/zbr4_cast
+  <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/telegram.svg">
+  t.me/zbr4_cast
 </div>
 
 </body>
