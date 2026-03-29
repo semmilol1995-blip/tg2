@@ -31,7 +31,7 @@ position:absolute;
 inset:-25%;
 z-index:1;
 
-opacity:0.35;
+opacity:0.4;
 mix-blend-mode:overlay;
 filter:blur(0.5px);
 
@@ -53,6 +53,7 @@ height:500px;
 background:radial-gradient(ellipse at center, rgba(124,58,237,0.5), transparent);
 filter:blur(40px);
 z-index:2;
+pointer-events:none;
 }
 
 .noise{
@@ -64,7 +65,7 @@ opacity:0.06;
 z-index:3;
 }
 
-/* TITLE BLOCK */
+/* TITLE */
 .titleWrap{
 position:absolute;
 top:70px;
@@ -112,7 +113,7 @@ justify-content:flex-end;
 /* PLAYER */
 .player{
 position:absolute;
-bottom:120px;
+bottom:110px; /* 🔥 рівно висота rating */
 height:300px;
 z-index:1;
 }
@@ -121,17 +122,24 @@ z-index:1;
 .card::after{
 content:"";
 position:absolute;
-bottom:120px;
+bottom:110px; /* 🔥 той самий рівень */
 width:100%;
 height:120px;
-background:linear-gradient(to top, #000, transparent);
+
+background:linear-gradient(
+to top,
+rgba(0,0,0,1) 0%,
+rgba(0,0,0,0.7) 50%,
+transparent 100%
+);
+
 z-index:2;
 }
 
 /* LOGO */
 .logoBox{
 position:absolute;
-bottom:150px;
+bottom:145px;
 width:50px;
 height:50px;
 background:rgba(0,0,0,0.6);
@@ -149,7 +157,7 @@ width:30px;
 /* NAME */
 .name{
 position:absolute;
-bottom:125px; /* було 110 → підняли */
+bottom:125px;
 font-size:20px;
 font-weight:800;
 z-index:3;
@@ -167,7 +175,7 @@ justify-content:center;
 z-index:4;
 }
 
-/* RATING NUMBER */
+/* RATING */
 .rating{
 font-size:56px;
 font-weight:800;
@@ -177,10 +185,10 @@ line-height:1;
 /* LABEL */
 .ratingLabel{
 font-size:16px;
-opacity:0.8;
+opacity:0.85;
 }
 
-/* CENTER SCALE */
+/* CENTER */
 .card.center{
 transform:scale(1.1);
 z-index:5;
