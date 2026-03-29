@@ -321,21 +321,91 @@ if(!imgs){
   return;
 }
 
+
 else if(commandKey === "news12"){
+
+const title = (lines[0] || "").toUpperCase();
+const subtitle = (lines[1] || "").toUpperCase();
 
 const TEAM_PLAYERS = await loadTeams();
 
+// 🔥 ПРАВИЛЬНИЙ getPlayer
 function getPlayer(line){
+
   const parts = line.split(" ");
-  const nick = parts[0]?.toLowerCase();
+  const nickRaw = parts[0] || "";
   const rating = parts[1] || "";
 
-  let img = "";
+  const nick = nickRaw.toLowerCase();
 
+  let img = "";
+  let teamName = "";
+
+  // знаходимо гравця і його команду
   for(const team in TEAM_PLAYERS){
-    const player = TEAM_PLAYERS[team].find(p => p.name.toLowerCase() === nick);
-    if(player){ img = player.img; break; }
+
+    const player = TEAM_PLAYERS[team].find(p =>
+      p.name.toLowerCase() === nick
+    );
+
+    if(player){
+      img = player.img;
+      teamName = team;
+      break;
+    }
   }
+
+  // фото гравця
+  if(img){
+    img = `https://images.weserv.nl/?url=${encodeURIComponent(img)}`;
+  }
+
+  // логотип команди
+  let logo = "";
+
+  if(teamName){
+    const logoPath = path.join(__dirname, `/logos/${teamName}.png`);
+
+    if(fs.existsSync(logoPath)){
+      logo = `data:image/png;base64,${fs.readFileSync(logoPath).toString("base64")}`;
+    }
+  }
+
+  return {
+    name: nick.toUpperCase(),
+    rating,
+    img,
+    logo
+  };
+}
+
+// отримуємо гравців
+const p1 = getPlayer(lines[2] || "");
+const p2 = getPlayer(lines[3] || "");
+const p3 = getPlayer(lines[4] || "");
+
+// вставляємо в HTML
+html = html
+
+.replace(/{{TITLE}}/g, title)
+.replace(/{{SUBTITLE}}/g, subtitle)
+
+.replace(/{{P1_NAME}}/g, p1.name)
+.replace(/{{P1_IMG}}/g, p1.img)
+.replace(/{{P1_LOGO}}/g, p1.logo)
+.replace(/{{P1_RATING}}/g, p1.rating)
+
+.replace(/{{P2_NAME}}/g, p2.name)
+.replace(/{{P2_IMG}}/g, p2.img)
+.replace(/{{P2_LOGO}}/g, p2.logo)
+.replace(/{{P2_RATING}}/g, p2.rating)
+
+.replace(/{{P3_NAME}}/g, p3.name)
+.replace(/{{P3_IMG}}/g, p3.img)
+.replace(/{{P3_LOGO}}/g, p3.logo)
+.replace(/{{P3_RATING}}/g, p3.rating);
+
+}
 
   if(img){
     img = `https://images.weserv.nl/?url=${encodeURIComponent(img)}`;
@@ -353,17 +423,27 @@ const p2 = getPlayer(lines[3] || "");
 const p3 = getPlayer(lines[4] || "");
 
 html = html
+
+// 🔥 ГОЛОВНИЙ ФІКС
+.replace(/{{TITLE}}/g, title)
+.replace(/{{SUBTITLE}}/g, subtitle)
+
+// PLAYER 1
 .replace(/{{P1_NAME}}/g, p1.name)
 .replace(/{{P1_IMG}}/g, p1.img)
 .replace(/{{P1_RATING}}/g, p1.rating)
+
+// PLAYER 2
 .replace(/{{P2_NAME}}/g, p2.name)
 .replace(/{{P2_IMG}}/g, p2.img)
 .replace(/{{P2_RATING}}/g, p2.rating)
+
+// PLAYER 3
 .replace(/{{P3_NAME}}/g, p3.name)
 .replace(/{{P3_IMG}}/g, p3.img)
 .replace(/{{P3_RATING}}/g, p3.rating);
 
-}  
+}
 
 /* 🔥 ПОВЕРТАЄМО СТАБІЛЬНИЙ ПРОКСІ (як було) */
 imgs = imgs.map(url => 
