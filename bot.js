@@ -34,7 +34,30 @@ async function loadTeams(){
     return TEAM_CACHE;
   }
 }
+let TEAM_CACHE2 = {};
+let LAST_UPDATE2 = 0;
 
+async function loadTeams2(){
+
+  const now = Date.now();
+
+  if(now - LAST_UPDATE2 < CACHE_TTL && Object.keys(TEAM_CACHE2).length){
+    return TEAM_CACHE2;
+  }
+
+  try{
+    const res = await axios.get("https://raw.githubusercontent.com/semmilol1995-blip/tg2/main/base2.json");
+
+    TEAM_CACHE2 = res.data;
+    LAST_UPDATE2 = now;
+
+    return TEAM_CACHE2;
+
+  }catch(e){
+    console.log("BASE2 LOAD ERROR", e);
+    return TEAM_CACHE2;
+  }
+}
 const token = process.env.TOKEN;
 const bot = new TelegramBot(token, { polling: true });
 
@@ -365,7 +388,7 @@ const subtitle = (lines[1] || "").toUpperCase();
 
 const playersLines = lines.filter(l => l.trim() !== "");
 
-const TEAM_PLAYERS = await loadTeams();
+const TEAM_PLAYERS = await loadTeams2();
 
 function getPlayer(line){
 
