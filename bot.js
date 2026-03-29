@@ -321,7 +321,43 @@ if(!imgs){
   return;
 }
 
+/* 🔥 ПОВЕРТАЄМО СТАБІЛЬНИЙ ПРОКСІ (як було) */
+imgs = imgs.map(url => 
+  `https://images.weserv.nl/?url=${encodeURIComponent(url)}`
+);
 
+/* GUARANTEE 5 */
+while(imgs.length < 5){
+  imgs.push("");
+}
+
+/* 🔥 ЛОГО (як у news7 — через fs) */
+const getLogo = (team) => {
+  try{
+    const p = path.join(__dirname, `/logos/${team}.png`);
+    if(!fs.existsSync(p)) return "";
+    return `data:image/png;base64,${fs.readFileSync(p).toString("base64")}`;
+  }catch{
+    return "";
+  }
+};
+
+const teamLogo = getLogo(team);
+
+/* HTML */
+html = html
+.replace(/{{P1}}/g, imgs[0])
+.replace(/{{P2}}/g, imgs[1])
+.replace(/{{P3}}/g, imgs[2])
+.replace(/{{P4}}/g, imgs[3])
+.replace(/{{P5}}/g, imgs[4])
+.replace(/{{TOURNAMENT}}/g, tournament)
+.replace(/{{TEAM_LOGO}}/g, teamLogo);
+
+}
+/* ============================= */
+
+/* ДАЛІ ВСЕ 1:1 ЯК У ТЕБЕ */
 else if(commandKey === "news12"){
 
 const title = (lines[0] || "").toUpperCase();
@@ -406,83 +442,6 @@ html = html
 .replace(/{{P3_RATING}}/g, p3.rating);
 
 }
-
-  if(img){
-    img = `https://images.weserv.nl/?url=${encodeURIComponent(img)}`;
-  }
-
-  return {
-    name: nick.toUpperCase(),
-    rating,
-    img
-  };
-}
-
-const p1 = getPlayer(lines[2] || "");
-const p2 = getPlayer(lines[3] || "");
-const p3 = getPlayer(lines[4] || "");
-
-html = html
-
-// 🔥 ГОЛОВНИЙ ФІКС
-.replace(/{{TITLE}}/g, title)
-.replace(/{{SUBTITLE}}/g, subtitle)
-
-// PLAYER 1
-.replace(/{{P1_NAME}}/g, p1.name)
-.replace(/{{P1_IMG}}/g, p1.img)
-.replace(/{{P1_RATING}}/g, p1.rating)
-
-// PLAYER 2
-.replace(/{{P2_NAME}}/g, p2.name)
-.replace(/{{P2_IMG}}/g, p2.img)
-.replace(/{{P2_RATING}}/g, p2.rating)
-
-// PLAYER 3
-.replace(/{{P3_NAME}}/g, p3.name)
-.replace(/{{P3_IMG}}/g, p3.img)
-.replace(/{{P3_RATING}}/g, p3.rating);
-
-}
-
-/* 🔥 ПОВЕРТАЄМО СТАБІЛЬНИЙ ПРОКСІ (як було) */
-imgs = imgs.map(url => 
-  `https://images.weserv.nl/?url=${encodeURIComponent(url)}`
-);
-
-/* GUARANTEE 5 */
-while(imgs.length < 5){
-  imgs.push("");
-}
-
-/* 🔥 ЛОГО (як у news7 — через fs) */
-const getLogo = (team) => {
-  try{
-    const p = path.join(__dirname, `/logos/${team}.png`);
-    if(!fs.existsSync(p)) return "";
-    return `data:image/png;base64,${fs.readFileSync(p).toString("base64")}`;
-  }catch{
-    return "";
-  }
-};
-
-const teamLogo = getLogo(team);
-
-/* HTML */
-html = html
-.replace(/{{P1}}/g, imgs[0])
-.replace(/{{P2}}/g, imgs[1])
-.replace(/{{P3}}/g, imgs[2])
-.replace(/{{P4}}/g, imgs[3])
-.replace(/{{P5}}/g, imgs[4])
-.replace(/{{TOURNAMENT}}/g, tournament)
-.replace(/{{TEAM_LOGO}}/g, teamLogo);
-
-}
-/* ============================= */
-
-/* ДАЛІ ВСЕ 1:1 ЯК У ТЕБЕ */
-
 
 /* ============================= */
 /* DEFAULT NEWS */
