@@ -20,21 +20,9 @@ position:relative;
 .bg-gradient{
 position:absolute;
 inset:0;
-
 background:
-  radial-gradient(
-    ellipse at 50% 0%,
-    rgba(124,58,237,0.9) 0%,
-    rgba(124,58,237,0.5) 25%,
-    rgba(124,58,237,0.2) 45%,
-    transparent 60%
-  ),
-  linear-gradient(
-    to bottom,
-    #1a0833 0%,
-    #000 100%
-  );
-
+radial-gradient(ellipse at 50% 0%, rgba(124,58,237,0.9) 0%, rgba(124,58,237,0.5) 25%, rgba(124,58,237,0.2) 45%, transparent 60%),
+linear-gradient(to bottom, #1a0833 0%, #000 100%);
 z-index:0;
 }
 
@@ -42,17 +30,12 @@ z-index:0;
 position:absolute;
 inset:-25%;
 z-index:1;
-
 opacity:0.35;
 mix-blend-mode:overlay;
 filter:blur(0.5px);
-
 transform:rotate(35deg) scale(1.4) skewX(-6deg);
-
-background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 1000'%3E%3Cpath fill='white' d='M0 0 C180 120 120 320 260 1000 L0 1000 Z'/%3E%3Cpath fill='black' d='M90 -50 C300 200 140 450 360 1050 L520 1000 C380 520 420 100 250 -50 Z'/%3E%3Cpath fill='white' d='M250 -80 C500 100 300 500 600 1100 L780 1000 C600 600 650 120 420 -60 Z'/%3E%3Cpath fill='black' d='M420 -40 C700 250 500 600 820 1100 L980 1000 C780 620 860 150 650 -40 Z'/%3E%3Cpath fill='white' d='M650 -100 C900 150 700 550 1050 1100 L1220 1000 C980 650 1050 180 850 -90 Z'/%3E%3Cpath fill='black' d='M850 -50 C1150 250 950 650 1300 1100 L1500 1000 C1200 700 1250 200 1050 -50 Z'/%3E%3Cpath fill='white' d='M1100 -120 C1400 150 1200 650 1500 1100 L1600 1000 L1600 0 Z'/%3E%3C/svg%3E");
-
+background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 1000'%3E...");
 background-size:cover;
-background-repeat:no-repeat;
 }
 
 .bg-glow{
@@ -60,21 +43,11 @@ position:absolute;
 top:-120px;
 left:50%;
 transform:translateX(-50%);
-
 width:900px;
 height:500px;
-
-background:radial-gradient(
-  ellipse at center,
-  rgba(124,58,237,0.5) 0%,
-  rgba(124,58,237,0.25) 35%,
-  rgba(124,58,237,0.1) 55%,
-  transparent 75%
-);
-
+background:radial-gradient(ellipse at center, rgba(124,58,237,0.5) 0%, rgba(124,58,237,0.25) 35%, rgba(124,58,237,0.1) 55%, transparent 75%);
 filter:blur(40px);
 z-index:2;
-pointer-events:none;
 }
 
 .noise{
@@ -95,7 +68,6 @@ text-align:center;
 font-family:'Oswald', sans-serif;
 font-size:60px;
 font-weight:700;
-line-height:1.2;
 z-index:10;
 }
 
@@ -125,42 +97,71 @@ align-items:center;
 justify-content:flex-end;
 position:relative;
 box-shadow:0 0 40px rgba(168,85,247,0.25);
+overflow:hidden;
 }
 
-/* CENTER BIGGER */
+/* gradient */
+.card::after{
+content:"";
+position:absolute;
+bottom:0;
+width:100%;
+height:160px;
+background:linear-gradient(to top, rgba(0,0,0,0.95), transparent);
+z-index:2;
+}
+
 .card.center{
 transform:scale(1.1);
 z-index:2;
 }
 
-/* PLAYER IMAGE */
+/* PLAYER */
 .player{
 position:absolute;
-bottom:100px;
-height:280px;
-object-fit:contain;
+bottom:0;
+height:300px;
+z-index:1;
 }
 
-/* TEAM LOGO */
-.teamLogo{
+/* LOGO НАД НІКОМ */
+.logoBox{
 position:absolute;
-top:12px;
-width:42px;
-opacity:0.95;
+bottom:90px;
+width:46px;
+height:46px;
+background:rgba(0,0,0,0.6);
+border:1px solid rgba(255,255,255,0.2);
+border-radius:12px;
+display:flex;
+align-items:center;
+justify-content:center;
+z-index:4; /* ВАЖЛИВО — ПОВЕРХ ГРАВЦЯ */
+}
+
+.logoBox img{
+width:26px;
 }
 
 /* NAME */
 .name{
-font-weight:800;
 font-size:20px;
-margin-bottom:6px;
+font-weight:800;
+z-index:3;
 }
 
 /* RATING */
 .rating{
 font-size:22px;
 color:#facc15;
+z-index:3;
+}
+
+.ratingLabel{
+font-size:12px;
+opacity:0.6;
 margin-bottom:20px;
+z-index:3;
 }
 
 /* FOOTER */
@@ -170,18 +171,14 @@ bottom:15px;
 width:100%;
 display:flex;
 justify-content:center;
-align-items:center;
 gap:6px;
 opacity:0.7;
-font-weight:600;
 font-size:14px;
-z-index:10;
 }
 
 .footer img{
 width:16px;
 filter:invert(1);
-opacity:0.9;
 }
 </style>
 </head>
@@ -200,24 +197,27 @@ opacity:0.9;
 <div class="players">
 
   <div class="card">
-    <img class="teamLogo" src="{{P1_LOGO}}">
     <img class="player" src="{{P1_IMG}}">
+    <div class="logoBox"><img src="{{P1_LOGO}}"></div>
     <div class="name">{{P1_NAME}}</div>
     <div class="rating">{{P1_RATING}}</div>
+    <div class="ratingLabel">RATING 3.0</div>
   </div>
 
   <div class="card center">
-    <img class="teamLogo" src="{{P2_LOGO}}">
     <img class="player" src="{{P2_IMG}}">
+    <div class="logoBox"><img src="{{P2_LOGO}}"></div>
     <div class="name">{{P2_NAME}}</div>
     <div class="rating">{{P2_RATING}}</div>
+    <div class="ratingLabel">RATING 3.0</div>
   </div>
 
   <div class="card">
-    <img class="teamLogo" src="{{P3_LOGO}}">
     <img class="player" src="{{P3_IMG}}">
+    <div class="logoBox"><img src="{{P3_LOGO}}"></div>
     <div class="name">{{P3_NAME}}</div>
     <div class="rating">{{P3_RATING}}</div>
+    <div class="ratingLabel">RATING 3.0</div>
   </div>
 
 </div>
