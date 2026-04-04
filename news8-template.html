@@ -17,52 +17,34 @@ flex-direction:column;
 position:relative;
 }
 
-/* 🔥 MASTER BG v2 */
+/* ===== ТВОЇ ФОНИ (1в1) ===== */
+
 .bg-gradient{
 position:absolute;
 inset:0;
-
 background:
-  radial-gradient(
-    ellipse at 50% 0%,
-    rgba(124,58,237,0.9) 0%,
-    rgba(124,58,237,0.5) 25%,
-    rgba(124,58,237,0.2) 45%,
-    transparent 60%
-  ),
-  linear-gradient(
-    to bottom,
-    rgba(0,0,0,0) 0%,
-    rgba(0,0,0,0.6) 70%,
-    #000 100%
-  ),
-  linear-gradient(135deg,#0b0b0f,#1a1030);
-
+radial-gradient(ellipse at 50% 0%, rgba(124,58,237,0.9) 0%, rgba(124,58,237,0.5) 25%, rgba(124,58,237,0.2) 45%, transparent 60%),
+linear-gradient(to bottom, #1a0833 0%, #000 100%);
 z-index:0;
-}
-
-/* 🔥 ZEBRA */
-@keyframes zebraMove {
-  0% { transform: rotate(35deg) scale(1.4) skewX(-6deg) translate(0,0); }
-  50% { transform: rotate(36deg) scale(1.42) skewX(-6deg) translate(40px,-30px); }
-  100% { transform: rotate(35deg) scale(1.4) skewX(-6deg) translate(0,0); }
 }
 
 .bg-zebra{
 position:absolute;
 inset:-25%;
 z-index:1;
-opacity:0.35;
+
+opacity:0.4;
 mix-blend-mode:overlay;
 filter:blur(0.5px);
-animation:zebraMove 20s ease-in-out infinite;
+
+transform:rotate(35deg) scale(1.4) skewX(-6deg);
 
 background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 1000'%3E%3Cpath fill='white' d='M0 0 C180 120 120 320 260 1000 L0 1000 Z'/%3E%3Cpath fill='black' d='M90 -50 C300 200 140 450 360 1050 L520 1000 C380 520 420 100 250 -50 Z'/%3E%3Cpath fill='white' d='M250 -80 C500 100 300 500 600 1100 L780 1000 C600 600 650 120 420 -60 Z'/%3E%3Cpath fill='black' d='M420 -40 C700 250 500 600 820 1100 L980 1000 C780 620 860 150 650 -40 Z'/%3E%3Cpath fill='white' d='M650 -100 C900 150 700 550 1050 1100 L1220 1000 C980 650 1050 180 850 -90 Z'/%3E%3Cpath fill='black' d='M850 -50 C1150 250 950 650 1300 1100 L1500 1000 C1200 700 1250 200 1050 -50 Z'/%3E%3Cpath fill='white' d='M1100 -120 C1400 150 1200 650 1500 1100 L1600 1000 L1600 0 Z'/%3E%3C/svg%3E");
 
 background-size:cover;
+background-repeat:no-repeat;
 }
 
-/* 🔥 GLOW */
 .bg-glow{
 position:absolute;
 top:-120px;
@@ -70,53 +52,55 @@ left:50%;
 transform:translateX(-50%);
 width:900px;
 height:500px;
-
-background:radial-gradient(
-  ellipse at center,
-  rgba(124,58,237,0.5) 0%,
-  rgba(124,58,237,0.25) 35%,
-  rgba(124,58,237,0.1) 55%,
-  transparent 75%
-);
-
+background:radial-gradient(ellipse at center, rgba(124,58,237,0.5), transparent);
 filter:blur(40px);
 z-index:2;
+pointer-events:none;
 }
 
-/* NOISE */
 .noise{
 position:absolute;
 width:100%;
 height:100%;
 background:url('https://grainy-gradients.vercel.app/noise.svg');
-opacity:0.05;
+opacity:0.06;
 z-index:3;
 }
 
-/* HEADER */
+/* ===== HEADER ===== */
+
 .header{
-margin-top:70px;
+margin-top:60px;
 text-align:center;
 z-index:5;
 }
 
+.date{
+display:inline-block;
+margin-bottom:14px;
+padding:6px 14px;
+background:#d9dde3;
+color:#000;
+font-size:14px;
+font-weight:800;
+letter-spacing:1px;
+border-radius:3px;
+}
+
 .title{
-font-size:72px;
+font-size:64px;
 font-weight:900;
 letter-spacing:2px;
-color:#ffffff;
-text-shadow:
-0 0 20px rgba(255,255,255,0.15),
-0 0 40px rgba(168,85,247,0.25);
 }
 
 .subtitle{
-margin-top:12px;
+margin-top:10px;
 font-size:20px;
-opacity:0.8;
+opacity:0.85;
 }
 
-/* CONTENT */
+/* ===== CONTENT ===== */
+
 .content{
 flex:1;
 display:flex;
@@ -125,124 +109,121 @@ justify-content:center;
 z-index:5;
 }
 
-/* GRID */
+/* ===== GRID ===== */
+
 .matches{
 width:100%;
 display:grid;
-gap:26px;
+gap:12px;
 }
 
 .grid-1{
 grid-template-columns:1fr;
-max-width:650px;
+max-width:760px;
 margin:0 auto;
 }
 
 .grid-2{
 grid-template-columns:1fr 1fr;
-max-width:850px;
+max-width:860px;
 margin:0 auto;
 }
 
-/* CARD */
+/* ===== CARD ===== */
+
 .card{
 display:grid;
-grid-template-columns: 1fr 120px 1fr;
-align-items:center;
+grid-template-columns:1fr 140px 1fr;
+align-items:stretch;
 
-height:82px;
-padding:0 22px;
+height:68px;
+background:#111;
 
-border-radius:22px;
+border:1px solid rgba(255,255,255,0.25);
+border-radius:4px;
 
-background:rgba(25,10,45,0.6);
-backdrop-filter:blur(16px);
-
-border:1px solid rgba(168,85,247,0.35);
-
-box-shadow:
-0 0 35px rgba(168,85,247,0.25),
-inset 0 0 25px rgba(168,85,247,0.1);
+overflow:hidden;
 }
 
-/* TEAM */
+/* ===== TEAM ===== */
+
 .team{
 display:flex;
 align-items:center;
-gap:14px;
-font-weight:800;
+justify-content:space-between;
+padding:0 18px;
+
 font-size:18px;
-white-space:nowrap;
-min-width:0;
+font-weight:800;
+letter-spacing:1px;
+text-transform:uppercase;
 }
 
-.team:first-child{ justify-content:flex-start; }
-.team:last-child{ justify-content:flex-end; }
+.team:first-child{
+justify-content:flex-start;
+gap:12px;
+}
 
-/* LOGO */
+.team:last-child{
+justify-content:flex-end;
+gap:12px;
+}
+
+/* ===== LOGO ===== */
+
 .logoBox{
-width:46px;
-height:46px;
-flex-shrink:0;
-
-border-radius:14px;
-background:#0b0b0f;
-
+width:34px;
+height:34px;
 display:flex;
 align-items:center;
 justify-content:center;
-
-border:2px solid rgba(168,85,247,0.7);
-
-box-shadow:
-0 0 15px rgba(168,85,247,0.6),
-inset 0 0 8px rgba(168,85,247,0.2);
 }
 
 .logoBox img{
-width:70%;
-height:70%;
+width:100%;
+height:100%;
 object-fit:contain;
 }
 
-/* CENTER */
+/* ===== CENTER ===== */
+
 .center{
 display:flex;
 flex-direction:column;
 align-items:center;
 justify-content:center;
-text-align:center;
-line-height:1;
+
+background:#d9dde3;
+color:#000;
 }
 
 .center .main{
-font-size:28px;
+font-size:26px;
 font-weight:900;
-letter-spacing:1px;
 }
 
 .format{
-margin-top:3px;
-font-size:10px;
-opacity:0.55;
-letter-spacing:1.5px;
+font-size:11px;
+margin-top:2px;
+opacity:0.7;
 }
 
-/* FOOTER */
+/* ===== FOOTER ===== */
+
 .footer{
-margin-bottom:26px;
+margin-bottom:20px;
 display:flex;
 justify-content:center;
 align-items:center;
 font-weight:800;
-font-size:16px;
+font-size:14px;
 opacity:0.9;
 z-index:5;
 }
 
 .footer img{
-width:20px;
-margin-right:8px;
+width:18px;
+margin-right:6px;
 filter:invert(1);
 }
 </style>
@@ -256,8 +237,12 @@ filter:invert(1);
 <div class="noise"></div>
 
 <div class="header">
+
+<div class="date" id="date"></div>
+
 <div class="title">{{TITLE}}</div>
 <div class="subtitle">{{TOURNAMENT}}</div>
+
 </div>
 
 <div class="content">
@@ -270,6 +255,22 @@ filter:invert(1);
 <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/telegram.svg">
 t.me/zbr4_cast
 </div>
+
+<script>
+const el = document.getElementById("date");
+
+const now = new Date();
+
+const months = [
+"СІЧНЯ","ЛЮТОГО","БЕРЕЗНЯ","КВІТНЯ","ТРАВНЯ","ЧЕРВНЯ",
+"ЛИПНЯ","СЕРПНЯ","ВЕРЕСНЯ","ЖОВТНЯ","ЛИСТОПАДА","ГРУДНЯ"
+];
+
+const day = now.getDate();
+const month = months[now.getMonth()];
+
+el.innerText = `${day} ${month}`;
+</script>
 
 </body>
 </html>
