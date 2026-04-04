@@ -684,25 +684,31 @@ matchLinesRaw.forEach(line=>{
 
   let team1="", team2="", center="", format="";
 
+  /* ===== SCHEDULE ===== */
   if(isSchedule){
     const parts = line.split(" ");
     const vsIndex = parts.indexOf("vs");
 
     team1 = parts.slice(0,vsIndex).join("");
     team2 = parts[vsIndex+1];
+
+    // 🔥 ГОЛОВНЕ — ЧАС
     center = parts[vsIndex+2] || "";
+
     format = (parts[vsIndex+3] || "").toUpperCase();
   }
 
+  /* ===== RESULTS ===== */
   if(isResults){
     const parts = line.split(" ");
     team1 = parts[0];
-    center = parts[1];
+    center = parts[1]; // 🔥 2:0
     team2 = parts[2];
   }
 
   matchesHTML += `
   <div class="card">
+
     <div class="team">
       <div class="logoBox">
         <img src="${img(`/logos/${team1}.png`)}">
@@ -710,10 +716,10 @@ matchLinesRaw.forEach(line=>{
       ${team1.toUpperCase()}
     </div>
 
-<div class="center">
-  <div class="main">${center}</div>
-  ${isSchedule ? `<div class="format">${format}</div>` : ``}
-</div>
+    <div class="center">
+      <div class="main">${center}</div>
+      ${isSchedule ? `<div class="format">${format}</div>` : ``}
+    </div>
 
     <div class="team">
       ${team2.toUpperCase()}
@@ -721,10 +727,12 @@ matchLinesRaw.forEach(line=>{
         <img src="${img(`/logos/${team2}.png`)}">
       </div>
     </div>
+
   </div>
   `;
 });
 
+/* 🔥 1 КОЛОНКА */
 let grid = "grid-1";
 
 let title = isSchedule ? "РОЗКЛАД МАТЧІВ" : "РЕЗУЛЬТАТИ МАТЧІВ";
