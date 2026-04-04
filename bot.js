@@ -710,10 +710,10 @@ matchLinesRaw.forEach(line=>{
       ${team1.toUpperCase()}
     </div>
 
-    <div class="center">
-      ${center}
-      ${isSchedule ? `<div class="format">${format}</div>` : ``}
-    </div>
+<div class="center">
+  <div class="main">${center}</div>
+  ${isSchedule ? `<div class="format">${format}</div>` : ``}
+</div>
 
     <div class="team">
       ${team2.toUpperCase()}
