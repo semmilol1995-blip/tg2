@@ -664,10 +664,8 @@ else if(commandKey === "news8"){
 const tournament = (lines[0] || "").toUpperCase();
 const matchLinesRaw = lines.slice(1).filter(l => l.trim());
 
-/* визначаємо режим */
 const isSchedule = matchLinesRaw.some(l => l.toLowerCase().includes("vs"));
 
-/* 🔥 універсальне отримання логотипу */
 function getLogo(team){
 
   const raw = team.toLowerCase().trim();
@@ -676,9 +674,9 @@ function getLogo(team){
     raw,
     raw.replace("the ", ""),
     raw.replace("team ", ""),
-    raw.replace(/\s+/g, ""),     // bcgame
-    raw.replace(/\s+/g, "-"),    // bc-game
-    raw.replace(/\s+/g, "_"),    // bc_game
+    raw.replace(/\s+/g, ""),
+    raw.replace(/\s+/g, "-"),
+    raw.replace(/\s+/g, "_"),
   ];
 
   for(const v of variants){
@@ -703,28 +701,23 @@ matchLinesRaw.forEach(line=>{
 
   let team1="", team2="", center="", format="";
 
-  /* ===== SCHEDULE ===== */
   if(isSchedule){
 
     const parts = line.split(" ");
     const vsIndex = parts.indexOf("vs");
 
-    team1 = parts.slice(0,vsIndex).join("");
-    team2 = parts[vsIndex+1];
+    team1 = parts.slice(0, vsIndex).join(" ");
+    format = (parts[parts.length - 1] || "").toUpperCase();
+    center = parts[parts.length - 2] || "";
+    team2 = parts.slice(vsIndex + 1, parts.length - 2).join(" ");
 
-    center = parts[vsIndex+2] || ""; // час
-    format = (parts[vsIndex+3] || "").toUpperCase();
-
-  }
-
-  /* ===== RESULTS ===== */
-  else{
+  }else{
 
     const parts = line.split(" ");
 
     team1 = parts[0];
-    center = parts[1]; // рахунок
-    team2 = parts[2];
+    center = parts[1];
+    team2 = parts.slice(2).join(" ");
 
   }
 
@@ -754,13 +747,10 @@ matchLinesRaw.forEach(line=>{
   `;
 });
 
-/* завжди 1 колонка */
 let grid = "grid-1";
 
-/* заголовок */
 let title = isSchedule ? "РОЗКЛАД МАТЧІВ" : "РЕЗУЛЬТАТИ МАТЧІВ";
 
-/* вставка */
 html = html
 .replace(/{{TITLE}}/g, title)
 .replace(/{{TOURNAMENT}}/g, tournament)
