@@ -667,32 +667,34 @@ const matchLinesRaw = lines.slice(1).filter(l => l.trim());
 /* визначаємо режим */
 const isSchedule = matchLinesRaw.some(l => l.toLowerCase().includes("vs"));
 
-/* 🔥 нормалізація назв команд */
-function normalizeTeamName(name){
-  return name
-    .toLowerCase()
-    .replace("the ", "")
-    .replace(/\s+/g, "")
-    .trim();
-}
+/* 🔥 універсальне отримання логотипу */
+function getLogo(team){
 
-/* 🔥 отримання логотипу */
-const img = (team)=>{
-  try{
-    const file = `/logos/${normalizeTeamName(team)}.png`;
-    const p = path.join(__dirname, file);
+  const raw = team.toLowerCase().trim();
 
-    if(!fs.existsSync(p)){
-      const d = path.join(__dirname,"/logos/default.png");
-      if(!fs.existsSync(d)) return "";
-      return `data:image/png;base64,${fs.readFileSync(d).toString("base64")}`;
+  const variants = [
+    raw,
+    raw.replace("the ", ""),
+    raw.replace("team ", ""),
+    raw.replace(/\s+/g, ""),     // bcgame
+    raw.replace(/\s+/g, "-"),    // bc-game
+    raw.replace(/\s+/g, "_"),    // bc_game
+  ];
+
+  for(const v of variants){
+    const p = path.join(__dirname, `/logos/${v}.png`);
+    if(fs.existsSync(p)){
+      return `data:image/png;base64,${fs.readFileSync(p).toString("base64")}`;
     }
-
-    return `data:image/png;base64,${fs.readFileSync(p).toString("base64")}`;
-  }catch{
-    return "";
   }
-};
+
+  const d = path.join(__dirname,"/logos/default.png");
+  if(fs.existsSync(d)){
+    return `data:image/png;base64,${fs.readFileSync(d).toString("base64")}`;
+  }
+
+  return "";
+}
 
 let matchesHTML = "";
 
@@ -731,7 +733,7 @@ matchLinesRaw.forEach(line=>{
 
     <div class="team">
       <div class="logoBox">
-        <img src="${img(team1)}">
+        <img src="${getLogo(team1)}">
       </div>
       ${team1.toUpperCase()}
     </div>
@@ -744,7 +746,7 @@ matchLinesRaw.forEach(line=>{
     <div class="team">
       ${team2.toUpperCase()}
       <div class="logoBox">
-        <img src="${img(team2)}">
+        <img src="${getLogo(team2)}">
       </div>
     </div>
 
@@ -752,7 +754,7 @@ matchLinesRaw.forEach(line=>{
   `;
 });
 
-/* 🔥 завжди 1 колонка */
+/* завжди 1 колонка */
 let grid = "grid-1";
 
 /* заголовок */
