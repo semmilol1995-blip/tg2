@@ -665,7 +665,6 @@ const tournament = (lines[0] || "").toUpperCase();
 const matchLinesRaw = lines.slice(1).filter(l => l.trim());
 
 const isSchedule = matchLinesRaw.some(l => l.toLowerCase().includes("vs"));
-const isResults = matchLinesRaw.some(l => l.includes(":"));
 
 const img = (file)=>{
   const p = path.join(__dirname,file);
@@ -680,30 +679,29 @@ const img = (file)=>{
 let matchesHTML = "";
 
 matchLinesRaw.forEach(line=>{
-  line = line.toLowerCase().trim();
+  line = line.trim().toLowerCase().replace(/\s+/g," ");
 
   let team1="", team2="", center="", format="";
 
-  /* ===== SCHEDULE ===== */
   if(isSchedule){
+
     const parts = line.split(" ");
     const vsIndex = parts.indexOf("vs");
 
     team1 = parts.slice(0,vsIndex).join("");
     team2 = parts[vsIndex+1];
 
-    // 🔥 ГОЛОВНЕ — ЧАС
-    center = parts[vsIndex+2] || "";
-
+    center = parts[vsIndex+2] || ""; // 🔥 ТІЛЬКИ ЧАС
     format = (parts[vsIndex+3] || "").toUpperCase();
-  }
 
-  /* ===== RESULTS ===== */
-  if(isResults){
+  }else{
+
     const parts = line.split(" ");
+
     team1 = parts[0];
     center = parts[1]; // 🔥 2:0
     team2 = parts[2];
+
   }
 
   matchesHTML += `
@@ -732,7 +730,7 @@ matchLinesRaw.forEach(line=>{
   `;
 });
 
-/* 🔥 1 КОЛОНКА */
+/* завжди 1 колонка */
 let grid = "grid-1";
 
 let title = isSchedule ? "РОЗКЛАД МАТЧІВ" : "РЕЗУЛЬТАТИ МАТЧІВ";
