@@ -75,9 +75,15 @@ opacity:0.85;
 
 .matches{
 position:absolute;
-top:50%;
+
+/* 🔥 відступ від header */
+top:240px;
+
+/* 🔥 відступ від футера */
+bottom:80px;
+
 left:50%;
-transform:translate(-50%, -50%); /* 🔥 ІДЕАЛЬНИЙ ЦЕНТР */
+transform:translateX(-50%);
 
 width:760px;
 
@@ -85,7 +91,7 @@ display:flex;
 flex-direction:column;
 gap:10px;
 
-z-index:5;
+justify-content:center; /* 🔥 центр по вертикалі */
 }
 
 /* ===== CARD ===== */
