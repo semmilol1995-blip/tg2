@@ -740,6 +740,7 @@ matchLinesRaw.forEach(line=>{
 
   let team1="", team2="", center="", format="";
 
+  /* ===== SCHEDULE ===== */
   if(isSchedule){
 
     const parts = line.split(" ");
@@ -750,13 +751,19 @@ matchLinesRaw.forEach(line=>{
     center = parts[parts.length - 2] || "";
     team2 = parts.slice(vsIndex + 1, parts.length - 2).join(" ");
 
-  }else{
+  }
+
+  /* ===== RESULTS (🔥 FIXED) ===== */
+  else{
 
     const parts = line.split(" ");
 
-    team1 = parts[0];
-    center = parts[1];
-    team2 = parts.slice(2).join(" ");
+    // знаходимо де рахунок (2:0)
+    const scoreIndex = parts.findIndex(p => p.includes(":"));
+
+    team1 = parts.slice(0, scoreIndex).join(" ");
+    center = parts[scoreIndex] || "";
+    team2 = parts.slice(scoreIndex + 1).join(" ");
 
   }
 
