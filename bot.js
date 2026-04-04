@@ -691,7 +691,7 @@ for(let i=0;i<5;i++){
     winner ? getLogo(winner === "team1" ? team1 : team2) : getLogo("default")
   );
 }
-
+}
 
 
 
