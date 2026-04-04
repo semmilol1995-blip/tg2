@@ -594,13 +594,24 @@ html = html
 /* ============================= */
 /* NEWS7 */
 /* ============================= */
+/* ============================= */
+/* NEWS7 */
+/* ============================= */
 else if(commandKey === "news7"){
 
-const tournament = (lines[0] || "").toUpperCase();
+let vsLine = lines[0] || "";
+let tournament = lines[1] || "";
+let format = (lines[2] || "bo3").toUpperCase();
+let round = (lines[3] || "").toUpperCase();
+let scoreLine = lines[4] || "0-0";
 
-/* ========= LOGO ========= */
+const [team1, team2] = vsLine.toLowerCase().split("vs").map(s=>s.trim());
+const [score1, score2] = scoreLine.split("-").map(s=>s.trim());
 
-function getLogo(team){
+const mapLines = lines.slice(5);
+
+/* 🔥 NEW — універсальне лого */
+const getLogo = (team)=>{
 
   const raw = team.toLowerCase().trim();
 
@@ -608,9 +619,9 @@ function getLogo(team){
     raw,
     raw.replace("the ", ""),
     raw.replace("team ", ""),
-    raw.replace(/\s+/g, ""),
-    raw.replace(/\s+/g, "-"),
-    raw.replace(/\s+/g, "_"),
+    raw.replace(/\s+/g, ""),     // bcgame
+    raw.replace(/\s+/g, "-"),    // bc-game
+    raw.replace(/\s+/g, "_"),    // bc_game
   ];
 
   for(const v of variants){
@@ -626,95 +637,61 @@ function getLogo(team){
   }
 
   return "";
-}
+};
 
-/* ========= PARSE ========= */
-
-const vsLine = lines.find(l => l.toLowerCase().includes("vs")) || "";
-const scoreLine = lines.find(l => l.match(/\d+\-\d+/)) || "";
-const boLine = lines.find(l => l.toLowerCase().includes("bo")) || "";
-const roundLine = lines.find(l => l.toLowerCase().includes("round")) || "";
-
-/* TEAMS */
-let team1 = "", team2 = "";
-
-if(vsLine){
-  const parts = vsLine.toLowerCase().split("vs");
-  team1 = parts[0].trim();
-  team2 = parts[1].trim();
-}
-
-/* SCORE */
-let score = scoreLine.trim();
-
-/* BO / ROUND */
-let bo = boLine.toUpperCase();
-let round = roundLine.toUpperCase();
-
-/* WINNER */
-let s1 = 0, s2 = 0;
-
-if(score.includes("-")){
-  [s1, s2] = score.split("-").map(Number);
-}
-
-const winner = s1 > s2 ? "team1" : "team2";
-
-/* ========= MAPS ========= */
-
-let mapsHTML = "";
-
-const mapLines = lines.filter(l => l.match(/\d+:\d+/) || l.toLowerCase().includes("-"));
-
-mapLines.forEach(line =>{
-
-  const lower = line.toLowerCase();
-
-  // якщо карта не зіграна (overpass -)
-  if(lower.includes("-") && !lower.includes(":")){
-    const mapName = lower.split(" ")[0];
-
-    mapsHTML += `
-    <div class="map disabled">
-      <div class="mapName">${mapName.toUpperCase()}</div>
-    </div>
-    `;
-    return;
-  }
-
-  const parts = lower.split(" ");
-
-  const mapName = parts[0];
-  const score = parts[1] || "";
-  const winnerSide = parts[2] || "";
-
-  mapsHTML += `
-  <div class="map ${winnerSide}">
-    <div class="mapScore">${score}</div>
-    <div class="mapName">${mapName.toUpperCase()}</div>
-  </div>
-  `;
-});
-
-/* ========= HTML ========= */
+/* стару img залишаємо для карт */
+const img = (file)=>{
+  const p = path.join(__dirname,file);
+  if(!fs.existsSync(p)) return "";
+  return `data:image/png;base64,${fs.readFileSync(p).toString("base64")}`;
+};
 
 html = html
-.replace(/{{TOURNAMENT}}/g, tournament)
 .replace(/{{TEAM1}}/g, team1.toUpperCase())
 .replace(/{{TEAM2}}/g, team2.toUpperCase())
-.replace(/{{SCORE}}/g, score)
-.replace(/{{BO}}/g, bo)
-.replace(/{{ROUND}}/g, round)
 
-/* logos */
+/* 🔥 тут головний фікс */
 .replace(/{{TEAM1_LOGO}}/g, getLogo(team1))
 .replace(/{{TEAM2_LOGO}}/g, getLogo(team2))
-.replace(/{{WINNER_LOGO}}/g, getLogo(winner === "team1" ? team1 : team2))
 
-/* maps */
-.replace(/{{MAPS}}/g, mapsHTML);
+.replace(/{{TOURNAMENT}}/g, tournament.toUpperCase())
+.replace(/{{FORMAT}}/g, format)
+.replace(/{{FORMAT_CLASS}}/g, format.toLowerCase())
+.replace(/{{ROUND}}/g, round)
+.replace(/{{SCORE1}}/g, score1)
+.replace(/{{SCORE2}}/g, score2);
 
+let mapCount = format === "BO1" ? 1 : format === "BO5" ? 5 : 3;
+
+for(let i=0;i<5;i++){
+
+  const line = mapLines[i] || "";
+  const p = line.toLowerCase().split(" ");
+
+  let name = p[0] || "";
+  let score = p[1] || "";
+  let winner = p[2] || null;
+
+  let cls = "";
+
+  if(i >= mapCount) cls += " hidden";
+  if(score === "-" || !name) cls += " disabled";
+
+  if(winner === "team1") cls += " win1";
+  if(winner === "team2") cls += " win2";
+
+  html = html
+  .replace(`{{MAP${i+1}_NAME}}`, name.toUpperCase())
+  .replace(`{{MAP${i+1}_SCORE}}`, score)
+  .replace(`{{MAP${i+1}_IMAGE}}`, name ? img(`/maps/${name}.png`) : "")
+  .replace(`{{MAP${i+1}_CLASS}}`, cls)
+
+/* 🔥 І ТУТ ТЕЖ */
+  .replace(`{{MAP${i+1}_WINNER}}`,
+    winner ? getLogo(winner === "team1" ? team1 : team2) : getLogo("default")
+  );
 }
+
 
 
 
