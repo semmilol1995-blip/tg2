@@ -664,16 +664,34 @@ else if(commandKey === "news8"){
 const tournament = (lines[0] || "").toUpperCase();
 const matchLinesRaw = lines.slice(1).filter(l => l.trim());
 
+/* визначаємо режим */
 const isSchedule = matchLinesRaw.some(l => l.toLowerCase().includes("vs"));
 
-const img = (file)=>{
-  const p = path.join(__dirname,file);
-  if(!fs.existsSync(p)){
-    const d = path.join(__dirname,"/logos/default.png");
-    if(!fs.existsSync(d)) return "";
-    return `data:image/png;base64,${fs.readFileSync(d).toString("base64")}`;
+/* 🔥 нормалізація назв команд */
+function normalizeTeamName(name){
+  return name
+    .toLowerCase()
+    .replace("the ", "")
+    .replace(/\s+/g, "")
+    .trim();
+}
+
+/* 🔥 отримання логотипу */
+const img = (team)=>{
+  try{
+    const file = `/logos/${normalizeTeamName(team)}.png`;
+    const p = path.join(__dirname, file);
+
+    if(!fs.existsSync(p)){
+      const d = path.join(__dirname,"/logos/default.png");
+      if(!fs.existsSync(d)) return "";
+      return `data:image/png;base64,${fs.readFileSync(d).toString("base64")}`;
+    }
+
+    return `data:image/png;base64,${fs.readFileSync(p).toString("base64")}`;
+  }catch{
+    return "";
   }
-  return `data:image/png;base64,${fs.readFileSync(p).toString("base64")}`;
 };
 
 let matchesHTML = "";
@@ -683,6 +701,7 @@ matchLinesRaw.forEach(line=>{
 
   let team1="", team2="", center="", format="";
 
+  /* ===== SCHEDULE ===== */
   if(isSchedule){
 
     const parts = line.split(" ");
@@ -691,15 +710,18 @@ matchLinesRaw.forEach(line=>{
     team1 = parts.slice(0,vsIndex).join("");
     team2 = parts[vsIndex+1];
 
-    center = parts[vsIndex+2] || ""; // 🔥 ТІЛЬКИ ЧАС
+    center = parts[vsIndex+2] || ""; // час
     format = (parts[vsIndex+3] || "").toUpperCase();
 
-  }else{
+  }
+
+  /* ===== RESULTS ===== */
+  else{
 
     const parts = line.split(" ");
 
     team1 = parts[0];
-    center = parts[1]; // 🔥 2:0
+    center = parts[1]; // рахунок
     team2 = parts[2];
 
   }
@@ -709,7 +731,7 @@ matchLinesRaw.forEach(line=>{
 
     <div class="team">
       <div class="logoBox">
-        <img src="${img(`/logos/${team1}.png`)}">
+        <img src="${img(team1)}">
       </div>
       ${team1.toUpperCase()}
     </div>
@@ -722,7 +744,7 @@ matchLinesRaw.forEach(line=>{
     <div class="team">
       ${team2.toUpperCase()}
       <div class="logoBox">
-        <img src="${img(`/logos/${team2}.png`)}">
+        <img src="${img(team2)}">
       </div>
     </div>
 
@@ -730,11 +752,13 @@ matchLinesRaw.forEach(line=>{
   `;
 });
 
-/* завжди 1 колонка */
+/* 🔥 завжди 1 колонка */
 let grid = "grid-1";
 
+/* заголовок */
 let title = isSchedule ? "РОЗКЛАД МАТЧІВ" : "РЕЗУЛЬТАТИ МАТЧІВ";
 
+/* вставка */
 html = html
 .replace(/{{TITLE}}/g, title)
 .replace(/{{TOURNAMENT}}/g, tournament)
