@@ -664,7 +664,7 @@ else if(commandKey === "news8"){
 const tournament = (lines[0] || "").toUpperCase();
 const matchLinesRaw = lines.slice(1).filter(l => l.trim());
 
-const isSchedule = matchLinesRaw.some(l => l.includes("vs"));
+const isSchedule = matchLinesRaw.some(l => l.toLowerCase().includes("vs"));
 const isResults = matchLinesRaw.some(l => l.includes(":"));
 
 const img = (file)=>{
