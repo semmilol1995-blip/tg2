@@ -597,9 +597,9 @@ html = html
 else if(commandKey === "news7"){
 
 const tournament = (lines[0] || "").toUpperCase();
-const matchLine = (lines[1] || "").toLowerCase().trim();
 
-/* 🔥 універсальне лого */
+/* ========= LOGO ========= */
+
 function getLogo(team){
 
   const raw = team.toLowerCase().trim();
@@ -628,36 +628,91 @@ function getLogo(team){
   return "";
 }
 
-/* ===== ПАРСИНГ ===== */
-/* формат: navi 2:1 faze */
+/* ========= PARSE ========= */
 
-const parts = matchLine.split(" ");
+const vsLine = lines.find(l => l.toLowerCase().includes("vs")) || "";
+const scoreLine = lines.find(l => l.match(/\d+\-\d+/)) || "";
+const boLine = lines.find(l => l.toLowerCase().includes("bo")) || "";
+const roundLine = lines.find(l => l.toLowerCase().includes("round")) || "";
 
-const team1 = parts[0];
-const score = parts[1];
-const team2 = parts.slice(2).join(" ");
+/* TEAMS */
+let team1 = "", team2 = "";
 
-const [s1, s2] = score.split(":").map(Number);
+if(vsLine){
+  const parts = vsLine.toLowerCase().split("vs");
+  team1 = parts[0].trim();
+  team2 = parts[1].trim();
+}
+
+/* SCORE */
+let score = scoreLine.trim();
+
+/* BO / ROUND */
+let bo = boLine.toUpperCase();
+let round = roundLine.toUpperCase();
+
+/* WINNER */
+let s1 = 0, s2 = 0;
+
+if(score.includes("-")){
+  [s1, s2] = score.split("-").map(Number);
+}
 
 const winner = s1 > s2 ? "team1" : "team2";
 
-/* ===== HTML ===== */
+/* ========= MAPS ========= */
+
+let mapsHTML = "";
+
+const mapLines = lines.filter(l => l.match(/\d+:\d+/) || l.toLowerCase().includes("-"));
+
+mapLines.forEach(line =>{
+
+  const lower = line.toLowerCase();
+
+  // якщо карта не зіграна (overpass -)
+  if(lower.includes("-") && !lower.includes(":")){
+    const mapName = lower.split(" ")[0];
+
+    mapsHTML += `
+    <div class="map disabled">
+      <div class="mapName">${mapName.toUpperCase()}</div>
+    </div>
+    `;
+    return;
+  }
+
+  const parts = lower.split(" ");
+
+  const mapName = parts[0];
+  const score = parts[1] || "";
+  const winnerSide = parts[2] || "";
+
+  mapsHTML += `
+  <div class="map ${winnerSide}">
+    <div class="mapScore">${score}</div>
+    <div class="mapName">${mapName.toUpperCase()}</div>
+  </div>
+  `;
+});
+
+/* ========= HTML ========= */
 
 html = html
 .replace(/{{TOURNAMENT}}/g, tournament)
 .replace(/{{TEAM1}}/g, team1.toUpperCase())
 .replace(/{{TEAM2}}/g, team2.toUpperCase())
 .replace(/{{SCORE}}/g, score)
+.replace(/{{BO}}/g, bo)
+.replace(/{{ROUND}}/g, round)
 
 /* logos */
 .replace(/{{TEAM1_LOGO}}/g, getLogo(team1))
 .replace(/{{TEAM2_LOGO}}/g, getLogo(team2))
-
-/* winner logo */
 .replace(/{{WINNER_LOGO}}/g, getLogo(winner === "team1" ? team1 : team2))
 
-/* winner name */
-.replace(/{{WINNER_NAME}}/g, (winner === "team1" ? team1 : team2).toUpperCase());
+/* maps */
+.replace(/{{MAPS}}/g, mapsHTML);
 
 }
 
