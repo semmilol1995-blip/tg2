@@ -726,7 +726,6 @@ matchLinesRaw.forEach(line=>{
 });
 
 let grid = "grid-1";
-if(matchLinesRaw.length >= 6) grid = "grid-2";
 
 let title = isSchedule ? "РОЗКЛАД МАТЧІВ" : "РЕЗУЛЬТАТИ МАТЧІВ";
 
