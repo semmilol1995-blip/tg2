@@ -2,7 +2,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@700;800;900&display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&family=Inter:wght@600;800&display=swap" rel="stylesheet">
 
 <style>
 body{
@@ -15,7 +16,7 @@ overflow:hidden;
 position:relative;
 }
 
-/* ===== MASTER BG ===== */
+/* MASTER BG */
 .bg-gradient{
 position:absolute;
 inset:0;
@@ -29,12 +30,17 @@ z-index:0;
 position:absolute;
 inset:-25%;
 z-index:1;
+
 opacity:0.4;
 mix-blend-mode:overlay;
 filter:blur(0.5px);
+
 transform:rotate(35deg) scale(1.4) skewX(-6deg);
+
 background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 1000'%3E%3Cpath fill='white' d='M0 0 C180 120 120 320 260 1000 L0 1000 Z'/%3E%3Cpath fill='black' d='M90 -50 C300 200 140 450 360 1050 L520 1000 C380 520 420 100 250 -50 Z'/%3E%3Cpath fill='white' d='M250 -80 C500 100 300 500 600 1100 L780 1000 C600 600 650 120 420 -60 Z'/%3E%3Cpath fill='black' d='M420 -40 C700 250 500 600 820 1100 L980 1000 C780 620 860 150 650 -40 Z'/%3E%3Cpath fill='white' d='M650 -100 C900 150 700 550 1050 1100 L1220 1000 C980 650 1050 180 850 -90 Z'/%3E%3Cpath fill='black' d='M850 -50 C1150 250 950 650 1300 1100 L1500 1000 C1200 700 1250 200 1050 -50 Z'/%3E%3Cpath fill='white' d='M1100 -120 C1400 150 1200 650 1500 1100 L1600 1000 L1600 0 Z'/%3E%3C/svg%3E");
+
 background-size:cover;
+background-repeat:no-repeat;
 }
 
 .bg-glow{
@@ -47,6 +53,7 @@ height:500px;
 background:radial-gradient(ellipse at center, rgba(124,58,237,0.5), transparent);
 filter:blur(40px);
 z-index:2;
+pointer-events:none;
 }
 
 .noise{
@@ -58,147 +65,151 @@ opacity:0.06;
 z-index:3;
 }
 
-/* ===== RIGHT BLOCK ===== */
-.rightWrap{
+/* TITLE */
+.titleWrap{
 position:absolute;
-top:24px;
-right:24px;
-bottom:24px;
-width:360px;
-z-index:5;
-}
-
-.right{
-position:relative;
+top:70px;
 width:100%;
-height:100%;
-border-radius:6px;
-overflow:hidden;
-
-background:
-linear-gradient(180deg, rgba(255,255,255,0.15), transparent 40%),
-linear-gradient(180deg,#7c3aed,#5b21b6);
+text-align:center;
+z-index:10;
 }
 
-/* DARK FADE */
-.right::after{
-content:"";
+.title{
+font-family:'Oswald', sans-serif;
+font-size:64px;
+font-weight:700;
+white-space:nowrap;
+}
+
+.subtitle{
+font-family:'Oswald', sans-serif;
+font-size:32px;
+opacity:0.9;
+}
+
+/* PLAYERS */
+.players{
 position:absolute;
-inset:0;
-background:linear-gradient(180deg,transparent 50%, rgba(0,0,0,0.7) 100%);
+bottom:160px;
+width:100%;
+display:flex;
+justify-content:center;
+align-items:flex-end;
+gap:40px;
+z-index:10;
 }
 
-/* ===== PLAYER ===== */
+/* CARD */
+.card{
+width:240px;
+height:420px;
+position:relative;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:flex-end;
+}
+
+/* PLAYER */
 .player{
 position:absolute;
-bottom:60px;
-left:50%;
-transform:translateX(-50%);
-height:85%;
+bottom:110px; /* 🔥 рівно висота rating */
+height:300px;
+z-index:1;
+}
+
+/* GRADIENT FADE */
+.card::after{
+content:"";
+position:absolute;
+bottom:110px; /* 🔥 той самий рівень */
+width:100%;
+height:120px;
+
+background:linear-gradient(
+to top,
+rgba(0,0,0,1) 0%,
+rgba(0,0,0,0.7) 50%,
+transparent 100%
+);
+
 z-index:2;
 }
 
-.player img{
-max-height:100%;
-width:auto;
-object-fit:contain;
-}
-
-/* ===== TOP BAR (FIXED 1 BLOCK) ===== */
-.topBar{
+/* LOGO */
+.logoBox{
 position:absolute;
-top:12px;
-left:50%;
-transform:translateX(-50%);
-
-background:#1a1a1f;
-
-padding:6px 14px;
-
-font-size:13px;
-font-weight:900;
-letter-spacing:0.5px;
-
-white-space:nowrap;
-
-z-index:6;
-}
-
-/* ===== NAME ===== */
-.name{
-position:absolute;
-bottom:120px;
-width:100%;
-text-align:center;
-font-size:46px;
-font-weight:900;
-z-index:6;
-}
-
-.sub{
-position:absolute;
-bottom:95px;
-width:100%;
-text-align:center;
-font-size:14px;
-opacity:0.8;
-z-index:6;
-}
-
-.line{
-position:absolute;
-bottom:75px;
-left:50%;
-transform:translateX(-50%);
-width:160px;
-height:3px;
-background:#a855f7;
-}
-
-/* ===== LEFT ===== */
-.left{
-position:absolute;
-left:70px;
-top:110px;
-display:flex;
-flex-direction:column;
-gap:95px;
-z-index:6;
-}
-
-.value{
-font-size:110px;
-font-weight:800;
-transform:skewX(-6deg);
-}
-
-.bar{
-margin-top:8px;
-width:300px;
-height:32px;
+bottom:145px;
+width:50px;
+height:50px;
+background:rgba(0,0,0,0.6);
+border-radius:12px;
 display:flex;
 align-items:center;
-padding-left:18px;
-font-size:16px;
-font-weight:800;
-background:linear-gradient(90deg,#7c3aed,#a855f7);
+justify-content:center;
+z-index:3;
 }
 
-/* ===== FOOTER ===== */
+.logoBox img{
+width:30px;
+}
+
+/* NAME */
+.name{
+position:absolute;
+bottom:125px;
+font-size:20px;
+font-weight:800;
+z-index:3;
+}
+
+/* RATING BLOCK */
+.ratingBox{
+width:100%;
+height:110px;
+background:linear-gradient(180deg, #7c3aed, #4c1d95);
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+z-index:4;
+}
+
+/* RATING */
+.rating{
+font-size:56px;
+font-weight:800;
+line-height:1;
+}
+
+/* LABEL */
+.ratingLabel{
+font-size:16px;
+opacity:0.85;
+}
+
+/* CENTER */
+.card.center{
+transform:scale(1.1);
+z-index:5;
+}
+
+/* FOOTER */
 .footer{
 position:absolute;
-bottom:18px;
-left:50%;
-transform:translateX(-50%);
+bottom:15px;
+width:100%;
 display:flex;
-gap:8px;
-font-size:18px;
+justify-content:center;
+gap:6px;
+opacity:0.7;
+font-size:14px;
 z-index:10;
 }
 
 .footer img{
-width:20px;
-filter:brightness(0) invert(1);
+width:16px;
+filter:invert(1);
 }
 </style>
 </head>
@@ -210,45 +221,51 @@ filter:brightness(0) invert(1);
 <div class="bg-glow"></div>
 <div class="noise"></div>
 
-<div class="left">
-  <div>
-    <div class="value">{{STAT1}}</div>
-    <div class="bar">RATING</div>
-  </div>
-
-  <div>
-    <div class="value">{{STAT2}}</div>
-    <div class="bar">K-D</div>
-  </div>
-
-  <div>
-    <div class="value">{{STAT3}}</div>
-    <div class="bar">ADR</div>
-  </div>
+<div class="titleWrap">
+  <div class="title">{{TITLE}}</div>
+  <div class="subtitle">{{SUBTITLE}}</div>
 </div>
 
-<div class="rightWrap">
-  <div class="right">
+<div class="players">
 
-    <!-- 🔥 ТЕПЕР ЯК У РЕФІ -->
-    <div class="topBar">
-      ПОДВАЛ CS'А × BetBoom
+  <div class="card">
+    <img class="player" src="{{P1_IMG}}">
+    <div class="logoBox"><img src="{{P1_LOGO}}"></div>
+    <div class="name">{{P1_NAME}}</div>
+
+    <div class="ratingBox">
+      <div class="rating">{{P1_RATING}}</div>
+      <div class="ratingLabel">RATING 3.0</div>
     </div>
-
-    <div class="player">
-      <img src="{{PLAYER_IMAGE}}">
-    </div>
-
-    <div class="name">{{TEXT}}</div>
-    <div class="sub">ON OVERPASS</div>
-    <div class="line"></div>
-
   </div>
+
+  <div class="card center">
+    <img class="player" src="{{P2_IMG}}">
+    <div class="logoBox"><img src="{{P2_LOGO}}"></div>
+    <div class="name">{{P2_NAME}}</div>
+
+    <div class="ratingBox">
+      <div class="rating">{{P2_RATING}}</div>
+      <div class="ratingLabel">RATING 3.0</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <img class="player" src="{{P3_IMG}}">
+    <div class="logoBox"><img src="{{P3_LOGO}}"></div>
+    <div class="name">{{P3_NAME}}</div>
+
+    <div class="ratingBox">
+      <div class="rating">{{P3_RATING}}</div>
+      <div class="ratingLabel">RATING 3.0</div>
+    </div>
+  </div>
+
 </div>
 
 <div class="footer">
   <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/telegram.svg">
-  <span>t.me/zbr4_cast</span>
+  t.me/zbr4_cast
 </div>
 
 </body>
