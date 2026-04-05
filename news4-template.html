@@ -12,157 +12,37 @@ height:900px;
 font-family:'Inter', sans-serif;
 overflow:hidden;
 position:relative;
-
-/* BG як у рефа (темний + легкий фіолет) */
-background:
-radial-gradient(1200px 700px at 78% 22%, rgba(124,58,237,0.28), transparent 60%),
-#050507;
+background:#050507;
 }
 
-/* GRAIN */
+/* ===== RIGHT BG ===== */
+.bgRight{
+position:absolute;
+right:0;
+top:0;
+width:410px;
+height:100%;
+background:linear-gradient(180deg,#7c3aed 0%, #5b21b6 100%);
+z-index:1;
+}
+
+.bgRight:before{
+content:"";
+position:absolute;
+inset:0;
+background:linear-gradient(180deg, rgba(255,255,255,0.08), rgba(0,0,0,0.2));
+}
+
+/* ===== GRAIN ===== */
 .grain{
 position:absolute;
 inset:0;
 background:url("https://grainy-gradients.vercel.app/noise.svg");
-opacity:0.07;
+opacity:0.05;
 z-index:2;
-pointer-events:none;
 }
 
-/* RIGHT PANEL (чітка ширина як у рефа) */
-.right{
-position:absolute;
-top:0;
-right:0;
-width:408px;          /* підігнано під 900px канвас */
-height:100%;
-z-index:3;
-background:linear-gradient(180deg,#7c3aed 0%, #5b21b6 100%);
-}
-
-/* тонкий світлий край справа (як у рефа) */
-.right::after{
-content:"";
-position:absolute;
-right:0;
-top:0;
-width:10px;
-height:100%;
-background:linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.02));
-}
-
-/* PLAYER */
-.player{
-position:absolute;
-right:-10px;          /* легкий вихід за край як у рефа */
-bottom:0;
-height:100%;
-z-index:5;
-display:flex;
-align-items:flex-end;
-}
-
-.player img{
-height:94%;
-object-fit:contain;
-filter:drop-shadow(0 20px 40px rgba(0,0,0,0.45));
-}
-
-/* TEAM LOGO */
-.teamLogo{
-position:absolute;
-right:132px;
-bottom:252px;
-z-index:6;
-}
-
-.teamLogo img{
-width:62px;
-opacity:0.95;
-}
-
-/* NAME */
-.playerName{
-position:absolute;
-right:118px;
-bottom:146px;
-z-index:6;
-
-font-size:60px;
-font-weight:900;
-color:#fff;
-letter-spacing:2px;
-}
-
-/* SUB */
-.playerSub{
-position:absolute;
-right:120px;
-bottom:112px;
-z-index:6;
-
-font-size:18px;
-color:#cfcfe6;
-letter-spacing:2px;
-}
-
-/* підкреслення під ім’ям */
-.nameLine{
-position:absolute;
-right:118px;
-bottom:100px;
-width:220px;
-height:4px;
-background:linear-gradient(90deg,#7c3aed,#a855f7);
-z-index:6;
-}
-
-/* LEFT BLOCK */
-.left{
-position:absolute;
-left:76px;
-top:96px;
-z-index:6;
-
-display:flex;
-flex-direction:column;
-gap:74px;
-}
-
-/* STAT */
-.stat{
-display:flex;
-flex-direction:column;
-}
-
-/* VALUE (нахил як у BLAST) */
-.value{
-font-size:122px;
-font-weight:900;
-color:#f5f5f5;
-line-height:0.88;
-transform:skewX(-7deg);
-letter-spacing:1px;
-}
-
-/* BAR (довгі, товсті, як у рефа) */
-.bar{
-margin-top:16px;
-width:330px;
-height:42px;
-
-background:linear-gradient(90deg,#7c3aed 0%, #a855f7 100%);
-display:flex;
-align-items:center;
-padding-left:22px;
-
-font-size:20px;
-font-weight:800;
-letter-spacing:2px;
-color:#fff;
-}
-
-/* SIDE TEXT (вертикальний) */
+/* ===== SIDE TEXT ===== */
 .side{
 position:absolute;
 left:18px;
@@ -175,7 +55,110 @@ color:#8b8ba7;
 opacity:0.35;
 }
 
-/* FOOTER — ТВОЙ (НЕ ЧІПАВ) */
+/* ===== LEFT STATS ===== */
+.left{
+position:absolute;
+left:82px;
+top:95px;
+z-index:5;
+display:flex;
+flex-direction:column;
+gap:78px;
+}
+
+.value{
+font-size:118px;
+font-weight:900;
+color:#f1f1f1;
+line-height:0.85;
+transform:skewX(-7deg);
+letter-spacing:1px;
+}
+
+.bar{
+margin-top:14px;
+width:332px;
+height:40px;
+
+display:flex;
+align-items:center;
+padding-left:22px;
+
+font-size:18px;
+font-weight:800;
+letter-spacing:2px;
+color:white;
+
+background:linear-gradient(90deg,#7c3aed,#a855f7);
+}
+
+/* ===== PLAYER ===== */
+.playerWrap{
+position:absolute;
+right:0;
+bottom:0;
+width:410px;
+height:100%;
+z-index:4;
+overflow:hidden;
+display:flex;
+align-items:flex-end;
+justify-content:center;
+}
+
+.playerWrap img{
+height:96%;
+object-fit:contain;
+transform:translateX(48px);
+}
+
+/* ===== LOGO ===== */
+.teamLogo{
+position:absolute;
+right:132px;
+bottom:248px;
+z-index:6;
+}
+
+.teamLogo img{
+width:58px;
+opacity:0.95;
+}
+
+/* ===== NAME ===== */
+.playerName{
+position:absolute;
+right:110px;
+bottom:145px;
+z-index:6;
+
+font-size:60px;
+font-weight:900;
+letter-spacing:2px;
+color:#f1f1f1;
+}
+
+.playerSub{
+position:absolute;
+right:112px;
+bottom:110px;
+z-index:6;
+
+font-size:16px;
+letter-spacing:2px;
+color:#cfcfe6;
+}
+
+.line{
+position:absolute;
+right:110px;
+bottom:96px;
+width:220px;
+height:4px;
+background:#a855f7;
+}
+
+/* ===== FOOTER ===== */
 .footer{
 position:absolute;
 bottom:20px;
@@ -184,13 +167,11 @@ transform:translateX(-50%);
 
 display:flex;
 align-items:center;
-justify-content:center;
 gap:8px;
 
 color:white;
 font-weight:800;
 font-size:18px;
-
 z-index:10;
 }
 
@@ -203,6 +184,7 @@ filter:brightness(0) invert(1);
 
 <body>
 
+<div class="bgRight"></div>
 <div class="grain"></div>
 
 <div class="side">ПОДВАЛ CS2</div>
@@ -210,28 +192,25 @@ filter:brightness(0) invert(1);
 <!-- LEFT -->
 <div class="left">
 
-  <div class="stat">
+  <div>
     <div class="value">{{STAT1}}</div>
     <div class="bar">RATING</div>
   </div>
 
-  <div class="stat">
+  <div>
     <div class="value">{{STAT2}}</div>
     <div class="bar">SWING%</div>
   </div>
 
-  <div class="stat">
+  <div>
     <div class="value">{{STAT3}}</div>
     <div class="bar">ADR</div>
   </div>
 
 </div>
 
-<!-- RIGHT -->
-<div class="right"></div>
-
 <!-- PLAYER -->
-<div class="player">
+<div class="playerWrap">
   <img src="{{PLAYER_IMAGE}}">
 </div>
 
@@ -243,7 +222,7 @@ filter:brightness(0) invert(1);
 <!-- NAME -->
 <div class="playerName">{{TEXT}}</div>
 <div class="playerSub">ON MATCH</div>
-<div class="nameLine"></div>
+<div class="line"></div>
 
 <!-- FOOTER -->
 <div class="footer">
