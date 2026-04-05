@@ -497,11 +497,77 @@ else if(commandKey === "news3"){
   label = "";
 }
 else if(commandKey === "news4" || commandKey === "news5"){
-  textValue = lines[0] || "";
-  stat1 = lines[1] || "";
-  stat2 = lines[2] || "";
-  stat3 = lines[3] || "";
-  label = "СТАТИСТИКА";
+
+const player = (lines[0] || "").toLowerCase().trim();
+stat1 = lines[1] || "";
+stat2 = lines[2] || "";
+stat3 = lines[3] || "";
+
+/* LOAD BASES */
+const TEAM_PLAYERS = await loadTeams(); // base (з name)
+
+/* FIND PLAYER */
+let playerImg = "";
+let teamName = "";
+
+for(const team in TEAM_PLAYERS){
+
+  const found = TEAM_PLAYERS[team].find(p =>
+    p.name.toLowerCase() === player
+  );
+
+  if(found){
+    playerImg = found.img;
+    teamName = team;
+    break;
+  }
+}
+
+/* IMG PROXY */
+if(playerImg){
+  playerImg = `https://images.weserv.nl/?url=${encodeURIComponent(playerImg)}`;
+}
+
+/* LOGO */
+const getLogo = (team)=>{
+
+  const raw = team.toLowerCase().trim();
+
+  const variants = [
+    raw,
+    raw.replace("the ", ""),
+    raw.replace("team ", ""),
+    raw.replace(/\s+/g, ""),
+    raw.replace(/\s+/g, "-"),
+    raw.replace(/\s+/g, "_"),
+  ];
+
+  for(const v of variants){
+    const p = path.join(__dirname, `/logos/${v}.png`);
+    if(fs.existsSync(p)){
+      return `data:image/png;base64,${fs.readFileSync(p).toString("base64")}`;
+    }
+  }
+
+  const d = path.join(__dirname,"/logos/default.png");
+  if(fs.existsSync(d)){
+    return `data:image/png;base64,${fs.readFileSync(d).toString("base64")}`;
+  }
+
+  return "";
+};
+
+const teamLogo = teamName ? getLogo(teamName) : getLogo("default");
+
+/* HTML INJECT */
+html = html
+.replace(/{{TEXT}}/g, player.toUpperCase())
+.replace(/{{STAT1}}/g, stat1)
+.replace(/{{STAT2}}/g, stat2)
+.replace(/{{STAT3}}/g, stat3)
+.replace(/{{PLAYER_IMAGE}}/g, playerImg || "")
+.replace(/{{TEAM_LOGO}}/g, teamLogo);
+
 }
 
 /* ============================= */
