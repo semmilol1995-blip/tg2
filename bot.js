@@ -503,67 +503,39 @@ stat1 = lines[1] || "";
 stat2 = lines[2] || "";
 stat3 = lines[3] || "";
 
-/* ============================= */
-/* 🔥 LOAD ОБИДВІ БАЗИ */
-/* ============================= */
-
-const TEAM_PLAYERS = await loadTeams();   // base.json (name + img)
-const TEAM_PLAYERS2 = await loadTeams2(); // base2.json
+/* 🔥 ТА Ж ЛОГІКА ЩО В news11 */
+const TEAM_PLAYERS = await loadTeams();
 
 let playerImg = "";
 let teamName = "";
 
-/* ============================= */
-/* 🔍 1. ШУКАЄМО В base.json */
-/* ============================= */
-
+/* 🔍 ПРОХОДИМО ПО ВСІХ КОМАНДАХ */
 for(const team in TEAM_PLAYERS){
 
-  const found = TEAM_PLAYERS[team].find(p =>
-    (p?.name || "").toLowerCase() === player
-  );
+  const players = TEAM_PLAYERS[team];
 
-  if(found){
-    playerImg = found.img;
-    teamName = team;
-    break;
-  }
-}
+  if(!Array.isArray(players)) continue;
 
-/* ============================= */
-/* 🔥 2. FALLBACK → base2 */
-/* ============================= */
+  for(const p of players){
 
-if(!playerImg){
+    if(!p || !p.name) continue;
 
-  for(const team in TEAM_PLAYERS2){
-
-    const list = TEAM_PLAYERS2[team];
-
-    if(Array.isArray(list)){
-      // якщо там просто масив картинок — беремо першу
-      if(list.length){
-        playerImg = list[0];
-        teamName = team;
-        break;
-      }
+    if(p.name.toLowerCase() === player){
+      playerImg = p.img;
+      teamName = team;
+      break;
     }
   }
+
+  if(playerImg) break;
 }
 
-/* ============================= */
-/* 🖼 IMG (як news7) */
-/* ============================= */
+/* 🔥 ЯК У news11 — через weserv */
+if(playerImg){
+  playerImg = `https://images.weserv.nl/?url=${encodeURIComponent(playerImg)}`;
+}
 
-const img = (url)=>{
-  if(!url) return "";
-  return `https://images.weserv.nl/?url=${encodeURIComponent(url)}`;
-};
-
-/* ============================= */
-/* 🏳️ LOGO (1:1 news7) */
-/* ============================= */
-
+/* 🔥 ЛОГО — ТАК САМО ЯК news7 */
 const getLogo = (team)=>{
 
   const raw = (team || "").toLowerCase().trim();
@@ -592,23 +564,15 @@ const getLogo = (team)=>{
   return "";
 };
 
-/* ============================= */
-/* 🎯 FINAL */
-/* ============================= */
-
-const finalPlayerImg = img(playerImg);
 const teamLogo = getLogo(teamName);
 
-/* ============================= */
-/* 🧠 HTML */
-/* ============================= */
-
+/* 🔥 HTML */
 html = html
 .replace(/{{TEXT}}/g, player.toUpperCase())
 .replace(/{{STAT1}}/g, stat1)
 .replace(/{{STAT2}}/g, stat2)
 .replace(/{{STAT3}}/g, stat3)
-.replace(/{{PLAYER_IMAGE}}/g, finalPlayerImg)
+.replace(/{{PLAYER_IMAGE}}/g, playerImg)
 .replace(/{{TEAM_LOGO}}/g, teamLogo);
 
 }
