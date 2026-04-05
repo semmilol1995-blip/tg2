@@ -25,16 +25,13 @@ linear-gradient(to bottom, #1a0833 0%, #000 100%);
 z-index:0;
 }
 
-/* 🔥 ЗЕБРА (ФІКС) */
 .bg-zebra{
 position:absolute;
 inset:-25%;
-z-index:4; /* 🔥 ГОЛОВНИЙ ФІКС */
-
+z-index:4;
 opacity:0.4;
 mix-blend-mode:overlay;
 filter:blur(0.5px);
-
 transform:rotate(35deg) scale(1.4) skewX(-6deg);
 
 background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 1000'%3E%3Cpath fill='white' d='M0 0 C180 120 120 320 260 1000 L0 1000 Z'/%3E%3Cpath fill='black' d='M90 -50 C300 200 140 450 360 1050 L520 1000 C380 520 420 100 250 -50 Z'/%3E%3Cpath fill='white' d='M250 -80 C500 100 300 500 600 1100 L780 1000 C600 600 650 120 420 -60 Z'/%3E%3Cpath fill='black' d='M420 -40 C700 250 500 600 820 1100 L980 1000 C780 620 860 150 650 -40 Z'/%3E%3Cpath fill='white' d='M650 -100 C900 150 700 550 1050 1100 L1220 1000 C980 650 1050 180 850 -90 Z'/%3E%3Cpath fill='black' d='M850 -50 C1150 250 950 650 1300 1100 L1500 1000 C1200 700 1250 200 1050 -50 Z'/%3E%3Cpath fill='white' d='M1100 -120 C1400 150 1200 650 1500 1100 L1600 1000 L1600 0 Z'/%3E%3C/svg%3E");
@@ -52,7 +49,7 @@ opacity:0.06;
 z-index:3;
 }
 
-/* ===== LEFT ===== */
+/* ===== LEFT (STATS) ===== */
 .left{
 position:absolute;
 left:60px;
@@ -65,10 +62,9 @@ z-index:6;
 width:420px;
 }
 
-/* ===== STAT BLOCK ===== */
 .stat{
 position:relative;
-padding:22px 22px 28px 22px;
+padding:22px;
 
 background:
 linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01)),
@@ -78,7 +74,6 @@ border-radius:8px;
 overflow:hidden;
 }
 
-/* 🔥 ФІОЛЕТОВА ЛІНІЯ */
 .stat::after{
 content:"";
 position:absolute;
@@ -87,41 +82,32 @@ bottom:0;
 width:100%;
 height:3px;
 
-background:linear-gradient(
-90deg,
-#7c3aed 0%,
-#a855f7 60%,
-transparent 100%
-);
+background:linear-gradient(90deg,#7c3aed,#a855f7,transparent);
 }
 
 .label{
 font-size:15px;
-font-weight:700;
 opacity:0.6;
 letter-spacing:2px;
 }
 
 .value{
-font-size:100px;
+font-size:110px;
 font-weight:900;
-line-height:0.9;
-letter-spacing:-2px;
 transform:skewX(-6deg);
-
 background:linear-gradient(180deg,#fff,#ddd);
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
 }
 
-/* ===== RIGHT ===== */
+/* ===== RIGHT (PLAYER) ===== */
 .rightWrap{
 position:absolute;
 top:24px;
 right:24px;
 bottom:74px;
 width:360px;
-z-index:5; /* 🔥 ВИЩЕ ЗА ЗЕБРУ */
+z-index:5;
 }
 
 .right{
@@ -132,67 +118,55 @@ overflow:hidden;
 
 background:linear-gradient(180deg,#7c3aed,#5b21b6);
 
-/* 🔥 BOX SHADOW */
 box-shadow:
-0 100px 160px rgba(0,0,0,0.8),         /* глибина */
-0 10px 25px rgba(0,0,0,0.6),         /* mid shadow */
-0 0 40px rgba(124,58,237,0.35);      /* фіолетовий glow */
+0 25px 60px rgba(0,0,0,0.8),
+0 10px 25px rgba(0,0,0,0.6),
+0 0 40px rgba(124,58,237,0.35);
 }
 
-/* ===== TOP BAR ===== */
 .topBar{
-  position:absolute;
-  top:12px;
-  left:50%;
-  transform:translateX(-50%);
-  background: #503793;
-  padding:6px 16px;
-  font-weight:900;
-  font-size:20px;
-  color: #ffffff;
-  border-radius: 5px;}
-  
+position:absolute;
+top:12px;
+left:50%;
+transform:translateX(-50%);
+background:#111;
+padding:6px 16px;
+font-weight:900;
+font-size:20px;
+}
 
-/* ===== PLAYER ===== */
 .player{
 position:absolute;
 bottom:0;
 left:50%;
 transform:translateX(-50%);
 height:82%;
-z-index:2;
 }
 
 .player img{
 height:100%;
-width:auto;
 object-fit:contain;
 }
 
-/* ===== FADE ===== */
 .playerFade{
 position:absolute;
 bottom:0;
 height:50%;
 width:100%;
 background:linear-gradient(to bottom, transparent, rgba(0,0,0,0.9));
-z-index:3;
 }
 
-/* ===== TEAM LOGO ===== */
 .teamLogo{
 position:absolute;
 bottom:150px;
 left:50%;
 transform:translateX(-50%);
-z-index:4;
 }
 
 .teamLogo img{
 width:42px;
 }
 
-/* ===== TEXT ===== */
 .name{
 position:absolute;
 bottom:80px;
@@ -200,7 +174,6 @@ width:100%;
 text-align:center;
 font-size:44px;
 font-weight:900;
-z-index:5;
 }
 
 .sub{
@@ -210,7 +183,6 @@ width:100%;
 text-align:center;
 font-size:14px;
 opacity:0.7;
-z-index:5;
 }
 
 .line{
@@ -221,7 +193,6 @@ transform:translateX(-50%);
 width:150px;
 height:3px;
 background:#a855f7;
-z-index:5;
 }
 
 /* ===== FOOTER ===== */
@@ -230,10 +201,9 @@ position:absolute;
 bottom:15px;
 left:50%;
 transform:translateX(-50%);
-font-size:16px;
 display:flex;
 gap:6px;
-z-index:10;
+font-size:16px;
 }
 
 .footer img{
@@ -249,6 +219,7 @@ filter:invert(1);
 <div class="bg-zebra"></div>
 <div class="noise"></div>
 
+<!-- STATS LEFT -->
 <div class="left">
 
   <div class="stat">
@@ -268,6 +239,7 @@ filter:invert(1);
 
 </div>
 
+<!-- PLAYER RIGHT -->
 <div class="rightWrap">
   <div class="right">
 
