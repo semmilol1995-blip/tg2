@@ -7,8 +7,8 @@
 <style>
 body{
 margin:0;
-width:2048px;
-height:2048px;
+width:900px;
+height:900px;
 background:#050507;
 font-family:'Inter', sans-serif;
 overflow:hidden;
@@ -28,7 +28,7 @@ background:#050507;
 position:absolute;
 left:0;
 top:0;
-width:1300px;
+width:570px;
 height:100%;
 background:linear-gradient(90deg,#050507 72%, transparent);
 z-index:2;
@@ -37,10 +37,10 @@ z-index:2;
 /* RIGHT BLOCK */
 .rightWrap{
 position:absolute;
-top:55px;
-right:55px;
-bottom:55px;
-width:850px;
+top:24px;
+right:24px;
+bottom:24px;
+width:373px;
 z-index:3;
 }
 
@@ -48,7 +48,7 @@ z-index:3;
 position:relative;
 width:100%;
 height:100%;
-border-radius:8px;
+border-radius:4px;
 overflow:hidden;
 
 background:
@@ -56,7 +56,6 @@ linear-gradient(180deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.05) 25%, t
 linear-gradient(180deg,#7c3aed 0%, #5b21b6 100%);
 }
 
-/* DARK BOTTOM */
 .right::after{
 content:"";
 position:absolute;
@@ -85,61 +84,61 @@ z-index:2;
 .player img{
 height:100%;
 object-fit:contain;
-filter:drop-shadow(0 20px 80px rgba(0,0,0,0.6));
+filter:drop-shadow(0 10px 30px rgba(0,0,0,0.6));
 }
 
 /* TOP BAR */
 .topBar{
 position:absolute;
-top:30px;
+top:13px;
 left:50%;
 transform:translateX(-50%);
 display:flex;
-gap:20px;
+gap:9px;
 z-index:5;
 }
 
 .topLeft{
 background:#1a1a1f;
-padding:12px 20px;
-font-size:32px;
+padding:5px 9px;
+font-size:14px;
 font-weight:800;
 }
 
 .topRight{
-font-size:42px;
+font-size:18px;
 font-weight:900;
 }
 
 /* NAME */
 .name{
 position:absolute;
-bottom:260px;
+bottom:115px;
 width:100%;
 text-align:center;
-font-size:110px;
+font-size:48px;
 font-weight:900;
 z-index:5;
 }
 
 .sub{
 position:absolute;
-bottom:200px;
+bottom:90px;
 width:100%;
 text-align:center;
-font-size:36px;
-letter-spacing:3px;
+font-size:16px;
+letter-spacing:2px;
 opacity:0.8;
 z-index:5;
 }
 
 .line{
 position:absolute;
-bottom:160px;
+bottom:70px;
 left:50%;
 transform:translateX(-50%);
-width:420px;
-height:8px;
+width:180px;
+height:4px;
 background:#a855f7;
 z-index:5;
 }
@@ -147,60 +146,60 @@ z-index:5;
 /* LEFT STATS */
 .left{
 position:absolute;
-left:160px;
-top:200px;
+left:70px;
+top:88px;
 display:flex;
 flex-direction:column;
-gap:160px;
+gap:70px;
 z-index:4;
 }
 
 .value{
-font-size:250px;
+font-size:110px;
 font-weight:800;
 line-height:0.85;
 transform:skewX(-6deg);
 }
 
 .bar{
-margin-top:20px;
-width:680px;
-height:75px;
+margin-top:8px;
+width:300px;
+height:32px;
 display:flex;
 align-items:center;
-padding-left:40px;
-font-size:36px;
+padding-left:18px;
+font-size:16px;
 font-weight:800;
-letter-spacing:3px;
+letter-spacing:2px;
 background:linear-gradient(90deg,#7c3aed,#a855f7);
 }
 
 /* SIDE TEXT */
 .side{
 position:absolute;
-left:40px;
+left:18px;
 top:50%;
 transform:translateY(-50%) rotate(-90deg);
-font-size:28px;
-letter-spacing:10px;
+font-size:12px;
+letter-spacing:6px;
 opacity:0.25;
 }
 
 /* FOOTER */
 .footer{
 position:absolute;
-bottom:40px;
+bottom:18px;
 left:50%;
 transform:translateX(-50%);
 display:flex;
-gap:12px;
+gap:8px;
 font-weight:800;
-font-size:36px;
+font-size:18px;
 z-index:10;
 }
 
 .footer img{
-width:40px;
+width:20px;
 filter:brightness(0) invert(1);
 }
 </style>
@@ -213,7 +212,6 @@ filter:brightness(0) invert(1);
 
 <div class="side">ПОДВАЛ CS2</div>
 
-<!-- LEFT -->
 <div class="left">
   <div>
     <div class="value">{{STAT1}}</div>
@@ -236,7 +234,6 @@ filter:brightness(0) invert(1);
   </div>
 </div>
 
-<!-- RIGHT -->
 <div class="rightWrap">
   <div class="right">
     <div class="texture"></div>
@@ -257,7 +254,6 @@ filter:brightness(0) invert(1);
   </div>
 </div>
 
-<!-- FOOTER -->
 <div class="footer">
   <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/telegram.svg">
   <span>t.me/zbr4_cast</span>
