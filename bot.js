@@ -894,7 +894,11 @@ if(commandKey !== "news6" && commandKey !== "news8" && commandKey !== "news11" &
 
 html = html
 .replace(/{{IMAGE}}/g, imageBase64)
-.replace(/{{PLAYER_IMAGE}}/g, imageBase64)
+.replace(/{{PLAYER_IMAGE}}/g,
+  (commandKey === "news4" || commandKey === "news5")
+    ? html.includes("{{PLAYER_IMAGE}}") ? "{{PLAYER_IMAGE}}" : ""
+    : imageBase64
+)
 .replace(/{{LABEL}}/g, label.toUpperCase())
 .replace(/{{TEXT}}/g, textValue.toUpperCase())
 .replace(/{{AUTHOR}}/g, author.toUpperCase())
