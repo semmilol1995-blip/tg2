@@ -15,7 +15,7 @@ overflow:hidden;
 position:relative;
 }
 
-/* ===== BG (ТВОЯ ЗЕБРА ПОВЕРНУТА) ===== */
+/* ===== BG ===== */
 .bg-gradient{
 position:absolute;
 inset:0;
@@ -25,10 +25,12 @@ linear-gradient(to bottom, #1a0833 0%, #000 100%);
 z-index:0;
 }
 
+/* 🔥 ЗЕБРА (ФІКС) */
 .bg-zebra{
 position:absolute;
 inset:-25%;
-z-index:1;
+z-index:4; /* 🔥 ГОЛОВНИЙ ФІКС */
+
 opacity:0.4;
 mix-blend-mode:overlay;
 filter:blur(0.5px);
@@ -50,12 +52,12 @@ opacity:0.06;
 z-index:3;
 }
 
-/* ===== LEFT (ЦЕНТРУВАННЯ ВІДНОСНО ПРАВОГО БЛОКУ) ===== */
+/* ===== LEFT ===== */
 .left{
 position:absolute;
 left:60px;
 top:50%;
-transform:translateY(-50%); /* 🔥 ГОЛОВНИЙ ФІКС */
+transform:translateY(-50%);
 display:flex;
 flex-direction:column;
 gap:30px;
@@ -63,7 +65,7 @@ z-index:6;
 width:420px;
 }
 
-/* ===== STAT ===== */
+/* ===== STAT BLOCK ===== */
 .stat{
 position:relative;
 padding:22px 22px 28px 22px;
@@ -101,7 +103,7 @@ letter-spacing:2px;
 }
 
 .value{
-font-size:90px;
+font-size:100px;
 font-weight:900;
 line-height:0.9;
 letter-spacing:-2px;
@@ -119,6 +121,7 @@ top:24px;
 right:24px;
 bottom:74px;
 width:360px;
+z-index:5; /* 🔥 ВИЩЕ ЗА ЗЕБРУ */
 }
 
 .right{
@@ -129,25 +132,28 @@ overflow:hidden;
 background:linear-gradient(180deg,#7c3aed,#5b21b6);
 }
 
-/* TOP BAR */
+/* ===== TOP BAR ===== */
 .topBar{
-position:absolute;
-top:12px;
-left:50%;
-transform:translateX(-50%);
-background:#111;
-padding:6px 16px;
-font-weight:900;
-font-size:20px;
-}
+  position:absolute;
+  top:12px;
+  left:50%;
+  transform:translateX(-50%);
+  background: #ffffff;
+  padding:6px 16px;
+  font-weight:900;
+  font-size:20px;
+  color: #000000;
+  border-radius: 5px;}
+  
 
-/* PLAYER */
+/* ===== PLAYER ===== */
 .player{
 position:absolute;
 bottom:0;
 left:50%;
 transform:translateX(-50%);
-height:82%; /* трохи менше щоб не мильнив */
+height:82%;
+z-index:2;
 }
 
 .player img{
@@ -156,28 +162,30 @@ width:auto;
 object-fit:contain;
 }
 
-/* FADE */
+/* ===== FADE ===== */
 .playerFade{
 position:absolute;
 bottom:0;
 height:50%;
 width:100%;
 background:linear-gradient(to bottom, transparent, rgba(0,0,0,0.9));
+z-index:3;
 }
 
-/* TEAM LOGO */
+/* ===== TEAM LOGO ===== */
 .teamLogo{
 position:absolute;
 bottom:150px;
 left:50%;
 transform:translateX(-50%);
+z-index:4;
 }
 
 .teamLogo img{
 width:42px;
 }
 
-/* TEXT */
+/* ===== TEXT ===== */
 .name{
 position:absolute;
 bottom:80px;
@@ -185,6 +193,7 @@ width:100%;
 text-align:center;
 font-size:44px;
 font-weight:900;
+z-index:5;
 }
 
 .sub{
@@ -194,6 +203,7 @@ width:100%;
 text-align:center;
 font-size:14px;
 opacity:0.7;
+z-index:5;
 }
 
 .line{
@@ -204,9 +214,10 @@ transform:translateX(-50%);
 width:150px;
 height:3px;
 background:#a855f7;
+z-index:5;
 }
 
-/* FOOTER */
+/* ===== FOOTER ===== */
 .footer{
 position:absolute;
 bottom:15px;
@@ -215,6 +226,7 @@ transform:translateX(-50%);
 font-size:16px;
 display:flex;
 gap:6px;
+z-index:10;
 }
 
 .footer img{
