@@ -84,13 +84,28 @@ linear-gradient(180deg, rgba(255,255,255,0.15), transparent 40%),
 linear-gradient(180deg,#7c3aed,#5b21b6);
 }
 
+/* ===== TOP BAR (ПОВЕРНУЛИ) ===== */
+.topBar{
+position:absolute;
+top:10px;
+left:50%;
+transform:translateX(-50%);
+background:#1a1a1f;
+padding:6px 14px;
+font-size:23px;
+font-weight:900;
+white-space:nowrap;
+border-radius: 5px;
+z-index:7;
+}
+
 /* ===== PLAYER ===== */
 .player{
 position:absolute;
 bottom:0;
 left:50%;
 transform:translateX(-50%);
-height:86%; /* 🔥 FIX */
+height:86%;
 z-index:2;
 }
 
@@ -175,7 +190,7 @@ z-index:6;
 }
 
 .value{
-font-size:110px;
+font-size:80px;
 font-weight:800;
 transform:skewX(-6deg);
 }
@@ -238,13 +253,17 @@ filter:brightness(0) invert(1);
 <div class="rightWrap">
   <div class="right">
 
+    <!-- 🔥 TOP BAR ПОВЕРНУТО -->
+    <div class="topBar">
+      СТАТИСТИКА
+    </div>
+
     <div class="player">
       <img src="{{PLAYER_IMAGE}}">
     </div>
 
     <div class="playerFade"></div>
 
-    <!-- 🔥 TEAM LOGO -->
     <div class="teamLogo">
       <img src="{{TEAM_LOGO}}">
     </div>
