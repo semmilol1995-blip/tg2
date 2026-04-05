@@ -498,33 +498,24 @@ else if(commandKey === "news3"){
 }
 else if(commandKey === "news4" || commandKey === "news5"){
 
-/* ============================= */
-/* 🧠 INPUT */
-/* ============================= */
-
 const player = (lines[0] || "").toLowerCase().trim();
 stat1 = lines[1] || "";
 stat2 = lines[2] || "";
 stat3 = lines[3] || "";
 
 /* ============================= */
-/* 💀 ВАЖЛИВО: ІГНОРУЄМО ФОТО З TG */
+/* 🔥 LOAD ОБИДВІ БАЗИ */
 /* ============================= */
 
-imageUrl = ""; // 🔥 більше ніякі прикріплені фото не впливають
-
-/* ============================= */
-/* 🔥 BASE (як news7) */
-/* ============================= */
-
-const TEAM_PLAYERS = await loadTeams();
-
-/* ============================= */
-/* 🔍 FIND PLAYER */
-/* ============================= */
+const TEAM_PLAYERS = await loadTeams();   // base.json (name + img)
+const TEAM_PLAYERS2 = await loadTeams2(); // base2.json
 
 let playerImg = "";
 let teamName = "";
+
+/* ============================= */
+/* 🔍 1. ШУКАЄМО В base.json */
+/* ============================= */
 
 for(const team in TEAM_PLAYERS){
 
@@ -536,6 +527,27 @@ for(const team in TEAM_PLAYERS){
     playerImg = found.img;
     teamName = team;
     break;
+  }
+}
+
+/* ============================= */
+/* 🔥 2. FALLBACK → base2 */
+/* ============================= */
+
+if(!playerImg){
+
+  for(const team in TEAM_PLAYERS2){
+
+    const list = TEAM_PLAYERS2[team];
+
+    if(Array.isArray(list)){
+      // якщо там просто масив картинок — беремо першу
+      if(list.length){
+        playerImg = list[0];
+        teamName = team;
+        break;
+      }
+    }
   }
 }
 
@@ -581,7 +593,7 @@ const getLogo = (team)=>{
 };
 
 /* ============================= */
-/* 🎯 FINAL DATA */
+/* 🎯 FINAL */
 /* ============================= */
 
 const finalPlayerImg = img(playerImg);
