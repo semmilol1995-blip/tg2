@@ -9,28 +9,32 @@ body{
 margin:0;
 width:900px;
 height:900px;
+background:#06060a;
 font-family:'Inter', sans-serif;
 overflow:hidden;
 position:relative;
-background:#050507;
 }
 
-/* ===== RIGHT BG ===== */
-.bgRight{
+/* ===== RIGHT PANEL ===== */
+.right{
 position:absolute;
 right:0;
 top:0;
-width:410px;
+width:420px;
 height:100%;
-background:linear-gradient(180deg,#7c3aed 0%, #5b21b6 100%);
+background:linear-gradient(180deg,#7c3aed,#5b21b6);
 z-index:1;
 }
 
-.bgRight:before{
-content:"";
+/* ===== LEFT DARK OVERLAY ===== */
+.leftFade{
 position:absolute;
-inset:0;
-background:linear-gradient(180deg, rgba(255,255,255,0.08), rgba(0,0,0,0.2));
+left:0;
+top:0;
+width:580px;
+height:100%;
+background:linear-gradient(90deg,#050507 60%, transparent);
+z-index:2;
 }
 
 /* ===== GRAIN ===== */
@@ -38,8 +42,8 @@ background:linear-gradient(180deg, rgba(255,255,255,0.08), rgba(0,0,0,0.2));
 position:absolute;
 inset:0;
 background:url("https://grainy-gradients.vercel.app/noise.svg");
-opacity:0.05;
-z-index:2;
+opacity:0.06;
+z-index:3;
 }
 
 /* ===== SIDE TEXT ===== */
@@ -48,114 +52,128 @@ position:absolute;
 left:18px;
 top:50%;
 transform:translateY(-50%) rotate(-90deg);
-
-font-size:12px;
-letter-spacing:7px;
+font-size:13px;
+letter-spacing:6px;
 color:#8b8ba7;
 opacity:0.35;
+z-index:4;
+}
+
+/* ===== TOP BAR ===== */
+.topBar{
+position:absolute;
+top:30px;
+right:140px;
+display:flex;
+align-items:center;
+gap:10px;
+z-index:6;
+}
+
+.topLeft{
+background:#1a1a1f;
+padding:6px 10px;
+font-weight:800;
+font-size:14px;
+}
+
+.topRight{
+font-size:22px;
+font-weight:900;
 }
 
 /* ===== LEFT STATS ===== */
 .left{
 position:absolute;
-left:82px;
-top:95px;
+left:80px;
+top:80px;
 z-index:5;
 display:flex;
 flex-direction:column;
-gap:78px;
+gap:90px;
 }
 
 .value{
-font-size:118px;
+font-size:130px;
 font-weight:900;
 color:#f1f1f1;
-line-height:0.85;
-transform:skewX(-7deg);
-letter-spacing:1px;
+line-height:0.8;
+transform:skewX(-8deg);
 }
 
 .bar{
-margin-top:14px;
-width:332px;
-height:40px;
-
+margin-top:16px;
+width:360px;
+height:44px;
 display:flex;
 align-items:center;
 padding-left:22px;
-
-font-size:18px;
+font-size:20px;
 font-weight:800;
 letter-spacing:2px;
-color:white;
-
 background:linear-gradient(90deg,#7c3aed,#a855f7);
 }
 
 /* ===== PLAYER ===== */
-.playerWrap{
+.player{
 position:absolute;
 right:0;
 bottom:0;
-width:410px;
+width:420px;
 height:100%;
-z-index:4;
-overflow:hidden;
 display:flex;
 align-items:flex-end;
 justify-content:center;
+overflow:hidden;
+z-index:4;
 }
 
-.playerWrap img{
-height:96%;
-object-fit:contain;
-transform:translateX(48px);
-}
-
-/* ===== LOGO ===== */
-.teamLogo{
-position:absolute;
-right:132px;
-bottom:248px;
-z-index:6;
-}
-
-.teamLogo img{
-width:58px;
-opacity:0.95;
+.player img{
+height:100%;
+object-fit:cover;
+transform:translateX(60px);
 }
 
 /* ===== NAME ===== */
-.playerName{
+.name{
 position:absolute;
-right:110px;
-bottom:145px;
-z-index:6;
-
-font-size:60px;
+right:120px;
+bottom:150px;
+font-size:64px;
 font-weight:900;
-letter-spacing:2px;
-color:#f1f1f1;
+z-index:6;
 }
 
-.playerSub{
+.sub{
 position:absolute;
-right:112px;
-bottom:110px;
-z-index:6;
-
-font-size:16px;
+right:120px;
+bottom:115px;
+font-size:18px;
 letter-spacing:2px;
 color:#cfcfe6;
+z-index:6;
 }
 
 .line{
 position:absolute;
-right:110px;
-bottom:96px;
-width:220px;
+right:120px;
+bottom:100px;
+width:230px;
 height:4px;
 background:#a855f7;
+z-index:6;
+}
+
+/* ===== LOGO ===== */
+.logo{
+position:absolute;
+right:160px;
+bottom:260px;
+z-index:6;
+}
+
+.logo img{
+width:70px;
 }
 
 /* ===== FOOTER ===== */
@@ -164,34 +182,35 @@ position:absolute;
 bottom:20px;
 left:50%;
 transform:translateX(-50%);
-
 display:flex;
-align-items:center;
 gap:8px;
-
-color:white;
 font-weight:800;
-font-size:18px;
 z-index:10;
 }
 
 .footer img{
 width:20px;
-filter:brightness(0) invert(1);
+filter:invert(1);
 }
 </style>
 </head>
 
 <body>
 
-<div class="bgRight"></div>
+<div class="right"></div>
+<div class="leftFade"></div>
 <div class="grain"></div>
 
 <div class="side">ПОДВАЛ CS2</div>
 
-<!-- LEFT -->
-<div class="left">
+<!-- TOP -->
+<div class="topBar">
+  <div class="topLeft">ПОДВАЛ CS'А</div>
+  <div class="topRight">× BetBoom</div>
+</div>
 
+<!-- STATS -->
+<div class="left">
   <div>
     <div class="value">{{STAT1}}</div>
     <div class="bar">RATING</div>
@@ -206,22 +225,21 @@ filter:brightness(0) invert(1);
     <div class="value">{{STAT3}}</div>
     <div class="bar">ADR</div>
   </div>
-
 </div>
 
 <!-- PLAYER -->
-<div class="playerWrap">
+<div class="player">
   <img src="{{PLAYER_IMAGE}}">
 </div>
 
 <!-- LOGO -->
-<div class="teamLogo">
+<div class="logo">
   <img src="{{TEAM_LOGO}}">
 </div>
 
 <!-- NAME -->
-<div class="playerName">{{TEXT}}</div>
-<div class="playerSub">ON MATCH</div>
+<div class="name">{{TEXT}}</div>
+<div class="sub">ON MATCH</div>
 <div class="line"></div>
 
 <!-- FOOTER -->
