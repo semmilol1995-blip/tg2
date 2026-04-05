@@ -15,7 +15,7 @@ overflow:hidden;
 position:relative;
 }
 
-/* ===== BG ===== */
+/* BG */
 .bg-gradient{
 position:absolute;
 inset:0;
@@ -33,20 +33,8 @@ opacity:0.4;
 mix-blend-mode:overlay;
 filter:blur(0.5px);
 transform:rotate(35deg) scale(1.4) skewX(-6deg);
-background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 1000'%3E%3Cpath fill='white' d='M0 0 C180 120 120 320 260 1000 L0 1000 Z'/%3E%3Cpath fill='black' d='M90 -50 C300 200 140 450 360 1050 L520 1000 C380 520 420 100 250 -50 Z'/%3E%3Cpath fill='white' d='M250 -80 C500 100 300 500 600 1100 L780 1000 C600 600 650 120 420 -60 Z'/%3E%3Cpath fill='black' d='M420 -40 C700 250 500 600 820 1100 L980 1000 C780 620 860 150 650 -40 Z'/%3E%3Cpath fill='white' d='M650 -100 C900 150 700 550 1050 1100 L1220 1000 C980 650 1050 180 850 -90 Z'/%3E%3Cpath fill='black' d='M850 -50 C1150 250 950 650 1300 1100 L1500 1000 C1200 700 1250 200 1050 -50 Z'/%3E%3Cpath fill='white' d='M1100 -120 C1400 150 1200 650 1500 1100 L1600 1000 L1600 0 Z'/%3E%3C/svg%3E");
+background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 1000'%3E...");
 background-size:cover;
-}
-
-.bg-glow{
-position:absolute;
-top:-120px;
-left:50%;
-transform:translateX(-50%);
-width:900px;
-height:500px;
-background:radial-gradient(ellipse at center, rgba(124,58,237,0.5), transparent);
-filter:blur(40px);
-z-index:2;
 }
 
 .noise{
@@ -58,33 +46,84 @@ opacity:0.06;
 z-index:3;
 }
 
-/* ===== RIGHT ===== */
+/* LEFT */
+.left{
+position:absolute;
+left:60px;
+top:90px;
+display:flex;
+flex-direction:column;
+gap:30px;
+z-index:6;
+width:420px;
+}
+
+/* 🔥 STAT BLOCK */
+.stat{
+position:relative;
+padding:20px 20px 26px 20px;
+
+background:
+linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01)),
+rgba(0,0,0,0.35);
+
+border-radius:6px;
+overflow:hidden;
+}
+
+/* нижня полоска */
+.stat::after{
+content:"";
+position:absolute;
+left:0;
+bottom:0;
+width:100%;
+height:3px;
+
+background:linear-gradient(
+90deg,
+#ffffff 0%,
+#cfcfcf 40%,
+transparent 100%
+);
+}
+
+.label{
+font-size:15px;
+font-weight:700;
+opacity:0.6;
+letter-spacing:2px;
+}
+
+.value{
+font-size:110px;
+font-weight:900;
+line-height:0.9;
+letter-spacing:-2px;
+transform:skewX(-6deg);
+
+background:linear-gradient(180deg,#fff,#ddd);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+/* RIGHT */
 .rightWrap{
 position:absolute;
 top:24px;
 right:24px;
 bottom:74px;
 width:360px;
-z-index:5;
 }
 
 .right{
 position:relative;
-width:100%;
 height:100%;
 border-radius:10px;
 overflow:hidden;
-
-display:flex;
-flex-direction:column;
-justify-content:flex-end;
-
-background:
-linear-gradient(180deg, rgba(255,255,255,0.15), transparent 40%),
-linear-gradient(180deg,#7c3aed,#5b21b6);
+background:linear-gradient(180deg,#7c3aed,#5b21b6);
 }
 
-/* ===== TOP BAR (ПОВЕРНУЛИ) ===== */
 .topBar{
 position:absolute;
 top:10px;
@@ -92,69 +131,49 @@ left:50%;
 transform:translateX(-50%);
 background:#1a1a1f;
 padding:6px 14px;
-font-size:23px;
 font-weight:900;
-white-space:nowrap;
-border-radius: 5px;
-z-index:7;
+font-size:23px;
 }
 
-/* ===== PLAYER ===== */
 .player{
 position:absolute;
 bottom:0;
 left:50%;
 transform:translateX(-50%);
 height:86%;
-z-index:2;
 }
 
 .player img{
 height:100%;
-width:auto;
 object-fit:contain;
 }
 
-/* ===== FADE ===== */
 .playerFade{
 position:absolute;
 bottom:0;
-left:0;
-right:0;
-height:55%;
-background:linear-gradient(
-to bottom,
-rgba(0,0,0,0) 0%,
-rgba(0,0,0,0.4) 40%,
-rgba(0,0,0,0.9) 100%
-);
-z-index:3;
+height:50%;
+width:100%;
+background:linear-gradient(to bottom, transparent, black);
 }
 
-/* ===== TEAM LOGO ===== */
 .teamLogo{
 position:absolute;
 bottom:150px;
 left:50%;
 transform:translateX(-50%);
-z-index:6;
 }
 
 .teamLogo img{
-width:42px;
-height:42px;
-object-fit:contain;
+width:40px;
 }
 
-/* ===== NAME ===== */
 .name{
 position:absolute;
-bottom:85px;
+bottom:80px;
 width:100%;
 text-align:center;
-font-size:46px;
+font-size:44px;
 font-weight:900;
-z-index:6;
 }
 
 .sub{
@@ -163,8 +182,7 @@ bottom:60px;
 width:100%;
 text-align:center;
 font-size:14px;
-opacity:0.8;
-z-index:6;
+opacity:0.7;
 }
 
 .line{
@@ -172,56 +190,25 @@ position:absolute;
 bottom:45px;
 left:50%;
 transform:translateX(-50%);
-width:160px;
+width:150px;
 height:3px;
 background:#a855f7;
-z-index:6;
 }
 
-/* ===== LEFT ===== */
-.left{
-position:absolute;
-left:70px;
-top:110px;
-display:flex;
-flex-direction:column;
-gap:95px;
-z-index:6;
-}
-
-.value{
-font-size:80px;
-font-weight:800;
-transform:skewX(-6deg);
-}
-
-.bar{
-margin-top:8px;
-width:300px;
-height:32px;
-display:flex;
-align-items:center;
-padding-left:18px;
-font-size:16px;
-font-weight:800;
-background:linear-gradient(90deg,#7c3aed,#a855f7);
-}
-
-/* ===== FOOTER ===== */
+/* FOOTER */
 .footer{
 position:absolute;
-bottom:18px;
+bottom:15px;
 left:50%;
 transform:translateX(-50%);
+font-size:16px;
 display:flex;
-gap:8px;
-font-size:18px;
-z-index:10;
+gap:6px;
 }
 
 .footer img{
-width:20px;
-filter:brightness(0) invert(1);
+width:18px;
+filter:invert(1);
 }
 </style>
 </head>
@@ -230,33 +217,31 @@ filter:brightness(0) invert(1);
 
 <div class="bg-gradient"></div>
 <div class="bg-zebra"></div>
-<div class="bg-glow"></div>
 <div class="noise"></div>
 
 <div class="left">
-  <div>
+
+  <div class="stat">
+    <div class="label">RATING 3.0</div>
     <div class="value">{{STAT1}}</div>
-    <div class="bar">RATING 3.0</div>
   </div>
 
-  <div>
+  <div class="stat">
+    <div class="label">K-D</div>
     <div class="value">{{STAT2}}</div>
-    <div class="bar">K-D</div>
   </div>
 
-  <div>
+  <div class="stat">
+    <div class="label">ADR</div>
     <div class="value">{{STAT3}}</div>
-    <div class="bar">ADR</div>
   </div>
+
 </div>
 
 <div class="rightWrap">
   <div class="right">
 
-    <!-- 🔥 TOP BAR ПОВЕРНУТО -->
-    <div class="topBar">
-      СТАТИСТИКА
-    </div>
+    <div class="topBar">СТАТИСТИКА</div>
 
     <div class="player">
       <img src="{{PLAYER_IMAGE}}">
