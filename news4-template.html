@@ -7,8 +7,8 @@
 <style>
 body{
 margin:0;
-width:900px;
-height:900px;
+width:2048px;
+height:2048px;
 background:#050507;
 font-family:'Inter', sans-serif;
 overflow:hidden;
@@ -16,60 +16,55 @@ position:relative;
 color:white;
 }
 
-/* ===== LEFT BACKGROUND ===== */
+/* LEFT BG */
 .leftBg{
 position:absolute;
-left:0;
-top:0;
-width:100%;
-height:100%;
+inset:0;
 background:#050507;
 }
 
-/* LEFT FADE (як у рефі) */
+/* LEFT FADE */
 .leftFade{
 position:absolute;
 left:0;
 top:0;
-width:580px;
+width:1300px;
 height:100%;
-background:linear-gradient(90deg,#050507 70%, transparent);
+background:linear-gradient(90deg,#050507 72%, transparent);
 z-index:2;
 }
 
-/* ===== RIGHT BLOCK (ГОЛОВНЕ) ===== */
+/* RIGHT BLOCK */
 .rightWrap{
 position:absolute;
-top:20px;
-right:20px;
-bottom:20px;
-width:380px;
+top:55px;
+right:55px;
+bottom:55px;
+width:850px;
 z-index:3;
 }
 
-/* сам фіолетовий блок */
 .right{
 position:relative;
 width:100%;
 height:100%;
-border-radius:6px;
+border-radius:8px;
 overflow:hidden;
 
-/* градієнти як у BLAST */
 background:
-linear-gradient(180deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.05) 25%, transparent 50%),
+linear-gradient(180deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.05) 25%, transparent 55%),
 linear-gradient(180deg,#7c3aed 0%, #5b21b6 100%);
 }
 
-/* затемнення знизу */
+/* DARK BOTTOM */
 .right::after{
 content:"";
 position:absolute;
 inset:0;
-background:linear-gradient(180deg,transparent 50%, rgba(0,0,0,0.65) 100%);
+background:linear-gradient(180deg,transparent 55%, rgba(0,0,0,0.7) 100%);
 }
 
-/* texture */
+/* TEXTURE */
 .texture{
 position:absolute;
 inset:0;
@@ -77,136 +72,135 @@ opacity:0.08;
 background:url("https://grainy-gradients.vercel.app/noise.svg");
 }
 
-/* ===== PLAYER ===== */
+/* PLAYER */
 .player{
 position:absolute;
 bottom:0;
 left:50%;
 transform:translateX(-50%);
-height:105%;
+height:110%;
 z-index:2;
 }
 
 .player img{
 height:100%;
 object-fit:contain;
-filter:drop-shadow(0 10px 40px rgba(0,0,0,0.6));
+filter:drop-shadow(0 20px 80px rgba(0,0,0,0.6));
 }
 
-/* ===== TOP BAR ===== */
+/* TOP BAR */
 .topBar{
 position:absolute;
-top:14px;
+top:30px;
 left:50%;
 transform:translateX(-50%);
 display:flex;
-gap:10px;
+gap:20px;
 z-index:5;
 }
 
 .topLeft{
 background:#1a1a1f;
-padding:6px 10px;
-font-size:14px;
+padding:12px 20px;
+font-size:32px;
 font-weight:800;
 }
 
 .topRight{
-font-size:20px;
+font-size:42px;
 font-weight:900;
 }
 
-/* ===== NAME ===== */
+/* NAME */
 .name{
 position:absolute;
-bottom:120px;
+bottom:260px;
 width:100%;
 text-align:center;
-font-size:56px;
+font-size:110px;
 font-weight:900;
 z-index:5;
 }
 
 .sub{
 position:absolute;
-bottom:90px;
+bottom:200px;
 width:100%;
 text-align:center;
-font-size:16px;
-letter-spacing:2px;
+font-size:36px;
+letter-spacing:3px;
 opacity:0.8;
 z-index:5;
 }
 
 .line{
 position:absolute;
-bottom:70px;
+bottom:160px;
 left:50%;
 transform:translateX(-50%);
-width:200px;
-height:4px;
+width:420px;
+height:8px;
 background:#a855f7;
 z-index:5;
 }
 
-/* ===== LEFT STATS ===== */
+/* LEFT STATS */
 .left{
 position:absolute;
-left:70px;
-top:90px;
+left:160px;
+top:200px;
 display:flex;
 flex-direction:column;
-gap:70px;
+gap:160px;
 z-index:4;
 }
 
 .value{
-font-size:110px;
+font-size:250px;
 font-weight:800;
-line-height:0.9;
+line-height:0.85;
 transform:skewX(-6deg);
 }
 
 .bar{
-margin-top:10px;
-width:300px;
-height:34px;
+margin-top:20px;
+width:680px;
+height:75px;
 display:flex;
 align-items:center;
-padding-left:18px;
-font-size:16px;
+padding-left:40px;
+font-size:36px;
 font-weight:800;
-letter-spacing:2px;
+letter-spacing:3px;
 background:linear-gradient(90deg,#7c3aed,#a855f7);
 }
 
-/* ===== SIDE TEXT ===== */
+/* SIDE TEXT */
 .side{
 position:absolute;
-left:20px;
+left:40px;
 top:50%;
 transform:translateY(-50%) rotate(-90deg);
-font-size:12px;
-letter-spacing:6px;
+font-size:28px;
+letter-spacing:10px;
 opacity:0.25;
-z-index:4;
 }
 
-/* ===== FOOTER ===== */
+/* FOOTER */
 .footer{
 position:absolute;
-bottom:20px;
+bottom:40px;
 left:50%;
 transform:translateX(-50%);
 display:flex;
-gap:8px;
+gap:12px;
 font-weight:800;
-font-size:18px;
+font-size:36px;
 z-index:10;
 }
 
 .footer img{
-width:20px;
+width:40px;
 filter:brightness(0) invert(1);
 }
 </style>
@@ -242,9 +236,8 @@ filter:brightness(0) invert(1);
   </div>
 </div>
 
-<!-- RIGHT BLOCK -->
+<!-- RIGHT -->
 <div class="rightWrap">
-
   <div class="right">
     <div class="texture"></div>
 
@@ -262,7 +255,6 @@ filter:brightness(0) invert(1);
     <div class="line"></div>
 
   </div>
-
 </div>
 
 <!-- FOOTER -->
