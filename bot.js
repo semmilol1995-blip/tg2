@@ -506,9 +506,10 @@ const player = (lines[0] || "").toLowerCase().trim();
 stat1 = lines[1] || "";
 stat2 = lines[2] || "";
 stat3 = lines[3] || "";
+const label = lines[4] || "ON MATCH"; // 🔥 ДОДАЛИ
 
 /* ============================= */
-/* 🔥 LOAD BASE2 (як ти сказав) */
+/* 🔥 LOAD BASE2 */
 /* ============================= */
 
 const TEAM_PLAYERS = await loadTeams2();
@@ -544,7 +545,7 @@ for(const team in TEAM_PLAYERS){
 }
 
 /* ============================= */
-/* 🖼 IMAGE (як news11) */
+/* 🖼 IMAGE */
 /* ============================= */
 
 if(playerImg){
@@ -552,7 +553,7 @@ if(playerImg){
 }
 
 /* ============================= */
-/* 🏳️ TEAM LOGO (/logos) */
+/* 🏳️ TEAM LOGO */
 /* ============================= */
 
 function getTeamLogo(team){
@@ -597,19 +598,13 @@ html = html
 .replace(/{{STAT1}}/g, stat1)
 .replace(/{{STAT2}}/g, stat2)
 .replace(/{{STAT3}}/g, stat3)
+.replace(/{{LABEL}}/g, label.toUpperCase()) // 🔥 ДОДАЛИ
 .replace(/{{PLAYER_IMAGE}}/g, playerImg || "")
 .replace(/{{TEAM_LOGO}}/g, teamLogo || "");
 
 /* ============================= */
-/* 🚫 ВАЖЛИВО */
+/* 🚫 НЕ ЧІПАТИ */
 /* ============================= */
-/*
-НЕ ЧІПАЙ глобальний:
-.replace(/{{PLAYER_IMAGE}}/g, imageBase64)
-
-він вже НЕ ЗЛАМАЄ, бо:
-— тут ми вже підставили значення
-*/
 
 }
 
