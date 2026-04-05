@@ -880,7 +880,14 @@ html = html
 
 let imageBase64 = "";
 
-if(commandKey !== "news6" && commandKey !== "news8" && commandKey !== "news11" && commandKey !== "news12"){
+if(
+  commandKey !== "news4" &&
+  commandKey !== "news5" &&
+  commandKey !== "news6" &&
+  commandKey !== "news8" &&
+  commandKey !== "news11" &&
+  commandKey !== "news12"
+){
   if(!msg.photo){
     return bot.sendMessage(msg.chat.id, "Додай фото 📸", MAIN_MENU);
   }
