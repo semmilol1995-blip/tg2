@@ -16,88 +16,92 @@ position:relative;
 color:white;
 }
 
-/* ===== RIGHT PANEL (ГОЛОВНЕ) ===== */
-.right{
+/* ===== LEFT BACKGROUND ===== */
+.leftBg{
 position:absolute;
-right:0;
+left:0;
 top:0;
-width:420px;
+width:100%;
 height:100%;
-z-index:1;
+background:#050507;
+}
 
+/* LEFT FADE (як у рефі) */
+.leftFade{
+position:absolute;
+left:0;
+top:0;
+width:580px;
+height:100%;
+background:linear-gradient(90deg,#050507 70%, transparent);
+z-index:2;
+}
+
+/* ===== RIGHT BLOCK (ГОЛОВНЕ) ===== */
+.rightWrap{
+position:absolute;
+top:20px;
+right:20px;
+bottom:20px;
+width:380px;
+z-index:3;
+}
+
+/* сам фіолетовий блок */
+.right{
+position:relative;
+width:100%;
+height:100%;
+border-radius:6px;
+overflow:hidden;
+
+/* градієнти як у BLAST */
 background:
-linear-gradient(180deg, rgba(255,255,255,0.12) 0%, rgba(0,0,0,0.25) 100%),
+linear-gradient(180deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.05) 25%, transparent 50%),
 linear-gradient(180deg,#7c3aed 0%, #5b21b6 100%);
 }
 
-/* СВІТЛО */
-.right::before{
-content:"";
-position:absolute;
-inset:0;
-background:linear-gradient(
-180deg,
-rgba(255,255,255,0.18) 0%,
-rgba(255,255,255,0.06) 25%,
-transparent 50%
-);
-}
-
-/* ТЕМНИЙ НИЗ */
+/* затемнення знизу */
 .right::after{
 content:"";
 position:absolute;
 inset:0;
-background:linear-gradient(
-180deg,
-transparent 50%,
-rgba(0,0,0,0.7) 100%
-);
+background:linear-gradient(180deg,transparent 50%, rgba(0,0,0,0.65) 100%);
 }
 
-/* TEXTURE */
+/* texture */
 .texture{
 position:absolute;
-right:0;
-top:0;
-width:420px;
-height:100%;
+inset:0;
 opacity:0.08;
+background:url("https://grainy-gradients.vercel.app/noise.svg");
+}
+
+/* ===== PLAYER ===== */
+.player{
+position:absolute;
+bottom:0;
+left:50%;
+transform:translateX(-50%);
+height:105%;
 z-index:2;
-background-image:url("https://grainy-gradients.vercel.app/noise.svg");
 }
 
-/* LEFT FADE */
-.fade{
-position:absolute;
-left:0;
-top:0;
-width:560px;
+.player img{
 height:100%;
-background:linear-gradient(90deg,#050507 75%, transparent);
-z-index:3;
+object-fit:contain;
+filter:drop-shadow(0 10px 40px rgba(0,0,0,0.6));
 }
 
-/* SIDE TEXT */
-.side{
-position:absolute;
-left:18px;
-top:50%;
-transform:translateY(-50%) rotate(-90deg);
-font-size:12px;
-letter-spacing:6px;
-opacity:0.25;
-z-index:4;
-}
-
-/* TOP BAR */
+/* ===== TOP BAR ===== */
 .topBar{
 position:absolute;
-top:30px;
-right:130px;
+top:14px;
+left:50%;
+transform:translateX(-50%);
 display:flex;
 gap:10px;
-z-index:6;
+z-index:5;
 }
 
 .topLeft{
@@ -112,19 +116,52 @@ font-size:20px;
 font-weight:900;
 }
 
-/* LEFT STATS */
-.left{
+/* ===== NAME ===== */
+.name{
 position:absolute;
-left:70px;
-top:100px;
-display:flex;
-flex-direction:column;
-gap:72px;
+bottom:120px;
+width:100%;
+text-align:center;
+font-size:56px;
+font-weight:900;
 z-index:5;
 }
 
+.sub{
+position:absolute;
+bottom:90px;
+width:100%;
+text-align:center;
+font-size:16px;
+letter-spacing:2px;
+opacity:0.8;
+z-index:5;
+}
+
+.line{
+position:absolute;
+bottom:70px;
+left:50%;
+transform:translateX(-50%);
+width:200px;
+height:4px;
+background:#a855f7;
+z-index:5;
+}
+
+/* ===== LEFT STATS ===== */
+.left{
+position:absolute;
+left:70px;
+top:90px;
+display:flex;
+flex-direction:column;
+gap:70px;
+z-index:4;
+}
+
 .value{
-font-size:104px;
+font-size:110px;
 font-weight:800;
 line-height:0.9;
 transform:skewX(-6deg);
@@ -143,66 +180,19 @@ letter-spacing:2px;
 background:linear-gradient(90deg,#7c3aed,#a855f7);
 }
 
-/* ===== PLAYER (ІНТЕГРАЦІЯ) ===== */
-.player{
+/* ===== SIDE TEXT ===== */
+.side{
 position:absolute;
-right:-120px;
-bottom:0;
-height:100%;
+left:20px;
+top:50%;
+transform:translateY(-50%) rotate(-90deg);
+font-size:12px;
+letter-spacing:6px;
+opacity:0.25;
 z-index:4;
-display:flex;
-align-items:flex-end;
 }
 
-.player img{
-height:105%;
-object-fit:contain;
-filter:drop-shadow(0 10px 40px rgba(0,0,0,0.6));
-}
-
-/* LOGO */
-.logo{
-position:absolute;
-right:140px;
-bottom:300px;
-z-index:6;
-}
-
-.logo img{
-width:60px;
-}
-
-/* NAME */
-.name{
-position:absolute;
-right:110px;
-bottom:150px;
-font-size:60px;
-font-weight:900;
-z-index:6;
-}
-
-.sub{
-position:absolute;
-right:110px;
-bottom:115px;
-font-size:16px;
-letter-spacing:2px;
-opacity:0.8;
-z-index:6;
-}
-
-.line{
-position:absolute;
-right:110px;
-bottom:100px;
-width:200px;
-height:4px;
-background:#a855f7;
-z-index:6;
-}
-
-/* FOOTER */
+/* ===== FOOTER ===== */
 .footer{
 position:absolute;
 bottom:20px;
@@ -224,19 +214,12 @@ filter:brightness(0) invert(1);
 
 <body>
 
-<div class="right"></div>
-<div class="texture"></div>
-<div class="fade"></div>
+<div class="leftBg"></div>
+<div class="leftFade"></div>
 
 <div class="side">ПОДВАЛ CS2</div>
 
-<!-- TOP -->
-<div class="topBar">
-  <div class="topLeft">ПОДВАЛ CS'А</div>
-  <div class="topRight">× BetBoom</div>
-</div>
-
-<!-- STATS -->
+<!-- LEFT -->
 <div class="left">
   <div>
     <div class="value">{{STAT1}}</div>
@@ -245,29 +228,42 @@ filter:brightness(0) invert(1);
 
   <div>
     <div class="value">{{STAT2}}</div>
-    <div class="bar">SWING%</div>
+    <div class="bar">K-D</div>
   </div>
 
   <div>
     <div class="value">{{STAT3}}</div>
     <div class="bar">ADR</div>
   </div>
+
+  <div>
+    <div class="value">{{STAT4}}</div>
+    <div class="bar">SWING%</div>
+  </div>
 </div>
 
-<!-- PLAYER -->
-<div class="player">
-  <img src="{{PLAYER_IMAGE}}">
-</div>
+<!-- RIGHT BLOCK -->
+<div class="rightWrap">
 
-<!-- LOGO -->
-<div class="logo">
-  <img src="{{TEAM_LOGO}}">
-</div>
+  <div class="right">
+    <div class="texture"></div>
 
-<!-- NAME -->
-<div class="name">{{TEXT}}</div>
-<div class="sub">ON MATCH</div>
-<div class="line"></div>
+    <div class="topBar">
+      <div class="topLeft">ПОДВАЛ CS'А</div>
+      <div class="topRight">× BetBoom</div>
+    </div>
+
+    <div class="player">
+      <img src="{{PLAYER_IMAGE}}">
+    </div>
+
+    <div class="name">{{TEXT}}</div>
+    <div class="sub">ON OVERPASS</div>
+    <div class="line"></div>
+
+  </div>
+
+</div>
 
 <!-- FOOTER -->
 <div class="footer">
