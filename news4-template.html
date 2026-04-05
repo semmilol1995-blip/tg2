@@ -16,18 +16,58 @@ position:relative;
 color:white;
 }
 
-/* RIGHT PANEL */
+/* ===== RIGHT PANEL (ГОЛОВНЕ) ===== */
 .right{
 position:absolute;
 right:0;
 top:0;
-width:410px;
+width:420px;
 height:100%;
-background:linear-gradient(180deg,#7c3aed,#5b21b6);
 z-index:1;
+
+background:
+linear-gradient(180deg, rgba(255,255,255,0.12) 0%, rgba(0,0,0,0.25) 100%),
+linear-gradient(180deg,#7c3aed 0%, #5b21b6 100%);
 }
 
-/* LEFT DARK */
+/* СВІТЛО */
+.right::before{
+content:"";
+position:absolute;
+inset:0;
+background:linear-gradient(
+180deg,
+rgba(255,255,255,0.18) 0%,
+rgba(255,255,255,0.06) 25%,
+transparent 50%
+);
+}
+
+/* ТЕМНИЙ НИЗ */
+.right::after{
+content:"";
+position:absolute;
+inset:0;
+background:linear-gradient(
+180deg,
+transparent 50%,
+rgba(0,0,0,0.7) 100%
+);
+}
+
+/* TEXTURE */
+.texture{
+position:absolute;
+right:0;
+top:0;
+width:420px;
+height:100%;
+opacity:0.08;
+z-index:2;
+background-image:url("https://grainy-gradients.vercel.app/noise.svg");
+}
+
+/* LEFT FADE */
 .fade{
 position:absolute;
 left:0;
@@ -35,15 +75,6 @@ top:0;
 width:560px;
 height:100%;
 background:linear-gradient(90deg,#050507 75%, transparent);
-z-index:2;
-}
-
-/* GRAIN */
-.grain{
-position:absolute;
-inset:0;
-background:url("https://grainy-gradients.vercel.app/noise.svg");
-opacity:0.05;
 z-index:3;
 }
 
@@ -55,7 +86,6 @@ top:50%;
 transform:translateY(-50%) rotate(-90deg);
 font-size:12px;
 letter-spacing:6px;
-color:white;
 opacity:0.25;
 z-index:4;
 }
@@ -67,7 +97,6 @@ top:30px;
 right:130px;
 display:flex;
 gap:10px;
-align-items:center;
 z-index:6;
 }
 
@@ -76,13 +105,11 @@ background:#1a1a1f;
 padding:6px 10px;
 font-size:14px;
 font-weight:800;
-color:white;
 }
 
 .topRight{
 font-size:20px;
 font-weight:900;
-color:white;
 }
 
 /* LEFT STATS */
@@ -101,7 +128,6 @@ font-size:104px;
 font-weight:800;
 line-height:0.9;
 transform:skewX(-6deg);
-color:white;
 }
 
 .bar{
@@ -115,27 +141,23 @@ font-size:16px;
 font-weight:800;
 letter-spacing:2px;
 background:linear-gradient(90deg,#7c3aed,#a855f7);
-color:white;
 }
 
-/* PLAYER */
+/* ===== PLAYER (ІНТЕГРАЦІЯ) ===== */
 .player{
 position:absolute;
-right:0;
+right:-120px;
 bottom:0;
-width:410px;
 height:100%;
+z-index:4;
 display:flex;
 align-items:flex-end;
-justify-content:center;
-overflow:hidden;
-z-index:4;
 }
 
 .player img{
-height:92%;
+height:105%;
 object-fit:contain;
-transform:translateX(30px);
+filter:drop-shadow(0 10px 40px rgba(0,0,0,0.6));
 }
 
 /* LOGO */
@@ -157,8 +179,7 @@ right:110px;
 bottom:150px;
 font-size:60px;
 font-weight:900;
-color:white;
-z-index:10;
+z-index:6;
 }
 
 .sub{
@@ -167,9 +188,8 @@ right:110px;
 bottom:115px;
 font-size:16px;
 letter-spacing:2px;
-color:white;
 opacity:0.8;
-z-index:10;
+z-index:6;
 }
 
 .line{
@@ -179,7 +199,7 @@ bottom:100px;
 width:200px;
 height:4px;
 background:#a855f7;
-z-index:10;
+z-index:6;
 }
 
 /* FOOTER */
@@ -192,7 +212,6 @@ display:flex;
 gap:8px;
 font-weight:800;
 font-size:18px;
-color:white;
 z-index:10;
 }
 
@@ -206,8 +225,8 @@ filter:brightness(0) invert(1);
 <body>
 
 <div class="right"></div>
+<div class="texture"></div>
 <div class="fade"></div>
-<div class="grain"></div>
 
 <div class="side">ПОДВАЛ CS2</div>
 
