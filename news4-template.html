@@ -15,7 +15,7 @@ overflow:hidden;
 position:relative;
 }
 
-/* ===== MASTER BG ===== */
+/* ===== BG ===== */
 .bg-gradient{
 position:absolute;
 inset:0;
@@ -58,12 +58,12 @@ opacity:0.06;
 z-index:3;
 }
 
-/* ===== RIGHT BLOCK ===== */
+/* ===== RIGHT ===== */
 .rightWrap{
 position:absolute;
 top:24px;
 right:24px;
-bottom:24px;
+bottom:74px;
 width:360px;
 z-index:5;
 }
@@ -72,62 +72,68 @@ z-index:5;
 position:relative;
 width:100%;
 height:100%;
-border-radius:6px;
+border-radius:10px;
 overflow:hidden;
+
+display:flex;
+flex-direction:column;
+justify-content:flex-end;
 
 background:
 linear-gradient(180deg, rgba(255,255,255,0.15), transparent 40%),
 linear-gradient(180deg,#7c3aed,#5b21b6);
 }
 
-/* DARK FADE */
-.right::after{
-content:"";
+/* ===== TOP BAR ===== */
+.topBar{
 position:absolute;
-inset:0;
-background:linear-gradient(180deg,transparent 50%, rgba(0,0,0,0.7) 100%);
+top:0%;
+left:50%;
+transform:translateX(-50%);
+background:#1a1a1f;
+padding:6px 14px;
+font-size:13px;
+font-weight:900;
+white-space:nowrap;
+z-index:6;
 }
 
 /* ===== PLAYER ===== */
 .player{
 position:absolute;
-bottom:60px;
+bottom:0;
 left:50%;
 transform:translateX(-50%);
-height:85%;
+height:92%;
 z-index:2;
 }
 
 .player img{
-max-height:100%;
+height:100%;
 width:auto;
 object-fit:contain;
 }
 
-/* ===== TOP BAR (FIXED 1 BLOCK) ===== */
-.topBar{
+/* ===== FADE ===== */
+.playerFade{
 position:absolute;
-top:12px;
-left:50%;
-transform:translateX(-50%);
-
-background:#1a1a1f;
-
-padding:6px 14px;
-
-font-size:13px;
-font-weight:900;
-letter-spacing:0.5px;
-
-white-space:nowrap;
-
-z-index:6;
+bottom:0;
+left:0;
+right:0;
+height:55%;
+background:linear-gradient(
+to bottom,
+rgba(0,0,0,0) 0%,
+rgba(0,0,0,0.4) 40%,
+rgba(0,0,0,0.9) 100%
+);
+z-index:3;
 }
 
 /* ===== NAME ===== */
 .name{
 position:absolute;
-bottom:120px;
+bottom:90px;
 width:100%;
 text-align:center;
 font-size:46px;
@@ -137,7 +143,7 @@ z-index:6;
 
 .sub{
 position:absolute;
-bottom:95px;
+bottom:65px;
 width:100%;
 text-align:center;
 font-size:14px;
@@ -147,12 +153,13 @@ z-index:6;
 
 .line{
 position:absolute;
-bottom:75px;
+bottom:50px;
 left:50%;
 transform:translateX(-50%);
 width:160px;
 height:3px;
 background:#a855f7;
+z-index:6;
 }
 
 /* ===== LEFT ===== */
@@ -213,7 +220,7 @@ filter:brightness(0) invert(1);
 <div class="left">
   <div>
     <div class="value">{{STAT1}}</div>
-    <div class="bar">RATING</div>
+    <div class="bar">RATING 3.0</div>
   </div>
 
   <div>
@@ -229,18 +236,19 @@ filter:brightness(0) invert(1);
 
 <div class="rightWrap">
   <div class="right">
-
-    <!-- 🔥 ТЕПЕР ЯК У РЕФІ -->
+<!--
     <div class="topBar">
-      ПОДВАЛ CS'А × BetBoom
+      СМУГАСТИЙ × КОРОЛЬ
     </div>
-
+-->
     <div class="player">
       <img src="{{PLAYER_IMAGE}}">
     </div>
 
+    <div class="playerFade"></div>
+
     <div class="name">{{TEXT}}</div>
-    <div class="sub">ON OVERPASS</div>
+    <div class="sub">{{LABEL}}</div>
     <div class="line"></div>
 
   </div>
