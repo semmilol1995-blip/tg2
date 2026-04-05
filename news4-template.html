@@ -84,27 +84,13 @@ linear-gradient(180deg, rgba(255,255,255,0.15), transparent 40%),
 linear-gradient(180deg,#7c3aed,#5b21b6);
 }
 
-/* ===== TOP BAR ===== */
-.topBar{
-position:absolute;
-top:0%;
-left:50%;
-transform:translateX(-50%);
-background:#1a1a1f;
-padding:6px 14px;
-font-size:13px;
-font-weight:900;
-white-space:nowrap;
-z-index:6;
-}
-
 /* ===== PLAYER ===== */
 .player{
 position:absolute;
 bottom:0;
 left:50%;
 transform:translateX(-50%);
-height:92%;
+height:86%; /* 🔥 FIX */
 z-index:2;
 }
 
@@ -130,10 +116,25 @@ rgba(0,0,0,0.9) 100%
 z-index:3;
 }
 
+/* ===== TEAM LOGO ===== */
+.teamLogo{
+position:absolute;
+bottom:150px;
+left:50%;
+transform:translateX(-50%);
+z-index:6;
+}
+
+.teamLogo img{
+width:42px;
+height:42px;
+object-fit:contain;
+}
+
 /* ===== NAME ===== */
 .name{
 position:absolute;
-bottom:90px;
+bottom:85px;
 width:100%;
 text-align:center;
 font-size:46px;
@@ -143,7 +144,7 @@ z-index:6;
 
 .sub{
 position:absolute;
-bottom:65px;
+bottom:60px;
 width:100%;
 text-align:center;
 font-size:14px;
@@ -153,7 +154,7 @@ z-index:6;
 
 .line{
 position:absolute;
-bottom:50px;
+bottom:45px;
 left:50%;
 transform:translateX(-50%);
 width:160px;
@@ -236,16 +237,17 @@ filter:brightness(0) invert(1);
 
 <div class="rightWrap">
   <div class="right">
-<!--
-    <div class="topBar">
-      СМУГАСТИЙ × КОРОЛЬ
-    </div>
--->
+
     <div class="player">
       <img src="{{PLAYER_IMAGE}}">
     </div>
 
     <div class="playerFade"></div>
+
+    <!-- 🔥 TEAM LOGO -->
+    <div class="teamLogo">
+      <img src="{{TEAM_LOGO}}">
+    </div>
 
     <div class="name">{{TEXT}}</div>
     <div class="sub">{{LABEL}}</div>
