@@ -56,6 +56,7 @@ linear-gradient(180deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.05) 25%, t
 linear-gradient(180deg,#7c3aed 0%, #5b21b6 100%);
 }
 
+/* DARK BOTTOM */
 .right::after{
 content:"";
 position:absolute;
@@ -143,14 +144,14 @@ background:#a855f7;
 z-index:5;
 }
 
-/* LEFT STATS */
+/* LEFT STATS (3 BLOCKS FIXED) */
 .left{
 position:absolute;
 left:70px;
-top:88px;
+top:110px;
 display:flex;
 flex-direction:column;
-gap:70px;
+gap:95px;
 z-index:4;
 }
 
@@ -212,6 +213,7 @@ filter:brightness(0) invert(1);
 
 <div class="side">ПОДВАЛ CS2</div>
 
+<!-- LEFT (3 STATS) -->
 <div class="left">
   <div>
     <div class="value">{{STAT1}}</div>
@@ -227,13 +229,9 @@ filter:brightness(0) invert(1);
     <div class="value">{{STAT3}}</div>
     <div class="bar">ADR</div>
   </div>
-
-  <div>
-    <div class="value">{{STAT4}}</div>
-    <div class="bar">SWING%</div>
-  </div>
 </div>
 
+<!-- RIGHT -->
 <div class="rightWrap">
   <div class="right">
     <div class="texture"></div>
@@ -254,6 +252,7 @@ filter:brightness(0) invert(1);
   </div>
 </div>
 
+<!-- FOOTER -->
 <div class="footer">
   <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/telegram.svg">
   <span>t.me/zbr4_cast</span>
