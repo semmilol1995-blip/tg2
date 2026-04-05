@@ -512,9 +512,9 @@ let teamName = "";
 
 for(const team in TEAM_PLAYERS){
 
-  const found = TEAM_PLAYERS[team].find(p =>
-    p.name.toLowerCase() === player
-  );
+const found = TEAM_PLAYERS[team].find(p =>
+  (p?.name || "").toLowerCase() === player
+);
 
   if(found){
     playerImg = found.img;
