@@ -498,18 +498,28 @@ else if(commandKey === "news3"){
 }
 else if(commandKey === "news4" || commandKey === "news5"){
 
+/* ============================= */
+/* 🧠 INPUT */
+/* ============================= */
+
 const player = (lines[0] || "").toLowerCase().trim();
 stat1 = lines[1] || "";
 stat2 = lines[2] || "";
 stat3 = lines[3] || "";
 
-/* 🔥 ТА Ж ЛОГІКА ЩО В news11 */
-const TEAM_PLAYERS = await loadTeams();
+/* ============================= */
+/* 🔥 LOAD BASE2 (як ти сказав) */
+/* ============================= */
+
+const TEAM_PLAYERS = await loadTeams2();
+
+/* ============================= */
+/* 🔍 FIND PLAYER */
+/* ============================= */
 
 let playerImg = "";
 let teamName = "";
 
-/* 🔍 ПРОХОДИМО ПО ВСІХ КОМАНДАХ */
 for(const team in TEAM_PLAYERS){
 
   const players = TEAM_PLAYERS[team];
@@ -520,7 +530,10 @@ for(const team in TEAM_PLAYERS){
 
     if(!p || !p.name) continue;
 
-    if(p.name.toLowerCase() === player){
+    if(
+      p.name.toLowerCase().replace(/[^a-z0-9]/g, "") ===
+      player.toLowerCase().replace(/[^a-z0-9]/g, "")
+    ){
       playerImg = p.img;
       teamName = team;
       break;
@@ -530,15 +543,23 @@ for(const team in TEAM_PLAYERS){
   if(playerImg) break;
 }
 
-/* 🔥 ЯК У news11 — через weserv */
+/* ============================= */
+/* 🖼 IMAGE (як news11) */
+/* ============================= */
+
 if(playerImg){
   playerImg = `https://images.weserv.nl/?url=${encodeURIComponent(playerImg)}`;
 }
 
-/* 🔥 ЛОГО — ТАК САМО ЯК news7 */
-const getLogo = (team)=>{
+/* ============================= */
+/* 🏳️ TEAM LOGO (/logos) */
+/* ============================= */
 
-  const raw = (team || "").toLowerCase().trim();
+function getTeamLogo(team){
+
+  if(!team) return "";
+
+  const raw = team.toLowerCase().trim();
 
   const variants = [
     raw,
@@ -546,34 +567,49 @@ const getLogo = (team)=>{
     raw.replace("team ", ""),
     raw.replace(/\s+/g, ""),
     raw.replace(/\s+/g, "-"),
-    raw.replace(/\s+/g, "_"),
+    raw.replace(/\s+/g, "_")
   ];
 
   for(const v of variants){
-    const p = path.join(__dirname, `/logos/${v}.png`);
-    if(fs.existsSync(p)){
-      return `data:image/png;base64,${fs.readFileSync(p).toString("base64")}`;
+    const filePath = path.join(__dirname, `logos/${v}.png`);
+
+    if(fs.existsSync(filePath)){
+      return `data:image/png;base64,${fs.readFileSync(filePath).toString("base64")}`;
     }
   }
 
-  const d = path.join(__dirname,"/logos/default.png");
-  if(fs.existsSync(d)){
-    return `data:image/png;base64,${fs.readFileSync(d).toString("base64")}`;
+  const def = path.join(__dirname, `logos/default.png`);
+  if(fs.existsSync(def)){
+    return `data:image/png;base64,${fs.readFileSync(def).toString("base64")}`;
   }
 
   return "";
-};
+}
 
-const teamLogo = getLogo(teamName);
+const teamLogo = getTeamLogo(teamName);
 
-/* 🔥 HTML */
+/* ============================= */
+/* 🧠 HTML INSERT */
+/* ============================= */
+
 html = html
 .replace(/{{TEXT}}/g, player.toUpperCase())
 .replace(/{{STAT1}}/g, stat1)
 .replace(/{{STAT2}}/g, stat2)
 .replace(/{{STAT3}}/g, stat3)
-.replace(/{{PLAYER_IMAGE}}/g, playerImg)
-.replace(/{{TEAM_LOGO}}/g, teamLogo);
+.replace(/{{PLAYER_IMAGE}}/g, playerImg || "")
+.replace(/{{TEAM_LOGO}}/g, teamLogo || "");
+
+/* ============================= */
+/* 🚫 ВАЖЛИВО */
+/* ============================= */
+/*
+НЕ ЧІПАЙ глобальний:
+.replace(/{{PLAYER_IMAGE}}/g, imageBase64)
+
+він вже НЕ ЗЛАМАЄ, бо:
+— тут ми вже підставили значення
+*/
 
 }
 
@@ -901,11 +937,7 @@ if(
 
 html = html
 .replace(/{{IMAGE}}/g, imageBase64)
-.replace(/{{PLAYER_IMAGE}}/g,
-  (commandKey === "news4" || commandKey === "news5")
-    ? html.includes("{{PLAYER_IMAGE}}") ? "{{PLAYER_IMAGE}}" : ""
-    : imageBase64
-)
+.replace(/{{PLAYER_IMAGE}}/g, imageBase64)
 .replace(/{{LABEL}}/g, label.toUpperCase())
 .replace(/{{TEXT}}/g, textValue.toUpperCase())
 .replace(/{{AUTHOR}}/g, author.toUpperCase())
